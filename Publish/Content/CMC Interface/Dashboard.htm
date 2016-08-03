@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="CMC Interface">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Dashboard</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="CmcInterfaceOverview.htm">CMC Interface</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Checking the System Dashboard</span>
+            </div>
+            <h1>Dashboard</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[CMC Interface]</p>
+            <p><a class="MCPopupThumbnailLink MCPopupThumbnailHover" href="../Resources/Images/cmc/dashboard/Dashboard.png"><img class="MCPopupThumbnail img imgImgCloudian" data-mc-width="799" data-mc-height="625" src="../Resources/Images/cmc/dashboard/Dashboard_thumb_0_60.png" tabindex="" /></a>
+            </p>
+            <p>Path: <b>Dashboard</b></p>
+            <p>Supported task:</p>
+            <ul>
+                <li value="1">View summary service status and drill down for details</li>
+            </ul>
+            <p>The CMC’s <b>Dashboard</b> provides a high-level view of the status of your HyperStore object storage service. If you have multiple service regions, there is a separate dashboard view for each region.</p>
+            <p>Along with conveying summary information, each graphical element of the dashboard is hyper-linked to a relevant section of the CMC interface for more detail. </p>
+            <table>
+                <col />
+                <col />
+                <tbody>
+                    <tr>
+                        <td style="vertical-align: top;">
+                            <img src="../Resources/Images/cmc/dashboard/Dashboard_capacity.png" />
+                        </td>
+                        <td style="vertical-align: top;">
+                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Description</a></span>
+                                <div class="MCDropDownBody dropDownBody">
+                                    <p>Across the whole service region, the percentages of total data disk capacity that are currently Reserved, Used, or Free. To see the percentage numbers slide your cursor over each portion of the tri-colored circle.</p>
+                                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>The Reserved space is the disk space that’s set as "reserved-blocks-percentage" in your Linux system configuration (the portion of the disk space that’s reserved for privileged processes). By default in Linux the configurable "reserved-blocks-percentage" for a file system is 5% of disk capacity. In a HyperStore Appliance it’s set to 0%.</p>
+                                    <p>The displayed "Total" figure is the total disk capacity that is dedicated to HyperStore data storage throughout the service region. Only disks that store HyperStore data directories (as configured by the <a href="../System Configuration/Configuration Files/CommonCsv.htm#hyperstore_data_directory" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">hyperstore_data_directory</a> setting in <em>common.csv</em>) or the Cassandra data directory (as configured by the <a href="../System Configuration/Configuration Files/CommonCsv.htm#cassandra_data_directory" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">cassandra_data_directory</a> setting in <em>common.csv</em>) count toward these statistics. These statistics do not count disks that are being used only for OS or application files, for example.</p>
+                                    <p>Below the "Total" figure is a graph that shows the moving proportion of free to used capacity over the past 30 days.</p>
+                                    <p>Links to the <a href="Analytics/CapacityExplorer.htm" class="MCXref xref">Capacity Explorer</a> page, where you can see a breakdown of your available capacity by region, data center, and node.</p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;">
+                            <img src="../Resources/Images/cmc/dashboard/Dashboard_cluster.png" />
+                        </td>
+                        <td style="vertical-align: top;">
+                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Description</a></span>
+                                <div class="MCDropDownBody dropDownBody">
+                                    <p>This section displays a green circle labeled "Healthy" if no services are currently down in the cluster. (Note that all the nodes in a service region constitute one "cluster", even if there are multiple data centers within the region).</p>
+                                    <p>An orange circle labeled "Check Services" displays if any of the Hyperstore services are down on any node within the region.</p>
+                                    <p>This section also indicates the current number of unacknowledged alerts (triggered by configurable alert rules) in the region, if any.</p>
+                                    <p>Links to the <a href="Alerts/AlertsOverview.htm" class="MCXref xref">Alerts</a> page, where you can review and acknowledge node alerts.</p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;">
+                            <img src="../Resources/Images/cmc/dashboard/Dashboard_transactions.png" />
+                        </td>
+                        <td style="vertical-align: top;">
+                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Description</a></span>
+                                <div class="MCDropDownBody dropDownBody">
+                                    <p>This graph shows the number of S3 transactions processed per second, across the whole service region, over the past 30 days. This data is broken out to PUT transactions (in blue) and GET transactions (in green). To highlight just the PUT trend line or just the GET trendline, hold your cursor over the "PUT" or "GET" label to the upper right of the graph. Or to display the numerical value corresponding to a particular point in time, hold your cursor over that point in time on the trend line.</p>
+                                    <p>These S3 stats are recalculated each five minutes, based on the most recent five minutes of transaction data. HEAD transactions are counted toward the GET stat, and POST transactions are counted toward the PUT stat.</p>
+                                    <p>Links to the <a href="Analytics/ClusterUsage.htm" class="MCXref xref">Cluster Usage</a> page. This page shows the same graph but in somewhat larger form.</p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;">
+                            <img src="../Resources/Images/cmc/dashboard/Dashboard_throughput.png" />
+                        </td>
+                        <td style="vertical-align: top;">
+                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Description</a></span>
+                                <div class="MCDropDownBody dropDownBody">
+                                    <p>This graph shows data throughput for S3 transactions across the whole service region, over the past 30 days. This data is expressed as MB per second and is broken out to PUT transactions (in blue) and GET transactions (in green). To highlight just the PUT trend line or just the GET trendline, hold your cursor over the "PUT" or "GET" label to the upper right of the graph. Or to display the numerical value corresponding to a particular point in time, hold your cursor over that point in time on the trend line.</p>
+                                    <p>These S3 stats are recalculated each five minutes, based on the most recent five minutes of transaction data. HEAD transactions are counted toward the GET stat, and POST transactions are counted toward the PUT stat.</p>
+                                    <p>Links to the <a href="Analytics/ClusterUsage.htm" class="MCXref xref">Cluster Usage</a> page. This page shows the same graph but in somewhat larger form.</p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;">
+                            <img src="../Resources/Images/cmc/dashboard/Dashboard_users.png" />
+                        </td>
+                        <td style="vertical-align: top;">
+                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Description</a></span>
+                                <div class="MCDropDownBody dropDownBody">
+                                    <p>Number of users in your whole HyperStore system. If your system encompasses multiple service regions, users are registered to the system as a whole (they are not tied to a particular region).</p>
+                                    <p>Along with regular S3 service users, the total number includes system admin users and group admin users.</p>
+                                    <p>Links to the <a href="Users &amp; Groups/Manage Users/ManageUsersOverview.htm" class="MCXref xref">Manage Users</a>s page, where you can create new users or retrieve and edit existing users.</p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;">
+                            <img src="../Resources/Images/cmc/dashboard/Dashboard_groups.png" />
+                        </td>
+                        <td style="vertical-align: top;">
+                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Description</a></span>
+                                <div class="MCDropDownBody dropDownBody">
+                                    <p>Number of user groups in your whole HyperStore system. If your system encompasses multiple service regions, user groups are registered to the system as a whole (they are not tied to a particular region).</p>
+                                    <p>Links to the <a href="Users &amp; Groups/Manage Groups/ManageGroupsOverview.htm" class="MCXref xref">Manage Groups</a> page, where you can create new groups or retrieve and edit existing groups.</p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;">
+                            <img src="../Resources/Images/cmc/dashboard/Dashboard_objects.png" />
+                        </td>
+                        <td style="vertical-align: top;">
+                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Description</a></span>
+                                <div class="MCDropDownBody dropDownBody">
+                                    <p>Number of S3 objects stored in this service region. If you have multiple service regions, each region has an entirely different and independent inventory of objects.</p>
+                                    <p>S3 objects that have been auto-tiered to Amazon S3, Amazon Glacier, or other HyperStore regions or systems do count toward this stat.</p>
+                                    <p>In the case of versioned objects, each version of the object counts towards this stat.</p>
+                                    <p>This statistic counts each object, not each replica — for example, if an object is replicated three times across your cluster (to protect data durability and availability), this counts as one object, not three.</p>
+                                    <p>Links to the <a href="Analytics/ObjectLocator.htm" class="MCXref xref">Object Locator</a> page, where you can retrieve information about where a particular object is stored within your cluster.</p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;">
+                            <img src="../Resources/Images/cmc/dashboard/Dashboard_nodes.png" />
+                        </td>
+                        <td style="vertical-align: top;">
+                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Description</a></span>
+                                <div class="MCDropDownBody dropDownBody">
+                                    <p>Number of nodes in this service region.</p>
+                                    <p>Links to the <a href="Cluster/Node Status/NodeStatusOverview.htm" class="MCXref xref">Node Status</a> page, where you can see status details for individual nodes, start and stop HyperStore services on nodes, and review and acknowledge node alerts.</p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;">
+                            <img src="../Resources/Images/cmc/dashboard/Dashboard_datacenters.png" />
+                        </td>
+                        <td style="vertical-align: top;">
+                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Description</a></span>
+                                <div class="MCDropDownBody dropDownBody">
+                                    <p>Number of data centers in this service region. Each service region can encompass multiple data centers, with data replication across data centers.</p>
+                                    <p>Links to the <a href="Cluster/Data Centers/DataCentersOverview.htm" class="MCXref xref">Data Centers</a> page, where you can see your HyperStore node inventory in each of your data centers.</p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;">
+                            <img src="../Resources/Images/cmc/dashboard/Dashboard_software.png" />
+                        </td>
+                        <td style="vertical-align: top;">
+                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Description</a></span>
+                                <div class="MCDropDownBody dropDownBody">
+                                    <p>HyperStore software version used in this service region.</p>
+                                    <p>Links to the <a href="Cluster/Cluster Information/ClusterInformationOverview.htm" class="MCXref xref">Cluster Information</a> page, where you can view static information about your cluster such as license information, the S3 service endpoint for your system, and the mapping of specialized service roles (such as the Redis QoS database master role) to individual nodes.</p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

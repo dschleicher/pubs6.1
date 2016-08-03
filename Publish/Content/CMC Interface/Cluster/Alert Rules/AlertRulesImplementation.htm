@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="CMC Interface|Cluster|Alert Rules">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>How HyperStore Implements Alerts</title>
+        <link href="../../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../../CmcInterfaceOverview.htm">CMC Interface</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="../ClusterOverview.htm">Cluster</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="AlertRulesOverview.htm">Alert Rules</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">How HyperStore Implements Alerts</span>
+            </div>
+            <h1>How HyperStore Implements Alerts</h1>
+            <p>In the CMC's <b><a href="../../../Resources/Images/cmc/cluster/AlertRules.png" class="MCTopicPopup MCTopicPopupHotSpot a">Alert Rules</a></b> page (or through the Admin API method <a href="../../../Admin API/System Monitoring/PutNewNotificationRule.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">PUT New Notification Rule</a>) you can create rules for having the HyperStore system generate alerts when specified events occur. When an event covered by an alert rule occurs, the HyperStore system:</p>
+            <ul>
+                <li value="1">Sends an SNMP trap, if the alert rule for the event includes sending an SNMP trap. The trap is sent to the SNMP destination configured in the <a href="../Configuration Settings/ConfigurationSettingsSNMP.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">SNMP Trap Destination Settings</a> section of the CMC’s <b>Configuration Settings</b> page.</li>
+                <li value="2">Displays an alert in the CMC’s <a href="../Node Status/NodeStatusOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Node Status</a> page (in the <b>Alert List</b> for the node on which the event occurred) and also in the <a href="../../Alerts/AlertsOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Alerts</a> page.</li>
+                <li value="3">Emails an alert notification to specified system administrator addresses (unless you disable email notification, which you can do on a per-rule basis as described in <a href="AlertRulesEdit.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Edit an Alert Rule</a>).</li>
+            </ul>
+            <p>Alerting through the CMC and through email and SNMP is implemented as follows:</p>
+            <ul>
+                <li value="1">When the event that is specified by the alert rule occurs, an alert email is sent to the configured email address(es), and a trap is sent if you’ve enabled SNMP as part of the rule. An alert notice is also displayed on the <a href="../Node Status/NodeStatusOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Node Status</a> page and on the <a href="../../Alerts/AlertsOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Alerts</a> page.</li>
+                <li value="2">The sending of the alert email sets off a 24 hour hold on any further alert emails in association with the same alert rule on the same node. The same hold period applies to SNMP trap sending. The 24 hour hold works like this:<ul style="list-style-type: circle;"><li value="1">So long as the original instance of the alert remains unacknowledged by administrators, any additional events that trigger the same alert rule on the same node will not generate additional email notifications (or SNMP traps). Such additional event instances will only generate additional alerts in the CMC interface, so that the alert’s "Count" value increments.</li><li value="2">As soon as an administrator <a href="../../Alerts/AlertsAcknowledge.htm" class="MCTopicPopup MCTopicPopupHotSpot a">acknowledges the alert</a> in the CMC’s <b>Node Status</b> page or in the <b>Alerts</b> page, the 24 hour hold is lifted and any new instances of the event will trigger a new email notification (and SNMP trap if enabled).</li><li value="3">If 24 hours pass without the original alert being acknowledged by an administrator, then the next subsequent instance of the event will trigger the sending of a new alert email (and SNMP trap if enabled). This then initiates a new 24 hour hold period.</li></ul></li>
+            </ul>
+            <h2>Handling of Alerts for ERROR or WARN Log Messages</h2>
+            <p>For alert rules based on ERROR messages in service logs, an alert is written to the CMC’s <a href="../Node Status/NodeStatusOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Node Status</a> page and <a href="../../Alerts/AlertsOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Alerts</a> page for <b>each individual ERROR message</b> that occurs in the service logs. For alert rules based on WARN messages in service logs, the alerts are written for each individual WARN message that occurs in the service logs and also for each individual ERROR message.</p>
+            <p>However, for purposes of email notification, each additional log message from the same service is considered the same type of "event", and consequently the 24 hour hold described above applies. For example, if you have an alert rule in place for ERROR messages in the S3 service logs:</p>
+            <ul>
+                <li value="1">If ERROR message "X" appears in the S3 service log on node1, an alert is written to the CMC’s <b>Node Status</b> and <b>Alerts</b> pages, and an email notification is sent.</li>
+                <li value="2">If 10 minutes later ERROR message "X" appears again in the S3 service log on node1, another alert is written to the CMC’s <b>Node Status</b> and <b>Alerts</b> pages, but no additional email notification is sent.</li>
+                <li value="3">If 10 minutes later ERROR message "Y" appears in the S3 service log on node1, another alert is written to the CMC’s <b>Node Status</b> and <b>Alerts</b> pages, but no additional email notification is sent. Although ERROR message "Y" is different from ERROR message "X", it’s still considered to be part of the same alert rule and consequently it does not trigger an additional email notification.</li>
+            </ul>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>In describing alerting behavior for the second and third messages, the scenario above presumes that no administrator has yet acknowledged the earlier ERROR message alert. Recall that <a href="../../Alerts/AlertsAcknowledge.htm" class="MCTopicPopup MCTopicPopupHotSpot a">acknowledging an alert</a> releases the 24-hour hold on additional emails for that alert type, in which case a new instance of the underlying event triggers a new email notification.</p>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

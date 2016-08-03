@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Working with HyperStore Major Features|Usage Reporting">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Usage Reporting Feature Overview</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Working with HyperStore Major Features</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Usage Reporting</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Feature Overview</span>
+            </div>
+            <h1>Usage Reporting Feature Overview</h1>
+            <p>By default the HyperStore system keeps track of the following service usage metrics for each user group and each individual user:</p>
+            <ul>
+                <li value="1">Number of Storage Bytes</li>
+                <li value="2">Number of Storage Objects</li>
+            </ul>
+            <p>Optionally, you can configure the system to also track the following metrics for each group and user:</p>
+            <ul>
+                <li value="1">Number of HTTP Requests</li>
+                <li value="2">Number of Bytes IN (bytes uploaded into the system)</li>
+                <li value="3">Number of Bytes OUT (bytes downloaded from the system)</li>
+            </ul>
+            <p>Like Amazon S3, the HyperStore system attributes all service usage to <b>bucket owners</b>. If a bucket owner grants permission (via ACL policies) for other users to use the bucket, the system attributes the service activity of the grantees to the bucket owner. For example, if grantees upload objects into the bucket, the associated Bytes IN activity and Storage Bytes impact is attributed to the bucket owner — not to the grantees.</p>
+            <p>The HyperStore system’s tracking of service usage by groups and users serves two main purposes:</p>
+            <ul>
+                <li value="1"><b>Usage reporting</b>. Based on service usage tracking data, you can generate service usage reports for individual users, for user groups, for a whole service region, or for your entire HyperStore system.</li>
+                <li value="2"><b>Billing</b>. Usage tracking provides the foundation for <a href="../Billing/BillingOverview.htm">billing users</a> on the basis of their service usage level.</li>
+            </ul>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />How Usage Data is Calculated, Tracked, and Processed</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Usage tracking for Storage Bytes and Storage Objects is handled somewhat differently than tracking for HTTP Requests and Bytes IN/OUT, including that the latter is disabled by default. The table below provides a high level view of how the system generates and handles usage data.</p>
+                    <table style="width: 100%; border-left-style: solid; border-left-width: 1px; border-right-style: solid; border-right-width: 1px; border-top-style: solid; border-top-width: 1px; border-bottom-style: solid; border-bottom-width: 1px; border-collapse: separate;">
+                        <col style="width: 190px;" />
+                        <col />
+                        <thead>
+                            <tr>
+                                <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;vertical-align: top;">Usage Data Types</th>
+                                <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;vertical-align: top;">System Handling</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;vertical-align: top;">
+                                    <ul>
+                                        <li value="1">
+
+    Storage Bytes
+
+    </li>
+                                        <li value="2">Storage Objects
+</li>
+                                    </ul>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;vertical-align: top;">
+                                    <p>For each S3 request that the S3 Service processes, the S3 Service updates per-user and per-group Storage Bytes and Storage Objects counters that are maintained in the Redis QoS database. In calculating the increment to Storage Bytes associated with a given S3 request, the system includes the object name size and object metadata size as well as the size of the object itself.
+
+</p>
+                                    <p>Note that storage <b>overhead associated with replication or erasure coding does not count</b> toward a user’s Storage Bytes count. For example, a 1MB object that is protected by 3X replication or by 4+2 erasure coding counts as only 1MB toward the Storage Bytes count.
+</p>
+                                    <p>
+These per-user and per-group Storage Bytes and Storage Objects counters in Redis are used by the system to enforce storage quotas, if such quotas are part of your <a href="../Quality of Service/QosOverview.htm">Quality of Service</a> configurations.
+
+</p>
+                                    <p>Every five minutes, freshly updated Redis QoS counts for Storage Bytes and Storage Objects are written to the Raw column family in Cassandra’s Reports keyspace, where the data is subjected to additional processing in support of reporting and billing functionality. Each hour the Raw data is automatically processed to derive hourly roll-up data which is written to the RollupHour column family. The hourly roll-up data includes, for each user and each group, the hour’s maximum value and weighted average value for Storage Bytes and for Storage Objects.
+
+</p>
+                                    <p>For example, if during a given hour User1 has 10MB of Storage Bytes for the first 20 minutes of the hour and then 15MB for the next 40 minutes of the hour, her weighted average Storage Bytes for the hour is:
+
+  </p><pre xml:space="preserve">  10MB X 20/60 = 3.33MB
++ 15MB X 40/60 = 10 MB
+
+=                13.33MB weighted average for hour
+</pre>
+                                    <p>This hourly data is in turn rolled up once each day to derive daily roll-up values (including, for each user and group, the day’s maximum and day’s average for Storage Bytes and Storage Objects); and the daily roll-up values are rolled up once each month to derive monthly roll-up values (including monthly maximums and averages for each user and group). This data is stored in the RollupDay column family and RollupMonth column family, respectively.
+</p>
+                                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>The writing of Storage Bytes and Storage Objects counters from Redis over to Cassandra, and the usage data roll-ups that take place within Cassandra, are triggered by <a href="../../Maintenance/CronJobs.htm#Usage" class="MCTopicPopup MCTopicPopupHotSpot a">system cron jobs</a>.</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;vertical-align: top;">
+                                    <ul>
+                                        <li value="1">
+
+    HTTP Requests
+
+    </li>
+                                        <li value="2">Bytes IN
+
+    </li>
+                                        <li value="3">Bytes OUT
+</li>
+                                    </ul>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;vertical-align: top;">
+                                    <p>By default system configuration, HTTP Requests, Bytes IN, and Bytes OUT are not tracked.
+</p>
+                                    <p>
+If you <a href="../Quality of Service/QosEnable.htm">enable usage tracking for HTTP Requests and Bytes IN/OUT</a>, then for each S3 request the S3 Service writes transactional metadata directly to the Raw column family in Cassandra’s Reports keyspace. It does so asynchronously so that S3 request processing latency is not impacted.
+</p>
+                                    <p>
+In recording the Bytes IN and Bytes OUT impacts of a given S3 transaction, both the request and the response are counted, and HTTP header size is counted as well as body size. For example, a GET request/response pair will count as Bytes IN as well as Bytes OUT; and conversely a PUT request/response pair will count as Bytes OUT as well as Bytes IN.
+
+</p>
+                                    <p>Together with the Storage Bytes and Storage Objects data, the HTTP Request and Bytes IN/OUT data in the Raw column family is rolled up each hour. For each user and each group the roll-up calculates the hour’s total for HTTP GETs, PUTs, and DELETEs, and for Bytes IN and Bytes OUT. For Bytes IN and Bytes OUT, maximums for the hour (largest single upload and largest single download) and averages for the hour (average upload size and average download size) are derived for each user and group.
+
+</p>
+                                    <p>The hourly roll-up data is rolled up daily; and the daily roll-up data is rolled up monthly.
+</p>
+                                    <p>If you fully enable HyperStore QoS functionality, then for each S3 request the S3 Service also updates HTTP Request and Bytes IN/OUT counters in the Redis QoS database, in support of QoS enforcement.</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>For detail on the usage data impacts of various S3 request types, see <a href="../../Admin API/Data Objects/UsageData.htm#How" class="MCXref xref" xrefformat="{para}">How Particular S3 Operations Impact Usage Data Counts</a><br /><br />In that same documentation, see also these usage tracking special topics:<br /><br />*<a href="../../Admin API/Data Objects/UsageData.htm#How2" class="MCXref xref" xrefformat="{para}">How Request Processing Errors Impact Usage Counts</a><br />* <a href="../../Admin API/Data Objects/UsageData.htm#How3" class="MCXref xref" xrefformat="{para}">How Auto-Tiering Impacts Usage Counts</a><br />* <a href="../../Admin API/Data Objects/UsageData.htm#How4" class="MCXref xref" xrefformat="{para}">How Server-Side Encryption Impacts Usage Counts</a></p>
+                </div>
+            </div>
+            <p>&#160;</p>
+            <p><b>See Also:</b>
+            </p>
+            <ul>
+                <li value="1"><a href="UsageEnablingTracking.htm" class="MCXref xref" xrefformat="{para}">Enabling Usage Tracking for Traffic</a>
+                </li>
+                <li value="2"><a href="UsageRetention.htm" class="MCXref xref" xrefformat="{para}">Setting Usage Data Retention Periods</a>
+                </li>
+                <li value="3"><a href="UsageReporting.htm" class="MCXref xref" xrefformat="{para}">Generating a Usage Report</a>
+                </li>
+            </ul>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

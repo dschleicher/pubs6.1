@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Working with HyperStore Major Features|Server-Side Encryption">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Using Regular Server-Side Encryption (SSE)</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Working with HyperStore Major Features</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Server-Side Encryption</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Using Regular Server-Side Encryption (SSE)</span>
+            </div>
+            <h1>Using Regular Server-Side Encryption (SSE)</h1>
+            <p>You can use server-side encryption with system-generated keys either through the CMC or through a different S3 client application that invokes the HyperStore implementation of the S3 API.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>To use <b>Amazon-compliant</b> server-side encryption, you must first <a href="SseAes256.htm">enable AES256</a> in your HyperStore system.</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Using Regular SSE (CMC)</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>In the CMC’s <b>Buckets &amp; Objects</b> page, when you are <a href="../../CMC Interface/Buckets &amp; Objects/Objects/ObjectUpload.htm">uploading a file</a>, the interface displays a "Store Encrypted" checkbox. If you select this checkbox, the HyperStore system applies server-side encryption to the uploaded file, using a system-generated encryption key.</p>
+                    <p>When you subsequently download the file through the <b>Buckets &amp; Objects</b> page, the system automatically uses the same encryption key to decrypt the file.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Using Regular SSE (S3 API)</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>In compliance with the Amazon S3 REST API, the HyperStore system’s S3 API supports server-side encryption with system-generated keys by the inclusion of the <em>x-amz-server-side-encryption</em> request header in any of these operations on objects:</p>
+                    <ul>
+                        <li value="1"><a href="../../S3 API Support/OperationsObjects/PutObject.htm" class="MCXref xref" xrefformat="{para}">PUT Object</a>
+                        </li>
+                        <li value="2"><a href="../../S3 API Support/OperationsObjects/InitiateMultipartUpload.htm" class="MCXref xref" xrefformat="{para}">Initiate Multipart Upload</a>
+                        </li>
+                        <li value="3"><a href="../../S3 API Support/OperationsObjects/UploadPart.htm" class="MCXref xref" xrefformat="{para}">Upload Part</a>
+                        </li>
+                        <li value="4"><a href="../../S3 API Support/OperationsObjects/PostObject.htm" class="MCXref xref" xrefformat="{para}">POST Object</a>
+                        </li>
+                        <li value="5"><a href="../../S3 API Support/OperationsObjects/PutObjectCopy.htm" class="MCXref xref" xrefformat="{para}">PUT Object - Copy</a>
+                        </li>
+                    </ul>
+                    <p>HyperStore also supports the S3 API method <a href="../../S3 API Support/OperationsOnBuckets/PutBucketPolicy.htm" class="MCXref xref" xrefformat="{para}">PUT Bucket policy</a> for setting bucket policies that mandate or forbid server-side encryption.</p>
+                </div>
+            </div>
+            <p>&#160;</p>
+            <p><b>See Also:</b>
+            </p>
+            <ul>
+                <li value="1"><a href="SseAes256.htm" class="MCXref xref" xrefformat="{para}">Enabling AES-256</a>
+                </li>
+                <li value="2"><a href="SseCustomerKeys.htm" class="MCXref xref" xrefformat="{para}">Using Server-Side Encryption with Customer-Provided Keys (SSEC)</a>
+                </li>
+            </ul>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

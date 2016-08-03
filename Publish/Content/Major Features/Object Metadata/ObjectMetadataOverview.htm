@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Working with HyperStore Major Features|Object Metadata">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Object Metadata Feature Overview</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Working with HyperStore Major Features</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Object Metadata</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Feature Overview</span>
+            </div>
+            <h1>Object Metadata Feature Overview</h1>
+            <p>Like Amazon S3, Cloudian HyperStore allows for rich metadata to be associated with each stored object. The system allows for user-defined object metadata as well as system-defined object metadata.</p>
+            <p>The HyperStore system supports the Amazon S3 API methods that enable client applications to set user-defined object metadata as an object is being stored, as well as the S3 API methods that facilitate the subsequent retrieval of a specified object’s metadata — with or without the object itself. Additionally, the HyperStore system extends the Amazon S3 API by allowing client applications to retrieve the user-defined metadata associated with all of the objects in a specified bucket.</p>
+            <p>In regard to storage policy, Cloudian HyperStore provides system operators the option to configure different consistency requirements for replicated object metadata than for the replicated S3 object data itself.</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />System-Defined and User-Defined Object Metadata</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>In Cloudian HyperStore, object metadata is stored in Cassandra. For each object, Cloudian HyperStore maintains a variety of <b>system-defined</b> object metadata including (but not limited to) the following:</p>
+                    <ul>
+                        <li value="1">Creation time</li>
+                        <li value="2">Last modified time</li>
+                        <li value="3">Last accessed time</li>
+                        <li value="4">Size</li>
+                        <li value="5">ACL information</li>
+                        <li value="6">Version, if applicable</li>
+                        <li value="7">Public URL, if applicable</li>
+                        <li value="8">Compression type, if applicable</li>
+                        <li value="9">Encryption key, if applicable</li>
+                        <li value="10">Auto-tiering state, if applicable</li>
+                    </ul>
+                    <p>By default, objects do not have <b>user-defined</b> metadata associated with them, but the HyperStore storage schema supports storing user-defined object metadata together with system-defined object metadata. S3 client applications can specify user-defined metadata when objects are put into HyperStore storage, as described in <a href="ObjectMetadataCreate.htm" class="MCXref xref" xrefformat="{para}">Creating User-Defined Object Metadata</a>.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Object Metadata and Auto-Tiering</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>When the HyperStore system <a href="../Auto-Tiering/AutoTieringOverview.htm">auto-tiers</a> objects that have user-defined metadata associated with them, the metadata is passed to Amazon S3 along with the object data. The metadata also remains stored in Cassandra, in the manner described in the preceding section.</p>
+                </div>
+            </div>
+            <p>&#160;</p>
+            <p><b>See Also:</b>
+            </p>
+            <ul>
+                <li value="1"><a href="ObjectMetadataCreate.htm" class="MCXref xref" xrefformat="{para}">Creating User-Defined Object Metadata</a>
+                </li>
+                <li value="2"><a href="ObjectMetadataRetrieve.htm" class="MCXref xref" xrefformat="{para}">Retrieving Object Metadata</a>
+                </li>
+                <li value="3"><a href="ObjectMetadataStoragePolicies.htm" class="MCXref xref" xrefformat="{para}">Setting Storage Policies for Object Metadata</a>
+                </li>
+            </ul>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

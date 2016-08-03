@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Installing HyperStore|Networking Preparation">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>DNS Set-Up</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../InstallationOverview.htm">Installing HyperStore</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="NetworkingOverview.htm">Networking Preparation</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">DNS Set-Up</span>
+            </div>
+            <h1>DNS Set-Up</h1>
+            <p>For HyperStore to function properly, the HyperStore service endpoints (service URIs) must be resolvable. You have two options for making HyperStore service endpoints resolvable:</p>
+            <ul>
+                <li value="1">The HyperStore product package includes an open source lightweight domain resolution utility called <a href="http://www.thekelleys.org.uk/dnsmasq/doc.html" target="_blank">dnsmasq</a>. When you launch the HyperStore installation script (as described later in this document), you can optionally have the script install dnsmasq and automatically configure it to resolve all HyperStore service domains. If you use this option, then no further domain resolution set-up is necessary. <b>This option is not appropriate for production environments</b>. However, it may be convenient if you’re only installing one or a few HyperStore nodes in order to do some simple testing and initial evaluation of the system.</li>
+            </ul>
+            <p class="Indent">OR</p>
+            <ul>
+                <li value="1">On your name servers, configure DNS records for the HyperStore service endpoints. This is the recommended method for production environments or a rigorous evaluation.</li>
+            </ul>
+            <p>The table below shows the DNS entries that you must configure on your name servers, to resolve HyperStore service endpoints. By default the HyperStore system derives the endpoint values from your organization’s top level domain, which you will supply when you run the HyperStore interactive installer. The table shows the default format of each service endpoint. The default S3 endpoint formats are consistent with the format that Amazon uses for its S3 endpoints.</p>
+            <p>If you do not want to use the default S3 or CMC endpoint formats, the HyperStore system allows you to specify custom endpoint values during the installation. If you intend to create custom endpoints rather than accepting the default endpoints, configure DNS entries to resolve those custom endpoint values rather than the default-formatted endpoint values shown below. Make a note of the custom endpoints for which you have configured DNS entries, so that later you can correctly specify those endpoints when you perform the HyperStore interactive installation.</p>
+            <table style="width: 100%; border-spacing: 2px 2px; border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; border-left-style: solid; border-left-width: 1px; border-right-style: solid; border-right-width: 1px; border-top-style: solid; border-top-width: 1px; border-bottom-style: solid; border-bottom-width: 1px; border-collapse: separate;">
+                <col style="width: 116px;" />
+                <col style="width: 235px;" />
+                <col />
+                <thead>
+                    <tr>
+                        <th style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">DNS Entry</th>
+                        <th style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">Default Format and Example</th>
+                        <th style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">
+                            <p>S3 service endpoint
+</p>
+                            <p>
+(one per service region)</p>
+                        </td>
+                        <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">
+                            <p><em>s3-&lt;region&gt;.&lt;your-domain&gt;</em><![CDATA[
+
+]]></p>
+                            <p><em>s3-tokyo.enterprise.com</em>
+                            </p>
+                        </td>
+                        <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">
+                            <p>This is the service endpoint to which S3 client applications will submit requests.
+
+</p>
+                            <p>The <em>&lt;region&gt;</em> segment indicates the HyperStore service region. You must choose a service region name for your HyperStore installation, even if you intend to have only one service region. The region name must be lower case with no dots, dashes, underscores, or spaces. You will supply this region name again when you perform the HyperStore installation — make sure that the region name you supply when doing the install matches the region name you used in your DNS configuration.
+</p>
+                            <p>
+If you are installing a HyperStore system across multiple service regions, each region will have its own S3 service endpoint, and therefore you must create a DNS entry for each of those region-specific endpoints — for example
+<em>s3-tokyo.enterprise.com</em> and <em>s3-osaka.enterprise.com</em>.
+
+</p>
+                            <p>For more information about service regions see <a href="../../Major Features/Service Regions/ServiceRegionsOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Service Regions Feature Overview</a>.
+</p>
+                            <p>If you want to use a <b>custom S3 endpoint</b> that does not include a region string, HyperStore allows you to do so. Note however that if you have a multi-region system, using S3 endpoints that lack region strings means that you will miss out on some of the benefits of AWS Signature Version 4 authentication for S3 requests (specifically, the region validation aspect).</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">
+                            <p>S3 service endpoint wildcard
+
+</p>
+                            <p>(one per service region)</p>
+                        </td>
+                        <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">
+                            <p><em>*.s3-&lt;region&gt;.&lt;your-domain&gt;</em>
+                            </p>
+                            <p><em>
+
+*.s3-tokyo.enterprise.com</em>
+                            </p>
+                        </td>
+                        <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">This S3 service endpoint wildcard entry is necessary to resolve S3 requests pertaining to a specific storage bucket (which is nearly all S3 requests). By default S3 clients (including the Cloudian Management Console) submit S3 requests that include a bucket name in the HTTP Host header, in the form <em>&lt;bucketname&gt;.&lt;s3-service-endpoint&gt;</em>. For example<em> Host: bucket1.s3-tokyo.enterprise.com</em>.</td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">
+                            <p>S3 static website service endpoint
+
+</p>
+                            <p>(one per service region)</p>
+                        </td>
+                        <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">
+                            <p><em>s3-website-&lt;region&gt;.&lt;your-domain&gt;</em><![CDATA[
+
+]]></p>
+                            <p><em>s3-website-tokyo.enterprise.com</em>
+                            </p>
+                        </td>
+                        <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">This S3 service endpoint is used for buckets configured as static websites.</td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">
+                            <p>S3 static website endpoint wildcard
+
+</p>
+                            <p>(one per service region)</p>
+                        </td>
+                        <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">
+                            <p><em>*.s3-website-&lt;region&gt;.&lt;your-domain&gt;</em><![CDATA[
+
+]]></p>
+                            <p><em>*.s3-website-tokyo.enterprise.com</em>
+                            </p>
+                        </td>
+                        <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">This S3 static website endpoint wildcard entry is necessary to make S3 requests resolvable, for buckets configured as static websites.</td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">
+                            <p>Admin Service endpoint
+
+</p>
+                            <p>(one per whole system)</p>
+                        </td>
+                        <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">
+                            <p><em>s3-admin.&lt;your-domain&gt;</em><![CDATA[
+
+]]></p>
+                            <p><em>s3-admin.enterprise.com</em>
+                            </p>
+                        </td>
+                        <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">
+                            <p>This is the service endpoint for HyperStore’s Admin API. The Cloudian Management Console accesses this RESTful HTTP API, and you can also access the API directly with a command line tool such as <em>cURL</em> or a client application of your own creation.
+</p>
+                            <p>
+Unlike the S3 and CMC endpoints, the installer does not support customizing the Admin Service endpoint. Configure a DNS entry for the default-formatted Admin Service endpoint (<em>s3-admin.&lt;your-domain&gt;</em>).</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">
+                            <p>Cloudian Management Console (CMC) domain
+
+</p>
+                            <p>(one per whole system)</p>
+                        </td>
+                        <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">cmc.&lt;your-domain&gt;
+
+cmc.enterprise.com</td>
+                        <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">The CMC is HyperStore’s web-based console for making S3 requests (such as creating storage buckets or uploading objects) or performing system provisioning and administration tasks.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Below is an example set of DNS entries for HyperStore services, including the needed wildcard entries. Typically one or more virtual IP addresses (VIPs) would be used here, with the VIPs being the addresses of load balancers which would in turn distribute traffic among the HyperStore nodes.</p><pre xml:space="preserve">s3-tokyo.enterprise.com IN A 123.123.123.123
+*.s3-tokyo.enterprise.com IN A  123.123.123.123
+s3-website-tokyo.enterprise.com IN A 123.123.123.123
+*.s3-website-tokyo.enterprise.com IN A 123.123.123.123
+s3-admin.enterprise.com IN A 123.123.123.124
+cmc.enterprise.com IN A 123.123.123.125</pre>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>The example above is for a single-region HyperStore system. If you are deploying a multi-region HyperStore system, each region will have its own S3 service endpoint and S3 static website endpoint, and DNS entries are necessary for each region (including the wildcard entries for resolving bucket-specific S3 requests).</p>
+            <p>For some configuration notes regarding setting up a load balancer to work with Hyperstore, see Load Balancing in the Cloudian HyperStore Administrator’s Guide. [XREF]</p>
+            <p>Using load balancers and VIPs is the recommended method for balancing request load across multiple HyperStore nodes. Alternatively you can use round-robin DNS to balance load. Note though that <b>with round-robin DNS, if a node goes down, some requests will still get routed to that node and those requests will fail</b>.</p>
+            <p>Here is an example of a round-robin DNS configuration for a three-node HyperStore system:</p><pre xml:space="preserve">s3-tokyo.enterprise.com IN A 123.123.456.787
+                             123.123.456.788
+                             123.123.456.789
+*.s3-tokyo.enterprise.com IN A  123.123.456.787
+                                123.123.456.788
+                                123.123.456.789
+s3-website-tokyo.enterprise.com IN A 123.123.456.787
+                                     123.123.456.788
+                                     123.123.456.789
+*.s3-website-tokyo.enterprise.com IN A 123.123.456.787
+                                       123.123.456.788
+                                       123.123.456.789
+s3-admin.enterprise.com IN A 123.123.456.787
+                             123.123.456.788
+                             123.123.456.789
+cmc.enterprise.com IN A 123.123.456.787
+                        123.123.456.788
+                        123.123.456.789</pre>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

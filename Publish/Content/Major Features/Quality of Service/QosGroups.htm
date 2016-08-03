@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Working with HyperStore Major Features|Quality of Service">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Setting QoS Limits for Groups</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Working with HyperStore Major Features</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Quality of Service</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Setting QoS Limits for Groups</span>
+            </div>
+            <h1>Setting QoS Limits for Groups</h1>
+            <p>As with user QoS settings, you can set group QoS settings through either the CMC or the Admin API. Group QoS settings limit the <b>aggregate activity</b> of all users in a group.</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Setting QoS Limits for Groups (CMC)</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>First you should decide whether you want to set default QoS limits for all groups in your HyperStore system. If so, you can do this by going to the CMC’s <b>Manage Groups</b> page and clicking <b>Group QoS Default</b> to open the <b>Group QoS Limits: Defaults</b> panel. Here you can configure default group QoS limits for your whole system.</p>
+                    <p>Next, you can set group QoS limits for a specific group. If you do so, these limits will override any system defaults for qroup QoS. To do this, first retrieve the group in the <b>Manage Groups</b> page. Then click <b>Group QoS</b> for the group. This opens the <b>Group QoS Limits: Overrides</b> panel, where you can configure group QoS limits for that specific group.</p>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>For details about working with the CMC’s QoS configuration panels see <a href="../../CMC Interface/Users &amp; Groups/SetQoS.htm" class="MCXref xref" xrefformat="{para}">Set Quality of Service (QoS) for Users and Groups</a>.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Setting QoS Limits for Groups (Admin API)</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>To establish group QoS settings through the Admin API, you use the same method that you do for user QoS settings: <a href="../../Admin API/Quality of Service/PostQosLimits.htm">POST /qos/limits</a>. URI parameters enable you to specify that you’re creating system defaults for group QoS settings, or settings for a particular group.</p>
+                    <p>The <a href="../../Admin API/Quality of Service/GetQosLimits.htm">GET /qos/limits</a> and <a href="../../Admin API/Quality of Service/DeleteQosLimits.htm">DELETE /qos/limits</a> methods can be used to retrieve or delete group QoS settings.</p>
+                </div>
+            </div>
+            <p>&#160;</p>
+            <p><b>See Also:</b>
+            </p>
+            <ul>
+                <li value="1"><a href="QosUsers.htm" class="MCXref xref" xrefformat="{para}">Setting QoS Limits for Users</a>
+                </li>
+            </ul>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

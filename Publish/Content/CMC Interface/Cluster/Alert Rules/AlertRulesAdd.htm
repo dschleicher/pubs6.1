@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="CMC Interface|Cluster|Alert Rules">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Add an Alert Rule</title>
+        <link href="../../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../../CmcInterfaceOverview.htm">CMC Interface</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="../ClusterOverview.htm">Cluster</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="AlertRulesOverview.htm">Alert Rules</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Add an Alert Rule</span>
+            </div>
+            <h1>Add an Alert Rule</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[CMC Interface]</p>
+            <p>In the <b><a href="../../../Resources/Images/cmc/cluster/AlertRules.png" class="MCTopicPopup MCTopicPopupHotSpot a">Alert Rules</a></b> page you can configure rules that trigger the generation of alerts.</p>
+            <ol>
+                <li value="1">From the drop-down list, select an alert type.</li>
+            </ol>
+            <div class="Indent">
+                <p><a class="MCPopupThumbnailLink MCPopupThumbnailHover" href="../../../Resources/Images/cmc/cluster/AlertRules_create.png"><img class="MCPopupThumbnail img imgImgCloudian" data-mc-width="737" data-mc-height="176" src="../../../Resources/Images/cmc/cluster/AlertRules_create_thumb_0_60.png" tabindex="" /></a>
+                </p>
+            </div>
+            <ol data-mc-continue="true">
+                <li value="2">Configure a rule for that alert type. The options vary according to the alert type. For detail see the alert type descriptions below this procedure.</li>
+            </ol>
+            <div class="Indent">
+                <p>If you want the rule implementation to include sending an email notification to the default system administrator email address(es), leave the "Use Default" option checked. If you want to customize the target email addresses for this particular rule, uncheck the "Use Default" option and enter the address(es) in the text field (for multiple addresses, use comma separation). If you do not want email notification for this rule, uncheck the "Use Default" option and leave the text field empty.</p>
+                <p>If you want the rule implementation to include sending an SNMP trap to your SNMP management system, select the "Send SNMP Trap" checkbox.</p>
+                <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>To support sending SNMP traps you must first configure trap destination settings in the <a href="../Configuration Settings/ConfigurationSettingsSNMP.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">SNMP Trap Destination Settings</a> section of the CMC’s <b>Configuration Settings</b> page.<br /><br />In the traps that HyperStore generates and sends to your specified destination, the OID is enterprises.16458.4.1.1.1. The trap payload also indicates the specific HyperStore host on which the trap-triggering event occurred.</p>
+            </div>
+            <ol data-mc-continue="true">
+                <li value="3">Click <b>Add</b>.</li>
+            </ol>
+            <div class="Indent">
+                <p>Your new alert rule then displays in the <b>Rules</b> section of the page.</p>
+            </div>
+            <h2>Supported Alert Types</h2>
+            <p>HyperStore supports the following types of configurable alerts:</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Alerts based on transactions per second (TPS), throughput, or latency</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>These alert types:</p>
+                    <ul>
+                        <li value="1">Can all be configured for rules based on exceeding (or falling below) a specified threshold value. For example, you could configure a rule whereby an alert is generated if the latency for S3 GET operations is greater than 2000 milliseconds.</li>
+                        <li value="2">Are all based on traffic for individual HyperStore nodes. For example, if you set an alert rule for "Number of GET transactions per second &gt; 20", then alerts will be triggered if the number of S3 GET transactions per second exceeds 20 on any one HyperStore node.</li>
+                    </ul>
+                    <p>The S3 traffic alert types are all based on averages that are recalculated every five minutes, based on the most recent five minutes of transaction data. For example, an alert rule for "Latency for S3 GET operations &gt; 500 milliseconds" would get triggered if one of the five-minute average GET latency statistics exceeded 500 milliseconds.</p>
+                    <p>The "network throughput" alerts are based on averages that are recalculated every minute, based on the most recent minute of data.</p>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>Network throughput statistics are based on <b>all</b> data moving into or out of a node — not just S3 request data. For example, data transmission associated with cluster maintenance operations would count toward these statistics.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Alerts based on disk space or CPU utilization</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>These alert types:</p>
+                    <ul>
+                        <li value="1">Can be configured for rules based on exceeding (or falling below) a specified threshold value. For example, you could configure a rule that triggers an alert if the CPU utilization on a node exceeds 80%; or a rule that triggers an alert if the disk space remaining available on any individual disk on a node falls below 20% of the disk’s capacity.</li>
+                        <li value="2">Are based on snapshots taken every minute. In the CPU utilization example, if one of the snapshots shows CPU utilization in excess of 80%, an alert is triggered.</li>
+                        <li value="3">Are based on readings from individual HyperStore nodes. In the CPU utilization example, if the 80% CPU utilization threshold is exceeded on any one node, an alert is triggered.</li>
+                    </ul>
+                    <p>For the disk space event type, only disks configured for storage of Cassandra data directories or HyperStore data directories are checked.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Disk error</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>With this alert rule, an alert is triggered whenever an "HSDISKERROR" message appears in the HyperStore Service application log (<em>cloudian-hyperstore.log</em>).</p>
+                    <p>Note that such an alert does not necessarily indicate that the disk has been automatically disabled. This is because the alert is triggered by the appearance of a single "HSDISKERROR" message in the HyperStore Service application log, whereas the automatic disabling action is triggered only if such messages appear at a rate exceeding a configurable threshold.</p>
+                    <p>For more information on automated disk failure management see <a href="../../../Major Features/Disk Failure Handling/DiskFailureOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Disk Failure Handling Feature Overview</a>.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Repair completion status</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>With this alert rule, an alert is triggered whenever any type of data repair operation finishes its run. This includes auto-repairs of replica, erasure coded, or Cassandra data, as well as any repairs that you execute yourself using <em>hsstool repair</em> or <em>hsstool repairec</em>. There are separate alert types for REPAIR (S3 object replica repair), CASSANDRA:REPAIR (Cassandra metadata replica repair), and EC:REPAIR (erasure coded data repair).</p>
+                    <p>The alert is triggered when the operation finishes and will indicate the operation’s finishing status: COMPLETED, FAILED, or TERMINATED.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Services status</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>These alert types are based on status changes for the services that comprise the HyperStore system. The supported options are:</p>
+                    <ul>
+                        <li value="1"><em>Service Down</em> — The service has gone down on a node on which it’s supposed to be running. (Not supported for Cron or Phone Home)</li>
+                        <li value="2"><em>Service Restore</em>d — After being down, the service has started up again. (Not supported for Cron or Phone Home)</li>
+                        <li value="3"><em>Error</em> — An ERROR level message has been written to the service’s application log. (Not supported for Redis QoS, Redis Credentials, or Redis Monitor)</li>
+                        <li value="4"><em>Warning</em> — A WARN or ERROR level message has been written to the service’s application log. (Not supported for Redis Monitor.)</li>
+                    </ul>
+                    <p>If you wish you can create multiple alert rules for a particular service. For example, for the S3 Service you can create a rule that triggers alerts if the service goes down; a rule that triggers alerts when the service is restored after being down; and a rule that triggers alerts when ERROR level messages appear in the service’s application log. In each case you can decide whether the alert triggers an email notification or only appears in the CMC’s <a href="../Node Status/NodeStatusOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Node Status</a> page and <a href="../../Alerts/AlertsOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Alerts</a> page.</p>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>Application logging for the Admin, Cassandra, HyperStore, and S3 services is based on the Java log4j class. These services do not use the log4j FATAL log level, so the most serious log messages that these services may generate are:<br /><br />ERROR = Designates error events that might still allow the application to continue running.<br />WARN = Designates potentially harmful situations.<br /><br />ERROR is a more severe message level than WARN. If you set a notification rule for ERROR level messages you will be notified only for ERROR messages. If you set an alert rule for WARN messages you will be notified of WARN messages <b>as well as</b> ERROR messages.<br /><br />In Redis, the most severe log message level is Warning (indicated by a pound sign ["#"] at the start of the message in the Redis application log). The Warning log level in Redis is for "very important or critical" messages. Redis also generates this level of message when the Redis service is started or stopped. Redis does not have an Error log level.</p>
+                </div>
+            </div>
+            <p>For more detail on how alerts are implemented by the system see <a href="AlertRulesImplementation.htm" class="MCXref xref">How HyperStore Implements Alerts</a>.</p>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

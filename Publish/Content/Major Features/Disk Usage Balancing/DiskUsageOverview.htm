@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Working with HyperStore Major Features|Disk Usage Balancing">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Disk Usage Balancing Feature Overview</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Working with HyperStore Major Features</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Disk Usage Balancing</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Feature Overview</span>
+            </div>
+            <h1>Disk Usage Balancing Feature Overview</h1>
+            <p>HyperStore is implemented in such a way that among multiple data storage disks on the same host the disk usage will typically be well balanced. However, the system also supports an automated mechanism for rectifying disk usage imbalance if it does occur. The mechanism migrates one or more storage tokens (also known as vNodes) from an over-used disk to less-used disks on the same host. From that point forward the less-used disks will store an increased share of newly uploaded object data while the over-used disk stores a reduced share of newly uploaded object data. Note that this mechanism does not move existing data from one disk to another; rather, it impacts the share of new data load allocated to each disk going forward.</p>
+            <p>You do not need to run a repair operation in connection with this disk usage balancing feature. The disk usage rebalancing mechanism is not intended to move existing data between disks. It is designed to impact only objects uploaded after the time that the automated token migration was executed.</p>
+            <p>If you were to perform a repair, existing objects on the over-used disk will not follow a migrated token to the token’s new home on a less-used disk.</p>
+            <h2><a name="Dynamic"></a>Dynamic Object Routing</h2>
+            <p>The system uses a dynamic token-to-disk mapping scheme that allows tokens to be migrated from one disk to another without existing data following the migrated tokens. With Dynamic Object Routing, an object associated with a given token range <b>stays with the disk where that token range was located when the object was uploaded</b>. The system keeps track of which tokens are associated with each disk across time. Then, based on object timestamps, the system can tell for example that Object1 which is associated with TokenX was uploaded at a time when TokenX was located on DiskA, whereas Object5 which is also associated with TokenX was uploaded at a time when TokenX was located on DiskB.</p>
+            <p>Dynamic Object Routing allows for low-impact automated token migrations in circumstances such as disk usage imbalance or <a href="../Disk Failure Handling/DiskFailureOverview.htm">automated disk failure handling</a>.</p>
+            <p>&#160;</p>
+            <p><b>See Also:</b>
+            </p>
+            <ul>
+                <li value="1"><a href="DiskUsageConfigure.htm" class="MCXref xref" xrefformat="{para}">Configuring Disk Usage Balancing</a>
+                </li>
+                <li value="2"><a href="DiskUsageStatus.htm" class="MCXref xref" xrefformat="{para}">Checking Disk Usage Status</a>
+                </li>
+                <li value="3"><a href="DiskUsageTrigger.htm" class="MCXref xref" xrefformat="{para}">Triggering an Immediate Balance Check</a>
+                </li>
+            </ul>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

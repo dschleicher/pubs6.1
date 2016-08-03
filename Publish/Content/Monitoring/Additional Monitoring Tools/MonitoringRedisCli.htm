@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="System Monitoring|Additional Monitoring Tools">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Using the Redis CLI to Monitor Redis</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">System Monitoring</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Additional Monitoring Tools</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Using the Redis CLI to Monitor Redis</span>
+            </div>
+            <h1>Using the Redis CLI to Monitor Redis</h1>
+            <p>For Redis monitoring you can use the native Redis CLI.</p>
+            <p>To launch the Redis CLI on a Redis node, change into the node’s <em>/opt/redis</em> directory and do either of the following:</p><pre xml:space="preserve"># to connect to the CLI for the Redis Credentials DB:
+$ ./redis-cli
+redis 127.0.0.1:6379&gt;
+
+# to connect to the CLI for the Redis QoS DB:
+$ ./redis-cli -p 6380
+redis 127.0.0.1:6380&gt;</pre>
+            <p>Once you’re in the Redis CLI mode, you can issue commands. Use "quit" to exit the CLI.</p>
+            <p>With the Redis <a href="http://redis.io/commands/info" target="_blank">INFO command</a> you can retrieve statistics such as:</p>
+            <ul>
+                <li value="1">Uptime since last start</li>
+                <li value="2">Memory usage as allocated by Redis</li>
+                <li value="3">Memory usage as seen by OS</li>
+                <li value="4">Memory fragmentation ratio</li>
+                <li value="5">Number of dataset-changing operations processed since last save</li>
+                <li value="6">Keyspace hits</li>
+                <li value="7">Keyspace misses</li>
+                <li value="8">Total keys</li>
+                <li value="9">Total expired keys</li>
+            </ul>
+            <p>You can reset Redis statistics with the <a href="http://redis.io/commands/config-resetstat" target="_blank">CONFIG RESETSTAT command</a>.</p>
+            <p>To check just on the number of keys currently in the database, you can use the <a href="http://redis.io/commands/dbsize" target="_blank">DBSIZE command</a>.</p>
+            <p>Also useful is the <a href="http://redis.io/commands/monitor" target="_blank">MONITOR command</a>, which enables you to monitor the complete sequence of commands received by the DB in near real-time.</p>
+            <p>In addition to monitoring Redis through its CLI, you should also monitor the size of the Redis data files (in default directory<em> /var/lib/redis/</em>) to ensure files are not growing excessively.</p>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="CMC Interface|Analytics">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Cluster Usage</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../CmcInterfaceOverview.htm">CMC Interface</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="AnalyticsOverview.htm">Analytics</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Cluster Usage</span>
+            </div>
+            <h1>Cluster Usage</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[CMC Interface]</p>
+            <p><a class="MCPopupThumbnailLink MCPopupThumbnailHover" href="../../Resources/Images/cmc/analytics/ClusterUsage.png"><img class="MCPopupThumbnail img imgImgCloudian" data-mc-width="771" data-mc-height="656" src="../../Resources/Images/cmc/analytics/ClusterUsage_thumb_0_90.png" style="mc-thumbnail-max-height: 90px;" tabindex="" /></a>
+            </p>
+            <p>Path: <b>Analytics → Cluster Usage</b></p>
+            <p>Supported tasks:</p>
+            <ul>
+                <li value="1">View recent cluster usage</li>
+            </ul>
+            <p>In the CMC's <b>Cluster Usage</b> page you can view cluster usage graphs that cover the past 30 days of activity. The time period is not editable.</p>
+            <p>The following graphs are displayed:</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Capacity consumption over time TB</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>This graph shows the used disk capacity across the whole service region, over the past 30 days.</p>
+                    <p>Only disks that store HyperStore data directories (as configured by the <a href="../../System Configuration/Configuration Files/CommonCsv.htm#hyperstore_data_directory" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">hyperstore_data_directory</a> setting in the <em> common.csv</em> file) or the Cassandra data directory (as configured by the<a href="../../System Configuration/Configuration Files/CommonCsv.htm#cassandra_data_directory" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">cassandra_data_directory</a> setting in the <em>common.csv</em> file) count toward this statistic. This stat does not count disks that are being used only for OS or application files, for example.</p>
+                    <p>This stat calculates disk usage in a way that counts a disk’s "reserved-blocks-percentage" (the portion of the disk space that’s reserved for privileged processes) as used space. By default in Linux systems the configurable "reserved-blocks-percentage" for a file system is 5% of disk capacity. In a HyperStore Appliance it’s set to 0.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Object transactions/sec (GET&#160;&amp;&#160;PUT)</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>This graph shows the number of S3 transactions processed per second across the whole service region, over the past 30 days. The graph shows the PUT transaction activity in blue and the GET transaction activity in green. To highlight one or the other trend line, hold your cursor over the "PUT" or "GET" label off to the right of the graph.</p>
+                    <p>HEAD transactions are counted toward the GET stat, and POST transactions are counted toward the PUT stat.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Throughput MB/sec (GET &amp; PUT)</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>The data throughput for S3 transactions, expressed as MB per second (or KB or GB per second if appropriate to the activity level), across the whole service region. The graph shows the PUT transaction activity in blue and the GET transaction activity in green. To highlight one or the other trend line, hold your cursor over the "PUT" or "GET" label off to the right of the graph.</p>
+                    <p>HEAD transactions are counted toward the GET stat, and POST transactions are counted toward the PUT stat.</p>
+                </div>
+            </div>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

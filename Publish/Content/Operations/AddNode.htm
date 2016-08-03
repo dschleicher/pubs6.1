@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="CMC Interface|Cluster|Advanced|Add/Uninstall Node">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Adding a Node</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../CMC Interface/CmcInterfaceOverview.htm">CMC Interface</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="../CMC Interface/Cluster/ClusterOverview.htm">Cluster</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="../CMC Interface/Cluster/Advanced/AdvancedOverview.htm">Advanced</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Adding a Node</span>
+            </div>
+            <h1>Adding a Node</h1>
+            <p>This procedure is for adding a node to your HyperStore cluster and having the new node take over some of the storage load from your existing nodes. </p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Before You Begin</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Before you add a node to your HyperStore cluster, take these actions to prepare:</p>
+                    <ul>
+                        <li value="1">Use the CMC's <a href="../Resources/Images/cmc/dashboard/Dashboard.png" class="MCTopicPopup MCTopicPopupHotSpot a">Dashboard</a> page to <b>verify that no services are currently down</b> in your cluster -- the dashboard's "Cluster Health" section should show a green circle and status should say "Healthy". If the circle is orange then one or more services are down. In that case, check the CMC's <a href="../Resources/Images/cmc/alerts/Alerts.png" class="MCTopicPopup MCTopicPopupHotSpot a">Alerts</a> page for alerts regarding downed services and restart any services that are down.</li>
+                    </ul>
+                    <div class="Indent">
+                        <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /><b>If you have a downed node</b> that cannot be brought back up...</a></span>
+                            <div class="MCDropDownBody dropDownBody">
+                                <p> If you have a downed node that cannot be brought back up, then do the following before adding a new node to the cluster:</p>
+                                <ol>
+                                    <li value="1">In the CMC's <a href="../Resources/Images/cmc/cluster/ClusterInfo.png" class="MCTopicPopup MCTopicPopupHotSpot a">Cluster Information</a> page, verify that the Redis Credentials master role and the Redis QoS master role are being filled by a node other than the downed node. These service roles must be running in order to add a new node. (If either of these service roles had been running on the node that's down, they should have automatically failed over to a different node.)</li>
+                                    <li value="2">Still in the CMC's <a href="../Resources/Images/cmc/cluster/ClusterInfo.png" class="MCTopicPopup MCTopicPopupHotSpot a">Cluster Information</a> page, verify that the Puppet Master role is being filled by a node other than the downed node. This service role must be running in order to add a new node. If the Puppet Master role is assigned to the downed node, you must manually re-assign this role to a different existing node before adding a new node to your cluster. For instructions see <a href="Change Node Role/MovePuppetMaster.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Move the Puppet Master Primary or Backup Role</a>.</li>
+                                    <li value="3">On the Puppet Master node, launch the installer:</li>
+                                </ol>
+                                <div class="Indent"><pre>root# /&lt;installation-staging-directory&gt;/cloudianInstall.sh</pre>
+                                    <p>From the main menu choose Advanced Configuration Options, then from there apply the "Mark host(s) down for maintenance" task to whichever of your hosts is currently down. Then go back to the main menu, choose Cluster Management, and then push the updated settings out to the cluster.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul>
+                        <li value="1">If you are using the software-only version of HyperStore (as opposed to a HyperStore Appliance), <b>make sure that the new host meets HyperStore host requirements</b>. If you need a refresher see:<ul style="list-style-type: circle;"><li value="1"><a href="../Installation/Host Machine Preparation/Software-Only Users/HardwareRequirements.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Hardware Requirements</a></li><li value="2"><a href="../Installation/Host Machine Preparation/Software-Only Users/OsRequirements.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Operating System Requirements</a></li><li value="3"><a href="../Installation/Host Machine Preparation/Software-Only Users/FileSystemRequirements.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">File System Requirements</a></li></ul></li>
+                        <li value="2">Because adding a node to your cluster requires potentially large-scale data transfers within the system, before you add a node you should temporarily <b>shut down the scheduled auto-repair feature</b>, so that there are not auto-repairs running at the same time as the node addition process. For instructions see <a href="../Major Features/Automatic Data Repair/DataRepairDisable.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Temporarily Disabling Scheduled Auto-Repairs</a>.</li>
+                    </ul>
+                    <p class="Important" data-mc-autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;"><span class="autonumber"><span><b>IMPORTANT: </b></span></span>Do not add multiple nodes simultaneously. If you want to add multiple nodes, add one node at a time from start to finish for each node.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Adding the Node to the Cluster</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>To add a new node to a HyperStore cluster:</p>
+                    <ol>
+                        <li value="1">Confirm that the data directory mount points on the new node are the same as are used for the existing nodes in your cluster. If they are, proceed to Step 2. You can also proceed directly to Step 2 if the node you are adding is a HyperStore Appliance.</li>
+                    </ol>
+                    <div class="Indent">
+                        <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /><b>If the new node has different mount points</b> than your existing nodes and  is not a HyperStore Appliance...</a></span>
+                            <div class="MCDropDownBody dropDownBody">
+                                <p>If the new node is not a HyperStore Appliance and the node has a different number of mount points or differently named mount points than the existing nodes in your cluster, you must create a <em>&lt;hostname&gt;_fslist.txt</em> file specifying the new node’s file system mount points and place the file in the installation staging directory on the Puppet master.</p>
+                                <p>In the <em>&lt;hostname&gt;_fslist.txt</em> file list the HyperStore data mount points in this format:</p><pre xml:space="preserve">&lt;device-name or UUID&gt; &lt;mount-point&gt;
+&lt;device-name or UUID&gt; &lt;mount-point&gt;
+etc.</pre>
+                                <p>For example:</p><pre xml:space="preserve">/dev/sdc1 /cloudian1
+/dev/sdd1 /cloudian2
+etc.</pre>
+                                <p>Optionally, in this file you can also specify one mount point for metadata stored in Cassandra (must include the string "cassandra" in the mount point path) and one mount point for the Cassandra commit log (must include "cassandra_commit" in the mount point path). If you do not specify these Cassandra mount points in <em>&lt;hostname&gt;_fslist.txt</em>, by default the system automatically puts Cassandra data and commit log directories on the OS disk.</p>
+                                <p>Do not use symbolic links when specifying HyperStore data or Cassandra mount points.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <ol data-mc-continue="true">
+                        <li value="2">In the CMC page <b>Cluster → Nodes → Advanced</b>, select command type "Add/Uninstall Node" and then select command "Add Node". (Alternatively, in the CMC page <b>Cluster → Data Centers</b>, in the display for the data center and rack to which you want to add a node, click the light green cube icon that has a plus sign on it.) Either of these actions opens the Add Node interface.</li>
+                    </ol>
+                    <div class="Indent">
+                        <p><a class="MCPopupThumbnailLink MCPopupThumbnailHover" href="../Resources/Images/operations/AddNode.png"><img class="MCPopupThumbnail img imgImgCloudian" data-mc-width="775" data-mc-height="356" src="../Resources/Images/operations/AddNode_thumb_0_60.png" tabindex="" /></a>
+                        </p>
+                    </div>
+                    <div class="Indent">
+                        <p>In the Add Node interface specify the new node’s hostname, IP address, region, data center, and rack. (Note: If you accessed the Add Node iinterface through the <b>Data Centers</b> page, the data center name and rack name will be pre-populated.) If the new node will use a different dedicated interface for internal cluster traffic than other nodes in your cluster use — for example if the new node uses "eth2" for internal traffic while other nodes in your cluster are using "eth1" for internal traffic — enter the "Internal Network Interface Name" (otherwise you can leave this field empty).</p>
+                        <p>To securely connect to the new node as it’s being installed and added to your cluster, use <b>one</b> (not both) of the following methods in the Add Node interface:</p>
+                        <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Installation User’s Password</a></span>
+                            <div class="MCDropDownBody dropDownBody">
+                                <p>To securely connect to the new node via password, enter the root user's password in this field (only the root user can be the HyperStore installation user). </p>
+                            </div>
+                        </div>
+                        <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Private Key Authentication</a></span>
+                            <div class="MCDropDownBody dropDownBody">
+                                <p>As an alternative to using a password to access the new node, you can select the "Private Key Authentication" checkbox. In this case the install script — which is invoked by the Add Node operation — will use the same private key as was used to install the existing cluster. Distribution of the corresponding public key to the new node depends on how you handled SSH key set-up during installation of the existing HyperStore cluster:</p>
+                                <ul>
+                                    <li value="1">If during installation of the cluster you let the install script generate an SSH key pair for you, then distribution of the public key to the new node will be taken care of automatically by the install script.</li>
+                                    <li value="2">If during installation of the cluster you used your own existing key pair and you copied both the private and the public key into the installation staging directory, then distribution of the public key to the new node will be taken care of automatically by the install script.</li>
+                                    <li value="3">If during installation of the cluster you used your own existing key pair and you copied only the private key into the installation directory, while doing the distribution of the public key to the target nodes on your own, then you must also copy the public key to the new node on your own, before executing the Add Node operation.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <ol data-mc-continue="true">
+                        <li value="3">Click <b>Execute</b>. In the confirmation dialog that displays, confirm that you want to execute the operation.</li>
+                    </ol>
+                    <div class="Indent">
+                        <p>The "Add Node" operation may take some time. When the operation completes, HyperStore services are automatically started on the new node.</p>
+                    </div>
+                    <p class="NoteIndent" data-mc-autonum="&lt;b&gt;Note: &lt;/b&gt;"><span class="autonumber"><span><b>Note: </b></span></span>The "Add Node" operation is an atomic operation. If the operation fails at any point, any configuration changes made during the operation are rolled back.</p>
+                    <ol data-mc-continue="true">
+                        <li value="4">In the Info command type group, execute the <em>hsstool status</em> command to confirm that the node’s Cassandra status is "Up" (not "Joining").</li>
+                    </ol>
+                    <div class="Indent">
+                        <p><a class="MCPopupThumbnailLink MCPopupThumbnailHover" href="../Resources/Images/operations/Status_add-cloudian-node5.png"><img class="MCPopupThumbnail img imgImgCloudian" data-mc-width="768" data-mc-height="419" src="../Resources/Images/operations/Status_add-cloudian-node5_thumb_0_60.png" tabindex="" /></a>
+                        </p>
+                        <p>If instead the Cassandra status is still "Joining", wait briefly and then execute the status check again to confirm an "Up" status before continuing to the next stage of this procedure.</p>
+                    </div>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>When you add a new node to an existing HyperStore cluster, only the common services (S3 Service, Admin Service, HyperStore Service, Cassandra, CMC, Puppet Agent, and Monitoring Agent)  run on the new node, not any specialized services such as Redis Credentials or Redis QoS.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Shifting Data Load to the New Node</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>When a node is successfully added to a cluster and its Cassandra status is "Up", the system has automatically assigned the new node its own set of new storage tokens. The next step is to shift some of the data load from your existing nodes to the new node, by triggering a repair operation on the new node (which populates the node with data in accordance with the node's storage tokens.) You can do this either through the CMC or by using <em>hsstool</em> on the command line, whichever you prefer. The instructions that follow are oriented toward the CMC but they also indicate the corresponding command line commands.</p>
+                    <p>In the CMC page <b>Cluster → Nodes → Advanced</b>, do the following:</p>
+                    <ol>
+                        <li value="1">From the Maintenance command type group, execute <em>hsstool repair</em> on the new node. Use the "nokeyspaces" option (since Cassandra keyspaces are repaired on a new node automatically and do not need to be included in the repair operation that you are running). Do not use the "-pr", "-nomt", "-m", "computedigest", or "proactive" options.</li>
+                    </ol>
+                    <div class="Indent">
+                        <p><a class="MCPopupThumbnailLink MCPopupThumbnailHover" href="../Resources/Images/operations/Repair_nokeyspaces_cloudian-node5.png"><img class="MCPopupThumbnail img imgImgCloudian" data-mc-width="764" data-mc-height="335" src="../Resources/Images/operations/Repair_nokeyspaces_cloudian-node5_thumb_0_60.png" tabindex="" /></a>
+                        </p>
+                        <p>If using the command line rather than the CMC, the command is:</p><pre>[root]# /opt/cloudian/bin/hsstool -h &lt;hostname-of-new-node&gt; repair nokeyspaces</pre>
+                        <p>The repair operation populates the new node with the S3 object replica data that it’s supposed to have (based on the vNodes that were automatically assigned to the new node when it was added to the cluster). The repair may take many hours, depending on how much data is involved.</p>
+                    </div>
+                    <ol data-mc-continue="true">
+                        <li value="2">After letting the repair run for a length of time appropriate to your environment, from the Info command type group execute <em>hsstool opstatus </em>to confirm that the "REPAIR" status is COMPLETED.</li>
+                    </ol>
+                    <div class="Indent">
+                        <p><a class="MCPopupThumbnailLink MCPopupThumbnailHover" href="../Resources/Images/operations/Opstatus_cloudian-node5.png"><img class="MCPopupThumbnail img imgImgCloudian" data-mc-width="754" data-mc-height="503" src="../Resources/Images/operations/Opstatus_cloudian-node5_thumb_0_60.png" tabindex="" /></a>
+                        </p>
+                        <p>If using the command line rather than the CMC, the command is:</p><pre>[root]# /opt/cloudian/bin/hsstool -h &lt;hostname-of-new-node&gt; opstatus</pre>
+                        <p>If the REPAIR status is still IN-PROGRESS run <em>hsstool opstatus</em> again later to confirm that the repair completed, before proceeding to the next step.</p>
+                        <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>The <em>opstatus</em> results will also show "REPAIRCASSANDRA" as COMPLETED. Because you used the "nokeyspaces" option when running <em>repair</em>, the Cassandra part of the repair completes instantly. It’s the copying of S3 object replicas to the node that takes some time; the status of this operation is indicated in the REPAIR section of the <em>opstatus</em> results.</p>
+                    </div>
+                    <ol data-mc-continue="true">
+                        <li value="3">If you do not use erasure coding in your system, then you are done with shifting data load to the new node and can proceed to re-enabling auto-repair as described below.</li>
+                    </ol>
+                    <div class="Indent">
+                        <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /><b>If you do use erasure coding</b> in your system...</a></span>
+                            <div class="MCDropDownBody dropDownBody">
+                                <p>If you use erasure coding in your system, from the Maintenance command type group execute <em>hsstool repairec</em> on the new node. Do not use the "f" option.</p>
+                                <p><a class="MCPopupThumbnailLink MCPopupThumbnailHover" href="../Resources/Images/operations/Repairec.png"><img class="MCPopupThumbnail img imgImgCloudian" data-mc-width="773" data-mc-height="334" src="../Resources/Images/operations/Repairec_thumb_0_60.png" tabindex="" /></a>
+                                </p>
+                                <p>If using the command line rather than the CMC, the command is:</p><pre>[root]# /opt/cloudian/bin/hsstool -h &lt;hostname-of-new-node&gt; repairec</pre>
+                                <p>The <em>repairec</em> operation populates the new node with the S3 object erasure coded data that it’s supposed to have (based on its assigned vNodes). Wait for the operation to complete before proceeding to re-enabling auto-repair as described below. You can use <em>opstatus</em> to check the node’s REPAIREC status.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />After Adding a Node</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>After completing the add node procedure:</p>
+                    <ul>
+                        <li value="1">Go to the CMC's <a href="../Resources/Images/cmc/cluster/NodeStatus.png" class="MCTopicPopup MCTopicPopupHotSpot a">Node Status</a> page and <b>confirm that the newly added node appears</b> in the "Host" drop-down list, and that you can select the node and view its status information.</li>
+                        <li value="2"><b>Next</b> go to the CMC's <b>Advanced</b> node management page and from the Maintenance command type group execute <em>hsstool autorepair</em> to <b>re-enable the HyperStore auto-repair feature</b> for the cluster. Submit the command to any of the nodes in your cluster. Leave the "t &lt;type&gt;" option unspecified so that all repair types are enabled.</li>
+                    </ul>
+                    <div class="Indent">
+                        <p><a class="MCPopupThumbnailLink MCPopupThumbnailHover" href="../Resources/Images/operations/Autorepair_enable_cloudian-node5.png"><img class="MCPopupThumbnail img imgImgCloudian" data-mc-width="765" data-mc-height="297" src="../Resources/Images/operations/Autorepair_enable_cloudian-node5_thumb_0_60.png" tabindex="" /></a>
+                        </p>
+                    </div>
+                    <div class="Indent">
+                        <p>If using the command line rather than the CMC, the command is:</p>
+                    </div>
+                    <div class="Indent"><pre>[root]# /opt/cloudian/bin/hsstool -h &lt;any-host&gt; repairqueue -enable true</pre>
+                    </div>
+                    <ul>
+                        <li value="1"><b>Next you should clean the other nodes</b> to remove data that they are no longer responsible for (since some data storage responsibilities have been shifted to the new node). It’s <b>best to wait for 24 hours</b> after completing repair of the new node before you clean the other nodes. This is because by default the cleaning operations will skip objects that were uploaded within the past 24 hours (and so, if you clean the other nodes right after repairing the new node, the cleanup will leave data that those nodes are no longer responsible for but which was uploaded during the 24 hours preceding the addition of the new node).</li>
+                    </ul>
+                    <div class="Indent">
+                        <p>After waiting 24 hours since completing repair of the new node, do the following:</p>
+                        <ol>
+                            <li value="1">In the CMC’s <b>Cluster → Nodes → Advanced</b> page, from the Maintenance command type group execute <em>hsstool cleanup</em> on each node in your cluster except for the new node. Use the "allkeyspaces" option and the "x" option.</li>
+                        </ol>
+                        <div class="Indent">
+                            <p><a class="MCPopupThumbnailLink MCPopupThumbnailHover" href="../Resources/Images/operations/Cleanup_allkeyspaces.png"><img class="MCPopupThumbnail img imgImgCloudian" data-mc-width="782" data-mc-height="344" src="../Resources/Images/operations/Cleanup_allkeyspaces_thumb_0_60.png" tabindex="" /></a>
+                            </p>
+                            <p><b>It’s OK for <em>cleanup</em> to be running on multiple nodes in parallel</b>. To do so, you need to initiate the cleanups one node at a time, but you don’t need to wait for cleanup to complete on one node before starting it on another node.</p>
+                            <p>The <em>cleanup</em> operation cleans the already existing nodes in your cluster of <b>replica data</b> that they are no longer responsible for.</p>
+                            <p>If using the command line rather than the CMC, the command is:</p><pre>[root]# /opt/cloudian/bin/hsstool -h &lt;host&gt; cleanup allkeyspaces -x</pre>
+                        </div>
+                        <ol data-mc-continue="true">
+                            <li value="2">If you do not use erasure coding in your system, then you are done with cleaning your existing nodes.</li>
+                        </ol>
+                        <div class="Indent">
+                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /><b>If you do use erasure coding</b> in your system</a></span>
+                                <div class="MCDropDownBody dropDownBody">
+                                    <p>If you use erasure coding in your system, from the Maintenance command type group execute <em>hsstool cleanupec</em> on each node in your cluster except for the new node. Use the "x" option.</p>
+                                    <p><a class="MCPopupThumbnailLink MCPopupThumbnailHover" href="../Resources/Images/operations/Cleanupec.png"><img class="MCPopupThumbnail img imgImgCloudian" data-mc-width="772" data-mc-height="325" src="../Resources/Images/operations/Cleanupec_thumb_0_60.png" tabindex="" /></a>
+                                    </p>
+                                    <p><b>It’s OK for </b><em style="font-weight: bold;">cleanupec</em><b> to be running on multiple nodes in parallel</b>. To do so, you need to initiate the cleanups one node at a time, but you don’t need to wait for <em>cleanupec</em> to complete on one node before starting it on another node.</p>
+                                    <p>This operation cleans the already existing nodes in your cluster of erasure coded data that they are no longer responsible for.</p>
+                                    <p>If using the command line rather than the CMC, the command is:</p><pre>[root]# /opt/cloudian/bin/hsstool -h &lt;host&gt; cleanupec -x</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

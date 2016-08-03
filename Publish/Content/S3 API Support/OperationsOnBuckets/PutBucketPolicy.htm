@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="S3 API Support|OperationsOnBuckets">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>PUT Bucket policy</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../S3ApiSupportOverview.htm">S3 API Support</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="OperationsOnBucketsOverview.htm">OperationsOnBuckets</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">PUT Bucket policy</span>
+            </div>
+            <h1>PUT Bucket policy</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[S3 API Method]</p>
+            <p>For the Amazon S3 "PUT Bucket policy" operation, the HyperStore system supports the S3 <a href="../CommonRequestHeaders.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Common Request Headers</a> and <a href="../CommonResponseHeaders.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Common Response Headers</a> and also the operation-specific items listed below. If a parameter, header, element, or special error from the Amazon S3 specification for this operation is not listed below, the HyperStore system does not support it.</p>
+            <p>For operation usage information and for descriptions of request and response items, see <a href="http://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTpolicy.html" target="_blank">PUT Bucket policy</a> in the Amazon S3 REST API specification. For policy construction guidance see also the Amazon documentation on <a href="http://docs.aws.amazon.com/AmazonS3/latest/dev/using-iam-policies.html" target="_blank">Using Bucket Policies</a>, but note that <b>the HyperStore system supports only the policy types indicated below</b>.</p>
+            <h2>Request Elements</h2>
+            <p>The body is a JSON string containing the policy contents containing the policy statements.</p>
+            <p>The HyperStore system supports only these bucket policy types:</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>The system does not check the bucket policy if the user performing an operation in the bucket (such as a <a href="../OperationsObjects/PostObject.htm" class="MCXref xref">POST Object</a> or <a href="../OperationsObjects/GetObject.htm" class="MCXref xref">GET Object</a>) is the bucket owner. In the case of <a href="../OperationsObjects/GetObject.htm" class="MCXref xref">GET Object</a>, the system does not check the bucket policy if the user doing the GET is the object owner. For example, if a bucket policy is set so that only certain IP addresses are allowed to access the bucket, this will not apply to an object owner doing a GET on the object.</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Restricting Access to a Specific HTTP Referrer</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>The only accepted format is the below that allows GetObject on the bucket from only the specified referrer URIs.</p><pre xml:space="preserve">{
+  "Version":"2012-10-17",
+  "Id":"http referer policy example",
+  "Statement":[
+    {
+      "Sid":"Allow get requests originated from URI-1 and URI-2",
+      "Effect":"Allow",
+      "Principal":"*",
+      "Action":"s3:GetObject",
+      "Resource":"arn:aws:s3:::examplebucket/*",
+      "Condition":{
+          "StringLike":{
+            "aws:Referer":["URI-1"]
+            },
+          "StringLike":{
+            "aws:Referer":["URI-2"]
+            }
+          }
+        }
+      }
+    ]
+}</pre>
+                    <ul>
+                        <li value="1">Multiple "StringLike" conditions can be specified.</li>
+                        <li value="2">URI value (e.g., URI-1 and URI-2) is compared to HTTP Referer header with case-insensitive matching and multi-character wildcard (*) and single-character wildcard (?).</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Restricting Access to Specific IP Addresses</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>The HyperStore system supports restricting bucket access to specific source IP addresses, by using the "IpAddress" and/or "NotIpAddress" conditions and the "aws:SourceIp" condition key. The example below allows authenticated users from source address range 54.240.143.* to perform any S3 action in the bucket — except for users from origin IP address 54.240.143.188, which is forbidden access.</p><pre xml:space="preserve">{
+    "Version": "2012-10-17",
+    "Id": "S3PolicyId1",
+    "Statement": [
+        {
+            "Sid": "IPAllow",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:*",
+            "Resource": "arn:aws:s3:::examplebucket/*",
+            "Condition" : {
+                "IpAddress" : {
+                    "aws:SourceIp": "54.240.143.0/24"
+                 },
+                 "NotIpAddress" : {
+                    "aws:SourceIp": "54.240.143.188/32"
+                 }
+             }
+         }
+     ]
+}</pre>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Policy for Server-Side Encryption</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>The HyperStore systems supports bucket policies that mandate server-side encryption (so that object upload requests are rejected if they omit the server-side encryption request header) or that forbid server-side encryption (so that object upload requests are rejected if they include the server-side encryption request header).</p>
+                    <p>For example, the policy below requires all PUT Object requests to include the x-amz-server-side-encryption request header:</p><pre xml:space="preserve">{
+   "Version":"2012-10-17",
+   "Id":"PutObjPolicy",
+   "Statement":[{
+         "Sid":"DenyUnEncryptedObjectUploads",
+         "Effect":"Deny",
+         "Principal":"*"
+         "Action":"s3:PutObject",
+         "Resource":"arn:aws:s3:::YourBucket/*",
+         "Condition":{
+            "StringNotEquals":{
+               "s3:x-amz-server-side-encryption":"AES256"
+            }
+         }
+      }
+   ]
+}</pre>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>For more information about HyperStore’s support for server-side encryption, including how to enable HyperStore to support the AES-256 encryption standard that Amazon-compliant server-side encryption requires, see Server-Side Encryption [XREF-TBD].</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Policy for Allowing Object Read Access for Specified Users</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>HyperStore supports the creation of bucket policies that allow object read access to specified users. The users are specified with the "Principal" element, and each user must be specified in format "CanonicalUser":"&lt;canonicalUserId&gt;". The only supported Actions are GetBucketLocation, ListBucket, and GetObject. Configuring support for all three actions will allow the specified user(s) to list and read all objects in the bucket. This applies to future objects as well as current objects.</p>
+                    <p>For example:</p><pre xml:space="preserve">{
+   "Version": "2012-10-17",
+   "Statement": [
+      {
+         "Sid": "Allow read access to two specified users",
+         "Effect": "Allow",
+         "Principal": {"CanonicalUser":"3c60500e4c20208909b332b1bcdd3752",
+             "CanonicalUser":"8773d93a05a663e5be8294afe8bd3652"},
+         "Action": [
+            "s3:GetBucketLocation",
+            "s3:ListBucket",
+            "s3:GetObject"
+          ],
+          "Resource": [
+             "arn:aws:s3:::examplebucket/*"
+          ]
+       }
+    ]
+}</pre>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Policy for Public Access to Buckets Configured as Websites</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>If you have configured a bucket as a static website (using <a href="PutBucketWebsite.htm" class="MCXref xref">PUT Bucket website</a>), you can establish a bucket policy that allows public access to the website:</p><pre xml:space="preserve">{
+   "Version":"2012-10-17",
+   "Statement":[{
+      "Sid":"PublicReadForGetBucketObjects",
+      "Effect":"Allow",
+      "Principal": "*"
+      "Action":["s3:GetObject"],
+      "Resource":["arn:aws:s3:::example-bucket/*"
+      ]
+    }
+  ]
+}</pre>
+                    <p>For further information, see the Amazon documentation on <a href="http://docs.aws.amazon.com/AmazonS3/latest/dev/HostingWebsiteOnS3Setup.html" target="_blank">Setting Up a Website</a>.</p>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>Public access to buckets configured as static websites is through HTTP not HTTPS. The static website feature does not support HTTPS (SSL).</p>
+                </div>
+            </div>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

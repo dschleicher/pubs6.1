@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Working with HyperStore Major Features|Cross-Region Replication">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Cross-Region Replication Feature Overview</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Working with HyperStore Major Features</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Cross-Region Replication</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Feature Overview</span>
+            </div>
+            <h1>Cross-Region Replication Feature Overview</h1>
+            <p>Like Amazon S3, HyperStore supports cross-region replication. A bucket owner can configure a bucket so that any newly uploaded objects (objects uploaded <b>after</b> this feature is enabled on the bucket) are automatically replicated to a chosen destination bucket in a different service region. This feature enables a bucket owner to enhance the protection of data by having it stored in two geographically dispersed service regions. The feature is also useful in cases where a bucket owner wants to have the same set of data stored in two different regions in order to minimize read latency for users in those regions.</p>
+            <p>Along with allowing replication from a source bucket to a destination bucket in a different service region in the same HyperStore system, HyperStore also supports replicating from a HyperStore source bucket to a destination bucket in an external S3 system such as Amazon S3.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>HyperStore also supports replicating to a destination bucket that’s in the same HyperStore service region as the source bucket. Note however that replicating from a source bucket to another bucket in the same region will not provide the geographical dispersion of data copies that replicating across regions does.</p>
+            <p>Object metadata — including any access permissions assigned to an object — is replicated to the destination bucket as well as the object data itself.</p>
+            <p>As with Amazon S3, HyperStore’s implementation of the cross-region replication feature does <b>not</b> replicate:</p>
+            <ul>
+                <li value="1">Objects that were already in the source bucket before the bucket was configured for cross-region replication.</li>
+                <li value="2">Objects that are encrypted with user-managed encryption keys. (By contrast, objects encrypted with system-managed keys are replicated.)</li>
+                <li value="3">Object deletions. If an object is deleted from the source bucket, the replicated instance of the object in the destination bucket is not deleted.</li>
+                <li value="4">Objects that are themselves replicas from other source buckets. If you configure "bucket1" to replicate to "bucket2", and you also configure "bucket2" to replicate to "bucket3", then only objects that are directly uploaded into "bucket2" by users are replicated to "bucket3" — <b>not</b> objects that the system has replicated from "bucket1" into "bucket2".</li>
+            </ul>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Cross-Region Replication Impact on Usage Tracking</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>If a user configures cross-region replication and consequently objects are replicated from a source bucket in one HyperStore region to a destination bucket in a different HyperStore region, the replica data in the destination region will count toward the user’s Stored Bytes count in that region. For instance a 100MB object that gets replicated in this way would count as 100MB toward the user’s Stored Bytes count in the source region and also as 100MB toward the user’s Stored Bytes count in the destination region, for a total of 200MB across the system.</p>
+                    <p>Also, to enable cross-region replication the source bucket and destination bucket must both have "versioning" enabled. Once versioning is enabled, when objects are modified by users the system continues to store the older version(s) of the object as well as storing the new version. In a cross-region replication context, this means that over time multiple versions of an object may come to be stored in both the source bucket and the destination bucket. This results in higher Stored Bytes counts for the user than would be the case if versioning were not enabled.</p>
+                </div>
+            </div>
+            <p>&#160;</p>
+            <p><b>See Also:</b>
+            </p>
+            <ul>
+                <li value="1"><a href="CrrSetUp.htm" class="MCXref xref" xrefformat="{para}">Setting Up Cross-Region Replication</a>
+                </li>
+            </ul>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Installing HyperStore|Host Machine Preparation|Software-Only Users">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>File System Requirements</title>
+        <link href="../../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../../InstallationOverview.htm">Installing HyperStore</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="../HostMachineOverview.htm">Host Machine Preparation</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="SoftwareOnlyOverview.htm">Software-Only Users</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">File System Requirements</span>
+            </div>
+            <h1>File System Requirements</h1>
+            <p>In host machines with multiple hard drives:</p>
+            <ul>
+                <li value="1">HyperStore service <b>metadata</b> (stored in Cassandra and Redis) can be written to the same hard drive that the OS is on. It’s advisable to use RAID-1 mirroring on the OS and metadata drive — thus dedicating a total of two drives to the OS and metadata.</li>
+                <li value="2">All other available hard drives should be formatted with <em>ext4</em> file systems, which will be used for <b>S3 object data</b>. RAID is not necessary on the S3 object data drives.</li>
+            </ul>
+            <p>For example, on a machine with 12 HDDs, mirror the OS on two of the HDDs. Format each of the other 10 HDDs with <em>ext4</em> file systems and configure the mount points as <em>/cloudian1</em>, <em>/cloudian2</em>, <em>/cloudian3</em> and so on.</p>
+            <p>If you are installing HyperStore on hosts with multiple drives, then during installation you will need to provide a list of drive devices and corresponding mount points for S3 object storage, formatted like this:</p><pre xml:space="preserve">/dev/sdc1 /cloudian1
+/dev/sdd1 /cloudian2
+/dev/sde1 /cloudian3
+...
+...</pre>
+            <p>Save this file system list to a text file and name it <em>fslist.txt</em>. You will use this text file as input to the HyperStore software installation script. For more on this file see <a href="../../InstallingHyperStoreSoftware.htm" class="MCXref xref">Installing HyperStore 6.0 Software</a>, specifically the detail for Step 5.</p>
+            <p class="Important" data-mc-autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;"><span class="autonumber"><span><b>IMPORTANT: </b></span></span>
+                <br />* Use direct attached storage for your mount points, <b>not</b> a shared network file system.<br /><br />* <b>ext4</b> is the only file system that Cloudian HyperStore supports. XFS is currently unsupported. If you need to run Cloudian HyperStore on XFS then please contact Cloudian Support.<br /><br />* HyperStore does not support "VirtIO" disks.</p>
+            <h2>Reducing Reserved Space to 0% for HyperStore Data Disks</h2>
+            <p>By default Linux systems reserve 5% of file system space for root user and system services. On modern large-capacity disks this can be a waste of a considerable amount of storage space. Cloudian, Inc. recommends that you set the reserved space to 0% for each drive on which you will store HyperStore data (S3 object data).</p>
+            <p>For each HyperStore data drive do the following.</p><pre xml:space="preserve">Check current “Reserved block count”:
+
+root# tune2fs -l &lt;device&gt;
+
+
+Set Reserved block count to 0%:
+
+root# tune2fs -m 0 &lt;device&gt;
+
+
+For example:
+
+root# tune2fs -m 0 /dev/sdc1</pre>
+            <h2>Mount Point Naming</h2>
+            <p>If you are installing HyperStore on multiple hosts that each have multiple disk drives, use the same mount point naming scheme on each of your hosts. If all your hosts have the same number of disks, then they should all have the identical set of mount points for HyperStore. For example, if each host has 10 disks for S3 object storage, then on all your hosts you could name the mount points <em>/cloudian1</em>,<em> /cloudian2</em>, <em>/cloudian3</em>, and so on up through <em>/cloudian10</em>.</p>
+            <p>If in your installation cluster some hosts have more disks than others, use as much overlap in mount point naming as possible. For example, suppose that most of your hosts have 10 disks for storing S3 object data while one host has 12 disks. In this scenario, all of the hosts can have mount points <em>/cloudian1</em>, <em>/cloudian2</em>, <em>/cloudian3</em>, and so on up through <em>/cloudian10</em>, while the one larger host has those same mount points plus also <em>/cloudian11</em> and <em>/cloudian12</em>.</p>
+            <h2>Option for Putting Cassandra Data on Dedicated Disks</h2>
+            <p>Regarding Cassandra data, another supported configuration — for a host with many drives — is to put your Cassandra data directory and Cassandra commit log directories each on dedicated disks, rather than on the OS disk. In this case you would have:</p>
+            <ul>
+                <li value="1">OS drive (with Redis also).</li>
+                <li value="2">Cassandra data directory drive (mount point path <b>must</b> include the string <em>/cassandra</em>)</li>
+                <li value="3">Cassandra commit log directory drive (mount point path <b>must</b> include the string <em>/cassandra_commit</em>)</li>
+                <li value="4">Multiple drives for S3 object data (with mount points for example <em>/cloudian1</em>, <em>/cloudian2</em>, <em>/cloudian3</em> and so on).</li>
+            </ul>
+            <p>In this configuration, where Cassandra data is on a different disk than the OS, it’s advisable to use RAID-1 for the OS disk. It’s not necessary to use RAID for a dedicated Cassandra disk.</p>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Operations &amp; Maintenance">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>HyperStore Logging</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Operations &amp; Maintenance</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">HyperStore Logging</span>
+            </div>
+            <h1>HyperStore Logging</h1>
+            <p>The major HyperStore services each generate their own application log. The S3 Service and HyperStore Service, in addition to generating application logs, also generate transaction request logs.</p>
+            <p>The log summaries below indicate each log's default logging level, default rotation behavior, log entry format, and where to modify the log's configuration.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>Unless otherwise indicated, all these logs are by default in the directory <em style="font-weight: bold;">/var/log/cloudian</em>. </p>
+            <h2>Admin Service Logs</h2>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Admin Service application log (<em>cloudian-admin.log</em>)</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Level: INFO</p>
+                    <p>Rotation: Rotated if reaches 10MB, or else daily; max 100 files kept</p>
+                    <p>Format:</p><pre>Date(ISO8601) PriorityLevel [ThreadId] ClassName:MethodName(Line#) MESSAGE</pre>
+                    <p>Configuration: In the Puppet template file <em>/etc/cloudian-&lt;version&gt;-puppet/modules/cloudians3/templates/log4j-admin.xml.erb</em>, this log is configurable in the block that starts with <em>&lt;RollingRandomAccessFile name="ADMINAPP"</em>.For setting descriptions see <a href="LoggingSettings.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="LoggingSettings.htm" xrefformat="{para}">Log Configuration Settings</a>.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Admin Service request log (<em>cloudian-admin-request-info.log</em>)</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Level: not applicable</p>
+                    <p>Rotation: Rotated if reaches 100MB, or else daily; max 180 files kept</p>
+                    <p>Format:</p><pre>yyyy/MM/dd HH:mm:ss|ClientIpAddress|HttpMethod|Uri|QueryParams|DurationMsec|HttpStatus</pre>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>Query parameters are not logged for requests that involve user credentials.</p>
+                    <p>Example:</p><pre>2016/02/19 17:15:18|10.10.2.220|POST|/usage/repair/user|groupId:test,userId:djones|7|400</pre>
+                    <p>Configuration: In the Puppet template file <em>/etc/cloudian-&lt;version&gt;-puppet/modules/cloudians3/templates/log4j-admin.xml.erb</em>, this log is configurable in the block that starts with <em>&lt;RollingRandomAccessFile name="ADMINREQ"</em>. For setting descriptions see <a href="LoggingSettings.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="LoggingSettings.htm" xrefformat="{para}">Log Configuration Settings</a>.</p>
+                </div>
+            </div>
+            <h2>Cassandra Log</h2>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Cassandra application log (<em>var/log/cassandra/system.log</em>)</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Level: INFO</p>
+                    <p>Rotation: Rotated if reaches 20MB; max 20 files kept</p>
+                    <p>Format:</p><pre>PriorityLevel [ThreadId] Date(ISO8601) CallerFile ("line" Line#) MESSAGE</pre>
+                    <p>Example:</p><pre xml:space="preserve">INFO [FlushWriter:3] 2011-11-10 21:09:59,487 Memtable.java (line 237) Writing Memtable-Migrations
+@445036697(12771/15963 serialized/live bytes, 1 ops)</pre>
+                    <p>Configuration: <em>/etc/cloudian-&lt;version&gt;-puppet/modules/cassandra/templates/logback.xml.erb</em>. For setting descriptions see these online resources: </p>
+                    <ul>
+                        <li value="1">
+                            <p>DataStax Cassandra documentation:</p>
+                            <ul style="list-style-type: circle;">
+                                <li value="1">
+                                    <p><a href="https://docs.datastax.com/en/cassandra/2.1/cassandra/configuration/configLoggingLevels_r.html" target="_blank">Configuring Logging</a>
+                                    </p>
+                                </li>
+                            </ul>
+                        </li>
+                        <li value="2">
+                            <p>Logback documentation:</p>
+                            <ul style="list-style-type: circle;">
+                                <li value="1">
+                                    <p><a href="http://logback.qos.ch/manual/appenders.html#FixedWindowRollingPolicy" target="_blank">FixedWindowRollingPolicy</a>
+                                    </p>
+                                </li>
+                                <li value="2">
+                                    <p><a href="http://logback.qos.ch/manual/appenders.html#SizeBasedTriggeringPolicy" target="_blank">SizeBasedTriggeringPolicy</a>
+                                    </p>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <h2>CMC Log</h2>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />CMC application log (<em>cloudian-ui.log</em>)</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Level: INFO</p>
+                    <p>Rotation: Rotated if reaches 10MB, or else daily; max 100 files kept</p>
+                    <p>Format:</p><pre>Date(ISO8601) PriorityLevel [ThreadId] ClassName:MethodName(Line#) MESSAGE</pre>
+                    <p>Configuration: In the Puppet template file <em>/etc/cloudian-&lt;version&gt;-puppet/modules/cmc/templates/log4j.xml.erb</em>, this log is configurable in the block that starts with <em>&lt;appender name="DATE-TIME-ROLL"</em>. For setting descriptions see <a href="LoggingSettings.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="LoggingSettings.htm" xrefformat="{para}">Log Configuration Settings</a>.</p>
+                </div>
+            </div>
+            <h2>HyperStore Service Logs</h2>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />HyperStore Service application log (<em>cloudian-hyperstore.log</em>)</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Level: INFO</p>
+                    <p>Rotation: Rotated if reaches 10MB, or else daily; max 100 files kept</p>
+                    <p>Format:</p><pre>Date(ISO8601) PriorityLevel [S3RequestID] [ThreadId] ClassName:MethodName(Line#) MESSAGE</pre>
+                    <p>Configuration: In the Puppet template file <em>/etc/cloudian-&lt;version&gt;-puppet/modules/cloudians3/templates/log4j-hyperstore.xml.erb</em>, this log is configurable in the block that starts with <em>&lt;RollingRandomAccessFile name="APP"</em>. For setting descriptions see <a href="LoggingSettings.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="LoggingSettings.htm" xrefformat="{para}">Log Configuration Settings</a>.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />HyperStore Service request log (<em>cloudian-hyperstore-request-info.log</em>)</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Level: not applicable</p>
+                    <p>Rotation: &#160;Rotated if reaches 100MB, or else daily; max 180 files kept</p>
+                    <p>Format:</p><pre xml:space="preserve">yyyy/MM/dd HH:mm:ss|IpAddressOfClientS3Server|S3RequestId|HttpStatus|HttpOperation|OriginalUri|
+HyperStoreFilePath|ContentLength|DurationMsec|Etag</pre>
+                    <p>Example:</p><pre xml:space="preserve">2015/04/28 19:49:10|10.50.108.101|a4fc1a40-6f4e-1a1e-9ed7-525400bd7d45|200|PUT|
+/file/CloudianTest1%2Fbuser1%2F514kbtes|
+/var/lib/hyperstore/data/CloudianTest1/094/096/139827614597660836126517104434974735070.
+1377744550569|514|0|b527f5b822ce8f10df512ff386b2d723</pre>
+                    <ul>
+                        <li value="1">The IpAddressOfClientS3Server is the IP address of the S3 Server node that submits the request to the HyperStore Service.</li>
+                        <li value="2">The HttpOperation is the HyperStore Service HTTP API operation that the S3 Service invokes and will be a simple operation like "PUT" or "GET".</li>
+                        <li value="3">The OriginalUri field shows the group ID, bucket name, and object name from the originating S3 API request, in URI-encoded form ("CloudianTest1", "buser1", and "514kbtes", respectively, in the example above).</li>
+                        <li value="4">The Etag field will be "0" for operations other than PUT.</li>
+                    </ul>
+                    <p>Configuration: In the Puppet template file <em>/etc/cloudian-&lt;version&gt;-puppet/modules/cloudians3/templates/log4j-hyperstore.xml.erb</em>, this log is configurable in the block that starts with <em>&lt;RollingRandomAccessFile name="REQ"</em>. For setting descriptions see <a href="LoggingSettings.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="LoggingSettings.htm" xrefformat="{para}">Log Configuration Settings</a>.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />HyperStore Service repair log (<em>cloudian-hyperstore-repair.log</em>)</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Level: INFO</p>
+                    <p>Rotation: Rotated if reaches 10MB, or else daily; max 100 files kept</p>
+                    <p>Configuration: In the Puppet template file <em>/etc/cloudian-&lt;version&gt;-puppet/modules/cloudians3/templates/log4j-hyperstore.xml.erb</em>, this log is configurable in the block that starts with <em>&lt;RollingRandomAccessFile name="REPAIR"</em>. For setting descriptions see <a href="LoggingSettings.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="LoggingSettings.htm" xrefformat="{para}">Log Configuration Settings</a>.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />HyperStore Service cleanup log (<em>cloudian-hyperstore-cleanup.log</em>)</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Level: INFO</p>
+                    <p>Rotation: Rotated if reaches 10MB, or else daily; max 100 files kept</p>
+                    <p>Configuration: In the Puppet template file <em>/etc/cloudian-&lt;version&gt;-puppet/modules/cloudians3/templates/log4j-hyperstore.xml.erb</em>, this log is configurable in the block that starts with <em>&lt;RollingRandomAccessFile name="CLEANUP"</em>. For setting descriptions see <a href="LoggingSettings.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="LoggingSettings.htm" xrefformat="{para}">Log Configuration Settings</a>.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />HyperStore Service hinted handoff log (<em>cloudian-hyperstore-hints.log</em>)</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Level: INFO</p>
+                    <p>Rotation: Rotated if reaches 10MB, or else daily; max 100 files kept</p>
+                    <p>Configuration: In the Puppet template file <em>/etc/cloudian-&lt;version&gt;-puppet/modules/xxx</em>, this log is configurable in the block that starts with <em>&lt;RollingRandomAccessFile name="HSSHINTS"</em>. For setting descriptions see <a href="LoggingSettings.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="LoggingSettings.htm" xrefformat="{para}">Log Configuration Settings</a>.</p>
+                </div>
+            </div>
+            <h2>Monitoring Service Logs</h2>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Monitoring Agent application log (<em>cloudian-agent.log</em>)</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Level: WARN</p>
+                    <p>Rotation: Rotated if reaches 10MB, or else daily; max 100 files kept</p>
+                    <p>Format:</p><pre>Date(ISO8601) PriorityLevel [ThreadId] ClassName:MethodName(Line#) MESSAGE</pre>
+                    <p>Configuration: In the Puppet template file <em>/etc/cloudian-&lt;version&gt;-puppet/modules/cloudianagent/templates/log4j-agent.xml.erb</em>, this log is configurable in the block that starts with <em>&lt;appender name="DATE-TIME-ROLL"</em>. For setting descriptions see <a href="LoggingSettings.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="LoggingSettings.htm" xrefformat="{para}">Log Configuration Settings</a>.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Monitoring Data Collector application log (<em>cloudian-datacollector.log</em>)</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Level: WARN</p>
+                    <p>Rotation: Rotated if reaches 10MB, or else daily; max 100 files kept</p>
+                    <p>Format:</p><pre>Date(ISO8601) PriorityLevel [ThreadId] ClassName:MethodName(Line#) MESSAGE</pre>
+                    <p>Configuration: In the Puppet template file <em>/etc/cloudian-&lt;version&gt;-puppet/modules/cloudians3/templates/log4j-datacollector.xml.erb</em>, this log is configurable in the block that starts with <em>&lt;RollingRandomAccessFile name="APP"</em>. For setting descriptions see <a href="LoggingSettings.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="LoggingSettings.htm" xrefformat="{para}">Log Configuration Settings</a>.</p>
+                </div>
+            </div>
+            <h2>Phone Home (Smart Support) Log</h2>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Phone Home application log (<em>cloudian-phonehome.log</em>)</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Level: WARN</p>
+                    <p>Rotation: Rotated if reaches 10MB, or else daily; max 100 files kept</p>
+                    <p>Configuration: In the Puppet template file <em>/etc/cloudian-&lt;version&gt;-puppet/modules/cloudians3/templates/log4j-phonehome.xml.erb</em>, this log is configurable in the block that starts with <em>&lt;RollingRandomAccessFile name="APP"</em>. For setting descriptions see <a href="LoggingSettings.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="LoggingSettings.htm" xrefformat="{para}">Log Configuration Settings</a>.</p>
+                </div>
+            </div>
+            <h2>Redis and Redis Monitor Logs</h2>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Redis Credentials application log (<em>/var/log/redis/redis-credentials.log</em>)</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Level: NOTICE</p>
+                    <p>Rotation: Not rotated by default. You can set up by using <a href="http://linux.die.net/man/8/logrotate" target="_blank">logrotate</a>.</p>
+                    <p>Format:</p><pre>[PID] dd MMM hh:mm:ss -|* MESSAGE</pre>
+                    <p>Example:</p><pre xml:space="preserve">[28294] 10 Nov 21:10:01 - Accepted 127.0.0.1:56187
+[28294] 10 Nov 21:10:01 * Background append only file rewriting started by pid 28661</pre>
+                    <p>Configuration: Redis Credentials application logging is configured in the main Redis configuration file. The file name depends on the Redis node type -- master or slave. These templates are on the Puppet master node, under <em>/etc/cloudian-&lt;version&gt;-puppet/modules/redis/templates/</em>:</p>
+                    <ul>
+                        <li value="1">Redis Credentials master node: <em>redis-credentials.conf.erb</em></li>
+                        <li value="2">Redis Credentials slave node: <em>redis-credentials-slave.conf.erb</em></li>
+                    </ul>
+                    <p>The only configurable logging settings are the log file name and the logging level. See the commenting in the configuration file for more detail.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Redis QoS application log (<em>/var/log/redis/redis-qos.log</em>)</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Level: NOTICE</p>
+                    <p>Rotation: Not rotated by default. You can set up by using <a href="http://linux.die.net/man/8/logrotate" target="_blank">logrotate</a>.</p>
+                    <p>Format:</p><pre>[PID] dd MMM hh:mm:ss -|* MESSAGE</pre>
+                    <p>Example:</p><pre xml:space="preserve">[28294] 10 Nov 21:10:01 - Accepted 127.0.0.1:56187
+[28294] 10 Nov 21:10:01 * Background append only file rewriting started by pid 28661</pre>
+                    <p>Configuration: Redis QoS application logging is configured in the main Redis configuration file. The file name depends on the Redis node type -- master or slave. These templates are on the Puppet master node, under <em>/etc/cloudian-&lt;version&gt;-puppet/modules/redis/templates/</em>:</p>
+                    <ul>
+                        <li value="1">Redis QoS master node: <em>redis-qos.conf.erb</em></li>
+                        <li value="2">Redis QoS slave node: <em>redis-qos-slave.conf.erb</em></li>
+                    </ul>
+                    <p>The only configurable logging settings are the log file name and the logging level. See the commenting in the configuration file for more detail.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Redis Monitor application log (<em>cloudian-redismon.log</em>)</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Level: INFO</p>
+                    <p>Rotation: Rotated if reaches 10MB, or else daily; max 100 files kept</p>
+                    <p>Format:</p><pre>Date(ISO8601) PriorityLevel [ThreadId] ClassName:MethodName(Line#) MESSAGE</pre>
+                    <p>Configuration: In the Puppet template file <em>/etc/cloudian-&lt;version&gt;-puppet/modules/cloudians3/templates/log4j-redismon.xml.erb</em>, this log is configurable in the block that starts with <em>&lt;RollingRandomAccessFile name="APP"</em>. For setting descriptions see <a href="LoggingSettings.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="LoggingSettings.htm" xrefformat="{para}">Log Configuration Settings</a>.</p>
+                </div>
+            </div>
+            <h2>S3 Service Logs</h2>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />S3 Service application log
+
+(<em>cloudian-s3.log</em>)</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Level: INFO</p>
+                    <p>Rotation: &#160;Rotated if reaches 10MB, or else daily; max 100 files kept</p>
+                    <p>Format:</p><pre>Date(ISO8601) PriorityLevel [S3RequestID] [ThreadId] ClassName:MethodName(Line#) MESSAGE</pre>
+                    <p>Example:</p><pre xml:space="preserve">2013-07-18 14:32:05,702 DEBUG [7E2050A0EFF111E2] [qtp694473366-33] S3RegionHandler:handle(184)
+Requested bucket com.gemini.cloudian.s3.Bucket@660f2c80[bucketName=bbucket,
+canonicalUserId=7b83496e4080890ba2b452aab2d74cd9,userId=biguser,tenantId=CloudianXXXX,
+createTime=1373409572447,version=&lt;null&gt;,region=region1,isLocalRegion=true,
+loggingBucketName=&lt;null&gt;,loggingPrefix=&lt;null&gt;,virtual=&lt;null&gt;,useNewSchema=true]</pre>
+                    <p>Configuration: In the Puppet template file <em>/etc/cloudian-&lt;version&gt;-puppet/modules/cloudians3/templates/log4j-s3.xml.erb</em>, this log is configurable in the block that starts with <em>&lt;RollingRandomAccessFile name="S3APP"</em>. For setting descriptions see <a href="LoggingSettings.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="LoggingSettings.htm" xrefformat="{para}">Log Configuration Settings</a>.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />S3 Service request log
+(<em>cloudian-request-info.log</em>)</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Level: not applicable</p>
+                    <p>Rotation: Rotated if reaches 100MB, or else daily; max 180 files kept</p>
+                    <p>Format:</p><pre xml:space="preserve">yyyy/MM/dd HH:mm:ss|ClientIpAddress|BucketOwnerUserID|Operation|BucketName|
+ContentAccessorUserId|RequestHeaderSize|RequestBodySize|ResponseHeaderSize|ResponseBodySize|
+TotalRequestResponseSize|DurationMsec|UrlEncodedObjectName|HttpStatus|S3RequestID|Etag|ErrorCode</pre>
+                    <p>Example:</p><pre xml:space="preserve">2015/03/18 14:32:05|10.10.2.27|balaji|putObject|bbucket|biguser|309|100|81|0|490|647|hoge|
+200|e6642881-f049-11e4-84e8-525400bd7d45|432d68bd7363b796899d2e0619f9800b|0</pre>
+                    <ul>
+                        <li value="1">If you use a load balancer in front of your S3 Service nodes, you should configure your S3 Service to support the HTTP X-Forwarded-For header. This will enable the S3 request log to record the true originating IPaddress of S3 requests, rather than the load balancer IP address. By default the S3 Service does not support the X-Forwarded-For header. You can enable support for this header using the system configuration file s3.xml.erb.</li>
+                        <li value="2">The Etag field is the Etag value from the reponse, if applicable to the request type. For information about Etag see for example <a href="http://docs.aws.amazon.com/AmazonS3/latest/API/RESTCommonResponseHeaders.html" target="_blank">Common Response Headers</a> from the Amazon S3 REST API spec. This field’s value will be 0 for request/response types that do not use an Etag value.</li>
+                        <li value="3">The ErrorCode field is the Error Code in the response body, applicable only for potentially long-running requests like PUT Object. If there is no Error Code in the response body this field’s value will be 0. For possible Error Code values see <a href="http://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html" target="_blank">Error Responses</a> from the Amazon S3 REST API spec.</li>
+                    </ul>
+                    <p>Configuration: In the Puppet template file <em>/etc/cloudian-&lt;version&gt;-puppet/modules/cloudians3/templates/log4j-s3.xml.erb</em>, this log is configurable in the block that starts with <em>&lt;RollingRandomAccessFile name="S3REQ"</em>. For setting descriptions see <a href="LoggingSettings.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="LoggingSettings.htm" xrefformat="{para}">Log Configuration Settings</a>.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />S3 Service hinted handoff log
+(<em>cloudian-hints.log</em>)</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Level: INFO</p>
+                    <p>Rotation: Rotated if reaches 10MB, or else daily; max 100 files kept</p>
+                    <p>Configuration: In the Puppet template file <em>/etc/cloudian-&lt;version&gt;-puppet/modules/cloudians3/templates/log4j-s3.xml.erb</em>, this log is configurable in the block that starts with <em>&lt;RollingRandomAccessFile name="HINTS"</em>. For setting descriptions see <a href="LoggingSettings.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="LoggingSettings.htm" xrefformat="{para}">Log Configuration Settings</a>.</p>
+                </div>
+            </div>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

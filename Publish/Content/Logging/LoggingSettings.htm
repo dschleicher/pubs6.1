@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Log Configuration Settings</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <h1>Log Configuration Settings</h1>
+            <p>The S3 Service, HyperStore Service, Redis Monitor, Admin Service, Monitoring Data Collector, Monitoring Agent, and CMC each have their own XML-formatted <em>log4j-*.xml.erb</em> configuration template in which you can adjust logging settings. The table above indicates the specific configuration template in which to configure each log type. All of the templates are in <em>/etc/cloudian-&lt;version&gt;-puppet/modules/cloudians3/templates</em> except for the CMC logging template which is in <em>/etc/cloudian-&lt;version&gt;-puppet/modules/cmc/templates</em>.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>After making any configuration file edits, be sure to trigger a Puppet sync-up and then restart the affected service.</p>
+            <p>Within a <em>log4j-*.xml.erb</em> file, logs are configured by named instances of <em>RollingRandomAccessFile</em>. The table above indicates the <em>RollingRandomAccessFile</em> name for each log (for example, <em>S3APP</em> for the S3 application log).</p>
+            <p>Within a particular log’s <em>RollingRandomAccessFile</em> instance there are these editable settings:</p>
+            <ul>
+                <li value="1"><b>PatternLayout</b> — The log entry format. This flexible formatting configuration is similar to the <em>printf</em> function in C. For detail see <a href="https://logging.apache.org/log4j/2.x/manual/layouts.html#PatternLayout" target="_blank">PatternLayout</a> from the online Apache Log4j2 documentation.</li>
+                <li value="2"><b>TimeBasedTriggeringPolicy: interval</b> — Roll the log after this many days pass. Defaults to rolling once a day. (More precisely, the log rolls after this many time units pass, where the time unit is the most granular unit of the date pattern specified within the <em>filePattern</em> element — which in the case of all HyperStore logs' configuration is a day). For more detail see <a href="http://logging.apache.org/log4j/2.x/manual/appenders.html#TriggeringPolicies" target="_blank">Triggering Policies</a> from the online Apache Log4j2 documentation.</li>
+                <li value="3"><b>SizeBasedTriggeringPolicy: size</b> — Roll the log when it reaches this size.</li>
+                <li value="4"><b>DefaultRolloverStrategy: max</b> — Maximum number of rolled files to retain. If this number of rolled files is reached, then each time a new rolled file is created the oldest rolled file is deleted. This is the setting to change if you want to keep your rolled logs for a longer (or shorter) period than the HyperStore configured defaults (indicated in the table above). The higher this number is, the longer old rolled files will be kept before being deleted.</li>
+            </ul>
+            <p class="NoteIndent" data-mc-autonum="&lt;b&gt;Note: &lt;/b&gt;"><span class="autonumber"><span><b>Note: </b></span></span>Unlike the other logs, the CMC log (<em>cloudian-ui.log</em>) and Monitoring Agent log (<em>cloudian-agent.log</em>) use an older version of <em>log4j</em> for which the max file size and max files to retain settings are called "MaxFileSize" and "MaxRollFileCount" respectively.</p>
+            <p>In the <em>log4j-*.xml.erb</em> files, in addition to <em>RollingRandomAccessFile</em> instances there are also <em>Logger</em> instances. Each <em>Logger</em> instance contains an <em>AppenderRef</em> element that indicates which log that <em>Logger</em> instance applies to, by referencing the log’s <em>RollingRandomAccessFile</em> name (for example <em>AppenderRef ref="S3APP"</em> means that the <em>Logge</em>r instance is associated with the S3 application log). Note that multiple <em>Logger</em> instances may be associated with the same log — this just means that multiple core components of a service (for example, multiple components within the S3 Service) have separately configurable loggers. If you’re uncertain about which <em>Logger</em> instance to edit to achieve your objectives, consult with Cloudian Support.</p>
+            <p>The <em>Logger</em> instances are where you can can configure a logging level, using the <em>level</em> attribute:</p>
+            <ul>
+                <li value="1"><b>level</b> — Logging level. The following levels are supported; only events at the configured level and above will be logged:<ul style="list-style-type: circle;"><li value="1">OFF = Turn logging off.</li><li value="2">FATAL = Very severe error events that will cause the application to abort.</li><li value="3">ERROR = Error events that might still allow the application to continue running.</li><li value="4">WARN = Potentially harmful situations.</li><li value="5">INFO = Informational messages that highlight the progress of the application at a course-grained level.</li><li value="6">DEBUG = Fine-grained informational events that are useful for debugging.</li><li value="7">TRACE = Even finer-grained than DEBUG.</li><li value="8">ALL = Log all levels.</li></ul></li>
+            </ul>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

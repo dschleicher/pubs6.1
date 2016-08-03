@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Working with HyperStore Major Features|Disk Usage Balancing">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Configuring Disk Usage Balancing</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Working with HyperStore Major Features</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Disk Usage Balancing</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Configuring Disk Usage Balancing</span>
+            </div>
+            <h1>Configuring Disk Usage Balancing</h1>
+            <p>With the disk usage balancing feature there are the questions of how often to check the disk usage balance on each host and what degree of imbalance should trigger a token migration. Both of these factors are configurable.</p>
+            <p>By default, each node is checked for disk imbalance every 7 days, and token migration is triggered if a disk’s utilization percentage exceeds the average disk utilization percentage of all the host HyperStore data disks by more than 5%. For example, if the average disk space utilization for all HyperStore disks on a host is 35%, and the disk space utilization for DiskA is 43%, then one or more tokens will be migrated away from DiskA to other disks on the host (since the actual delta of 8% exceeds the maximum allowed delta of 5%).</p>
+            <p>The settings for adjusting the frequency of the disk balance check or the delta that triggers disk migration are in <em>hyperstore-server.properties.erb</em> on your Puppet master node:</p>
+            <ul>
+                <li value="1"><a href="../../System Configuration/Configuration Files/HyperstoreServerProperties.htm#disk.check.interval" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="../../System Configuration/Configuration Files/HyperstoreServerProperties.htm#disk.check.interval" xrefformat="{para}">disk.check.interval</a>
+                </li>
+                <li value="2"><a href="../../System Configuration/Configuration Files/HyperstoreServerProperties.htm#disk.balance.delta" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="../../System Configuration/Configuration Files/HyperstoreServerProperties.htm#disk.balance.delta" xrefformat="{para}">disk.balance.delta</a>
+                </li>
+            </ul>
+            <p>After editing either of these settings, do the following to apply your change to the cluster:</p>
+            <ol>
+                <li value="1">Launch the HyperStore installer:</li>
+            </ol>
+            <div class="Indent"><pre>root# &lt;installation-staging-directory&gt;/cloudianInstall.sh</pre>
+            </div>
+            <ol data-mc-continue="true">
+                <li value="2">From the installer’s main menu, select "Cluster Management". Then from the "Cluster Management" menu select "Push Configuration Settings to Cluster" and follow the prompts.</li>
+                <li value="3">From the "Cluster Management" menu, select "Manage Services". Then from the "Service Management" menu, restart the HyperStore Service.</li>
+            </ol>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>The disk usage balancing feature applies only to HyperStore data disks (where S3 object data is stored). It does not apply to disks that store only Cassandra, Redis, or the OS.<br /><br />If a disk becomes <b>100% full</b>, all of that disk’s tokens are automatically and immediately moved to non-full disks on the host, regardless of the degree of usage delta between the full disk and the other disks. The S3 object data on the disk remains readable — it is not disabled — but no additional data will be written to the disk.</p>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

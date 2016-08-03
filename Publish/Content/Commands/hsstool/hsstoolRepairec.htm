@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="CMC Interface|Cluster|Advanced|Maintenance Commands">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>hsstool repairec</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../../CMC Interface/CmcInterfaceOverview.htm">CMC Interface</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="../../CMC Interface/Cluster/ClusterOverview.htm">Cluster</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="../../CMC Interface/Cluster/Advanced/AdvancedOverview.htm">Advanced</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">repairec</span>
+            </div>
+            <h1>hsstool repairec</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[Command]</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Introduction</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Use this <a href="hsstoolOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">hsstool </a> command to check whether a physical node has all of the erasure coded S3 object fragments that it is supposed to have (based on the node’s assigned tokens); and to replace any object fragments that are missing, outdated, or corrupted. Replacement of missing fragments is implemented by decoding erasure coded S3 objects, re-encoding them, and then re-writing the missing fragment(s).</p>
+                    <p>The HyperStore system automatically uses a combination of <a href="../../Major Features/Automatic Data Repair/DataRepairOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot a">proactive repair and scheduled auto-repair</a> to keep the erasure coded data on each node complete and current. However, there are also operational circumstances when you should manually initiate <em>repairec </em>on a specific node (if you use erasure coding in your cluster). The operations during which you should use <em>repairec </em>are:</p>
+                    <ul>
+                        <li value="1"><a href="../../Operations/AddNode.htm" class="MCXref xref">Adding a Node</a>
+                        </li>
+                        <li value="2"><a href="../../Operations/ReplaceNode.htm" class="MCXref xref">Replacing a Node</a>
+                        </li>
+                        <li value="3"><a href="../../Operations/ReplaceDisk.htm" class="MCXref xref">Replacing a Disk</a>
+                        </li>
+                    </ul>
+                    <p>Please refer to those procedures for step-by-step instructions, including the proper use of <em>repairec </em>within the context of the procedure.</p>
+                    <p class="Important" data-mc-autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;"><span class="autonumber"><span><b>IMPORTANT: </b></span></span>The <em>repairec </em>operation is resource-intensive and may take many hours to complete if there is a large amount of data involved. It is best to run this operation at times of relatively low service usage. It is also preferable to run <em>repairec </em>on only one node at a time. If the need arises, <em>repairec </em>supports an option for aborting an in-progress repair operation. To check on repair progress use <a href="hsstoolOpstatus.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">hsstool opstatus</a> or check the CMC’s <a href="../../CMC Interface/Analytics/Repair Status/RepairStatusOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Repair Status</a> page.</p>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>For system maintenance, the <em>repairec </em>operation is automatically run on each node once each 89 days as part of the scheduled auto-repair feature. The nodes are not all repaired simultaneously; instead, the start times are staggered so that only one node is repaired at a time. The auto-repair interval is configurable in the <a href="../../CMC Interface/Cluster/Configuration Settings/ConfigurationSettingsAutoRepair.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Auto-Repair Schedule Settings</a> section of the CMC Configuration Settings page.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Command Format</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>You can run the <em>hsstool repairec</em> command through the CMC UI:</p>
+                    <p>
+                        <img src="../../Resources/Images/cmc/cluster/Advanced_repairec_768x411.png" style="width: 768;height: 411;" />
+                    </p>
+                    <p>Or on the command line:</p><pre xml:space="preserve">[root]# /opt/cloudian/bin/hsstool -h &lt;host&gt; repairec [-f] [-l &lt;true|false&gt;] [computedigest]
+[-stop] [-i] [-d &lt;mount-point&gt;] [-vnode &lt;token&gt;]</pre>
+                    <h3>Parameters</h3>
+                    <p>This command supports these parameters:</p>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />-h &lt;host&gt; (called "Target Node" in CMC UI)</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>(Mandatory) Target host to repair.</p>
+                        </div>
+                    </div>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />-f</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>(Optional) By default, when you perform <em>repairec</em> on a specified node the system scans metadata in Cassandra to determine which objects are supposed to have an erasure coded fragment stored on that node, and then that set of objects is assessed and repaired to ensure that the objects' fragments are all present in the proper locations (on the target node as well as on other nodes).</p>
+                            <p>If you use the <em>-f</em> option, then instead of the default method the system performs a repair only on objects for which fragments are found on the target node. Consequently, this method cannot repair objects for which the local fragment is missing. This means that to fully repair the erasure coded data on a given node, you must (if you use the <em>-f</em> option) run <em>repairec</em> on every node in the cluster.</p>
+                            <p>The <em>-f </em>option behavior is the way that <em>repairec</em> was implemented for HyperStore prior to version 6.0. You should have no reason to use the <em>-f </em>option unless instructed to do so by Cloudian Support.</p>
+                        </div>
+                    </div>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />-l &lt;true|false&gt;</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>(Optional) &#160;Write to a log file a list of all the objects that were repaired. Defaults to true, so you only need to specify an <em>-l </em>option if you do <b>not</b> want repair object logging (in which case you’d specify <em>-l false</em>).</p>
+                            <p>The log is named <em>cloudian-hyperstore-repair.log</em> and is written into the Cloudian HyperStore log directory of the target node. Activity associated with a particular instance of a command run is marked with a unique command number.</p>
+                            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>In the CMC UI, this option is presented simply as an "l" checkbox which is checked by default (meaning logging is enabled by default; you can uncheck it if you don’t want repair object logging).</p>
+                        </div>
+                    </div>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />computedigest</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>(Optional) &#160;When doing the repair, compute a fresh digest for each fragment rather than using cached digests. The re-computed digests of the fragments are compared to the original digests of those fragments (stored alongside the fragment data) and if there is a mismatch the object is decoded from healthy fragments and then re-encoded, and the corrupted fragment is replaced by a new and correct fragment.</p>
+                            <p>This way of running <em>repairec</em> is resource-intensive.</p>
+                        </div>
+                    </div>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />-stop</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>(Optional) Use <em>hsstool -h &lt;host&gt; repairec -stop</em> to abort an in-progress repair on the specified node. This stops the repair immediately. You can subsequently use the <a href="hsstoolOpstatus.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">hsstool opstatus</a> command to confirm that the repair has been stopped (status = TERMINATED) and to see how much repair progress had been made before the stop.</p>
+                            <p>The next time <em>repairec </em>is run on the node it will start from scratch and do a full repair. It will not resume from where the stopped repair left off.</p>
+                            <p>The -<em>stop </em>option stops a single in-progress repair on a single node. It does <b>not</b> disable the HyperStore scheduled auto-repair feature (it does not prevent future scheduled auto-repairs from launching). For information about <b>disabling</b> auto-repair, and about how stopping a particular in-progress repair impacts the auto-repair queue, see <a href="../../Major Features/Automatic Data Repair/DataRepairDisable.htm" class="MCXref xref">Temporarily Disabling Scheduled Auto-Repairs</a>.</p>
+                        </div>
+                    </div>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />-i (called "proactive" in the CMC&#160;UI)</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>(Optional) &#160;Run a "proactive repair" (utilizing a list of object fragments that have recently failed to be written to the node) rather than a regular repair. Under normal circumstances you should not need to use this option. Whenever a node starts up it checks to see whether it’s necessary to run a proactive repair on itself, and if so the proactive repair is automatically executed. Thereafter the nodes checks again — and if necessary executes proactive repair — on a recurring configurable interval (default is every 60 minutes). So proactive repair runs automatically on each node on an as-needed basis. For more information about the proactive repair feature see <a href="../../Major Features/Automatic Data Repair/DataRepairOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Automatic Data Repair Feature Overview</a>.</p>
+                            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>In the CMC UI, this option is labeled as "proactive" rather than "i".</p>
+                        </div>
+                    </div>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />-d &lt;mount-point&gt;</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>(Optional) If you use this option the repair is performed only for object fragments mapped to the vNodes that are assigned to the specified HyperStore data mount point (for example <em>/cloudian1</em>). This option may be useful in circumstances where data is known or suspected to be missing or incorrect on a particular disk.</p>
+                            <p>If you want to first see what vNodes are assigned to each of a physical node’s mount points, use the <a href="hsstoolLs.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">hsstool ls</a> command.</p>
+                        </div>
+                    </div>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />-vnode &lt;token&gt;</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>(Optional) If you use this option the repair is performed only for object fragments mapped to the specified vNode (identified by its token such as 18315119863185730105557340630830311535). This option may be useful if during a full node repair (or a disk-specific repair), the operation failed for a particular vNode. In that case you can then use the <em>vnode &lt;token&gt;</em> option to retry repairing just that one vNode.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Command/Response Example</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>The example below shows a default run of <em>repairec</em>, using no options. Note that the system assigns the command run a numerical identifier — #31 in this example.</p><pre xml:space="preserve">[root]# /opt/cloudian/bin/hsstool -h cloudian-node1 repairec
+Executing repairec. computedigest=false logging=false
+Repair EC command #31 completed.</pre>
+                    <p>For more detail on the operation results run <a href="hsstoolOpstatus.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">hsstool opstatus</a> on the node. The results of this specific repairec run (identified by command number) will remain available through <em>opstatus</em> until either <em>repairec </em>is run again on the node or the HyperStore Service is restarted on the node.</p>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>Since repair is an important operation, it’s recommended that after running repair on a node you check <a href="hsstoolOpstatus.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">hsstool opstatus</a> to confirm that the operation succeeded.</p>
+                </div>
+            </div>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

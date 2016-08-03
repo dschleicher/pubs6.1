@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Working with HyperStore Major Features|Server-Side Encryption">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Server-Side Encryption Feature Overview</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Working with HyperStore Major Features</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Server-Side Encryption</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Feature Overview</span>
+            </div>
+            <h1>Server-Side Encryption Feature Overview</h1>
+            <p>Like Amazon S3, the HyperStore system supports server-side encryption (SSE) to protect the confidentiality of data at rest. And like Amazon, the HyperStore system can perform the encryption (and subsequent decryption upon object retrieval) either with a <b>system-generated encryption key</b> (regular SSE) or a <b>customer-provided encryption key</b> (SSE-C).</p>
+            <p>For SSE, the HyperStore system generates the encryption keys using AES-128 by default (AES-256 is also supported as described in <a href="SseAes256.htm" class="MCXref xref" xrefformat="{para}">Enabling AES-256</a>). Each encrypted object has its own unique key, and the key is stored as part of the object’s metadata in Cassandra. The object’s metadata including the encryption key is protected by replication, in accordance with the particular storage policy assigned to the S3 bucket to which the object belongs.</p>
+            <p>In the case of SSE-C, the HyperStore system does not store the customer-provided encryption key itself but rather stores a hash of the key (for purposes of verifying the key if it’s subsequently submitted in a GET Object request). The key hash is stored in the object metadata in Cassandra.</p>
+            <p>Also, like Amazon S3, with the HyperStore system’s SSE-C implementation:</p>
+            <ul>
+                <li value="1">The object upload and download requests must be submitted to the system via HTTPS, not regular HTTP.</li>
+                <li value="2">The user is responsible for managing the encryption key. If an object is uploaded to HyperStore system and encrypted with a user-provided key, the user will need to provide that same key when later requesting to download the object. If the user loses the key, the encrypted object will not be downloadable.</li>
+            </ul>
+            <p>For more information on Amazon’s SSE-C feature see <a href="http://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html" target="_blank">Protecting Data Using Server-Side Encryption with Customer-Provided Encryption Keys (SSE-C)</a>.</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Encryption and Auto-Tiering</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>When an object that has been encrypted with a <b>system-generated encryption key</b> is auto-tiered from HyperStore to Amazon:</p>
+                    <ul>
+                        <li value="1">The HyperStore system decrypts the object before uploading it to Amazon, and then during upload invokes the Amazon server-side encryption feature so that in tiered storage the object is encrypted with an Amazon-generated encryption key.</li>
+                        <li value="2">A HyperStore S3 client can retrieve the object by any of the supported tiered object retrieval methods (restoral, streaming, or direct), in accordance with the bucket’s lifecycle policy.</li>
+                        <li value="3">If the encrypted object is tiered into the bucket owner’s Amazon account, the owner can retrieve the object directly through Amazon S3. Amazon will automatically decrypt the object upon download.</li>
+                    </ul>
+                    <p>When an object that has been encrypted with a <b>user-provided encryption key</b> is auto-tiered from Hyperstore to Amazon:</p>
+                    <ul>
+                        <li value="1">The HyperStore system does not invoke Amazon server-side encryption. Instead HyperStore uploads the object to Amazon as if it were a regular object, but the object content is the <b>encrypted</b> value of the original object.</li>
+                        <li value="2">Regardless of how the bucket lifecycle is configured, a HyperStore S3 client can only retrieve the auto-tiered object by restoring it. The object cannot be retrieved via streaming or redirect.</li>
+                        <li value="3">The client does not include the user-provided encryption key with the object restore request. Instead, after a copy of the object has been restored to the HyperStore system, the client includes the user-provided encryption key with the <a href="../../S3 API Support/OperationsObjects/GetObject.htm" class="MCXref xref" xrefformat="{para}">GET Object</a> request.</li>
+                        <li value="4">Even if the encrypted object is tiered into the bucket owner’s Amazon account, the owner cannot retrieve the object directly through Amazon S3.</li>
+                    </ul>
+                    <p>For more information on auto-tiering, see <a href="../Auto-Tiering/AutoTieringOverview.htm" class="MCXref xref" xrefformat="{para}">Auto-Tiering Feature Overview</a>.</p>
+                </div>
+            </div>
+            <p>&#160;</p>
+            <p><b>See Also:</b>
+            </p>
+            <ul>
+                <li value="1"><a href="SseAes256.htm" class="MCXref xref" xrefformat="{para}">Enabling AES-256</a>
+                </li>
+                <li value="2"><a href="SseRegular.htm" class="MCXref xref" xrefformat="{para}">Using Regular Server-Side Encryption (SSE)</a>
+                </li>
+                <li value="3"><a href="SseCustomerKeys.htm" class="MCXref xref" xrefformat="{para}">Using Server-Side Encryption with Customer-Provided Keys (SSEC)</a>
+                </li>
+            </ul>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

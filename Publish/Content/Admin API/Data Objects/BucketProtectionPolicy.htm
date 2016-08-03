@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Admin API|Data Objects">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>BucketProtectionPolicy</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../AdminApiOverview.htm">Admin API</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="DataObjectsOverview.htm">Data Objects</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">BucketProtectionPolicy</span>
+            </div>
+            <h1>BucketProtectionPolicy</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[Admin API Object]</p>
+            <p>The BucketProtectionPolicy object is returned as the <b>response payload</b> for these Admin API operations:</p>
+            <ul>
+                <li value="1"><a href="../Storage Policies/GetStoragePolicy.htm" class="MCXref xref">GET Storage Policy</a>
+                </li>
+                <li value="2"><a href="../Storage Policies/GetStoragePolicyList.htm" class="MCXref xref">GET Storage Policy List</a>
+                </li>
+                <li value="3"><a href="../Storage Policies/PostUpdatedStoragePolicy.htm" class="MCXref xref">POST Updated Storage Policy</a>
+                </li>
+                <li value="4"><a href="../Storage Policies/PutNewStoragePolicy.htm" class="MCXref xref">PUT New Storage Policy</a>
+                </li>
+            </ul>
+            <p>The BucketProtectionPolicy object is required as the <b>request payload</b> for these Admin API operations:</p>
+            <ul>
+                <li value="1"><a href="../Storage Policies/PostUpdatedStoragePolicy.htm" class="MCXref xref">POST Updated Storage Policy</a>
+                </li>
+                <li value="2"><a href="../Storage Policies/PutNewStoragePolicy.htm" class="MCXref xref">PUT New Storage Policy</a>
+                </li>
+            </ul>
+            <p>The BucketProtectionPolicy object consists of the attributes below. Each attribute description indicates whether the attribute is mandatory or optional when this object is transmitted as a request payload.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>For more information about replication and erasure coding schemes, consistency level requirements, and other attributes of a storage policy definition, see <a href="../../CMC Interface/Cluster/Storage Policies/StoragePoliciesAdd.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Add a Storage Policy</a>.</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />consistencyLevel</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <div class="Indent">
+                        <p>(Mandatory, ConsistencyLevel) Data consistency requirements definition, in format "{"read":["&lt;level&gt;"],"write":["&lt;level&gt;"],"writeNew":["&lt;level&gt;"], "metadataR":["&lt;level&gt;"],"metadataW":["&lt;level&gt;"],"readEC":["&lt;level&gt;"], "writeEC":["&lt;level&gt;"]}".</p>
+                        <p>The &lt;level&gt; is one of ALL, EACH_ALL, LOCAL_ALL, QUORUM, EACH_QUORUM, LOCAL_QUORUM, or ONE — with the valid options being dependent on the type of environment (replication versus erasure coding and single-DC versus multi-DC) and the type of data (object data versus object metadata). Optionally the &lt;level&gt; part can be a comma-separated list of levels, if you want to use "dynamic" consistency levels.</p>
+                        <p>For information about the supported consistency levels see the CMC Help topic on Data Consistency Level and Metadata Consistency Level.</p>
+                        <p>When specifying data consistency requirements:</p>
+                        <ul>
+                            <li value="1"><b>For replication schemes</b>, specify consistency requirements for operation types "read", "write", "writeNew", "metadataR", and "metadataW". Omit "readEC" and "writeEC".</li>
+                            <li value="2"><b>For erasure coding schemes</b>, specify consistency requirements for operation types "readEC" and "writeEC", "metadataR", and "metadataW". Omit "read", "write", and "writeNew". Note that the system actually ignores the value that you supply for "readEC" (since read consistency for EC data is no longer configurable starting with HyperStore version 6.0). Just assign "readEC" the value "LOCAL_QUORUM". Regardless, EC reads will succeed so long as "k" unique fragments are available.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />defaultProtectionScheme</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <div class="Indent">
+                        <p>(Optional, string) One of:</p>
+                        <ul>
+                            <li value="1">"HSFS" (replication)</li>
+                            <li value="2">"EC" (erasure coding)</li>
+                        </ul>
+                        <p>This is generated by the system and can be ommitted in client request bodies. The value of this attribute in client request bodies is ignored by the system.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />ecscheme</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <div class="Indent">
+                        <p>(Optional, ECScheme) Definition of the erasure coding scheme, in the form of "{"k":&lt;number&gt;,"m":&lt;number&gt;,"dc":["&lt;datacenter-name-string&gt;","&lt;datacenter-name-string&gt;"], "type":"&lt;ectype-string&gt;"}".</p>
+                        <p>The "dc" element is a bracket-enclosed list of data centers in which erasure coded data will be stored for this policy. For each stored object, a full set of "k" + "m" fragments will be stored in each listed data center.</p>
+                        <p>The "type" element is generated by the system and can be ommitted in client request bodies. Value of this element in client request bodies is ignored by the system.</p>
+                        <p>The HyperStore system supports only the following "k" + "m" configurations:</p>
+                        <ul>
+                            <li value="1">2+1</li>
+                            <li value="2">4+2</li>
+                            <li value="3">6+2</li>
+                            <li value="4">8+2</li>
+                            <li value="5">9+3</li>
+                            <li value="6">12+4</li>
+                        </ul>
+                        <p>If the policy that is being created is a replication scheme, <b>do not</b> include the "ecscheme" attribute in the BucketProtectionPolicy.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />groups</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <div class="Indent">
+                        <p>(Mandatory, Set&lt;string&gt;) Comma-separate list of groups that are allowed to use this storage policy. Leave the set empty to allow all user groups to use this policy.</p>
+                        <p>If you want to make a policy the system default policy, its "groups" value must be empty. The system default storage policy must be available to all groups.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />policyDescription</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <div class="Indent">
+                        <p>(Optional, string) Policy description. Maximum 64 bytes.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />policyId</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <div class="Indent">
+                        <p>(Mandatory, string) System-generated unique identifier of the storage policy</p>
+                        <p>In a <a href="../Storage Policies/PutNewStoragePolicy.htm" class="MCXref xref">PUT New Storage Policy</a> request, the BucketProtectionPolicy JSON object in the request body must include the "policyId" attribute, <b>with its value empty</b>.</p>
+                        <p>For subsequent POST requests to update the same policy, the "policyId" value must be specified in the BucketProtectionPolicy object.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />policyName</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <div class="Indent">
+                        <p>(Mandatory, string) &#160;Policy name. Maximum 32 bytes.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />region</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <div class="Indent">
+                        <p>(Mandatory, string) Service region with which the policy is associated.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />replicationScheme</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <div class="Indent">
+                        <p>(Optional, map&lt;string,string&gt;) Definition of the replication scheme, in the form of a comma-separated list of "&lt;datacenter-name&gt;":"&lt;replication-factor&gt;" pairs. For example "{"DC1":"3"}" for a single data center storage policy or "{"DC1":"3","DC2":"2"}" for a multi-data center policy.</p>
+                        <p>If the policy that is being created is an erasure coding scheme, <b>do not</b> include the "replicationScheme" attribute in the BucketProtectionPolicy.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />status</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <div class="Indent">
+                        <p>(Optional, PolicyStatus) One of the following strings:</p>
+                        <ul>
+                            <li value="1">"PENDING" — The policy is in the process of being created in the system. In this state the policy is not yet available to be used.</li>
+                            <li value="2">"ACTIVE" — The policy is available to users when they create a new bucket.</li>
+                            <li value="3">"DISABLED" — The policy is no longer available to users when they create a new bucket. However, the policy still exists in the system and is still being applied to any buckets to which the policy was assigned during the period when it was active.</li>
+                            <li value="4">"DELETED" — The policy has been deleted from the system. Only policies that have never been assigned to any bucket can be deleted.</li>
+                            <li value="5">"FAILED" — The policy failed to be set up properly in the system. Though a BucketProtectionPolicy object exists and can be retrieved through the Admin API, the policy is not actually set up in the system. To have the policy set up in the system, delete the FAILED policy (using the DELETE Storage Policy method) and then try again to create a policy with the desired characteristics (using the PUT New Storage Policy method).</li>
+                        </ul>
+                        <p>The "status" value is generated by the system. The value of this attribute in client request bodies is ignored by the system.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />systemDefault</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <div class="Indent">
+                        <p>(Mandatory, boolean) Whether the policy is the default storage policy for the region, <em>true</em> or <em>false</em>.</p>
+                        <p>You cannot use a POST operation to change a storage policy’s "systemDefault" value from true to false. Instead, if you want to promote some other policy to become the system default policy, PUT or POST that policy with its "systemDefault" value set to true. The system will then automatically demote the existing system default policy (by setting that policy’s "systemDefault" value to false.</p>
+                    </div>
+                </div>
+            </div>
+            <h2>Example</h2>
+            <p>This first example shows a BucketProtectionPolicy object for a replication storage policy. This is the system default policy and it specifies 3X replication. Note that the "ecscheme" attribute is null. Within the consistency level requirements specification, the "readEC" and "writeEC" attributes are ignored.</p><pre xml:space="preserve">{"policyName":"hsfs-policy","policyDescription":"3X Replication","consistencyLevel":{"read":
+["QUORUM"],"write":["QUORUM"],"writeNew":["QUORUM"],"metadataR":["QUORUM"],"metadataW":["QUORUM"],
+"readEC":["EACH_QUORUM"],"writeEC":["LOCAL_QUORUM"]},"ecscheme":null,"defaultProtectionScheme":
+"HSFS","status":"ACTIVE","replicationScheme":{"DC1":"3"},"systemDefault":true,"groups":[],
+"policyId":"ea91c90e80936f22ceebf305d7b45e78","region":"region1"}</pre>
+            <p>This second example shows a BucketProtectionPolicy object for an erasure coding storage policy. The policy specifies 2+1 erasure coding. Note that the "replicationScheme" attribute is null. Within the consistency level requirements specification, the "read", "write", and "writeNew" attributes are ignored.</p><pre xml:space="preserve">{"policyName":"ec-policy","policyDescription":"2+1 Erasure Coding","consistencyLevel":{"read":
+["LOCAL_QUORUM"],"write":["ALL"],"writeNew":["ALL"],"metadataR":["QUORUM"],"metadataW":["QUORUM"],
+"readEC":["LOCAL_QUORUM"],"writeEC":["ALL"]},"ecscheme":{"k":2,"m":1,"dc":["DC1"],"type":"DC"},
+"defaultProtectionScheme":"EC","status":"ACTIVE","replicationScheme":null,"systemDefault":false,
+"groups":[],"policyId":"e810cb2dc3be840d8a07e5dfb2d4d997","region":"region1"}</pre>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

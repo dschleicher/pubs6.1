@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="CMC Interface|Alerts">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Acknowledge Alerts</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../CmcInterfaceOverview.htm">CMC Interface</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="AlertsOverview.htm">Alerts</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Acknowledge Alerts</span>
+            </div>
+            <h1>Acknowledge Alerts</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[CMC Interface]</p>
+            <p><a class="MCPopupThumbnailLink MCPopupThumbnailHover" href="../../Resources/Images/cmc/alerts/Alerts.png"><img class="MCPopupThumbnail img imgImgCloudian" data-mc-width="954" data-mc-height="452" src="../../Resources/Images/cmc/alerts/Alerts_thumb_0_60.png" tabindex="" /></a>
+            </p>
+            <p>In the CMC's <b>Alert List</b> display you can acknowledge that you have seen and reviewed the node alert notifications that display in the list. Once you acknowledge an alert, it will no longer display in the <b>Alert List</b> (unless you choose to display acknowledged alerts as described further below).</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>	If you acknowledge an alert for which the underlying notification triggering condition still exists, a new alert may be generated quickly. For example, if a service is down, and you acknowledge the service down alert but do not restart the service, a new service down alert will be triggered as soon as the monitoring system polls the service status again (which occurs each minute). If you want to temporarily disable an alert rule you can do so in the <a href="../Cluster/Alert Rules/AlertRulesOverview.htm" class="MCXref xref">Alert Rules</a> page, but be sure to remember to re-enable the rule at the appropriate time.</p>
+            <p>To acknowledge one or multiple alerts in the <b>Alert List</b>, click the checkbox to the left of the alert(s) and then click <b>Acknowledge</b> at the bottom of the list.</p>
+            <p>To acknowledge <b>all</b> alerts, click the checkbox at the left side of the <b>Alert List</b> column heading row and then click <b>Acknowledge</b> at the bottom of the list.</p>
+            <p>To show previously acknowledged alerts in the list as well as unacknowledged alerts, click <b>Show Acknowledged</b> at the top of the alert list. Previously acknowledged alerts then display within the list, and are distinguished from unacknowledged alerts by the absence of a checkbox to the left of the alert. You can click <b>Hide Acknowledged</b> to hide the acknowledged alerts again.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>Acknowledged alerts are automatically deleted from the system after a time period configured by the <em>events.acknowledged.ttl</em> property in the <em>mts.properties.erb</em> configuration file [XREF]. By default this period is 86400 seconds (one day). After this interval, acknowledged alerts are no longer available for display in the Alert List.</p>
+            <p>The <b>Alert List</b> can display a maximum of 50 unacknowledged alerts and acknowledged alerts combined. Note that some of these 50 alerts may have occurred multiple times as indicated by the alert’s "Count" value. Even if an alert has a Count showing that it has occurred multiple times, only one alert is counted toward the <b>Alert List</b> display maximum of 50 alerts.</p>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

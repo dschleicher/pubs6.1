@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Working with HyperStore Major Features|Auto-Tiering">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Accessing Auto-Tiered Objects</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Working with HyperStore Major Features</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Auto-Tiering</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Accessing Auto-Tiered Objects</span>
+            </div>
+            <h1>Accessing Auto-Tiered Objects</h1>
+            <p>After objects have been auto-tiered to Amazon, there are two ways to access those objects:</p>
+            <ul>
+                <li value="1">Indirect Access Through HyperStore</li>
+                <li value="2">Direct Access Through Amazon</li>
+            </ul>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Indirect Access Through HyperStore</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>When you use the CMC’s <b>Buckets &amp;&#160;Objects</b> interface to view the contents list for a HyperStore storage bucket, objects that have been auto-tiered appear in the list and are marked with a <a href="../../CMC Interface/Buckets &amp; Objects/Objects/ObjectRestore.htm#IconsForTransitionedOrRestoredFiles" class="MCTopicPopup MCTopicPopupHotSpot a">special icon</a>. Your options for retrieving such objects through the CMC depend on how auto-tiering was configured for the bucket.</p>
+                    <p>First, for any auto-tiered object (regardless of bucket configuration or tiering destination), the object can be retrieved by temporarily restoring a copy of the object into the local bucket. The CMC <b>Buckets &amp;&#160;Objects</b> interface supports <a href="../../CMC Interface/Buckets &amp; Objects/Objects/ObjectRestore.htm">temporarily restoring auto-tiered objects</a>, for a length of time that you can specify.</p>
+                    <p>Restoral of auto-tiered objects does not happen instantly. For an object in Amazon S3, it can take up to six hours before a copy of the object is restored to HyperStore storage. For an object in Glacier it can be up nine hours, factoring in the time it takes for an object to be restored from Glacier to Amazon S3, before being restored to HyperStore. In the interim, the object is marked with an icon that indicates that the object is in the process of being restored. During this stage you cannot download the object.</p>
+                    <p>After a copy of an object has been restored, the icon next to the object name changes again and you can then download the object through the <b>Buckets &amp;&#160;Objects</b> interface in the usual way.</p>
+                    <p>As a second option for retrieving auto-tiered objects, some objects may be directly downloadable through the <b>Buckets &amp;&#160;Objects</b> interface without any need for first restoring the objects. This is supported only if both of the following are true:</p>
+                    <ul>
+                        <li value="1">The tiered objects are in Amazon S3 (not Glacier)</li>
+                        <li value="2">The bucket’s auto-tiering is configured to support Streaming of auto-tiered objects.</li>
+                    </ul>
+                    <p>If you’re uncertain regarding either of these points, you can try directly downloading an auto-tiered object by clicking on its name. If direct download is not supported for the object, a response message will indicate that you need to temporarily restore a local copy of the object rather than directly downloading it.</p>
+                    <p>If you want to <b>delete</b> an object that has been auto-tiered, you can do so by deleting the object through the <b>Buckets &amp;&#160;Objects</b> interface. You do not need to restore the object first. When the HyperStore system is deleting an auto-tiered object, it first triggers the deletion of the object from Amazon, and then after that succeeds it deletes the <a href="AutoTieringOverview.htm#TieringUsage" class="MCTopicPopup MCTopicPopupHotSpot a">local reference to the object.</a></p>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>As an alternative to accessing auto-tiered objects through the CMC, you can use another S3 client application to submit <a href="../../S3 API Support/OperationsObjects/PostObjectRestore.htm" class="MCXref xref" xrefformat="{para}">POST Object restore</a> requests (for any auto-tiered objects) or <a href="../../S3 API Support/OperationsObjects/GetObject.htm" class="MCXref xref" xrefformat="{para}">GET Object</a> requests (for auto-tiered objects that support streaming or redirect) to the HyperStore system’s S3 Service.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Direct Access Through Amazon</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Objects auto-tiered to Amazon can be accessed directly through standard AWS interfaces such as the AWS Management Console.</p>
+                    <p>For example, if a bucket owner supplied her own AWS credentials when configuring her HyperStore bucket for auto-tiering to AWS, she can log into her AWS account and see that a HyperStore auto-tiering destination bucket has been created (named as <em>&lt;origin-bucket-name-truncated-to-34-characters&gt;.&lt;random-string&gt;</em>). After objects have been auto-tiered from HyperStore to her AWS destination bucket, she can view the bucket content list and retrieve individual tiered objects directly through AWS.</p>
+                    <p class="Important" data-mc-autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;"><span class="autonumber"><span><b>IMPORTANT: </b></span></span>	If a user makes changes to the content of her auto-tiering destination bucket directly through AWS — for example, by deleting objects — this will cause a discrepancy between the HyperStore system’s record of what’s in the destination bucket and what’s actually there. For this reason, if users want to delete auto-tiered objects it’s best if they do so through the HyperStore interface rather than directly through AWS.</p>
+                </div>
+            </div>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

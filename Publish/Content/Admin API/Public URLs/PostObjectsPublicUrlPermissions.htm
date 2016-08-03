@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Admin API|Methods|Public URLs">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>POST Object's Public URL Permissions</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../AdminApiOverview.htm">Admin API</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Methods</span><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="PublicUrlsOverview.htm">Public URLs</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">POST Object's Public URL Permissions</span>
+            </div>
+            <h1>POST Object's Public URL Permissions</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[Admin API Method]</p>
+            <p>Use this method to generate public URL permissions for an object that’s stored in the HyperStore system. You can also use this method to update existing public URL permissions on an object. See the Note in the "Request Payload" section below for the distinction between creating a new public URL and updating an existing one.</p>
+            <p>The public URL for an object will have the following format:</p><pre xml:space="preserve">http[s]://&lt;bucketName&gt;.&lt;S3Domain&gt;/&lt;objectName&gt;?AWSAccesKeyId=&lt;accessKeyOfObjectOwner&gt;
+&amp;Expires=&lt;expiryTime&gt;&amp;Signature=&lt;SignatureString&gt;&amp;x-amz-pt=&lt;&gt;</pre>
+            <p>This format follows the AWS specification for signed URLs.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>This method is supported only if the object is owned by the same user who owns the bucket in which the object is stored.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>You cannot set public URL permissions on an object that the system has encrypted with a user-provided encryption key. By contrast, public URL permissions are supported for objects that the system has encrypted with a system-generated encryption key, which is the more typical encryption method.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>The generated public URL will include the name of the bucket in which the object is stored. If the bucket name includes underscores the public URL may not be DNS-resolvable.</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Request Format</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <h4>Syntax</h4><pre xml:space="preserve">POST /permissions/publicUrl?userId=xxx&amp;groupId=xxx&amp;bucketName=xxx&amp;objectName=xxx</pre>
+                    <h4>Query Parameters</h4>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />userId</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <div class="Indent">
+                                <p>(Mandatory, string) User ID for user who owns the object for which a public URL is being generated.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />groupId</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <div class="Indent">
+                                <p>(Mandatory, string) Group ID for user who owns the object.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />bucketName</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <div class="Indent">
+                                <p>(Mandatory, bucketname) S3 bucket that contains the object. Note that the bucket’s owner must be the same as the object owner or the request will be rejected with a 400 error response.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />objectName</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <div class="Indent">
+                                <p>(Mandatory, string) Name of the object for which a public URL is being generated.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <h4>Request Payload</h4>
+                    <p><a href="../Data Objects/PublicUrlAccess.htm" class="MCXref xref">PublicUrlAccess</a> JSON object.</p>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>The PublicUrlAccess object includes a "url" attribute. If a "url" attribute value is specified in the request, the request is processed as an update to an existing public URL (for example, an update of the maximum allowed downloads limit for the specified, already existing public URL). If no "url" attribute value is specified in the request, the request is processed as a request to generate a new public URL. There are not separate calls for generating a new URL and modifying the usage parameters of an existing URL — the POST call is used in both cases.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Response Format</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <h4>Response Status</h4>
+                    <p>In addition to the <a href="../CommonStatusCodes.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Common Response Status Codes</a>, this method may return these codes:</p>
+                    <table style="border-collapse: separate;border-top-left-radius: 0px;border-top-right-radius: 0px;border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;width: 100%;">
+                        <col style="width: 115px;" />
+                        <col style="width: 629px;" />
+                        <thead>
+                            <tr>
+                                <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Status Code</th>
+                                <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                                <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;">Missing required parameter : {userId, groupId, bucketName, objectName}</td>
+                            </tr>
+                            <tr>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                                <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;"> 	
+
+User does not exist</td>
+                            </tr>
+                            <tr>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                                <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;">Invalid JSON object</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h4>Response Payload</h4>
+                    <p>None.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Example</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>In this first example new public URL permissions are created for a stored object named "HyperStore-S3-Compliance-Guide.html". Note that no URL is included in the request object — the system will generate the URL.</p><pre xml:space="preserve"># Request -&gt;
+
+POST http://10.10.2.91:18081/permissions/publicUrl?userId=PubsUser1&amp;groupId=Pubs&amp;
+bucketName=pubs.bucket.1&amp;objectName=HyperStore-S3-Compliance-Guide.html
+
+Content-Type: application/json
+
+{"expiryTime":"1444306080000","allowRead":true,"maxDownloadNum":10000,"secure":true}
+
+# Response -&gt;
+
+Status Code: 200 OK
+Content-Length: 0
+Date: Fri, 16 Oct 2015 14:12:57 GMT</pre>
+                    <p>The POST method above, which triggers the creation of public URL permissions on a stored object, does not return the public URL in the response body. To retrieve the newly created URL you must use the <a href="GetObjectsPublicUrlPermissions.htm" class="MCXref xref">GET Object's Public URL Permissions</a> method:</p><pre xml:space="preserve"># Request -&gt;
+
+GET http://10.10.2.91:18081/permissions/publicUrl?userId=PubsUser1&amp;groupId=Pubs&amp;
+bucketName=pubs.bucket.1&amp;objectName=HyperStore-S3-Compliance-Guide.html
+
+# Response -&gt;
+
+Status Code: 200 OK
+Content-Length: 344
+Content-Type: application/json
+Date: Fri, 16 Oct 2015 14:18:15 GMT
+{"expiryTime":"1444306080000","allowRead":true,"currentDownloads":0,"maxDownloadNum":10000,
+"secure":true,"url":"https://pubs.bucket.1.s3-region1.mycloudianhyperstore.com/HyperStore-S3-
+Compliance-Guide.html?AWSAccessKeyId=35a39816c26d3e930a70&amp;Expires=1444306080&amp;
+Signature=Qp3s3YZg7w%2FNcdbJhSEq%2F1Idb5s%3D&amp;x-amz-pt=MDAyNjgxMjMxNDQ1MDA0Nzc3MDUy"}</pre>
+                    <p>In this next example, <b>existing</b> public URL permissions for a different stored object are <b>modified</b>. Note that the existing URL is included in the request object. The max download number is increased from its original value.</p><pre xml:space="preserve"># Request -&gt;
+
+POST http://10.10.2.91:18081/permissions/publicUrl?userId=PubsUser1&amp;groupId=Pubs&amp;
+bucketName=pubs.bucket.1&amp;objectName=HyperStore-Software-Install-Guide.html
+
+Content-Type: application/json
+
+{"expiryTime":"1445005200000","allowRead":true,"maxDownloadNum":50000,"secure":true,
+"url":"https://pubs.bucket.1.s3-region1.mycloudianhyperstore.com/HyperStore-Software-
+Install-Guide.html?AWSAccessKeyId=35a39816c26d3e930a70&amp;Expires=1445005200&amp;Signature=
+D5dzQ84CIGQvaMQT2hQGF2%2BM0bg%3D&amp;x-amz-pt=MDAyNjgxMjMxNDQ1MDAxNjgwNDIx"}
+
+# Response -&gt;
+
+Status Code: 200 OK
+Content-Length: 0
+Date: Fri, 16 Oct 2015 13:34:11 GMT</pre>
+                    <p>For more information about PublicUrlAccess object attributes, see <a href="../Data Objects/PublicUrlAccess.htm" class="MCXref xref">PublicUrlAccess</a>.</p>
+                </div>
+            </div>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

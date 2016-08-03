@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Working with HyperStore Major Features|Service Regions">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Setting Up a Multi-Region System</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Working with HyperStore Major Features</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Service Regions</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Setting Up a Multi-Region System</span>
+            </div>
+            <h1>Setting Up a Multi-Region System</h1>
+            <p>The HyperStore interactive installer makes it easy to install your HyperStore system as a multi-region system. From a single computer on which you are running the installer, you can install an entire multi-region system.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>For complete installation instructions, see the Installation section of the Cloudian HyperStore documentation.</p>
+            <p>The mechanism that you use to configure your HyperStore system installation as a multi-region system is the survey file that you create and provide as input to the HyperStore installer. The survey file is a simple inventory of all the nodes in your HyperStore system, with some basic information about the location of each node — including the region in which each node resides.</p>
+            <p>Below is an example of an installation survey file for a HyperStore system that will be configured as just a single service region. For each node, the survey file specifies the region, hostname, IP address, data center name, and rack name. Note that you must provide a region name even if you will have only one region. For each region the region name will become part of the region’s S3 endpoint URL. A region name can be a maximum of 52 characters, and no underscores, dots, or dashes are allowed within the name.</p><pre xml:space="preserve">tokyo,cloudian-vm7,10.10.1.33,DC1,RAC1
+tokyo,cloudian-vm8,10.10.1.34,DC1,RAC1
+tokyo,cloudian-vm9,10.10.1.35,DC1,RAC1</pre>
+            <p>Here is a second example, this time for a system that will be installed as a two-region system. Note that in this particular example, the "tokyo" region encompasses two data centers, while the "osaka" region consists of just one data center.</p><pre xml:space="preserve">tokyo,cloudian1,10.1.1.11,DC1,RAC1
+tokyo,cloudian2,10.1.1.12,DC1,RAC1
+tokyo,cloudian3,10.1.1.13,DC1,RAC1
+tokyo,cloudian4,10.2.2.17,DC2,RAC5
+tokyo,cloudian5,10.2.2.18,DC2,RAC5
+tokyo,cloudian6,10.2.2.19,DC2,RAC5
+osaka,cloudian7,10.10.3.24,DC3,RAC12
+osaka,cloudian8,10.10.3.25,DC3,RAC12
+osaka,cloudian9,10.10.3.26,DC3,RAC12</pre>
+            <p>Using your survey file as input, the HyperStore interactive installer will install HyperStore software on each node in the survey file, in all your regions. During the interactive installation process you will be prompted for information about your desired system configuration. If your survey file includes multiple regions, then the installer will prompt you for which region you want to serve as the <a href="ServiceRegionsOverview.htm#DefaultRegion" class="MCTopicPopup MCTopicPopupHotSpot a">default region</a>.</p>
+            <p>Based on your survey file and your top-level domain (which the installer prompts you for), the installer will automatically generate:</p>
+            <ul>
+                <li value="1">The S3 endpoint for each of your regions, in format <em>s3-&lt;region-name&gt;.&lt;top-level-domain&gt;</em>.</li>
+            </ul>
+            <div class="Indent">
+                <p>Example: <em>s3-tokyo.my-enterprise.com</em></p>
+            </div>
+            <ul>
+                <li value="1">The S3 website endpoint (used for S3 buckets configured as static websites) for each of your regions, in format <em>s3-website-&lt;region-name&gt;.&lt;top-level-domain&gt;</em>.</li>
+            </ul>
+            <div class="Indent">
+                <p>Example: <em>s3-website-tokyo.my-enterprise.com</em>,</p>
+            </div>
+            <p>The installer will also automatically configure your HyperStore system to operate as a multi-region system. For example:</p>
+            <ul>
+                <li value="1">In the system configuration file <em>common.csv</em> (which resides on your Puppet master node), the <a href="../../System Configuration/Configuration Files/CommonCsv.htm#regions" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="../../System Configuration/Configuration Files/CommonCsv.htm#regions" xrefformat="{para}">regions</a> setting is automatically configured to a list of all your regions, and the <a href="../../System Configuration/Configuration Files/CommonCsv.htm#default_region" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="../../System Configuration/Configuration Files/CommonCsv.htm#default_region" xrefformat="{para}">default_region</a> setting is automatically set to your default region.</li>
+                <li value="2">The installer automatically creates and configures region-specific versions of the configuration files that require region-specific settings:</li>
+                <li value="3">Region-specific instances of <em>region.csv</em> [XREF] are created and configured. These are named as <em>&lt;region-name&gt;_region.csv</em>. For example, if in your installation survey file you indicated a "tokyo" region and a "osaka" region, the installer will automatically create and configure <em>tokyo_region.csv</em> and <em>osaka_region.csv</em>.</li>
+                <li value="4">Region-specific instances of <em>topology.csv</em> [XREF] are created and configured — for example <em>tokyo_topology.csv</em> and <em>osaka_topology.csv</em>.</li>
+                <li value="5">If you use the installer’s Advanced Configuration feature to configure SSL support for your S3 Service in each region, then region-specific instances of <em>s3sslconfigs.csv</em> [XREF] are created and configured — for example <em>tokyo_s3sslconfigs.csv</em> and <em>osaka_s3sslconfigs.csv</em>.</li>
+            </ul>
+            <h2>Port Availability for Inter-Region Communications</h2>
+            <p>In a multi-region system, within each region the listening ports listed below must accessible for requests <b>incoming from other HyperStore regions</b>.</p>
+            <p>On every HyperStore node:</p>
+            <ul>
+                <li value="1">S3 Service:<ul style="list-style-type: circle;"><li value="1">80 (S3 operations via regular HTTP)</li><li value="2">443 (S3 operations via HTTPS)</li><li value="3">19080 (JMX access to S3 Service)</li></ul></li>
+                <li value="2">Admin Service:<ul style="list-style-type: circle;"><li value="1">18081 (Admin API operations)</li><li value="2">19443 (Admin API operations via HTTPS)</li><li value="3">19081 (JMX access)</li></ul></li>
+                <li value="3">HyperStore Service:<ul style="list-style-type: circle;"><li value="1">19082 (JMX access)</li></ul></li>
+                <li value="4">Redis DBs:<ul style="list-style-type: circle;"><li value="1">6379 (Credentials DB)</li><li value="2">6380 (QoS DB)</li></ul></li>
+                <li value="5">Cassandra:<ul style="list-style-type: circle;"><li value="1">9160 (data operations)</li><li value="2">7199 (JMX access)</li></ul></li>
+                <li value="6">SSH:<ul style="list-style-type: circle;"><li value="1">22 (SSH — the HyperStore installer accesses this port on each node on which you are installing HyperStore software)</li></ul></li>
+            </ul>
+            <p><b>Also</b>, on whichever node you select to be your Puppet master node, port 8140 must be available for servicing incoming requests from Puppet agents in all regions.</p>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

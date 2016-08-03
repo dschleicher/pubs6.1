@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="CMC Interface|Alerts">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Review Alerts</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../CmcInterfaceOverview.htm">CMC Interface</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="AlertsOverview.htm">Alerts</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Review Alerts</span>
+            </div>
+            <h1>Review Alerts</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[CMC Interface]</p>
+            <p><a class="MCPopupThumbnailLink MCPopupThumbnailHover" href="../../Resources/Images/cmc/alerts/Alerts.png"><img class="MCPopupThumbnail img imgImgCloudian" data-mc-width="954" data-mc-height="452" src="../../Resources/Images/cmc/alerts/Alerts_thumb_0_60.png" tabindex="" /></a>
+            </p>
+            <p>HyperStore node alerts are defined by alert rules. An node alert occurs when a particular alert rule is triggered. Without alert rules there would be no alerts.</p>
+            <p>Your HyperStore system comes with a set of pre-configured alert rules that you can review (and optionally edit) in the <a href="../Cluster/Alert Rules/AlertRulesOverview.htm" class="MCXref xref">Alert Rules</a> page. You can also create additional alert rules using that page.</p>
+            <p>At a high level, there are four categories of node alerts that can be triggered by alert rules:</p>
+            <ul>
+                <li value="1"><b>Statistic threshold alerts</b> — Alerts indicating that a monitored performance statistic has crossed a threshold.</li>
+                <li value="2"><b>Service down/up alerts</b> — Alerts indicating that a service has gone down or has been brought back up.</li>
+                <li value="3"><b>Log message alerts</b> — Alerts indicating that a WARN or ERROR level message has been written to a service application log.</li>
+                <li value="4"><b>Repair completion alerts</b> — Alerts indicating that a data repair operation has finished its run.</li>
+            </ul>
+            <p>More specifically, the types of alerts that you may see in the <b>Alert List</b> depend on the particular alert rules that you have configured. For example, if you have an alert rule configured for when the Cassandra service has ERROR level messages in its application logs, and a rule configured for when average S3 GET request latency exceeds 1000 milliseconds, then alerts will appear in a node’s <b>Alert List</b> if those rules have been triggered on that node.</p>
+            <p>For each alert, the <b>Alert List</b> displays the information items below.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>The alert list is sorted in reverse chronological order, based on the time of the most recent instance of each listed alert.</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Node ID</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>The HyperStore node on which the alert occured. Note that at the top of the Alerts page you can filter the Alert List by node. By default, "ALL" is selected, to show results for all nodes in your system.</p>
+                    <p>You can click on the Node ID to jump to the <a href="../Cluster/Node Status/NodeStatusOverview.htm" class="MCXref xref">Node Status</a> page for that node.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Alert Type</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <ul>
+                        <li value="1">For <b>statistic threshold alerts</b>, this field indicates the statistic for which a configured threshold was crossed (CPU utilization, Diskspace available on node, Number of S3 GET transactions per second, and so on — see <a href="../Cluster/Alert Rules/AlertRulesOverview.htm" class="MCXref xref">Alert Rules</a> for a full list).</li>
+                        <li value="2">For <b>service down/up alerts or log message alerts</b>, this field indicates the service type (Admin, Cassandra, HyperStore, Redis Credentials, Redis QoS, or S3).</li>
+                        <li value="3">For <b>repair completion alerts</b>, this field displays "Repair Completion Status".</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Alert Text</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <ul>
+                        <li value="1">For <b>statistic threshold alerts</b>, this field will indicate the statistic’s value which caused an alert rule to be triggered.</li>
+                        <li value="2">For <b>service down/up alerts</b>, this field will be a text string "[Service Down]" or "[Service Restored]"</li>
+                        <li value="3">For <b>repair completion alerts</b>, this field will indicate the repair type —  REPAIR (S3 object replica repair), EC:REPAIR (erasure coded data repair), or CASSANDRA:REPAIR (Cassandra metadata replica repair). It will also indicate the repair command number and the repair operation’s final status: COMPLETED, FAILED, or TERMINATED. To retrieve more details about a repair operation’s status use <em>hsstool opstatus</em> or check the CMC’s <a href="../Analytics/Repair Status/RepairStatusOverview.htm" class="MCXref xref">Repair Status</a> page.</li>
+                        <li value="4">For log message alerts, this field will be the text of the log message.</li>
+                    </ul>
+                    <div class="Indent">
+                        <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Log message formats</a></span>
+                            <div class="MCDropDownBody dropDownBody">
+                                <ul style="list-style-type: circle;">
+                                    <li value="1">The format for Admin service log messages is:</li>
+                                </ul>
+                                <div class="Indent"><pre>Date(ISO8601) PriorityLevel [ThreadId] ClassName:MethodName(Line#) MESSAGE</pre>
+                                </div>
+                                <div class="Indent">
+                                    <p>Example:</p><pre xml:space="preserve">2014-07-15 23:49:21,476 ERROR [qtp2000956624-27]
+PermissionsResource:updatePublicUrlAccess(201) There was a problem saving
+public url</pre>
+                                </div>
+                                <ul style="list-style-type: circle;">
+                                    <li value="1">The format for Cassandra service log messages is:</li>
+                                </ul>
+                                <div class="Indent"><pre>PriorityLevel [ThreadId] Date(ISO8601) CallerFile ("line" Line#) MESSAGE</pre>
+                                </div>
+                                <div class="Indent">
+                                    <p>Example:</p>
+                                </div>
+                                <div class="Indent"><pre xml:space="preserve">ERROR [main] 2014-07-15 23:45:53,503 CassandraDaemon.java (line 235)
+Directory /var/lib/cassandra/data1 doesn't exist</pre>
+                                </div>
+                                <ul style="list-style-type: circle;">
+                                    <li value="1">The format for HyperStore service or S3 service log messages is:</li>
+                                </ul>
+                                <div class="Indent"><pre xml:space="preserve">Date(ISO8601) PriorityLevel [S3RequestID] [ThreadId]
+ClassName:MethodName(Line#) MESSAGE</pre>
+                                </div>
+                                <div class="Indent">
+                                    <p>S3 example:</p>
+                                </div>
+                                <div class="Indent"><pre xml:space="preserve">2014-07-16 00:16:43,579 ERROR [23B931A00CB911E4] [qtp519036246-31]
+XmlSaxParser:validateCORSRule(508) Rule doesn't have
+AllowedMethods/AllowedOrigins.</pre>
+                                </div>
+                                <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>Log message based notifications are not supported for Redis services.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>For alerts that have occurred multiple times without being acknowledged (as indicated by the "Count" value), the "Alert Text" will be from the first unacknowledged instance of the alert. Note that in the case of log message alerts that have occurred multiple times without being acknowledged, there may be a substantial difference between the log message timestamp shown displayed in the "Alert Text" (from the first instance of the alert) and the timestamp displayed in the "Last Update" field (the most recent instance).</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Last Update</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>This field shows the local date and time at which the alert was detected by the HyperStore monitoring system.</p>
+                    <p>For alerts that have occurred multiple times without being acknowledged (as indicated by the "Count" value), the "Last Update" field indicates when the <b>most recent instance</b> of the alert was detected.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Count</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>The number of unacknowledged times that the same alert has occurred.</p>
+                    <ul>
+                        <li value="1">For <b>statistic threshold alerts</b>, a Count value greater than "1" means that the monitoring system has detected the statistic to be across its configured threshold multiple times, without being acknowledged.</li>
+                    </ul>
+                    <p class="NoteIndent" data-mc-autonum="&lt;b&gt;Note: &lt;/b&gt;"><span class="autonumber"><span><b>Note: </b></span></span>Each node’s CPU utilization, disk space availability, and total network throughput are checked each minute. For each of these statistics, each time that the once-per-minute checks finds that the statistic is across its notification threshold, the Count for the alert is incremented. For example, if you have an alert rule for "CPU utilization &gt; 50%", and if the monitoring system’s once-per-minute checks find three different instances where the node’s CPU utilization was in excess of 50%, then the <b>Alert List</b> will show one line for the "CPU Utililzation" alert type, with a Count of 3.<br /><br />For S3 statistics — GET/PUT transactions per second, GET/PUT throughput, and GET/PUT average latency — the statistics are calculated at the node every <b>five</b> minutes. However, the alert monitoring system retrieves the values each minute, just like for other statistics. So, the monitoring system retrieves the same calculated S3 statistics five times, until the next set of S3 statistics is calculated. If an S3 statistic value is across a notification threshold, the monitoring system retrieves that same statistic value five times, and consequently shows a Count of 5. So for alerts based on S3 statistic thresholds, the Count will overstate how often the alert has actually happened, by as much as a factor of 5.</p>
+                    <ul>
+                        <li value="1">For <b>service down alerts</b> the Count increments each 60 seconds for as long as the service is down. If you acknowledge a service down alert but you don’t start the service, the Count is initialized to 0 and then starts incrementing again.</li>
+                        <li value="2">For <b>log message alerts</b>, a Count value greater than "1" means that the exact same log message has occurred multiple times without being acknowledged.</li>
+                    </ul>
+                    <p class="NoteIndent" data-mc-autonum="&lt;b&gt;Note: &lt;/b&gt;"><span class="autonumber"><span><b>Note: </b></span></span>The monitoring system checks the logs every 30 seconds for new warning or erros messages. If a log is rotated during the 30 second interval between one check and the next, it’s possible that an instance of a log message may be missed by the monitoring system. In this alert the Count value may not be exactly correct, particularly in circumstances where many error messages are occurring and logs are being rotated more frequently than usual.</p>
+                    <ul>
+                        <li value="1">For <b>repair completion alerts</b>, a Count value greater than "1" means that multiple repair completion alerts of the specified repair type (REPAIR, EC:REPAIR, or CASSANDRA:REPAIR) have occurred on the same node without being acknowledged. Note that if the Count is greater than "1", the Alert Text will show only the status of the first-finished repair operation . To view status detail on all recently run repairs use <em>hsstool opstatus</em> or check the CMC’s <a href="../Analytics/Repair Status/RepairStatusOverview.htm" class="MCXref xref">Repair Status</a> page.</li>
+                    </ul>
+                </div>
+            </div>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

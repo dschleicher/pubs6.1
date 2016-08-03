@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="CMC Interface|Cluster|Configuration Settings">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Quality of Service Settings</title>
+        <link href="../../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../../CmcInterfaceOverview.htm">CMC Interface</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="../ClusterOverview.htm">Cluster</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="ConfigurationSettingsOverview.htm">Configuration Settings</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Quality of Service Settings</span>
+            </div>
+            <h1>Quality of Service Settings</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[CMC Interface]</p>
+            <p>The settings in this section of the CMC’s <b><a href="../../../Resources/Images/cmc/cluster/ConfigurationSettings.png" class="MCTopicPopup MCTopicPopupHotSpot a">Configuration Settings</a></b> page configure the HyperStore system’s quality of service (QoS) feature. After making any edits, click <b>Save</b> at the bottom of the page to dynamically apply the configuration change to the cluster.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>For an overview of the HyperStore QoS feature, see <a href="../../../Major Features/Quality of Service/QosOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Quality of Service (QoS) Feature Overview</a>.</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Enforce_Configured_QoS_Limits_for_Storage_Utilization"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">Enforce Configured QoS Limits for Storage Utilization</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>If this setting is <b>enabled</b> the system will enforce Quality of Service (QoS) limits for number of stored bytes and number of stored objects, if you have <a href="../../Users &amp; Groups/SetQoS.htm" class="MCTopicPopup MCTopicPopupHotSpot a">set such limits for users and groups</a>.</p>
+                    <p>If this setting is <b>disabled</b> the system will not enforce any QoS limits, even if you have set such limits for users and groups.</p>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>To enforce QoS limits for stored bytes and number of stored objects <b>but not</b> QoS limits for HTTP request rate, bytes-in rate, and bytes-out rate, set:<br /><br /><em>Enforce Configured QoS Limits for Storage Utilization</em> = enabled<br /><em>Enforce Configured QoS Limits for Request Rates and Data Transfer Rates</em> = disabled<br /><br />To enforce QoS limits for stored bytes and number of stored objects <b>and also</b> QoS limits for HTTP request rate, bytes-in rate, and bytes-out rate, set:<br /><br /><em>Enforce Configured QoS Limits for Storage Utilization</em> = enabled<br /><em>Enforce Configured QoS Limits for Request Rates and Data Transfer Rates</em> = enabled</p>
+                    <p>Enforcing QoS for traffic rates but not for stored bytes and objects is not supported at the system configuration level. If you want to use QoS in this way, set both of the QoS enforcement settings to enabled, then when you’re configuring QoS limits for groups and users set the stored bytes and objects controls to unlimited and the rate controls to your desired levels.</p>
+                    <p>Default = Disabled</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Enforce_Configured_QoS_Limits_for_Request_Rates_and_Data_Transfer_Rates"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">Enforce Configured QoS Limits for Request Rates and Data Transfer Rates</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>If this setting is <b>enabled</b> the system will enforce QoS limits for HTTP request rate, bytes-in rate, and bytes-out rate, if you have <a href="../../Users &amp; Groups/SetQoS.htm" class="MCTopicPopup MCTopicPopupHotSpot a">set such limits for users and groups</a>.</p>
+                    <p>If this setting is <b>disabled</b>, then the system will not enforce HTTP request rate, bytes-in rate, and bytes-out rate limits, even if you have set such limits for users and groups.</p>
+                    <p>Enabling this setting is supported only if the <em>Enforce Configured QoS Limits for Storage Utilization</em> setting is also enabled.</p>
+                    <p>Default = Disabled</p>
+                </div>
+            </div>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

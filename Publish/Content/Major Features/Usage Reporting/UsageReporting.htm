@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Working with HyperStore Major Features|Usage Reporting">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Generating a Usage Report</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Working with HyperStore Major Features</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Usage Reporting</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Generating a Usage Report</span>
+            </div>
+            <h1>Generating a Usage Report</h1>
+            <p>You can generate usage report data through either the CMC or the Admin API.</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Generating a Usage Report (CMC)</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>In the CMC <a href="../../CMC Interface/Analytics/Usage By Users &amp; Groups/UsageOverview.htm" class="MCXref xref" xrefformat="{para}">Usage By Users &amp; Groups</a> page you can generate usage reports for a user, a group, a whole region, or your whole system. You can choose a report interval, a report granularity (raw, hourly, daily, or monthly roll-up), and the usage type to report on (Storage Bytes, Storage Objects, or — if request tracking is enabled —  HTTP GETs, PUTs, DELETEs, All HTTP Requests, Data Transfer-In-Bytes, or Data Transfer-Out-Bytes).</p>
+                    <p>You can display reports in the CMC in tabular format or dynamic graph format, or download report data in comma-separated value (CSV) format.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Generating a Usage Report (Admin API)</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>The Admin API method <a href="../../Admin API/Usage Reporting/GetUsageData.htm">GET /usage</a> returns usage data for a specified user or a specified group. You can choose a report interval, a report granularity (raw, hourly, daily, or monthly roll-up), and the usage type to report on (Storage Bytes, Storage Objects, or — if request tracking is enabled — HTTP GETs, PUTs, or DELETEs). Optionally you can limit the report to a specified service region.</p>
+                    <p>The usage data is returned as a JSON-formatted list of <a href="../../Admin API/Data Objects/UsageData.htm" class="MCXref xref" xrefformat="{para}">UsageData</a> objects.</p>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>To retrieve usage data for a whole region or the whole system, you must execute <a href="../../Admin API/Usage Reporting/GetUsageData.htm">GET /usage</a> separately for each group.</p>
+                </div>
+            </div>
+            <p>&#160;</p>
+            <p><b>See Also:</b>
+            </p>
+            <ul>
+                <li value="1"><a href="UsageEnablingTracking.htm" class="MCXref xref" xrefformat="{para}">Enabling Usage Tracking for Traffic</a>
+                </li>
+                <li value="2"><a href="UsageRetention.htm" class="MCXref xref" xrefformat="{para}">Setting Usage Data Retention Periods</a>
+                </li>
+            </ul>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

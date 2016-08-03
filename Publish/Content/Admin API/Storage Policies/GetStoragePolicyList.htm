@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Admin API|Methods|Storage Policies">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>GET Storage Policy List</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../AdminApiOverview.htm">Admin API</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Methods</span><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="StoragePoliciesOverview.htm">Storage Policies</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">GET Storage Policy List</span>
+            </div>
+            <h1>GET Storage Policy List</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[Admin API Method]</p>
+            <p>Use this Admin API method to retrieve a list of all storage policies that currently exist in your system. The full policies (policy definitions) are retrieved — not just a list of policy IDs.</p>
+            <p>Optionally, you can filter the returned policy list by region, group ID, or policy status.</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Request Format</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <h4>Syntax</h4><pre xml:space="preserve">GET /bppolicy/listpolicy[?region=xxx][&amp;groupId=xxx][&amp;status=xxx]</pre>
+                    <h4>Query Parameters</h4>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />region</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <div class="Indent">
+                                <p>(Optional, string) If you use this parameter, then only policies associated with the specified service region will be returned.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />groupId</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <div class="Indent">
+                                <p>(Optional, string) If you use this parameter, then only policies that are available to the specified group will be returned.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />status</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <div class="Indent">
+                                <p>(Optional, string) If you use this parameter, then only policies that have the specified status will be returned. The supported statuses are:</p>
+                                <ul>
+                                    <li value="1"> <em>pending</em> — The policy is in the process of being created in the system. In this state the policy is not yet available to be used.</li>
+                                    <li value="2"><em>active</em> — The policy is currently available to users when they create a new bucket.</li>
+                                    <li value="3"><em>disabled</em> — The policy is no longer available to users when they create a new bucket. However, the policy still exists in the system and is still being applied to any buckets to which the policy was assigned during the period when it was active.</li>
+                                    <li value="4"><em>deleted</em> — The policy has been deleted from the system. Only policies that have never been assigned to any bucket can be deleted.</li>
+                                    <li value="5"><em>failed</em> — During the policy creation (with PUT New Storage Policy), the policy failed to be fully set up in the system. Though a BucketProtectionPolicy JSON object exists and can be retrieved, the policy is not actually set up in the system and is not usable. In such cases the corrective action is to delete the failed policy and then to try again to create the desired policy.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <h4>Request Payload</h4>
+                    <p>None.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Response Format</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <h4>Response Status</h4>
+                    <p>This method returns only the <a href="../CommonStatusCodes.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Common Response Status Codes</a></p>
+                    <h4>Response Payload</h4>
+                    <p>List&lt;<a href="../Data Objects/BucketProtectionPolicy.htm" class="MCXref xref">BucketProtectionPolicy</a>&gt; in JSON.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Example</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>In this example all the system’s storage policies are successfully retrieved. There are two storage policies in the system, one of which is a replication policy and the other an erasure coding policy.</p><pre xml:space="preserve"># Request -&gt;
+
+GET http://10.50.200.201:18081/bppolicy/listpolicy
+
+# Response -&gt;
+
+Status Code: 200 OK
+Content-Length: 903
+Content-Type: application/json
+Date: Mon, 05 Oct 2015 13:57:55 GMT
+[{"policyName":"hsfs-policy","policyDescription":"3X Replication","consistencyLevel":{"read":
+["QUORUM"],"write":["QUORUM"],"writeNew":["QUORUM"],"metadataR":["QUORUM"],"metadataW":["QUORUM"],
+"readEC":["EACH_QUORUM"],"writeEC":["LOCAL_QUORUM"]},"ecscheme":null,"defaultProtectionScheme":
+"HSFS","status":"ACTIVE","replicationScheme":{"DC1":"3"},"systemDefault":true,"groups":[],
+"policyId":"ea91c90e80936f22ceebf305d7b45e78","region":"region1"},{"policyName":"ec-policy",
+"policyDescription":"2+1 Erasure Coding","consistencyLevel":{"read":["LOCAL_QUORUM"],"write":
+["ALL"],"writeNew":["ALL"],"metadataR":["QUORUM"],"metadataW":["QUORUM"],"readEC":["LOCAL_QUORUM"],
+"writeEC":["ALL"]},"ecscheme":{"k":2,"m":1,"dc":["DC1"],"type":"DC"},"defaultProtectionScheme":
+"EC","status":"ACTIVE","replicationScheme":null,"systemDefault":false,"groups":[],"policyId":
+"e810cb2dc3be840d8a07e5dfb2d4d997","region":"region1"}]</pre>
+                    <p>For more information about BucketProtectionPolicy object attributes, see <a href="../Data Objects/BucketProtectionPolicy.htm" class="MCXref xref">BucketProtectionPolicy</a>.</p>
+                </div>
+            </div>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Working with HyperStore Major Features|Auto-Tiering">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Setting Up Auto-Tiering</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Working with HyperStore Major Features</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Auto-Tiering</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Setting Up Auto-Tiering</span>
+            </div>
+            <h1>Setting Up Auto-Tiering</h1>
+            <p>There are three stages to setting up local HyperStore storage buckets to auto-tier objects to a destination S3 system:</p>
+            <ol>
+                <li value="1">Enable the auto-tiering feature and set a destination endpoint.</li>
+                <li value="2">Prepare the system for destination account access.</li>
+                <li value="3">Enable and configure auto-tiering for individual HyperStore buckets.</li>
+            </ol>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="EnableTiering"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">Enable the Auto-Tiering Feature and Set a Destination Endpoint</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>By default, auto-tiering functionality is <b>disabled</b> in the HyperStore system. Do the following to enable the auto-tiering feature and set a tiering destination endpoint:</p>
+                    <ol>
+                        <li value="1">Log into the CMC and go to <b>Cluster → Cluster Config → Configuration Settings</b>, then open the <b>Auto-Tiering</b> panel.</li>
+                        <li value="2">Set "Enable Auto-Tiering" to "Enabled".</li>
+                        <li value="3">Edit the "Auto-Tiering URL" to be the <a href="http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region" target="_blank">AWS S3 regional endpoint</a> that’s most suitable for your location, specified as a complete URL. For example:</li>
+                    </ol>
+                    <div class="Indent">
+                        <ul>
+                            <li value="1">In northern California, use <em>http://s3-us-west-1.amazonaws.com</em> (or <em>https://s3-us-west-1.amazonaws.com</em> if you prefer to use HTTPS for auto-tiering)</li>
+                            <li value="2">In Japan, use <em>http://s3-ap-northeast-1.amazonaws.com</em> (or <em>https://s3-ap-northeast-1.amazonaws.com</em> if you prefer to use HTTPS for auto-tiering)</li>
+                        </ul>
+                        <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>	If you want to tier to a third party S3-compliant system other than Amazon, enter that system’s endpoint here.</p>
+                        <p class="Important" data-mc-autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;"><span class="autonumber"><span><b>IMPORTANT: </b></span></span>Once service users have activated auto-tiering on their buckets, you cannot change the Auto-Tiering URL.</p>
+                    </div>
+                    <ol data-mc-continue="true">
+                        <li value="4">Click <b>Save</b> at the bottom of the page to save your changes.</li>
+                    </ol>
+                    <p>The system applies these CMC configuration changes dynamically — no service restart is required.</p>
+                    <p>Next, log in to the Puppet master node and open the following file in a text editor:</p><pre>/etc/cloudian-&lt;version&gt;-puppet/modules/cloudians3/templates/tiering-regions.xml.erb</pre>
+                    <p>Confirm that the endpoint that you want to tier to is in this file. If it’s a standard Amazon S3 regional endpoint, it should already be in the file by default — in which case after confirming you can close the file and move on to the next stage of auto-tiering set-up, <a href="#PrepareDestination" class="MCXref xref" xrefformat="{para}">Prepare the System for Destination Account Access</a>.</p>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />If the endpoint that you want to tier to is <b>not</b> in <em>tiering-regions.xml.erb</em></a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>If the endpoint that you want to tier to is <b>not</b> in the file — such as if you are tiering to an S3-compliant system other than Amazon — then you need to add it to the file as follows:</p>
+                            <ol>
+                                <li value="1">Copy the sample "Region" block at the top of the <em>tiering-regions.xml.erb</em> file and paste it toward the end of the file after the existing "Region" blocks (but <b>before</b> the closing "&lt;/XML&gt;" tag that’s at the very end of the file).</li>
+                                <li value="2">Edit the block so that the "Hostname" element specifies the endpoint that you want to tier to. If the destination system has a region name, specify that in the "Name" element. For example, if the region name is "s3-north" and the endpoint is "s3-north.cloud.com", then your edited Region block would look like this:</li>
+                            </ol>
+                            <div class="Indent"><pre xml:space="preserve">&lt;Region&gt;
+   &lt;Name&gt;s3-north&lt;/Name&gt;
+   &lt;Endpoint&gt;
+      &lt;ServiceName&gt;s3&lt;/ServiceName&gt;
+      &lt;Http&gt;true&lt;/Http&gt;
+      &lt;Https&gt;true&lt;/Https&gt;
+      &lt;Hostname&gt;s3-north.cloud.com&lt;/Hostname&gt;
+   &lt;/Endpoint&gt;
+&lt;/Region&gt;</pre>
+                                <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>If the destination service does not have a region name, use any string for the "Name" element (such as "region1"). It will have no effect.</p>
+                                <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>Make sure that the service endpoint that you want to tier to is resolvable in your DNS system.</p>
+                            </div>
+                            <ol data-mc-continue="true">
+                                <li value="3">Save your change and close the file.</li>
+                                <li value="4">If you intend to have the HyperStore system use <b>account credentials</b> to access the tiering destination service, you’re done with configuration file editing so you should now apply your<em> tiering-regions.xml.erb</em> edits to the HyperStore system as described below. (If instead you intend to use <b>anonymous access</b> to the destination service, proceed directly to <a href="#PrepareDestination" class="MCXref xref" xrefformat="{para}">Prepare the System for Destination Account Access</a>, wherein you will make edits to other configuration files to enable the anonymous access method. You can subsequently apply all your configuration file changes to the system at the same time, as described in that section.)</li>
+                            </ol>
+                            <div class="Indent">
+                                <p>To apply your <em>tiering-regions.xml.erb</em> changes:</p>
+                                <ol style="list-style-type: lower-alpha;">
+                                    <li value="1">Still on the Puppet master node, go to your installation staging directory and launch the cloudianInstall.sh script:</li>
+                                </ol>
+                                <div class="Indent"><pre xml:space="preserve">[root]# cd &lt;your-installation-staging-directory&gt;
+[root]# ./cloudianInstall.sh</pre>
+                                </div>
+                                <ol style="list-style-type: lower-alpha;" data-mc-continue="true">
+                                    <li value="2">From the script menu, push your configuration file change out to the cluster ("Cluster Management" → "Push Configuration Settings to Cluster").</li>
+                                    <li value="3">From the script menu, restart your S3 Service ("Cluster Management" → "Manage Services" → "S3" → restart).</li>
+                                </ol>
+                            </div>
+                            <p>Now you can proceed to "Prepare the System for Destination Account Access", below.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="PrepareDestination"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">Prepare the System for Destination Account Access</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>There are three options for having the HyperStore system access the destination account(s) into which objects will be auto-tiered:</p>
+                    <ul>
+                        <li value="1">Let each bucket owner tier to his or her own existing AWS account, using credentials that they supply when they configure their bucket for auto-tiering. If this is the approach you want to use, you can skip this section and proceed directly to <a href="#EnableAutoTieringBuckets" class="MCXref xref" xrefformat="{para}">Enable and Configure Auto-Tiering for Individual HyperStore Buckets</a>.</li>
+                        <li value="2">Have HyperStore buckets auto-tier to a corporate default AWS account, using credentials that you supply. This approach is described in this section.</li>
+                        <li value="3">Have HyperStore buckets auto-tier to specific Amazon S3 buckets that have been configured for public read/write access, so that no access credentials are required. This approach is also described in this section.</li>
+                    </ul>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Supplying Credentials for a Corporate Default AWS Account</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>If you intend to have all auto-tiering go to one corporate AWS account, using corporate AWS access credentials, you need to store the credentials into the HyperStore system.</p>
+                            <p>To do so, in the CMC go to <b>Cluster → Cluster Config → Auto-Tiering Credentials</b>. Enter your AWS corporate account access key and secret key in the labeled fields and click <b>Save</b>. The system encrypts the credentials and stores them in the Redis Credentials database. You can now proceed to <a href="#EnableAutoTieringBuckets" class="MCXref xref" xrefformat="{para}">Enable and Configure Auto-Tiering for Individual HyperStore Buckets</a>.</p>
+                            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>	As an alternative to using the CMC to supply AWS credentials to the HyperStore system, you can use the Admin API’s <a href="../../Admin API/Auto-Tiering Credentials/PostAmazonTieringCredentials.htm">POST /tiering/credentials</a> method.</p>
+                        </div>
+                    </div>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Configuring the System to Tier to Public Read/Write Buckets</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>HyperStore supports tiering to specified destination buckets that have been configured (at the destination system) for public read/write access. With this approach the access from HyperStore to the destination system is "anonymous" and requires no S3 access credentials.</p>
+                            <p>To use this approach, you must know which local HyperStore buckets you want to tier to which destination system public read/write buckets, and you must configure this source bucket to destination bucket mapping <b>before auto-tiering is enabled for the individual source buckets</b>.</p>
+                            <p>To configure this bucket mapping:</p>
+                            <ol>
+                                <li value="1">Log in to the Puppet master node and open the following file in a text editor:</li>
+                            </ol>
+                            <div class="Indent"><pre>/etc/cloudian-&lt;version&gt;-puppet/modules/cloudians3/templates/mts.properties.erb</pre>
+                            </div>
+                            <ol data-mc-continue="true">
+                                <li value="2">In the file, uncomment the following line:</li>
+                            </ol>
+                            <div class="Indent"><pre xml:space="preserve">BEFORE:
+
+# cloudian.tiering.mapfile=/opt/cloudian/conf/tiering-map.txt
+
+AFTER:
+
+cloudian.tiering.mapfile=/opt/cloudian/conf/tiering-map.txt</pre>
+                            </div>
+                            <ol data-mc-continue="true">
+                                <li value="3">Save and close the file.</li>
+                                <li value="4">Still on the Puppet master node, open the following file in a text editor:</li>
+                            </ol>
+                            <div class="Indent"><pre>/etc/cloudian-&lt;version&gt;-puppet/modules/cloudians3/templates/tiering-map.txt.erb</pre>
+                            </div>
+                            <ol data-mc-continue="true">
+                                <li value="5">For each HyperStore source bucket that you want to auto-tier to a public read-write bucket on the destination system, enter a line in this format:</li>
+                            </ol>
+                            <div class="Indent"><pre>&lt;source-bucket-name&gt;,&lt;destination-bucket-name&gt;</pre>
+                                <p><b>Each source bucket must have a unique destination</b>. There are two options for accomplishing this. The first is to have each source bucket map to a unique destination bucket. For example, at your destination system you could create (public read/write) buckets with the same names as the source buckets for which you want to enable auto-tiering. And then you would configure your <em>tiering-map.txt.erb</em> file to look something like this:</p><pre xml:space="preserve">dev,dev
+qa,qa
+ops,ops
+support,support
+pubs,pubs
+sales,sales</pre>
+                                <p>Alternatively, you can have multiple source buckets tier to the same destination bucket, and use object path prefixes on the destination side to give each source bucket a unique destination. The prefixes must start with a forward slash. For example, in the sample below there is just one destination bucket — "archive" — but path prefixes are used to map each source bucket to a unique destination:</p><pre xml:space="preserve">dev,archive/dev
+qa,archive/qa
+ops,archive/ops
+support,archive/support
+pubs,archive/pubs
+sales,archive/sales</pre>
+                            </div>
+                            <ol data-mc-continue="true">
+                                <li value="6">After configuring the tiering-map.txt.erb file, save and close it.</li>
+                                <li value="7">Apply your configuration changes to the system:</li>
+                            </ol>
+                            <div class="Indent">
+                                <ol style="list-style-type: lower-alpha;">
+                                    <li value="1">Still on the Puppet master node, go to your installation staging directory and launch the cloudianInstall.sh script:</li>
+                                </ol>
+                                <div class="Indent"><pre xml:space="preserve">[root]# cd &lt;your-installation-staging-directory&gt;
+[root]# ./cloudianInstall.sh</pre>
+                                </div>
+                                <ol style="list-style-type: lower-alpha;" data-mc-continue="true">
+                                    <li value="2">From the script menu, push your configuration file change out to the cluster ("Cluster Management" → "Push Configuration Settings to Cluster").</li>
+                                    <li value="3">From the script menu, restart your S3 Service ("Cluster Management" → "Manage Services" → "S3" → restart).</li>
+                                </ol>
+                            </div>
+                            <p>You can now proceed to "Enable and Configure Auto-Tiering for Individual HyperStore Buckets", below.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="EnableAutoTieringBuckets"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">Enable and Configure Auto-Tiering for Individual HyperStore Buckets</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>HyperStore service users can set auto-tiering for their own buckets through the CMC’s <b>Buckets &amp; Objects</b> page. Alternatively, as an administrator you can set auto-tiering for a user’s bucket by retrieving the user in the <b>Manage Users</b> page and then clicking "View User Data" to open a <b>Buckets &amp; Objects</b> page for that user’s data.</p>
+                    <p>In the <b>Buckets &amp; Objects</b> page, auto-tiering can be set by selecting a bucket and opening its <b>Bucket Properties</b> interface. In the interface’s <b>Lifecycle Policy</b> section you can configure all aspects of auto-tiering for the bucket:</p>
+                    <ul>
+                        <li value="1">Enable/disable auto-tiering for the bucket (default is disabled)</li>
+                        <li value="2">Tiering destination (AWS S3 or AWS Glacier)</li>
+                    </ul>
+                    <p class="NoteIndent" data-mc-autonum="&lt;b&gt;Note: &lt;/b&gt;"><span class="autonumber"><span><b>Note: </b></span></span>	If you’re tiering to an S3-compliant third party system select the AWS S3 option. Then the actual tiering destination used by HyperStore will be whatever endpoint you configured during the <a href="#EnableTiering" class="MCXref xref" xrefformat="{para}">Enable the Auto-Tiering Feature and Set a Destination Endpoint</a> stage of auto-tiering set-up.</p>
+                    <ul>
+                        <li value="1">Whether to make all objects in the bucket subject to auto-tiering, or only objects beginning with a prefix that you specify</li>
+                        <li value="2">The auto-tiering schedule, based on one of three supported methods:<ul style="list-style-type: circle;"><li value="1">Days since object creation</li><li value="2">Days since object was last accessed</li><li value="3">Fixed date</li></ul></li>
+                        <li value="3">The allowed method for accessing the bucket’s auto-tiered objects through the HyperStore system:<ul style="list-style-type: circle;"><li value="1">Streaming</li><li value="2">Redirect</li><li value="3">Restore only</li></ul></li>
+                        <li value="4">Account credentials to use for accessing the destination system:<ul style="list-style-type: circle;"><li value="1">To use corporate default account credentials, or if the bucket has been mapped to a public read/write bucket for anonymous access, select "Use Default S3 Credential".</li><li value="2">To use bucket-specific credentials (that is, to auto-tier to the bucket owner’s own AWS account), deselect the "Use Default S3 Credential" checkbox and complete the "Access Key" and "Secret Key" fields.</li></ul></li>
+                    </ul>
+                    <p class="NoteIndent" data-mc-autonum="&lt;b&gt;Note: &lt;/b&gt;"><span class="autonumber"><span><b>Note: </b></span></span>The HyperStore auto-tiering feature supports the use of AWS Identity and Access Management (IAM) user credentials. To use the auto-tiering feature, IAM users should have "AWSS3FullAccess" and "AWSGlacierFullAccess" permissions.</p>
+                    <p>For more detail on using this interface, see <a href="../../CMC Interface/Buckets &amp; Objects/Buckets/Set Bucket Properties/BucketPropertiesLifecycle.htm" class="MCXref xref" xrefformat="{para}">Configure a Bucket Lifecycle Policy for Object Auto-Tiering or Expiration</a>y.</p>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>As an alternative to using the CMC to activate and configure auto-tiering for buckets, you can develop or extend an S3 client application to utilize the HyperStore extensions to the S3 API method <a href="../../S3 API Support/OperationsOnBuckets/PutBucketLifecycle.htm" class="MCXref xref" xrefformat="{para}">PUT Bucket lifecycle</a>.</p>
+                </div>
+            </div>
+            <p>&#160;</p>
+            <p><b>See Also:</b>
+            </p>
+            <ul>
+                <li value="1"><a href="AutoTieringObjectAccess.htm" class="MCXref xref" xrefformat="{para}">Accessing Auto-Tiered Objects</a>
+                </li>
+            </ul>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>
