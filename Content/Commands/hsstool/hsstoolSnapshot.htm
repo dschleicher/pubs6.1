@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="1569" MadCap:lastWidth="815">
+    <head>
+    </head>
+    <body>
+        <h1>hsstool snapshot</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Command]</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Introduction</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Use this <MadCap:xref href="hsstoolOverview.htm" target="_popup">hsstool </MadCap:xref> command to take a backup snapshot of all the data on a physical node. In particular, the <em>snapshot</em> operation backs up the contents of your Cassandra data directory (the directory specified by the system configuration setting <em>common.csv: cassandra_data_directories</em>) and the contents of your HyperStore data directories (the directories specified by the system configuration setting <em>common.csv: hyperstore_data_directory</em>).</p>
+                <p>Note that if your HyperStore deployment uses erasure coding, the erasure coded data is stored in the HyperStore data directories along with HyperStore File System data. Consequently the <em>snapshot</em> operation backs up erasure coded data as well as HSFS replica data and Cassandra data.</p>
+                <p>When you run <em>snapshot</em> on a node you will specify a destination directory into which the snapshot will be written. In that destination directory, the <em>snapshot</em> operation creates a sub-folder named cassandra to contain Cassandra data backups and a sub-folder named <em>native</em> to contain HSFS replica and erasure coding backups.</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">The <em>snapshot</em> operation uses the backup utility <em>rdiff-backup</em> which is installed with the HyperStore package. The <em>snapshot</em> operation creates a complete mirror of the source directories and consequently a snapshot will consume a large amount of disk space. If you use <em>snapshot</em> recurrently with the same destination directory, the operation also maintains increments that enable you to restore to a previous point in time if so desired. For further implementation detail see the <a href="http://www.nongnu.org/rdiff-backup/index.html" target="_blank">rdiff-backup online documentation</a>.<br /><br />You can use these <em>rdiff-backup</em> commands to see what increments currently exist in the snapshot destination directory’s <em>cassandra</em> and <em>native</em> sub-directories:<br /><br /><code># for Cassandra data:<br />[root]# rdiff-backup -l &lt;destination_dir&gt;/cassandra/<br /><br /># for HyperStore and erasure coded data:<br />[root]# rdiff-backup -l &lt;destination_dir&gt;/native/</code></p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Command Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>You can run the <em>hsstool snapshot</em> command through the CMC UI:</p>
+                <p>
+                    <img src="../../Resources/Images/cmc/cluster/Advanced_snapshot.png" style="max-width: 8.00in;" />
+                </p>
+                <p>Or on the command line:</p><pre xml:space="preserve">[root]# /opt/cloudian/bin/hsstool -h &lt;host&gt; snapshot &lt;destination-dir&gt; [debug]</pre>
+                <h3>Parameters</h3>
+                <p>This command supports these parameters:</p>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>-h &lt;host&gt; (called "Target Node" in CMC UI)</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Mandatory) Target host for which to take a snapsnot.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>&lt;destination-dir&gt;</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Mandatory) &#160;Destination directory into which to write the snapshot. This will typically be on the node that’s being backed up. For information about specifying a destination directory on a different host than the one that’s being backed up, see the <a href="http://www.nongnu.org/rdiff-backup/index.html" target="_blank">rdiff-backup online documentation</a>.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>debug</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Optional) Write debug info to the HyperStore Service application log on the node being backed up.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

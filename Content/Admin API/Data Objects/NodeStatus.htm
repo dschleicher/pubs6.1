@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="7" MadCap:lastHeight="901" MadCap:lastWidth="814">
+    <head>
+    </head>
+    <body>
+        <h1>NodeStatus</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Admin API Object]</p>
+        <p>A list of NodeStatus objects — one for each node in the service region — is nested within the <MadCap:xref href="MonitorSystemInfo.htm">MonitorSystemInfo</MadCap:xref> object.</p>
+        <p>The NodeStatus object consists of the following attributes:</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>hostname</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(string) Hostname of the node.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>ipaddr</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(string) This attribute will have value <em>null</em> or empty.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>status</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(List&lt;string&gt;) Status of the node. A list of one or more of the following strings: "OK","SVC_DOWN","LOG_WARN", or "LOG_ERR". The meanings are:</p>
+                    <ul>
+                        <li>"OK" — All HyperStore services are up and running on the node, and the node has no unacknowledged events.</li>
+                        <li>"SVC_DOWN" — One or more HyperStore services (Admin, Cassandra, HyperStore, Redis QoS, Redis Credentials, Redis Monitor, or S3) is down on the node</li>
+                        <li>"LOG_WARN" — There are unacknowledged warnings in an application log on the node (such as the S3 Service application log or the Cassandra application log).</li>
+                        <li>"LOG_ERR" — There are unacknowledged errors in an application service log.</li>
+                    </ul>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>timestamp</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(string) xStatus timestamp in UTC milliseconds.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>value</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(string) The "value" attribute will be identical to the "status" attribute, except formatted as a single string rather than a list of strings. For example:</p><pre>"status":["SVC_DOWN","LOG_WARN"],"value":"[SVC_DOWN, LOG_WARN]"</pre>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <h2>Example</h2>
+        <p>This is an example of a NodeStatus object. The example is an excerpt from within a parent MonitorSystemInfo object. It indicates status information for a single node within the service region.</p><pre xml:space="preserve">{"hostname":"appliance3","ipaddr":null,"status":["SVC_DOWN","LOG_WARN"],
+"value":"[SVC_DOWN, LOG_WARN]","timestamp":"1449150002497"}</pre>
+    </body>
+</html>

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="434" MadCap:lastWidth="831">
+    <head>
+    </head>
+    <body>
+        <h1>Set File Properties</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[CMC Interface]</p>
+        <p>To set file properties, in the CMC's <b>Objects</b> interface click <b>Properties</b> in the file’s display row. This opens the file properties interface for that file.</p>
+        <p>Supported tasks:</p>
+        <ul>
+            <li>
+                <MadCap:xref href="ObjectPropertiesCustomPermissions.htm">Set Custom S3 Permissions on a File</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="ObjectPropertiesCannedPermissions.htm">Set "Canned" S3 Permissions on a File</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="ObjectPropertiesPublicUrl.htm">Set Public URL Permissions on a File</MadCap:xref>
+            </li>
+        </ul>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">The CMC supports only setting permissions on individual files, one-by-one. If you want to make <b>all</b> files (objects) within a bucket readable to the public or to specified individuals or groups, the best way to accomplish this is through creating a bucket policy. The S3 API supports this (see <MadCap:xref href="../../../../S3 API Support/OperationsOnBuckets/PutBucketPolicy.htm">PUT Bucket policy</MadCap:xref>), and some S3 client applications may support this, but the CMC currently does not.</p>
+    </body>
+</html>

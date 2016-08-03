@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="7" MadCap:lastHeight="846" MadCap:lastWidth="819">
+    <head>
+    </head>
+    <body>
+        <h1>EventsAck</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Admin API Object]</p>
+        <p>The EventsAck object is required as the <b>request payload</b> for this Admin API operation:</p>
+        <ul>
+            <li>
+                <MadCap:xref href="../System Monitoring/PostEventAcknowledgement.htm">POST Event Acknowledgement</MadCap:xref>
+            </li>
+        </ul>
+        <p>The EventsAck object consists of the attributes below. Each attribute description indicates whether the attribute is mandatory or optional when this object is transmitted as a request payload.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>delete</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(Optional, boolean) &#160;If this attribute is included and set to <em>true</em> then the events specified by the "eventTypes" attribute will be immediately deleted from the system.</p>
+                    <p>If this attribute is omitted or set to <em>false</em> then the events specified by the "eventTypes" attribute will be marked as acknowledged but will not yet be deleted from system. Such acknowledged events will instead be deleted automatically after a time period configured by the <code>events.acknowledged.ttl</code> property in the <code>mts.properties.erb</code> configuration file. By default this period is 86400 seconds (one day).</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>eventTypes</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(Mandatory, list&lt;string&gt;) List of the eventTypes being acknowledged. For non-log events (such as a service down event or a threshold crossing event), the eventType is the integer ruleId value from the notification rule that triggered the event. For log events (events triggered by the writing of an application log message), the eventType is formatted as "&lt;ruleId&gt;|&lt;logCategory&gt;". The specific eventTypes currently present on a node can be retrieved with the <MadCap:xref href="../System Monitoring/GetEventList.htm">GET Event List</MadCap:xref> method.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>nodeId</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(Mandatory, string) Hostname of the node on which the event(s) occurred.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>regionId</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(Optional, string) &#160;Name of service region in which the event(s) occurred.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <h2>Example</h2>
+        <p>This is an example of an EventsAck object. It’s acknowledging three events on a node that has hostname "appliance6". The third of the three events is a log event; the first two are not. The "delete" attribute is omitted, so these events will not be immediately deleted from the system — instead they will be automatically deleted after the time-to-live period.</p><pre xml:space="preserve">{"nodeId":"appliance6","eventTypes":["5","6","9|AuditDataCollector:populateNodeInfo(410)"]}</pre>
+    </body>
+</html>

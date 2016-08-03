@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="10" MadCap:lastHeight="1479" MadCap:lastWidth="873">
+    <head>
+    </head>
+    <body>
+        <h1>GET Notification Rules</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Admin API Method]</p>
+        <p>Use this Admin API method to retrieve the list of notification rules that currently exist in the HyperStore system. This includes the set of rules that are included in the system by default and also any rules that you have created.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Request Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Syntax</h4><pre xml:space="preserve">GET /monitor/notificationrules[?region=xxx]</pre>
+                <h4>Query Parameters</h4>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>region</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Optional, string) Service region from which to retrieve the notification rule list. In a multi-region system each region has its own notification rule list. If you do not specify a region, the default region’s rule list will be retrieved.</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <h4>Request Payload</h4>
+                <p>None.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Response Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Response Status</h4>
+                <p>This method returns only the <MadCap:xref href="../CommonStatusCodes.htm" target="_popup">Common Status Codes.</MadCap:xref></p>
+                <h4>Response Payload</h4>
+                <p>List &lt;<MadCap:xref href="../Data Objects/NotificationRule.htm">NotificationRule</MadCap:xref>&gt; in JSON.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Example</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>In this example the set of existing notification rules is successfully retrieved. Specifically, the return in this example is the default set of rules that come with the HyperStore system, plus the one additional rule created in the example in <MadCap:xref href="PutNewNotificationRule.htm">PUT New Notification Rule</MadCap:xref> (for statId "s3GetLatency").</p><pre xml:space="preserve"># Request -&gt;
+
+GET http://10.50.10.16:18081/monitor/notificationrules
+
+# Response -&gt;
+
+Status Code: 200 OK
+Content-Length: 2556
+Content-Type: application/json
+Date: Fri, 04 Dec 2015 15:54:06 GMT
+[{"email":"default","statId":"cpu","condition":"&gt;","conditionVal":"0.9","snmpTrap":false,
+"ruleId":"12","enabled":true,"region":""},{"email":"default","statId":"diskAvail",
+"condition":"&lt;","conditionVal":"0.1","snmpTrap":false,"ruleId":"11","enabled":true,"region":""},
+{"email":"default","statId":"diskInfo","condition":"&lt;","conditionVal":"0.15","snmpTrap":false,
+"ruleId":"13","enabled":true,"region":""},{"email":"default","statId":"repairCompletionStatus",
+"condition":"","conditionVal":"","snmpTrap":false,"ruleId":"14","enabled":true,"region":""},
+{"email":"default","statId":"s3GetLatency","condition":"&gt;","conditionVal":"150","snmpTrap":false,
+"ruleId":"8e4cc533-360a-4dd5-bfe4-6b5f5b6c40da","enabled":true,"region":""},{"email":"default",
+"statId":"svcAdmin","condition":"=","conditionVal":"LOG_ERR","snmpTrap":false,"ruleId":"9",
+"enabled":true,"region":""},{"email":"default","statId":"svcAdmin","condition":"=",
+"conditionVal":"SVC_DOWN","snmpTrap":false,"ruleId":"5","enabled":true,"region":""},
+{"email":"default","statId":"svcCassandra","condition":"=","conditionVal":"LOG_ERR",
+"snmpTrap":false,"ruleId":"7","enabled":true,"region":""},{"email":"default",
+"statId":"svcCassandra","condition":"=","conditionVal":"SVC_DOWN","snmpTrap":false,"ruleId":"0",
+"enabled":true,"region":""},{"email":"default","statId":"svcHyperStore","condition":"=",
+"conditionVal":"LOG_ERR","snmpTrap":false,"ruleId":"8","enabled":true,"region":""},
+{"email":"default","statId":"svcHyperStore","condition":"=","conditionVal":"SVC_DOWN",
+"snmpTrap":false,"ruleId":"4","enabled":true,"region":""},{"email":"default",
+"statId":"svcRedisCred","condition":"=","conditionVal":"LOG_WARN","snmpTrap":false,
+"ruleId":"16","enabled":true,"region":""},{"email":"default","statId":"svcRedisCred",
+"condition":"=","conditionVal":"SVC_DOWN","snmpTrap":false,"ruleId":"2","enabled":true,
+"region":""},{"email":"default","statId":"svcRedisMon","condition":"=","conditionVal":"SVC_DOWN",
+"snmpTrap":false,"ruleId":"3","enabled":true,"region":""},{"email":"default",
+"statId":"svcRedisQos","condition":"=","conditionVal":"LOG_WARN","snmpTrap":false,"ruleId":"15",
+"enabled":true,"region":""},{"email":"default","statId":"svcRedisQos","condition":"=",
+"conditionVal":"SVC_DOWN","snmpTrap":false,"ruleId":"1","enabled":true,"region":""},
+{"email":"default","statId":"svcS3","condition":"=","conditionVal":"LOG_ERR","snmpTrap":false,
+"ruleId":"10","enabled":true,"region":""},{"email":"default","statId":"svcS3",
+"condition":"=","conditionVal":"SVC_DOWN","snmpTrap":false,"ruleId":"6","enabled":true,
+"region":""}]</pre>
+                <p>For more information about NotificationRule object attributes, see <MadCap:xref href="../Data Objects/NotificationRule.htm">NotificationRule</MadCap:xref>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

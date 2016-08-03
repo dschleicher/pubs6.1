@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="2854" MadCap:lastWidth="756">
+    <head>
+    </head>
+    <body>
+        <p>&#160;<MadCap:keyword term="11. Availability for Erasure Coded Object Reads" /></p>
+        <h1>Availability for Erasure Coded Object Reads</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Diagram]</p>
+        <p>The read scenarios in this section continue the presumptions of the write scenarios in <MadCap:xref href="ErasureCodingWriteAvailability.htm">Erasure Coding -- Write Availability</MadCap:xref>: 4+2 erasure coding is being used to protect objects in a nine node cluster, in a single data center. We are now trying to read the same object that was written in the preceding section: object data fragments are stored on <em>node1</em>, <em>node2</em>, <em>node5</em>, <em>node6</em>, <em>node7</em>, and <em>node8</em>; and object metadata replicas are stored on <em>node2</em>, <em>node3</em>, <em>node4</em>, <em>node5</em>, and <em>node7</em>. We are presuming data consistency, which is the typical condition.</p>
+        <p>When you create storage policies for erasure coding in a single DC there is only one supported consistency level (CL) requirement for S3 object data read: LOCAL QUORUM. There is no need for a stricter object data read policy. You can separately configure CL requirements for S3 object metadata replica reads, choosing from ALL or QUORUM.</p>
+        <h2>Read Scenario: Two Object Data Endpoints Are Down</h2>
+        <p>
+            <img src="../../Resources/Images/diagrams/Single-DC-EC-Read-Two-Data-Down.png" />
+        </p>
+        <h2>Read Scenario: Two Object Metadata Endpoints Are Down</h2>
+        <p>
+            <img src="../../Resources/Images/diagrams/Single-DC-EC-Read-Two-Metadata-Down.png" />
+        </p>
+        <h2>Read Scenario: Two Object Data Endpoints and Two Object Metadata Endpoints Are Down</h2>
+        <p>
+            <img src="../../Resources/Images/diagrams/Single-DC-EC-Read-Two-Data-Two-Metadata-Down.png" />
+        </p>
+        <p><b>See Also:</b>
+        </p>
+        <ul>
+            <li>
+                <MadCap:xref href="ErasureCodingWriteAvailability.htm">Erasure Coding -- Write Availability</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="ReplicationWriteAvailability.htm">Replication -- Write Availability</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="ReplicationReadAvailability.htm">Replication -- Read Availability</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="10" MadCap:lastHeight="2763" MadCap:lastWidth="846">
+    <head>
+    </head>
+    <body>
+        <h1>POST QoS Limits</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Admin API Method]</p>
+        <p>Use this Admin API method to configure user-level or group-level QoS limits. User-level QoS settings place an upper limit on the storage utilization and transaction activites of individual users, while group-level QoS settings place such limits on entire user groups.</p>
+        <p>In a multi-region HyperStore deployment, QoS limits for users and groups are implemented on a per-region basis. In a multi-region context, you must establish QoS limits separately for each region. The QoS limits that you establish for a region will be applied only to activity in that particular region.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">For the system to actually <b>enforce</b> QoS limits that you have assigned to users or groups, the QoS feature must be enabled in your system configuration. By default it is disabled. To enable it log into the CMC and go to <b>Cluster → Cluster Config → Configuration Settings</b>. Note that you can enable QoS enforcement just for storage utilization limits, or for storage utilization limits and also request traffic limits.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Request Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Syntax</h4><pre xml:space="preserve">POST /qos/limits?userId=xxx&amp;groupId=xxx&amp;storageQuotaKBytes=xxx&amp;storageQuotaCount=xxx
+&amp;wlRequestRate=xxx&amp;hlRequestRate=xxx&amp;wlDataKBytesIn=xxx&amp;hlDataKBytesIn=xxx&amp;wlDataKBytesOut=xxx
+&amp;hlDataKBytesOut=xxx[&amp;region=xxx]</pre>
+                <h4>Query Parameters</h4>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">The maximum value for each of the KBytes limits is 2<sup>53</sup> -1. To disable a particular limit, set its value to -1.</p>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>userId</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Mandatory, string) User ID of the user whose QoS limits are being set. Supported options are a specific user ID, "ALL", or "*", as described below the parameter list.</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>groupId</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Mandatory, string) Group ID of the user whose QoS limits are being set. Supported options are a specific group ID, "ALL", or "*", as described below the parameter list.</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>storageQuotaKBytes</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Mandatory, number) Maximum allowed storage, in number of kilobytes.</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>storageQuotaCount</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Mandatory, number) Maximum allowed storage, in number of objects.</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>wlRequestRate</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Mandatory, number) Warning level for number of HTTP requests per minute. Exceeding this level triggers the writing of a message to the S3 Service application log (it does not return a warning to the S3 client).</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>hlRequestRate</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Mandatory, number) Maximum allowed number of HTTP requests per minute.</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>wlDataKBytesIn</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Mandatory, number) Warning level for number of uploaded kilobytes per minute. Exceeding this level triggers the writing of a message to the S3 Service application log (it does not return a warning to the S3 client).</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>hlDataKBytesIn</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Mandatory, number) Maximum allowed number of uploaded kilobytes per minute.</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>wlDataKBytesOut</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Mandatory, number) Warning level for number of downloaded kilobytes per minute. Exceeding this level triggers the writing of a message to the S3 Service application log (it does not return a warning to the S3 client).</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>hlDataKBytesOut</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Mandatory, number) Maximum allowed number of downloaded kilobytes per minute.</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>region</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Optional, string) Service region with which the QoS limits are associated. If not specified, the default region is assumed.</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <p>You can use the "userId" and "groupId" parameters in combination to designate to whom the specified QoS limits will apply:</p>
+                <ul>
+                    <li>User-level QoS for a specific user (userId=&lt;userId&gt;&amp;groupId=&lt;groupId&gt;)</li>
+                    <li>Default user-level QoS for a specific group (userId=ALL&amp;groupId=&lt;groupId&gt;)</li>
+                    <li>Default user-level QoS for the whole region (userId=ALL&amp;groupId=*)</li>
+                    <li>Group-level QoS for a specific group (userId=*&amp;groupId=&lt;groupId&gt;)</li>
+                    <li>Default group-level QoS for the whole region (userId=*&amp;groupId=ALL)</li>
+                </ul>
+                <p>The examples that follow illustrate how to do this. For brevity, only the userid and groupId query parameters are shown (the query parameters that set the desired QoS limits are not replaced with "…" in these examples.)</p>
+                <p>To set user-level QoS for a specific user "kentaro" who belongs to group "cloud9":</p><pre>POST /qos/limits?userId=kentaro&amp;groupId=cloud9&amp;...</pre>
+                <p>To set default user-level QoS for all users in group "cloud9":</p><pre>POST /qos/limits?userId=ALL&amp;groupId=cloud9&amp;...</pre>
+                <p>To set default user-level QoS for all users region-wide:</p><pre>POST /qos/limits?userId=ALL&amp;groupId=*&amp;...</pre>
+                <p>To set group-level QoS for group "cloud9":</p><pre>POST /qos/limits?userId=*&amp;groupId=cloud9&amp;...</pre>
+                <p>To set default group-level QoS, applicable region-wide:</p><pre>POST /qos/limits?userId=*&amp;groupId=ALL&amp;...</pre>
+                <h4>Request Payload</h4>
+                <p>None.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Response Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Response Status</h4>
+                <p>In addition to the <MadCap:xref href="../CommonStatusCodes.htm" target="_popup">Common Status Codes</MadCap:xref>, this method may return these codes:</p>
+                <table style="border-collapse: separate;border-top-left-radius: 0px;border-top-right-radius: 0px;border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;width: 100%;">
+                    <col style="width: 115px;">
+                    </col>
+                    <col style="width: 629px;">
+                    </col>
+                    <thead>
+                        <tr>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Status Code</th>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                            <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;">Missing required parameters : {userId, groupId, storageQuotaBytes, storageQuotaCount, wlRequestRate, hlRequestRate, wlDataBytesIn, hlDataBytesIn, wlDataBytesOut, hlDataBytesOut}</td>
+                        </tr>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                            <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;"> 	
+
+Invalid parameter</td>
+                        </tr>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                            <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;">Region {region} is invalid</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4>Response Payload</h4>
+                <p>None.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Example</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>In this example user-specific QoS settings are successfully applied to the user "cprog". Note that the specified settings allow for certain service metrics to be unlimited (such as stored object count) while other aspects of service usage are limited (such as the kilobytes of storage). The service metrics that are unrestricted are assigned value "-1" in the request.</p><pre xml:space="preserve"># Request -&gt;
+
+POST http://192.168.2.16:18081/qos/limits?userId=cprog&amp;groupId=Dev&amp;storageQuotaKBytes=10000000
+&amp;storageQuotaCount=-1&amp;wlRequestRate=10&amp;hlRequestRate=20&amp;wlDataKBytesIn=-1&amp;hlDataKBytesIn=-1
+&amp;wlDataKBytesOut=-1&amp;hlDataKBytesOut=-1
+Content-Type: application/json
+
+# Response -&gt;
+
+Status Code: 200 OK
+Content-Length: 0
+Date: Mon, 05 Oct 2015 12:25:59 GMT</pre>
+                <p>For more information about individual QoS settings and their implementation, see <MadCap:xref href="../Data Objects/QosLimit.htm">QosLimit</MadCap:xref>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

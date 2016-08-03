@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="7" MadCap:lastHeight="1262" MadCap:lastWidth="814">
+    <head>
+    </head>
+    <body>
+        <h1>Access Control List (ACL)</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[S3 API]</p>
+        <p>For the Amazon S3 "Access Control List (ACL)" functionality, the HyperStore system supports the items listed below. If a grantee group, permission type, or canned ACL type from the Amazon S3 documentation is not listed below, the HyperStore system does not support it.</p>
+        <p>For ACL usage information and for descriptions of ACL items, see <a href="http://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html" target="_blank">Access Control List (ACL) Overview</a> in the Amazon S3 documentation.</p>
+        <h2>Amazon S3 Predefined Groups</h2>
+        <ul>
+            <li>Authenticated users group</li>
+            <li>All users group</li>
+            <li>Log delivery group</li>
+        </ul>
+        <h2>Permission Types</h2>
+        <ul>
+            <li>READ</li>
+            <li>WRITE</li>
+            <li>READ_ACP</li>
+            <li>WRITE_ACP</li>
+            <li>FULL_CONTROL</li>
+        </ul>
+        <h2>Canned ACL</h2>
+        <ul>
+            <li>private</li>
+            <li>public-read</li>
+            <li>public-read-write</li>
+            <li>authenticated-read</li>
+            <li>bucket-owner-read</li>
+            <li>bucket-owner-full-control</li>
+        </ul>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>HyperStore Extension to the S3 API</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The HyperStore system supports these additional canned ACLs:</p>
+                <table style="width: 100%; border-spacing: 2px 2px; border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; border-left-style: solid; border-left-width: 1px; border-right-style: solid; border-right-width: 1px; border-top-style: solid; border-top-width: 1px; border-bottom-style: solid; border-bottom-width: 1px; border-collapse: separate;">
+                    <col style="width: 122px;" />
+                    <col style="width: 129px;" />
+                    <col />
+                    <thead>
+                        <tr>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Canned ACL </th>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Applies to </th>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Permissions added to ACL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">group-read</td>
+                            <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">Bucket and object</td>
+                            <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">Owner gets FULL_CONTROL. All other members of the owner’s HyperStore service user group get READ access.</td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">group-read-write</td>
+                            <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">Bucket and object</td>
+                            <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">Owner gets FULL_CONTROL. All other members of the owner’s HyperStore service user group get READ and WRITE access.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">To grant access to groups other than the requester’s own group, you cannot use canned ACLs. Instead, when using standard Amazon S3 methods for assigning privileges to a grantee (via request headers or request body), specify "&lt;groupID&gt;|" as the grantee. The "&lt;groupID&gt;|" format (with vertical bar) indicates that the grantee is a group — for example, "Group5|".</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">When access privileges have through separate requests been granted to a group and to a specific member of the group, the user gets the broader of the privilege grants. For example, if Group5 is granted read-write privileges and a specific user within Group5 is separately granted read privileges, the user gets read-write privileges.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

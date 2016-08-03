@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="652" MadCap:lastWidth="981">
+    <head>
+    </head>
+    <body>
+        <h1>Cassandra Service</h1>
+        <p>The HyperStore system uses the Apache open source storage platform <a href="http://cassandra.apache.org/" target="_popup">Cassandra</a> to store several types of data. The HyperStore system creates and uses several distinct "keyspaces" (approximately equivalent to databases) within Cassandra:</p>
+        <ul>
+            <li>The <b>UserData_&lt;policyid&gt;</b> keyspaces store:<ul style="list-style-type: circle;"><li>S3 user bucket information</li><li>S3 object metadata. Note that an S3 object’s metadata is always stored in Cassandra even if the object itself is stored in the HSFS. (For an overview of the HyperStore system’s support for object metadata, see <MadCap:xref href="../../Major Features/Object Metadata/ObjectMetadataOverview.htm" target="_popup">Object Metadata Feature Overview</MadCap:xref>.)</li><li>S3 objects up to the <a href="../../CMC Interface/Cluster/Configuration Settings/ConfigurationSettingsSystem.htm" target="_popup">configurable size threshold</a>. By default this threshold is set to 0 bytes and no S3 objects are stored in Cassandra.</li></ul></li>
+        </ul>
+        <p class="NoteIndent" MadCap:autonum="&lt;b&gt;Note: &lt;/b&gt;">There is one <em>UserData_&lt;policyid&gt;</em> keyspace for each storage policy in the system. For information about storage policies see <MadCap:xref href="../../Major Features/Storage Policies/StoragePoliciesOverview.htm" target="_popup">Storage Policies Feature Overview</MadCap:xref>.</p>
+        <ul>
+            <li>The <b>AccountInfo</b> keyspace stores information about S3 user accounts and group accounts.</li>
+            <li>The <b>Reports</b> keyspace stores system-wide, per-group, and per-user S3 usage data, in support of the HyperStore usage reporting functionality.</li>
+            <li>The <b>Monitoring</b> keyspace stores system monitoring statistics in support of the Cloudian Management Console’s system monitoring functionality. It also stores a history of per-node data repair operations.</li>
+            <li>The <b>ECKeyspace</b> keyspace does not actually store any application data; rather, the HyperStore system creates this keyspace so that the HyperStore erasure coding feature can leverage Cassandra functions for token-based mapping of objects (erasure coded object fragments, in this case) to nodes within the storage cluster.</li>
+        </ul>
+        <p>S3 client applications do not access Cassandra databases directly; all S3 client access is to the <a href="ServicesS3.htm" target="_popup">S3 Service</a>, which in turn accesses Cassandra in support of S3 operations. The <a href="ServicesHyperStore.htm" target="_popup">HyperStore Service</a> and <a href="ServicesAdmin.htm" target="_popup">Admin Service</a> also access Cassandra.</p>
+        <p><b>See Also:</b>
+        </p>
+        <ul>
+            <li>
+                <MadCap:xref href="../System Diagrams/ServicesInterfaces.htm">Service Interconnections</MadCap:xref> (diagram)</li>
+        </ul>
+    </body>
+</html>

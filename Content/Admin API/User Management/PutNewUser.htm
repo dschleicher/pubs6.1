@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="10" MadCap:lastHeight="1581" MadCap:lastWidth="891">
+    <head>
+    </head>
+    <body>
+        <h1>PUT New User</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Admin API Method]</p>
+        <p>Use this Admin API method to create a new user of the HyperStore S3 service. You will specify basic information about the user — such as their user ID and user group — in the <MadCap:xref href="../Data Objects/UserInfo.htm">UserInfo</MadCap:xref> JSON object in the request body.</p>
+        <p>Upon creation of the user, the system will automatically generate S3 service access credentials for the user.</p>
+        <p>Creation of a CMC login password for the user is not handled as part of the user creation method; instead, use the <MadCap:xref href="PostUsersCmcPassword.htm">POST User's CMC Password</MadCap:xref> method for that, after creating the user.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">For an overview of provisioning HyperStore service users, see <MadCap:xref href="../../Major Features/User Provisioning/ProvisioningOverview.htm" target="_popup">User Provisioning Feature Overview</MadCap:xref>.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Request Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Syntax</h4><pre xml:space="preserve">PUT /user</pre>
+                <h4>Query Parameters</h4>
+                <p>None.</p>
+                <h4>Request Payload</h4>
+                <p>
+                    <MadCap:xref href="../Data Objects/UserInfo.htm">UserInfo</MadCap:xref> JSON object.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Response Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Response Status</h4>
+                <p>In addition to the <MadCap:xref href="../CommonStatusCodes.htm" target="_popup">Common Status Codes</MadCap:xref>, this method may return these codes:</p>
+                <table style="border-collapse: separate;border-top-left-radius: 0px;border-top-right-radius: 0px;border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;width: 100%;">
+                    <col style="width: 115px;">
+                    </col>
+                    <col style="width: 629px;">
+                    </col>
+                    <thead>
+                        <tr>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Status Code</th>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                            <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;">Missing required attributes : {userId, groupId, userType}</td>
+                        </tr>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                            <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;"> 	
+
+Invalid JSON object</td>
+                        </tr>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                            <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;">Group Id does not exist</td>
+                        </tr>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                            <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;">User Id is not allowed : {userId}</td>
+                        </tr>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                            <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;">Invalid User Name</td>
+                        </tr>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">409</td>
+                            <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;">Unique constraint violation : {userId}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4>Response Payload</h4>
+                <p>
+                    <MadCap:xref href="../Data Objects/UserInfo.htm">UserInfo</MadCap:xref> JSON object.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Example</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>In this example, a new user is successfully created. Note that:</p>
+                <ul>
+                    <li>In the request, the <em>Content-Type: application/json</em> header is used.</li>
+                    <li>In the request body, the <em>canonicalUserId attribute</em> is <b>not</b> included.</li>
+                    <li>In the response body, the <em>canonicalUserId</em> attribute <b>is</b> included, having been automatically generated by the system.</li>
+                </ul><pre xml:space="preserve"># Request -&gt;
+
+PUT  http://192.168.2.16:18081/user
+Content-Type: application/json
+
+{"address1":"456 Shakedown St.","city":"Portsmouth","zip":"03803","phone":"132-132-1312","website":
+"","active":"true","userType":"User","emailAddr":"jgarc@geemail.com","fullName":"Jerry Garcia",
+"groupId":"Dev","userId":"jgarc","state":"NH","country":"USA"}
+
+# Response -&gt;
+
+Status Code: 200 OK
+Content-Length: 325
+Content-Type: application/json
+Date: Tue, 22 Sep 2015 20:50:45 GMT
+{"address1":"456 Shakedown St.","address2":null,"city":"Portsmouth","zip":"03803","phone":
+"132-132-1312","website":"","active":"true","userType":"User","emailAddr":"jgarc@geemail.com",
+"fullName":"Jerry Garcia","groupId":"Dev","userId":"jgarc","canonicalUserId":
+"f3117ac8fa2c6f8fbc731ada593ebb2f","state":"NH","country":"USA"}</pre>
+                <p>For more information about UserInfo object attributes, see <MadCap:xref href="../Data Objects/UserInfo.htm">UserInfo</MadCap:xref>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

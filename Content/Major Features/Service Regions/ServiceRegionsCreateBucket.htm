@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="457" MadCap:lastWidth="841">
+    <head>
+    </head>
+    <body>
+        <h1>Creating an S3 Bucket in a Specific Region</h1>
+        <p>The standard Amazon S3 API enables S3 clients to specify a service region when creating a storage bucket. The CMC’s built-in S3 client supports this feature.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Creating an S3 Bucket in a Specific Region (CMC)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Service users who use the CMC as their S3 client can choose a region from a drop-down list when they use the <b>Bucket &amp; Objects</b> page to <MadCap:xref href="../../CMC Interface/Buckets &amp; Objects/Buckets/BucketAdd.htm">Add a Bucket</MadCap:xref>. The drop-down list is automatically populated with the names of your service regions.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Creating an S3 Bucket in a Specific Region (S3 API)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>When creating an S3 storage bucket, S3 client applications can specify a region in which to create the bucket. To do so, the client application includes the standard S3 request elements CreateBucketConfiguration and LocationConstraint in the body of the <MadCap:xref href="../../S3 API Support/OperationsOnBuckets/PutBucket.htm">PUT Bucket</MadCap:xref> request that it submits to the HyperStore S3 service. The LocationConstraint request element indicates the region in which to create the new bucket. For example:</p><pre xml:space="preserve">&lt;CreateBucketConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/"&gt;
+&lt;LocationConstraint&gt;tokyo&lt;/LocationConstraint&gt;
+&lt;/CreateBucketConfiguration&gt;</pre>
+                <p>If a PUT Bucket request does not include a LocationConstraint element, the bucket will be created in the <a href="ServiceRegionsOverview.htm#DefaultRegion" target="_popup">default region</a>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

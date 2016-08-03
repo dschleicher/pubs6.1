@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="1199" MadCap:lastWidth="815">
+    <head>
+    </head>
+    <body>
+        <h1>hsstool clearsnapshot</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Command]</p>
+        <p>Use this <MadCap:xref href="hsstoolOverview.htm" target="_popup">hsstool </MadCap:xref> command to delete old backup snapshots of a node. This operation deletes backup snapshots that were previously created by the <MadCap:xref href="hsstoolSnapshot.htm" target="_popup">hsstool snapshot</MadCap:xref> operation.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">There must be at least two snapshot increments in the snapshot directory in order to use the <em>clearsnapshot</em> command. See <MadCap:xref href="hsstoolSnapshot.htm" target="_popup">hsstool snapshot</MadCap:xref> for information on how to list the existing snapshot increments.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Command Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>You can run the <em>hsstool clearsnapshot</em> command through the CMC UI:</p>
+                <p>
+                    <img src="../../Resources/Images/cmc/cluster/Advanced_clearsnapshot.png" style="max-width: 8.00in;" />
+                </p>
+                <p>Or on the command line:</p><pre xml:space="preserve">[root]# /opt/cloudian/bin/hsstool -h &lt;host&gt; clearsnapshot &lt;destination-dir&gt; &lt;older-than&gt;</pre>
+                <h3>Parameters</h3>
+                <p>This command supports these parameters:</p>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>-h &lt;host&gt; (called "Target Node" in CMC UI)</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Mandatory) Target host for which to delete snapshots.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>&lt;destination-dir&gt;</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Mandatory) Destination directory from which to delete snapshots. This must be a directory that has served as the destination directory for previous <MadCap:xref href="hsstoolSnapshot.htm" target="_popup">hsstool snapshot</MadCap:xref> operations.</p>
+                        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">There must be at least two snapshot increments in this directory in order to use the <em>clearsnapshot</em> command. See <MadCap:xref href="hsstoolSnapshot.htm" target="_popup">hsstool snapshot</MadCap:xref> for information on how to list the existing snapshot increments.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>&lt;older-than&gt;</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Mandatory) Delete only snapshots that are older than this age. You can specify an absolute date in format YYYY-MM-DD (for example 2014-05-10), or a time interval using m, D, W, M, Y to indicate minutes, days, weeks, months, or years respectively (for example, use "10D" if you want to delete snapshots older than 10 days).</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

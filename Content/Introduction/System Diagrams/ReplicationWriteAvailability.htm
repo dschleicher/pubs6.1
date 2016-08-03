@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="2721" MadCap:lastWidth="725">
+    <head>
+    </head>
+    <body>
+        <p>
+            <MadCap:keyword term="08. Availability for Replicated Object Writes" />
+        </p>
+        <h1>Availability for Replicated Object Writes</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Diagram]</p>
+        <p>The scenarios in this section presume that 3X replication is being used to protect objects in a six node HyperStore cluster, and that only one data center is being used. When you configure storage policies for replication in a single DC you can choose one of three supported consistency level (CL) requirements for S3 object data writes: ALL, QUORUM, or ONE. You can separately configure CL requirements for S3 object metadata writes, choosing from ALL or QUORUM.</p>
+        <p>The diagrams that follow show S3 write availability under various cluster health scenarios and configured consistency level requirements. For illustration, it’s assumed that in each scenario we are trying to write an object for which the system has determined that object data replicas should be written to <em>node1</em>, <em>node5</em>, and <em>node6</em> and object metadata replicas should be written to <em>node2</em>, <em>node3</em>, and <em>node5</em>. (For information about how the system selects write endpoints for each object and its metadata, see <MadCap:xref href="vNodes.htm">vNodes in Action</MadCap:xref>).</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">In cases where the overall S3 write request succeeds despite the failure of one or more replica writes, the missing replicas are subsequently created either through hinted handoff or proactive repair (thereby achieving "eventual consistency").</p>
+        <h2>Write Scenario: One Object Data Endpoint Is Down</h2>
+        <p>
+            <img src="../../Resources/Images/diagrams/Single-DC-Write-One-Data-Down.png" />
+        </p>
+        <h2>Write Scenario: One Object Metadata Endpoint Is Down</h2>
+        <p>
+            <img src="../../Resources/Images/diagrams/Single-DC-Write-One-Metadata-Down.png" />
+        </p>
+        <h2>Write Scenario: Two Object Data Endpoints and One Object Metadata Endpoint Are Down</h2>
+        <p>
+            <img src="../../Resources/Images/diagrams/Single-DC-Write-Two-Data-One-Metadata-Down.png" />
+        </p>
+        <p><b>See Also:</b>
+        </p>
+        <ul>
+            <li>
+                <MadCap:xref href="ReplicationReadAvailability.htm">Replication -- Read Availability</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="ErasureCodingWriteAvailability.htm">Erasure Coding -- Write Availability</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="ErasureCodingReadAvailability.htm">Erasure Coding -- Read Availability</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

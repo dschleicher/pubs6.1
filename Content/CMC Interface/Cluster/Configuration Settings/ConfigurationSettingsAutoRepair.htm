@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="882" MadCap:lastWidth="629">
+    <head>
+    </head>
+    <body>
+        <h1>Auto-Repair Schedule Settings</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[CMC Interface]</p>
+        <p>The settings in this section of the CMC’s <b><a href="../../../Resources/Images/cmc/cluster/ConfigurationSettings.png" target="_popup">Configuration Settings</a></b> page configure the scheduling of the HyperStore auto-repair feature. After making any edits, click <b>Save</b> at the bottom of the page to dynamically apply the configuration change to the cluster.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">For more information about the auto-repair feature see <MadCap:xref href="../../../Major Features/Automatic Data Repair/DataRepairOverview.htm" target="_popup">Automatic Data Repair Feature Overview</MadCap:xref></p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="Replicas_Repair_Interval_(Minutes)"></a>Replicas Repair Interval (Minutes)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>For each HyperStore node, the interval (in minutes) between scheduled auto-repairs of replicated S3 object data. This feature invokes the <MadCap:xref href="../../../Commands/hsstool/hsstoolRepair.htm" target="_popup">hsstool repair</MadCap:xref> operation to automatically repair each node at the configured interval. The nodes will not all be repaired simultaneously, however — instead the start times will be staggered so that only one node is repaired at a time.</p>
+                <p>Auto-repair of the replicated object data in your cluster is a resource-intensive operation and should be configured to run infrequently.</p>
+                <p>Default = 129600 (every 90 days)</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="EC_Repair_Interval_(Minutes)"></a>EC Repair Interval (Minutes)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>For each HyperStore node, the interval (in minutes) between scheduled auto-repairs of erasure coded S3 object data. This feature invokes the <MadCap:xref href="../../../Commands/hsstool/hsstoolRepairec.htm" target="_popup">hsstool repairec</MadCap:xref> operation to automatically repair each node at the configured interval. The nodes will not all be repaired simultaneously, however — instead the start times will be staggered so that only one node is repaired at a time.</p>
+                <p>Auto-repair of the erasure coded object data in your cluster is a resource-intensive operation and should be configured to run infrequently.</p>
+                <p>Default = 128160 (every 89 days)</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="Cassandra_Repair_Interval_(Minutes)"></a>Cassandra Repair Interval (Minutes)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>For each HyperStore node, the interval (in minutes) between auto-repairs of Cassandra data. This interval is added to each node’s most recent Cassandra repair start time to determine a scheduled next start start time for Cassandra auto-repair on that node.</p>
+                <p>The Cassandra auto-repair feature <b>must be less than 10 days</b>. It’s recommended that you leave it at its default of seven days.</p>
+                <p>Default = 10080 (every seven days)</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

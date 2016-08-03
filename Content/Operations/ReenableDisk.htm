@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="1300" MadCap:lastWidth="815">
+    <head>
+    </head>
+    <body>
+        <h1>Re-Enabling a Disk</h1>
+        <p>HyperStore supports a method for <b>enabling an existing HyperStore data disk that is currently disabled</b>. This can be either a disk that you disabled by using the HyperStore <a href="DisableDisk.htm" target="_popup">disk disabling command</a> or a disk that the HyperStore system <a href="../Major Features/Disk Failure Handling/DiskFailureOverview.htm" target="_popup">automatically disabled</a> in response to disk failure.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">If you are <b>replacing</b> a disk, follow the instructions for <MadCap:xref href="ReplaceDisk.htm">Replacing a Disk</MadCap:xref> rather than the instructions below.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>The Impact of Re-Enabling a Disk</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>When you invoke the HyperStore <em>enableDisk</em> function, the system automatically does the following:</p>
+                <ul>
+                    <li>Remounts the disk (using the same mount point that the disk previously had), uncomments its entry in <em>/etc/fstab</em>, and marks the disk as available for HyperStore reads and writes.</li>
+                    <li>Moves back to the disk the same set of storage tokens (vNodes) that were automatically moved away from the disk when it was disabled.</li>
+                </ul>
+                <p>After a disk is re-enabled in this way, writes of new or updated S3 object data associated with the returned tokens will go to the re-enabled disk. And the existing object data that was already on the disk will once again be readable. Meanwhile object data that was written in association with the affected tokens while the disk was disabled — while the tokens were temporarily re-assigned to other disks on the host — will remain on those other disks and will be readable from those disks.</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">In the case where HyperStore automatically disabled a disk and you had the system configured to use the "<a href="../CMC Interface/Cluster/Configuration Settings/ConfigurationSettingsSystem.htm" target="_popup">No Move</a>" method of disk failure handling (meaning that HyperStore does not move tokens away from a disk that it automatically disables in response to disk failure) you can still re-enable the disk using the steps below. The system will automatically recognize that there is no need to move tokens back to the disk, since they weren’t moved away from it in the first place. The system will remount the disk, uncomment its entry in <em>/etc/fstab</em>, and mark it as available for HyperStore reads and writes. <br /><br />Note that the "No Move" method of auto-disabling a disk is not the default — by default, the system moves tokens when it automatically disables a disk.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>To Re-Enable a Disabled Disk</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <ol>
+                    <li>Go to the CMC's <b>Advanced</b> page for node management. On that page select command type "Disk Management" and then select the "enableDisk" command.</li>
+                </ol>
+                <div class="Indent">
+                    <p>
+                        <img src="../Resources/Images/operations/Advanced_enableDisk.png" class="ImgCloudian" />
+                    </p>
+                </div>
+                <ol MadCap:continue="true">
+                    <li>Choose the Target Node (the node on which the disk resides), and enter the Mount Point of the disk that you want to enable.</li>
+                    <li>Click <b>Execute</b>.</li>
+                </ol>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>After Re-Enabling a Disk</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>After the <em>enableDisk</em> operation completes, go to the CMC's <a href="../Resources/Images/cmc/cluster/NodeStatus.png" target="_popup">Node Status</a> page. In the "Disk Detail Info" section, the device that you enabled should now have this green status icon (indicating that its status is OK):</p>
+                <p style="text-align: center;">
+                    <img src="../Resources/Images/cmc/cluster/Icon_disk-ok.png" />
+                </p>
+                <p>	If instead the disk icon is displaying in red (indicating an "Error" status), click the <b>Clear Error History</b> button. Doing so should return the disk to OK status.</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">Because HyperStore uses <MadCap:xref href="../Major Features/Disk Usage Balancing/DiskUsageOverview.htm#Dynamic" target="_popup">Dynamic Object Routing</MadCap:xref> to implement the token migrations, you <b>do not need to run a repair operation</b> after you disable a disk.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

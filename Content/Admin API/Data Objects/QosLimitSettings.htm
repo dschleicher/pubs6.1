@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="8" MadCap:lastHeight="716" MadCap:lastWidth="900">
+    <head>
+    </head>
+    <body>
+        <h1>QosLimitSettings</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Admin API Object]</p>
+        <p>The QosLimitSettings object is returned as the <b>response payload</b> for this Admin API operation:</p>
+        <ul>
+            <li>
+                <MadCap:xref href="../Quality of Service/GetQosLimits.htm">GET QoS Limits</MadCap:xref>
+            </li>
+        </ul>
+        <p>The QosLimitSettings object consists of the following attributes:</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>groupId</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(string) Group ID. This will be either a specific group ID, or "ALL", or "*". For details of how this is used, see <MadCap:xref href="../Quality of Service/GetQosLimits.htm">GET QoS Limits</MadCap:xref>.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>labelId</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(string) This attribute is used by the CMC to display a title on a QoS configuration screen.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>qosLimitList</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(List&lt;<MadCap:xref href="QosLimit.htm">QosLimit</MadCap:xref>&gt;) List of &lt;QosLimit&gt; objects. There will be one QosLimit object for each of the eight QoS limit types.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>userId</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(string) User ID. This will be either a specific user ID, or "ALL", or "*". For details of how this is used, see <MadCap:xref href="../Quality of Service/GetQosLimits.htm">GET QoS Limits</MadCap:xref>.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <h2>Example</h2>
+        <p>This is an example of a QosLimitSettings object. It indicates the QoS settings for a specific user, "cprog". All the QoS limit values are set to "-1" (meaning unlimited), so currently this user is not subject to any quality of service restrictions.</p><pre xml:space="preserve">{"labelId":"qos.userQosOverrides.title","groupId":"Dev","userId":"cprog","qosLimitList":
+[{"value":-1,"type":"STORAGE_QUOTA_KBYTES"},{"value":-1,"type":"REQUEST_RATE_LW"},{"value":-1,
+"type":"REQUEST_RATE_LH"},{"value":-1,"type":"DATAKBYTES_IN_LW"},{"value":-1,"type":
+"DATAKBYTES_IN_LH"},{"value":-1,"type":"DATAKBYTES_OUT_LW"},{"value":-1,"type":"DATAKBYTES_OUT_LH"},
+{"value":-1,"type":"STORAGE_QUOTA_COUNT"}]}</pre>
+    </body>
+</html>

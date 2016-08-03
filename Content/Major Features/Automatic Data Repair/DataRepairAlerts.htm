@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="2" MadCap:lastHeight="273" MadCap:lastWidth="867">
+    <head>
+    </head>
+    <body>
+        <h1>Repair Completion Alerts</h1>
+        <p>Whenever a proactive repair, an auto-repair, or an operator-initiated repair finishes its run, HyperStore sends an alert email to the system administrator(s). An alert also appears in the CMC, in both the <MadCap:xref href="../../CMC Interface/Alerts/AlertsOverview.htm">Alerts</MadCap:xref> page and the <MadCap:xref href="../../CMC Interface/Cluster/Node Status/NodeStatusOverview.htm">Node Status</MadCap:xref> page. The alert indicates the final status of the repair run: either COMPLETED, FAILED, or TERMINATED (if interrupted by an operator).</p>
+        <p>You can customize these alerts — including an option for having SNMP traps sent — in the CMC's <MadCap:xref href="../../CMC Interface/Cluster/Alert Rules/AlertRulesOverview.htm">Alert Rules</MadCap:xref> page.</p>
+        <p>For detailed repair status information for a recently finished repair run — for example, to get more information about a FAILED repair run that you’ve been alerted to — in the CMC go to <b>Cluster → Nodes → Advanced</b> and from the "Info" command group execute the <MadCap:xref href="../../Commands/hsstool/hsstoolOpstatus.htm">hsstool opstatus</MadCap:xref> command for the node on which the repair ran.</p>
+    </body>
+</html>

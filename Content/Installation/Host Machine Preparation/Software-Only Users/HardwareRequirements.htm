@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="866" MadCap:lastWidth="827">
+    <head>
+    </head>
+    <body>
+        <h1>Hardware Requirements</h1>
+        <p>For <b>production deployments</b>, HyperStore host hardware is expected to meet or exceed the following specifications:</p>
+        <ul>
+            <li>Recommended Minimum Hardware Configuration<ul style="list-style-type: circle;"><li>Intel compatible hardware</li><li>Processor: 1 CPU, 8 cores, 2.4GHz</li><li>Memory: 32GB</li><li>Disk: 12 x 2TB HDD, 2 x 250GB HDD (12 drives for data, 2 drives for OS/Metadata)</li><li>RAID: RAID-1 recommended for the OS/Metadata, JBOD for the Data Drives</li><li>Network: 1x1GbE Port</li></ul></li>
+            <li>Typical Hardware Configuration (recommended based on customer experience)<ul style="list-style-type: circle;"><li>Intel compatible hardware</li><li>Processor: 1 CPU, 8 cores, 2.5GHz</li><li>Memory: 64GB</li><li>Disk: 12 x 4TB HDD, 2 x 300GB SSD (12 drives for data, 2 drives for OS/Metadata)</li><li>RAID: RAID-1 on SSD recommended for the OS/Metadata, JBOD for the Data Drives</li><li>Network: 2x10GbE Ports</li><li>Power Supply: Redundant Platinum level PSUs</li></ul></li>
+        </ul>
+        <p>For a <b>minimal evaluation installation</b>, HyperStore software can be installed on a single host that has just one data drive. The host should have at at least 1GB of hard drive space, at least 16GB RAM, and preferably at least 8 processor cores. If you install HyperStore software on a host with less resources than this, the install script will display a warning about the host having less than recommended resources.</p>
+        <p>If you try to install HyperStore software on a host with less than 2GB RAM or less 100MB hard drive space, the installation will abort.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note: &lt;/b&gt;">HyperStore has been tested with up to 30 disk drives per host machine.</p>
+        <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">	HyperStore does not support "VirtIO" disks.</p>
+    </body>
+</html>

@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="10" MadCap:lastHeight="3774" MadCap:lastWidth="884">
+    <head>
+    </head>
+    <body>
+        <h1>PUT Bucket lifecycle</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[S3 API Method]</p>
+        <p>For the Amazon S3 "PUT Bucket lifecycle" operation, the HyperStore system supports the S3 <MadCap:xref href="../CommonRequestHeaders.htm" target="_popup">Common Request Headers</MadCap:xref> and <MadCap:xref href="../CommonResponseHeaders.htm" target="_popup">Common Response Headers</MadCap:xref> and also the operation-specific items listed below. If a parameter, header, element, or special error from the Amazon S3 specification for this operation is not listed below, the HyperStore system does not support it.</p>
+        <p>For operation usage information and for descriptions of request and response items, see <a href="http://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTlifecycle.html" target="_blank">PUT Bucket lifecycle</a> in the Amazon S3 REST API specification.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">With the HyperStore system, only the bucket owner can create Lifecycle rules.</p>
+        <h2>Request Headers</h2>
+        <ul>
+            <li>Content-MD5</li>
+        </ul>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>HyperStore Extension to the S3 API</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The HyperStore system supports the following Request Headers as extensions to the "PUT Bucket lifecycle" operation:</p>
+                <table style="width: 100%; border-spacing: 2px 2px; border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; border-left-style: solid; border-left-width: 1px; border-right-style: solid; border-right-width: 1px; border-top-style: solid; border-top-width: 1px; border-bottom-style: solid; border-bottom-width: 1px; border-collapse: separate;">
+                    <col style="width: 84px;" />
+                    <col />
+                    <col />
+                    <thead>
+                        <tr>
+                            <th style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">Parameter</th>
+                            <th style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">Description</th>
+                            <th style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">Required</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">x-gmt-tieringinfo</td>
+                            <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">
+                                <p>This extension header enables you to configure a bucket for schedule-based automatic transitioning (also known as "auto-tiering") of objects from HyperStore storage to Amazon S3 storage or Amazon Glacier storage. For background information on the HyperStore auto-tiering feature, see Auto-Tiering [XREF-TBD].
+
+</p>
+                                <p>The <em>x-gmt-tieringinfo</em> header is formatted as follows:
+</p><pre xml:space="preserve">
+x-gmt-tieringinfo: url-encode(S3/S3GLACIER|EndPoint:url-encode(s3-endpoint),
+[Action:stream/nostream/redirect])    </pre>
+                                <ul>
+                                    <li><em>S3</em> or <em>S3GLACIER</em> — Specify <em>S3</em> if you want to transition the objects to Amazon S3 storage. Specify <em>S3GLACIER</em> if you want to transition the objects to Amazon Glacier. This <b>cannot be changed</b> later. Once a bucket is set up for tiering to Amazon S3 or to Glacier, you cannot switch it from one to the other.
+
+    </li>
+                                    <li><em>EndPoint</em> — The <a href="http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region" target="_blank">Amazon S3 region endpoint</a> to use as your auto-tiering destination. Choose the region endpoint that’s most suitable for your location (for example, if your organization is in Northern California you’d choose <em>s3-us-west-1.amazonaws.com</em>). Note that even if your ultimate tiering destination is Glacier, you will specify an Amazon S3 endpoint here, <b>not</b> a Glacier endpoint. (If you are tiering objects to Glacier, the HyperStore system will first transition the objects to your specified Amazon S3 endpoint and then they will be immediately transitioned to the corresponding Glacier location.) The endpoint that a bucket auto-tiers to <b>cannot be changed</b> later.
+    </li>
+                                </ul>
+                                <p class="NoteIndent" MadCap:autonum="&lt;b&gt;Note: &lt;/b&gt;">As indicated in the <em>x-gmt-tieringinfo</em> format specification above, you must use nested URL encoding. First URL encode the Endpoint value (the endpoint itself), and then URL encode the whole <em>x-gmt-tieringinfo</em> value. See further below in this table for an example.
+
+    </p>
+                                <ul>
+                                    <li><em>[Action:] </em>— This optional parameter specifies how the HyperStore system will handle <MadCap:xref href="../OperationsObjects/GetObject.htm">GET Object</MadCap:xref> requests for objects that have been auto-tiered from this bucket to Amazon S3 as their final destination (not Glacier). The supported methods for handling <MadCap:xref href="../OperationsObjects/GetObject.htm">GET Object</MadCap:xref> requests for objects in Amazon S3 are:</li>
+                                    <li><![CDATA[
+        ]]><em>stream</em> — The HyperStore system GETs the object from Amazon S3 and streams it through to the client. This is the default method which will be used if you do not specify the <em>Action:</em> option.
+
+        </li>
+                                    <li><em>nostream</em> — Streaming of tiered objects is not allowed. Instead, the GET is rejected and clients will need to execute a <MadCap:xref href="../OperationsObjects/PostObjectRestore.htm">POST Object restore</MadCap:xref> request in order to temporarily restore a copy of the object to local HyperStore storage.
+
+        </li>
+                                    <li><em>redirect</em> — When a user does a GET on a tiered object the response from the HyperStore system will be an HTTP 307 with a signed redirect URL to the object’s location in Amazon S3.
+
+</li>
+                                </ul>
+                                <p>For objects tiered to Glacier, using the <MadCap:xref href="../OperationsObjects/PostObjectRestore.htm">POST Object restore</MadCap:xref> operation is the only supported object retrieval method. Streaming and redirects are not supported.
+</p><pre xml:space="preserve">
+# Example 1 (before URL encoding) - Tiering to Amazon S3
+
+x-gmt-tieringinfo: S3|EndPoint:http://s3.amazonaws.com.
+
+# Example 2 (before URL encoding) - Tiering to Glacier
+
+x-gmt-tieringinfo: S3GLACIER|EndPoint:http://s3.amazonaws.com.
+
+# URL encoding of Example 2
+
+x-gmt-tieringinfo: S3GLACIER%7CEndPoint%3Ahttp%253A%252F%252Fs3.amazonaws.com.</pre>
+                                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">If you use the <em>x-gmt-tieringinfo</em> request header, then for the request body element "StorageClass" you must specify "GLACIER". Set the Storage Class to GLACIER even if your final tiering destination is Amazon S3.</p>
+                            </td>
+                            <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">No</td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">x-gmt-compare</td>
+                            <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">
+                                <p>If you include this extension header in your "PUT Bucket lifecycle" request and set the header value to "LAT", then in lifecycle rules that you configure with the "Days" comparator the rule will be implemented as number of days since the object’s <b>Last Access Time</b>.
+</p>
+                                <p>
+If you do not use this extension header, or if you include the header but assign it no value or any value other than "LAT", then "Days" based lifecycle rules will be implemented as number of days since the object’s creation (the default Amazon S3 behavior).
+
+</p>
+                                <p>You can use this header to create:
+</p>
+                                <ul>
+                                    <li>
+    Last Access Time based auto-tiering rules (use this header and also the <em>x-gmt-tierinfo</em> header).
+
+    </li>
+                                    <li>Last Access Time based expiration rules (use this header but not the <em>x-gmt-tierinfo</em> header).
+
+</li>
+                                </ul>
+                                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">	An object’s Last Access Time is updated if the object is accessed either for retrieval (GET or HEAD) or modification (PUT/POST/Copy). If an object is created and then never accessed, its Last Access Time will be its Creation Time.</p>
+                            </td>
+                            <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">No</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>A sample <em>PUT Bucket Lifecycle</em> request/response pair is below. This rule transitions objects in the user’s HyperStore S3 storage bucket to Amazon S3 90 days after Last Access Time. Note that the <em>StorageClass</em> element specifies GLACIER even though the tiering target is actually Amazon S3.</p><pre xml:space="preserve"># Request
+
+PUT /?lifecycle HTTP/1.1.
+Host: bucket1.cloudians3.com:80.
+Accept-Encoding: identity.
+Content-Length: 216.
+User-Agent: Boto/2.24.0 Python/2.6.6 Linux/2.6.32-358.23.2.el6.x86_64.
+x-gmt-tieringinfo: S3%7CEndPoint%3Ahttp%253A%252F%252Fs3.amazonaws.com.
+x-gmt-compare: LAT
+Date: Sun, 16 Nov 2014 17:54:16 GMT.
+Content-MD5: Nip5xNP0P41djj608bRHNQ==.
+Content-Type: text/xml.
+Authorization: AWS a-key:NfPRnsSbTcxBZ2vN2MX4ZsArJAQ=.
+.
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;LifecycleConfiguration&gt;
+&lt;Rule&gt;
+&lt;ID&gt;Transition to Amazon S3&lt;/ID&gt;
+&lt;Prefix&gt;&lt;/Prefix&gt;
+&lt;Status&gt;Enabled&lt;/Status&gt;
+&lt;Transition&gt;
+&lt;StorageClass&gt;GLACIER&lt;/StorageClass&gt;
+&lt;Days&gt;90&lt;/Days&gt;
+&lt;/Transition&gt;
+&lt;/Rule&gt;
+&lt;/LifecycleConfiguration&gt;
+
+# Response
+
+HTTP/1.1 200 OK.
+Date: Sun, 16 Nov 2014 17:54:16 GMT.
+x-amz-request-id: AF5C7C2098C511E3.
+x-gmt-usage: 0,1,623,89,0.
+Content-Length: 0.
+Server: CloudianS3.</pre>
+                <p>A second sample PUT Bucket Lifecycle request/response pair is below. This rule transitions all objects in the user’s HyperStore S3 storage bucket to Amazon Glacier one year after object creation, and then expires (deletes) the objects five years after object creation. Note that the EndPoint is an Amazon S3 endpoint even though the ultimate tiering target is Glacier.</p><pre xml:space="preserve"># Request
+
+PUT /?lifecycle HTTP/1.1.
+Host: bucket1.cloudians3.com:80.
+Accept-Encoding: identity.
+Content-Length: 235.
+User-Agent: Boto/2.24.0 Python/2.6.6 Linux/2.6.32-358.23.2.el6.x86_64.
+x-gmt-tieringinfo: S3GLACIER%7CEndPoint%3Ahttp%253A%252F%252Fs3.amazonaws.com.
+Date: Tue, 18 Feb 2014 17:54:16 GMT.
+Content-MD5: Nip5xNP0P41djj608bRQHN==.
+Content-Type: text/xml.
+Authorization: AWS a-key:NfPRnsSbTcxBZ2vN2MX4ZsArJAQ=.
+.
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;LifecycleConfiguration&gt;
+&lt;Rule&gt;
+&lt;ID&gt;Transition to Glacier and later delete&lt;/ID&gt;
+&lt;Prefix&gt;&lt;/Prefix&gt;
+&lt;Status&gt;Enabled&lt;/Status&gt;
+&lt;Transition&gt;
+&lt;StorageClass&gt;GLACIER&lt;/StorageClass&gt;
+&lt;Days&gt;365&lt;/Days&gt;
+&lt;/Transition&gt;
+&lt;Expiration&gt;
+&lt;Days&gt;1825&lt;/Days&gt;
+&lt;/Expiration&gt;
+&lt;/Rule&gt;
+&lt;/LifecycleConfiguration&gt;
+
+# Response
+
+HTTP/1.1 200 OK.
+Date: Tue, 18 Feb 2014 17:58:16 GMT.
+x-amz-request-id: AF5C7C2098C522F4.
+x-gmt-usage: 0,1,623,89,0.
+Content-Length: 0.
+Server: CloudianS3.</pre>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <h2>Request Elements</h2>
+        <ul>
+            <li>Date</li>
+            <li>Days</li>
+            <li>Expiration</li>
+            <li>ID</li>
+            <li>LifecycleConfiguration</li>
+            <li>Prefix</li>
+            <li>Rule</li>
+            <li>Status</li>
+            <li>StorageClass</li>
+        </ul>
+        <p class="NoteIndent" MadCap:autonum="&lt;b&gt;Note: &lt;/b&gt;">	If you are using the HyperStore extension request header <em>x-gmt-tieringinfo</em>, then for the request element "StorageClass" you must specify "GLACIER". Set the Storage Class to GLACIER even if your final tiering destination is Amazon S3.</p>
+        <ul>
+            <li>Transition</li>
+        </ul>
+    </body>
+</html>

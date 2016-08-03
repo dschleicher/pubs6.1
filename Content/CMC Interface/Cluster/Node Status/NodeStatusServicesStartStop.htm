@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="5" MadCap:lastHeight="887" MadCap:lastWidth="642">
+    <head>
+    </head>
+    <body>
+        <h1>Start, Stop, or Restart Services On a Node</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[CMC Interface]</p>
+        <p>To stop, start, or restart individual services on a node, in the CMC's <a href="../../../Resources/Images/cmc/cluster/NodeStatus.png" target="_popup">Node Status</a> page open the <b>Services Status</b> panel.</p>
+        <p>
+            <img src="../../../Resources/Images/cmc/cluster/NodeStatus_services.png" class="ImgCloudian" />
+        </p>
+        <p>For services that are currently up and running, <b>Restart</b> and <b>Stop</b> buttons display in the "Action" column. If you click either button, you will be asked to confirm that you want to proceed and then upon your confirmation the restart or stop operation will execute. If the operation succeeds you will see a success message — for example, "Stopping Redis QoS…[OK]".</p>
+        <p>For services that are not currently running, a <b>Start</b> button displays in the "Action" column. If you click <b>Start</b>, the service starts up and you should see a success message — for example, "Starting Redis QoS…[OK]".</p>
+        <p>At the bottom right of the <b>Services Status</b> section a <b>Restart All</b> button displays. If you click <b>Restart All</b> and confirm, then:</p>
+        <ul>
+            <li>Services that are running will be restarted.</li>
+            <li>Services that are down will be started.</li>
+        </ul>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">In a <b>single-region</b> HyperStore system, the <b>Node Status</b> page does not support stopping the Admin Service or S3 Service. In a <b>multi-region</b> HyperStore system, the <b>Node Status</b> page does not support stopping the Admin Service or S3 Service in the default region.<br /><br />On a <b>single-node</b> system, in addition to the above restrictions the <b>Node Status</b> page also does not support stopping the Cassandra Service (the screen shot above is from a single-node system). In a <b>multi-node</b> system the <b>Node Status</b> page does support stopping Cassandra, but doing so may cause certain CMC functions to no longer work — depending on your configured consistency requirements for service metadata and the status of your other Cassandra nodes.<br /><br />If you want to stop a service that you cannot stop on the <b>Node Status</b> page you can <a href="../../../Operations/Starting and Stopping Services/StartStopOverview.htm" target="_popup">do so with the HyperStore installer tool or with the HyperStore initialization scripts</a>. However, the CMC may not function properly while these services are down.</p>
+    </body>
+</html>

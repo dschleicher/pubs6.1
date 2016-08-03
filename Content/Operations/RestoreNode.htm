@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="7" MadCap:lastHeight="930" MadCap:lastWidth="802">
+    <head>
+    </head>
+    <body>
+        <h1>Restoring a Node That Has Been Offline</h1>
+        <p>When a node has been down or inaccessible for a while and then you bring it back online, the HyperStore system <b>automatically</b> performs the most important actions necessary for restoring the node to a correct and up-to-date condition:</p>
+        <ul>
+            <li>HyperStore will use <a href="../Major Features/Automatic Data Repair/DataRepairOverview.htm" target="_popup">hinted handoff and proactive repair</a> to automatically populate the node with any object data and metadata that the node is responsible for storing but that is missing due to the node having been offline.</li>
+            <li>If the node that you are restoring is a Redis slave node (for either the Redis Credentials DB or the Redis QoS DB), when you bring the node back online it will automatically sync with the Redis master node to get the most current data.</li>
+        </ul>
+        <p>Neither of these processes require any operator action.</p>
+        <p><b>Optionally, you can run a cleanup on the node</b> (<MadCap:xref href="../Commands/hsstool/hsstoolCleanup.htm" target="_popup">hsstool cleanup</MadCap:xref>, and also <MadCap:xref href="../Commands/hsstool/hsstoolCleanupec.htm" target="_popup">hsstool cleanupec</MadCap:xref> if you are using erasure coding) in order to remove from the node any data that should no longer be there. This would apply, for example, if service users deleted some of their stored objects from the system while the node was down. In this case after being brought back into service the node will still be storing replicas or erasure coded fragments of those objects, resulting in wasted use of disk space. Cleaning the node removes this "garbage" data.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">Before cleaning a node you should wait until any proactive repair that’s automatically run on the node has completed. You can check this on the CMC's <a href="../Resources/Images/cmc/analytics/RepairStatus.png" target="_popup">Repair Status</a> page. Wait until the node’s status displays as "All Clear", and then you can clean the node.</p>
+        <p><b>Also optionally, you can return to the node any specialized service role that the node was playing before it went down</b>. If the node had been acting as a "master" or "primary" within one of the HyperStore system’s specialized services, then when the node went offline that role would have failed over to a different node. If you want you can return the master or primary role to the restored node after it’s back online — though it is not necessary to do so.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>How going down and then being brought back up affects a node's specialized service roles...</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The table below shows how having been down impacts a node’s specialized service role(s).</p>
+                <table style="width: 100%; border-left-style: solid; border-left-width: 1px; border-right-style: solid; border-right-width: 1px; border-top-style: solid; border-top-width: 1px; border-bottom-style: solid; border-bottom-width: 1px; border-collapse: separate;">
+                    <col style="width: 188px;" />
+                    <col />
+                    <col />
+                    <thead>
+                        <tr>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">If before going down the node was…</th>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Then while the node was down that role…</th>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">And when brought back online the node is now…</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Redis Credentials master</td>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Automatically failed over to a Redis Credentials slave</td>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Redis Credentials slave</td>
+                        </tr>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Redis QoS master</td>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Automatically failed over to a Redis QoS slave</td>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Redis QoS slave</td>
+                        </tr>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Redis Monitor primary</td>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Automatically failed over to the Redis Monitor backup</td>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Redis Monitor backup</td>
+                        </tr>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Cron job primary</td>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;"> 	
+
+Automatically failed over to the Cron job backup</td>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Cron job backup</td>
+                        </tr>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Puppet Master primary</td>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">An operator may (or may not) have manually triggered a fail-over to the Puppet Master backup</td>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Still Puppet Master primary, or else Puppet Master backup</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <p>To see what specialized service role(s) a restored node is currently playing, go to the CMC's <a href="../Resources/Images/cmc/cluster/ClusterInfo.png" target="_popup">Cluster Information</a> page.</p>
+        <p>If you want to change the node’s current role assignment(s), see the instructions for <MadCap:xref href="ChangeNodeRoles.htm">Changing Node Role Assignments</MadCap:xref>.</p>
+    </body>
+</html>

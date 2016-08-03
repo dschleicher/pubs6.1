@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="5" MadCap:lastHeight="602" MadCap:lastWidth="659">
+    <head>
+    </head>
+    <body>
+        <h1>Object Locator</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[CMC Interface]</p>
+        <p>Path: <b>Analytics → Object Locator</b></p>
+        <p>
+            <img src="../../Resources/Images/cmc/analytics/ObjectLocator.png" style="mc-thumbnail-max-height: 60px;" class="ImgCloudian" />
+        </p>
+        <p>Supported task:</p>
+        <ul>
+            <li>View storage location information for an S3 object</li>
+        </ul>
+        <p>To view storage location information for an object:</p>
+        <ol>
+            <li>Enter the bucket name. For example, <em>bucket1</em>. This field is case-sensitive.</li>
+            <li>Enter the full object name including "folder" path, if any. For example, <em>file1.txt</em> (for a file at the root level of the bucket) or <em>Videos/Vacation/Italy-2014.mpg</em>. This field is also case-sensitive.</li>
+            <li>Click <b>Find</b>.</li>
+        </ol>
+        <p>This function executes the <em>hsstool whereis</em> command. The results that display are the same as those that display if you run the hsstool <em>whereis command</em> on the object (on the <b>Cluster → Nodes → Advanced</b> page). For description of the result elements, see the <a href="../../Commands/hsstool/hsstoolWhereis.htm/#Command/" target="_popup">Response section of the <em>hsstool whereis</em> documentation</a>. </p>
+        <p>The<b> Object Locator</b> page does not support searching for a particular version of a versioned object. Instead it returns the location of the most current version of the object. If you want to retrieve information for an older version of a versioned object, use the <MadCap:xref href="../../Commands/hsstool/hsstoolWhereis.htm">hsstool whereis</MadCap:xref> command.</p>
+    </body>
+</html>

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="749" MadCap:lastWidth="841">
+    <head>
+    </head>
+    <body>
+        <h1>Disk Usage Balancing Feature Overview</h1>
+        <p>HyperStore is implemented in such a way that among multiple data storage disks on the same host the disk usage will typically be well balanced. However, the system also supports an automated mechanism for rectifying disk usage imbalance if it does occur. The mechanism migrates one or more storage tokens (also known as vNodes) from an over-used disk to less-used disks on the same host. From that point forward the less-used disks will store an increased share of newly uploaded object data while the over-used disk stores a reduced share of newly uploaded object data. Note that this mechanism does not move existing data from one disk to another; rather, it impacts the share of new data load allocated to each disk going forward.</p>
+        <p>You do not need to run a repair operation in connection with this disk usage balancing feature. The disk usage rebalancing mechanism is not intended to move existing data between disks. It is designed to impact only objects uploaded after the time that the automated token migration was executed.</p>
+        <p>If you were to perform a repair, existing objects on the over-used disk will not follow a migrated token to the token’s new home on a less-used disk.</p>
+        <h2><a name="Dynamic"></a>Dynamic Object Routing</h2>
+        <p>The system uses a dynamic token-to-disk mapping scheme that allows tokens to be migrated from one disk to another without existing data following the migrated tokens. With Dynamic Object Routing, an object associated with a given token range <b>stays with the disk where that token range was located when the object was uploaded</b>. The system keeps track of which tokens are associated with each disk across time. Then, based on object timestamps, the system can tell for example that Object1 which is associated with TokenX was uploaded at a time when TokenX was located on DiskA, whereas Object5 which is also associated with TokenX was uploaded at a time when TokenX was located on DiskB.</p>
+        <p>Dynamic Object Routing allows for low-impact automated token migrations in circumstances such as disk usage imbalance or <a href="../Disk Failure Handling/DiskFailureOverview.htm">automated disk failure handling</a>.</p>
+        <p>&#160;</p>
+        <p><b>See Also:</b>
+        </p>
+        <ul>
+            <li>
+                <MadCap:xref href="DiskUsageConfigure.htm">Configuring Disk Usage Balancing</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="DiskUsageStatus.htm">Checking Disk Usage Status</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="DiskUsageTrigger.htm">Triggering an Immediate Balance Check</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

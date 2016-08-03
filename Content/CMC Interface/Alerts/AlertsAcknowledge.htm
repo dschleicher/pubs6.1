@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="5" MadCap:lastHeight="854" MadCap:lastWidth="659">
+    <head>
+    </head>
+    <body>
+        <h1>Acknowledge Alerts</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[CMC Interface]</p>
+        <p>
+            <img src="../../Resources/Images/cmc/alerts/Alerts.png" class="ImgCloudian" />
+        </p>
+        <p>In the CMC's <b>Alert List</b> display you can acknowledge that you have seen and reviewed the node alert notifications that display in the list. Once you acknowledge an alert, it will no longer display in the <b>Alert List</b> (unless you choose to display acknowledged alerts as described further below).</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">	If you acknowledge an alert for which the underlying notification triggering condition still exists, a new alert may be generated quickly. For example, if a service is down, and you acknowledge the service down alert but do not restart the service, a new service down alert will be triggered as soon as the monitoring system polls the service status again (which occurs each minute). If you want to temporarily disable an alert rule you can do so in the <MadCap:xref href="../Cluster/Alert Rules/AlertRulesOverview.htm">Alert Rules</MadCap:xref> page, but be sure to remember to re-enable the rule at the appropriate time.</p>
+        <p>To acknowledge one or multiple alerts in the <b>Alert List</b>, click the checkbox to the left of the alert(s) and then click <b>Acknowledge</b> at the bottom of the list.</p>
+        <p>To acknowledge <b>all</b> alerts, click the checkbox at the left side of the <b>Alert List</b> column heading row and then click <b>Acknowledge</b> at the bottom of the list.</p>
+        <p>To show previously acknowledged alerts in the list as well as unacknowledged alerts, click <b>Show Acknowledged</b> at the top of the alert list. Previously acknowledged alerts then display within the list, and are distinguished from unacknowledged alerts by the absence of a checkbox to the left of the alert. You can click <b>Hide Acknowledged</b> to hide the acknowledged alerts again.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">Acknowledged alerts are automatically deleted from the system after a time period configured by the <em>events.acknowledged.ttl</em> property in the <em>mts.properties.erb</em> configuration file [XREF]. By default this period is 86400 seconds (one day). After this interval, acknowledged alerts are no longer available for display in the Alert List.</p>
+        <p>The <b>Alert List</b> can display a maximum of 50 unacknowledged alerts and acknowledged alerts combined. Note that some of these 50 alerts may have occurred multiple times as indicated by the alert’s "Count" value. Even if an alert has a Count showing that it has occurred multiple times, only one alert is counted toward the <b>Alert List</b> display maximum of 50 alerts.</p>
+    </body>
+</html>

@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="10" MadCap:lastHeight="787" MadCap:lastWidth="763">
+    <head>
+    </head>
+    <body>
+        <h1>Configuration Settings</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[CMC Interface]</p>
+        <p>Path: <b>Cluster → Cluster Config → Configuration Settings</b></p>
+        <p>
+            <img src="../../../Resources/Images/cmc/cluster/ConfigurationSettings.png" class="ImgCloudian" />
+        </p>
+        <p>Supported task:&#160;</p>
+        <ul>
+            <li>Edit HyperStore configuration settings</li>
+        </ul>
+        <p>You can edit any of the following types of settings. Be sure to click <b>Save</b> at the bottom of the page to save your changes.</p>
+        <ul>
+            <li>
+                <MadCap:xref href="ConfigurationSettingsSMTP.htm">SMTP/Email Settings for Alerts/Notifications</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="ConfigurationSettingsSNMP.htm">SNMP Trap Destination Settings</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="ConfigurationSettingsSystem.htm">System Settings</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="ConfigurationSettingsUsage.htm">Usage Tracking Settings</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="ConfigurationSettingsQoS.htm">Quality of Service Settings</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="ConfigurationSettingsAutoTiering.htm">Auto-Tiering Settings</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="ConfigurationSettingsS3Restrictions.htm">S3 Request Restriction Settings</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="ConfigurationSettingsAutoRepair.htm">Auto-Repair Schedule Settings</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="ConfigurationSettingsLDAP.htm">LDAP Authentication Settings</MadCap:xref>
+            </li>
+        </ul>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">When you change settings in the CMC’s <b>Configuration Settings</b> page the system applies your configuration changes dynamically — no service restart is required. At the same time, the system automatically updates the corresponding configuration file settings on the Puppet master node and triggers a Puppet sync-up so that the configuration file changes propagate to all your HyperStore nodes. This makes it so that your configuration changes persist across any future restarts of HyperStore services.</p>
+    </body>
+</html>

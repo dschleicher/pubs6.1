@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="7" MadCap:lastHeight="959" MadCap:lastWidth="873">
+    <head>
+    </head>
+    <body>
+        <h1>Whitelist</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Admin API Object]</p>
+        <p>The Whitelist object is returned as the <b>response payload</b> for this Admin API operation:</p>
+        <ul>
+            <li>
+                <MadCap:xref href="../Whitelist for Free Traffic/GetWhitelist.htm">GET Whitelist</MadCap:xref>
+            </li>
+        </ul>
+        <p>The Whitelist object is required as the <b>request payload</b> for this Admin API operation:</p>
+        <ul>
+            <li>
+                <MadCap:xref href="../Whitelist for Free Traffic/PostUpdatedWhitelistViaRequestObject.htm">POST Updated Whitelist Via Request Object</MadCap:xref>
+            </li>
+        </ul>
+        <p>The Whitelist object consists of the attributes below. Each attribute description indicates whether the attribute is mandatory or optional when this object is transmitted as a request payload.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>id</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(Mandatory, string) Unique ID of the whitelist.</p>
+                    <p>In the current HyperStore release only one whitelist is supported and its non-editable ID is "Default-WL".</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>list</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(Mandatory, List&lt;string&gt;) JSON array of IP addresses and/or subnets.</p>
+                    <p>To indicate an empty list, use an empty JSON array.</p>
+                    <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">IP addresses can be IPv4 or IPv6 format. For subnets, only IPv4 format is supported in the current HyperStore release. IP addresses are validated for IPv4 or IPv6 syntax, and subnets are validated for CIDR syntax.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>name</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(Mandatory, string) Display name of the whitelist. The default whitelist object has display name "Default Whitelist". This is editable.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>ratingPlanId</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(Mandatory, string) &#160;Unique ID of the rating plan assigned to the whitelist. The default whitelist object is assigned rating plan "Whitelist-RP". This system-provided default whitelist rating plan makes all inbound and outbound traffic free of charge. (By contrast, data storage continues to be priced according to the user’s regular assigned rating plan.) You can edit the "ratingPlanId" to associate a different rating plan with the default whitelist. You can also edit the "Whitelist-RP" rating plan, using the usual rating plan APIs.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <h2>Example</h2>
+        <p>This is an example of a Whitelist object. There are two source IP addresses on the whitelist.</p><pre xml:space="preserve">{"ratingPlanId":"Whitelist-RP","list":["192.168.2.10","192.168.2.11"],"name":"Default Whitelist",
+"id":"Default-WL"</pre>
+    </body>
+</html>

@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="10" MadCap:lastHeight="1745" MadCap:lastWidth="752">
+    <head>
+    </head>
+    <body>
+        <h1>POST Usage Data Repair for Active Users</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Admin API Method]</p>
+        <p>Use this Admin API method to repair usage data for active or "dirty" users. For background information on usage data repair, see <MadCap:xref href="../../Major Features/Usage Reporting/UsageValidation.htm" target="_popup">Validating Usage Data for Storage Levels</MadCap:xref>.</p>
+        <p>For purposes of this method, a dirty user is defined as a user whose storage bytes and/or storage object counts in the Redis QoS database have changed since the last time the user’s counts were subjected to a usage repair. This method selects users at random from among the set of dirty users, and performs usage repair for a configurable maximum number [XREF] of those users (1000 by default) per method execution.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">This method is invoked once every 12 hours by a HyperStore <MadCap:xref href="../../Maintenance/CronJobs.htm#Usage" target="_popup">Usage Data Processing</MadCap:xref> cron job. In a multi-region system, a separate cron job is run from within each region.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">An Admin Service instance can run only one instance of this method at a time.</p>
+        <p>At the conclusion of this method's run, in <code>cloudian-admin.log</code> there will be an INFO level message from the CassandraUsageAccess::repairDirtyUsers component that indicates "1000 users processed. N remaining", where N is the number of remaining dirty users for whom usage repair was not performed.</p>
+        <p>Also in <code>cloudian-admin.log</code>, the CassandraUsageAccess::repairDirtyUsers component writes two INFO messages for each user processed — one message indicating the start of processing the user and one message indicating the completion of processing the user. If a correction was made to the user’s Redis QoS counts for stored bytes and/or stored objects, a third INFO message is sandwiched between the other two, indicating "Processed storage update: " and the correct counts.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Request Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Syntax</h4><pre xml:space="preserve">POST /usage/repair/dirtyusers[?summarizeCounts=true|false]</pre>
+                <h4>Query Parameters</h4>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>summarizeCounts</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Optional, boolean) If set to "true", then the POST /usage/repair/dirtyusers operation, after repairing usage counters for individual users, will update the group-level usage counters for the groups to which those repaired users belong. It will then also update system-level usage counts, based on the updated group counters.</p>
+                            <p>If set to "false", then the operation will repair only user-level counters, and will not update the group or whole-system counters.</p>
+                            <p>Defaults to "true".</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">Unlike the other usage data repair related methods, this method does not support a <em>region</em> query parameter. Instead it is always executed locally, in the region in which the call is submitted. This is the only usage data repair method that API clients are allowed to submit directly to a non-default region’s Admin Service.</p>
+                <h4>Request Payload</h4>
+                <p>None.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Response Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Response Status</h4>
+                <p>In addition to the <MadCap:xref href="../CommonStatusCodes.htm" target="_popup">Common Status Codes</MadCap:xref>, this method may return these codes:</p>
+                <table style="border-collapse: separate;border-top-left-radius: 0px;border-top-right-radius: 0px;border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;width: 100%;">
+                    <col style="width: 115px;">
+                    </col>
+                    <col style="width: 629px;">
+                    </col>
+                    <thead>
+                        <tr>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Status Code</th>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                            <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;">Missing or invalid parameters</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4>Response Payload</h4>
+                <p>None.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Example</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>In this example a usage data repair operation is successfully completed for active users.</p><pre xml:space="preserve"># Request -&gt;
+
+POST http://192.168.2.16:18081/usage/repair/dirtyusers
+
+# Response -&gt;
+
+Status Code: 200 OK
+Content-Length: 0
+Date: Wed, 30 Sep 2015 14:29:01 GMT</pre>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

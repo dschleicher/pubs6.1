@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="7" MadCap:lastHeight="678" MadCap:lastWidth="814">
+    <head>
+    </head>
+    <body>
+        <h1>LicenseData</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Admin API Object]</p>
+        <p>The LicenseData object is returned as the <b>response payload</b> for this Admin API operation:</p>
+        <ul>
+            <li>
+                <MadCap:xref href="../System Services/GetLicenseInfo.htm">GET License Info</MadCap:xref>
+            </li>
+        </ul>
+        <p>The LicenseData object consists of the following attributes:</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>expiration</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(number) License expiration in UTC milliseconds.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>gracePeriod</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(number) After license expiration, the number of days until the HyperStore service is automatically disabled.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>maxNetStorage</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(number) Total allowed stored object size for the entire HyperStore deployment, across regions, in bytes. This limit does not account for replication. For example, if your deployment is currently storing S3 objects totalling 100GB in size, and your replication factor is 3, then this storage counts as 100GB toward the "maxNetStorage" limit — not as 300GB.</p>
+                    <p>A value of -1 indicates unlimited storage.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>warnPeriod</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(number) &#160;Starting this many days before the license expiration date, an expiration warning message will display at the top of the Cloudian Management Console.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <h2>Example</h2>
+        <p>This is an example of a LicenseData object.</p><pre xml:space="preserve">{"expiration":1718311716965,"warnPeriod":30,"gracePeriod":0,"maxNetStorage":104857600}</pre>
+    </body>
+</html>

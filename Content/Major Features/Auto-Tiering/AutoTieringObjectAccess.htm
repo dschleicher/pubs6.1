@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="1211" MadCap:lastWidth="815">
+    <head>
+    </head>
+    <body>
+        <h1>Accessing Auto-Tiered Objects</h1>
+        <p>After objects have been auto-tiered to Amazon, there are two ways to access those objects:</p>
+        <ul>
+            <li>Indirect Access Through HyperStore</li>
+            <li>Direct Access Through Amazon</li>
+        </ul>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Indirect Access Through HyperStore</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>When you use the CMC’s <b>Buckets &amp;&#160;Objects</b> interface to view the contents list for a HyperStore storage bucket, objects that have been auto-tiered appear in the list and are marked with a <a href="../../CMC Interface/Buckets &amp; Objects/Objects/ObjectRestore.htm#IconsForTransitionedOrRestoredFiles" target="_popup">special icon</a>. Your options for retrieving such objects through the CMC depend on how auto-tiering was configured for the bucket.</p>
+                <p>First, for any auto-tiered object (regardless of bucket configuration or tiering destination), the object can be retrieved by temporarily restoring a copy of the object into the local bucket. The CMC <b>Buckets &amp;&#160;Objects</b> interface supports <a href="../../CMC Interface/Buckets &amp; Objects/Objects/ObjectRestore.htm">temporarily restoring auto-tiered objects</a>, for a length of time that you can specify.</p>
+                <p>Restoral of auto-tiered objects does not happen instantly. For an object in Amazon S3, it can take up to six hours before a copy of the object is restored to HyperStore storage. For an object in Glacier it can be up nine hours, factoring in the time it takes for an object to be restored from Glacier to Amazon S3, before being restored to HyperStore. In the interim, the object is marked with an icon that indicates that the object is in the process of being restored. During this stage you cannot download the object.</p>
+                <p>After a copy of an object has been restored, the icon next to the object name changes again and you can then download the object through the <b>Buckets &amp;&#160;Objects</b> interface in the usual way.</p>
+                <p>As a second option for retrieving auto-tiered objects, some objects may be directly downloadable through the <b>Buckets &amp;&#160;Objects</b> interface without any need for first restoring the objects. This is supported only if both of the following are true:</p>
+                <ul>
+                    <li>The tiered objects are in Amazon S3 (not Glacier)</li>
+                    <li>The bucket’s auto-tiering is configured to support Streaming of auto-tiered objects.</li>
+                </ul>
+                <p>If you’re uncertain regarding either of these points, you can try directly downloading an auto-tiered object by clicking on its name. If direct download is not supported for the object, a response message will indicate that you need to temporarily restore a local copy of the object rather than directly downloading it.</p>
+                <p>If you want to <b>delete</b> an object that has been auto-tiered, you can do so by deleting the object through the <b>Buckets &amp;&#160;Objects</b> interface. You do not need to restore the object first. When the HyperStore system is deleting an auto-tiered object, it first triggers the deletion of the object from Amazon, and then after that succeeds it deletes the <a href="AutoTieringOverview.htm#TieringUsage" target="_popup">local reference to the object.</a></p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">As an alternative to accessing auto-tiered objects through the CMC, you can use another S3 client application to submit <MadCap:xref href="../../S3 API Support/OperationsObjects/PostObjectRestore.htm">POST Object restore</MadCap:xref> requests (for any auto-tiered objects) or <MadCap:xref href="../../S3 API Support/OperationsObjects/GetObject.htm">GET Object</MadCap:xref> requests (for auto-tiered objects that support streaming or redirect) to the HyperStore system’s S3 Service.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Direct Access Through Amazon</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Objects auto-tiered to Amazon can be accessed directly through standard AWS interfaces such as the AWS Management Console.</p>
+                <p>For example, if a bucket owner supplied her own AWS credentials when configuring her HyperStore bucket for auto-tiering to AWS, she can log into her AWS account and see that a HyperStore auto-tiering destination bucket has been created (named as <em>&lt;origin-bucket-name-truncated-to-34-characters&gt;.&lt;random-string&gt;</em>). After objects have been auto-tiered from HyperStore to her AWS destination bucket, she can view the bucket content list and retrieve individual tiered objects directly through AWS.</p>
+                <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">	If a user makes changes to the content of her auto-tiering destination bucket directly through AWS — for example, by deleting objects — this will cause a discrepancy between the HyperStore system’s record of what’s in the destination bucket and what’s actually there. For this reason, if users want to delete auto-tiered objects it’s best if they do so through the HyperStore interface rather than directly through AWS.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

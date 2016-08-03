@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="10" MadCap:lastHeight="5304" MadCap:lastWidth="837">
+    <head>
+    </head>
+    <body>
+        <h1>hsstool repair</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Command]</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Introduction</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Use this <MadCap:xref href="hsstoolOverview.htm" target="_popup">hsstool </MadCap:xref> command to check whether a physical node has all of the replicated data that it is supposed to have (based on the node’s assigned tokens and on replication settings for the system); and to replace or update any data that is missing or out-of-date. Replacement or update of data is implemented by retrieving correct and current replica data from other nodes in the system.</p>
+                <p>The HyperStore system automatically uses a combination of <a href="../../Major Features/Automatic Data Repair/DataRepairOverview.htm" target="_popup">hinted handoff, proactive repair, and scheduled auto-repair</a> to keep the replica data on each node complete and current. However, there are also operational circumstances when you should manually initiate <em>repair</em> on a specific node. The operations during which you should use <em>repair</em> are:</p>
+                <ul>
+                    <li>
+                        <MadCap:xref href="../../Operations/AddNode.htm">Add a Node</MadCap:xref>
+                    </li>
+                    <li>
+                        <MadCap:xref href="../../Operations/ReplaceNode.htm">Replace a Node</MadCap:xref>
+                    </li>
+                    <li>
+                        <MadCap:xref href="../../Operations/ReplaceDisk.htm">Replace a Disk</MadCap:xref>
+                    </li>
+                </ul>
+                <p>Please refer to those procedures for step-by-step instructions, including the proper use of <em>repair</em> within the context of the procedure.</p>
+                <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">The <em>repair</em> operation is resource-intensive and may take many hours to complete if there is a large amount of data involved. It is best to run this operation at times of relatively low service usage. It is also preferable to run <em>repair</em> on only one node at a time. If the need arises, <em>repair</em> supports an option for aborting an in-progress repair operation. To check on repair progress use <MadCap:xref href="hsstoolOpstatus.htm" target="_popup">hsstool opstatus</MadCap:xref> or check the CMC’s <MadCap:xref href="../../CMC Interface/Analytics/Repair Status/RepairStatusOverview.htm" target="_popup">Repair Status</MadCap:xref> page.</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">For system maintenance, the <em>repair</em> operation is automatically run on each node once each 90 days as part of the scheduled auto-repair feature. The nodes are not all repaired simultaneously; instead, the start times are staggered so that only one node is repaired at a time. The auto-repair interval is configurable in the <MadCap:xref href="../../CMC Interface/Cluster/Configuration Settings/ConfigurationSettingsAutoRepair.htm" target="_popup">Auto-Repair Schedule Settings</MadCap:xref> section of the CMC <b>Configuration Settings</b> page.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Command Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>You can run the <em>hsstool repair</em> command through the CMC UI:</p>
+                <p>
+                    <img src="../../Resources/Images/cmc/cluster/Advanced_repair.png" style="max-width: 8.00in;" />
+                </p>
+                <p>Or on the command line:</p><pre xml:space="preserve">[root]# /opt/cloudian/bin/hsstool -h &lt;host&gt; repair [allkeyspaces | nokeyspaces] [-pr] [-nomt]
+[-l &lt;true|false&gt;] [-m] [computedigest] [-stop] [-i] [-d &lt;mount-point&gt;] [-vnode &lt;token&gt;]</pre>
+                <h3>Parameters</h3>
+                <p>This command supports these parameters:</p>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>-h &lt;host&gt; (called "Target Node" in CMC UI)</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Mandatory) Target host to repair.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>allkeyspaces |
+
+nokeyspaces</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Optional) You have three alternatives for choosing which Cassandra metadata keyspaces to repair, while also cleaning replicated S3 object data in the HyperStore File System (HSFS):</p>
+                        <ul>
+                            <li>Use <em>allkeyspaces</em> to repair replicated objects in the HSFS and also repair all the Cassandra keyspaces. Cassandra repair will be completed first, then HSFS replica repair. The Cassandra keyspaces that will be repaired are listed below (for more information see the overview of <a href="../../Introduction/HyperStore Services/ServicesCassandra.htm" target="_popup">Cassandra keyspaces for HyperStore</a>): <ul style="list-style-type: circle;"><li>UserData_&lt;storage-policy-ID&gt; keyspaces</li><li>AccountInfo keyspace</li><li>Reports keyspace</li><li>Monitoring keyspace</li><li>ECKeyspace keyspace</li></ul></li>
+                            <li>Use <em>nokeyspaces</em> to repair only replicated objects in the HyperStore File System, and not any Cassandra keyspaces.</li>
+                            <li>If you specify neither <em>allkeyspaces</em> nor <em>nokeyspaces</em> then the default behavior is to repair replicated objects in the HSFS and also to repair the <em>Cassandra UserData_&lt;storage-policy-ID&gt;</em> keyspaces (which store object metadata). Cassandra repair will be completed first, then HSFS replica repair.</li>
+                        </ul>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>-pr</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Optional) Repair only data for which the target node is the "primary" replica (objects for which the hash of the object name falls into one of the token ranges assigned to the node). Do not repair data for which the target node is the secondary or tertiary replica. For background on replication within the storage cluster, see <MadCap:xref href="../../Major Features/Storage Policies/StoragePoliciesOverview.htm" target="_popup">Storage Policies Feature Overview</MadCap:xref>.</p>
+                        <p>If each node in the cluster is being repaired in succession, using this option makes the successive repair operations less duplicative and more efficient.</p>
+                        <p>Do not use the <em>-pr</em> option if you are repairing a new node that you’ve just added to the cluster.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>-nomt</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Optional) By default the <em>repair</em> operation builds Merkle Trees from object digests on the target node as well as on other nodes that host replicas of data objects that are supposed to be on the target node. The Merkle Trees are then compared to efficiently identify narrow token sub-ranges in which there are discrepancies across hosts; and within those sub-ranges the system then identifies the object replicas that are missing or outdated and repair them.</p>
+                        <p>However, if <em>repair </em>fails when using this default method, you can try the operation again using the <em>-nomt</em> option (for "no Merkle Tree"). This option implements the repair evaluation by reading S3 object metadata stored in Cassandra, rather than using the faster-performing comparative Merkle Tree method. A repair using the -<em>nomt </em>option may succeed in certain circumstances where the Merkle Tree method has failed.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>-l &lt;true|false&gt;</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Optional) &#160;Write to a log file a list of all the objects that were repaired. Defaults to true, so you only need to specify an <em>-l </em>option if you do <b>not</b> want repair object logging (in which case you’d specify <em>-l false</em>).</p>
+                        <p>The log is named <em>cloudian-hyperstore-repair.log</em> and is written into the Cloudian HyperStore log directory of the target node. Activity associated with a particular instance of a command run is marked with a unique command number.</p>
+                        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">In the CMC UI, this option is presented simply as an "l" checkbox which is checked by default (meaning logging is enabled by default; you can uncheck it if you don’t want repair object logging).</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>-m</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Optional) &#160;If you use this option, then before repairing a given object the Merkle Tree based repair process will verify that metadata for the object exists in Cassandra. This prevents repair (recreation of missing replicas in cases where some replicas of an object exist but fewer than the replication factor) for objects that had been intentionally deleted by users. This approach to repair is slower-performing than the default repair implementation.</p>
+                        <p>Do not use this option if you are using the -<em>nomt </em>option.</p>
+                        <p>Note that <MadCap:xref href="hsstoolCleanup.htm" target="_popup">hsstool cleanup</MadCap:xref> can perform the job of removing from a node replica data that’s no longer supposed to be there (as determined by metadata records).</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>computedigest</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Optional) When doing the repair, compute a fresh digest for each replica rather than using cached digests. If the re-computed digest of a given replica does not match the original digest (stored in a file alongside the object data) or does not match the re-computed digests of the other replicas (on other nodes) of that same object, the replica is considered to be corrupted and is replaced by a copy of a correct replica streamed in from a different node.</p>
+                        <p>This way of running <em>repair</em> is resource-intensive.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>-stop</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Optional) Use <em>hsstool -h &lt;host&gt; repair -stop</em> to abort an in-progress repair on the specified node.</p>
+                        <p>If <b>Cassandra repair is in-progress</b> — that is, if <em>repair</em> was launched with the default behavior or the <em>allkeyspaces</em> option, and the Cassandra part of the repair is still in-progress — the Cassandra repair is allowed to complete. Typically Cassandra repair takes only a few minutes. The HSFS replica repair — which would normally launch after the Cassandra repair — is cancelled.</p>
+                        <p>If <b>HSFS replica repair is in-progress</b> — that is, if <em>repair</em> was launched with the <em>nokeyspaces</em> option, or if it was launched with the default behavior or the <em>allkeyspaces</em> option and the Cassandra part of the repair has already completed and HSFS replica repair is underway — the HSFS replica repair is aborted immediately.</p>
+                        <p>You can subsequently use the <MadCap:xref href="hsstoolOpstatus.htm" target="_popup">hsstool opstatus</MadCap:xref> command to confirm that the repair has been stopped (status = TERMINATED) and to see how much HSFS replica repair progress had been made before the stop. If Cassandra repair was part of the operation, the status may initially show as still in progress; if so, check again later to confirm that the status changes to stopped.</p>
+                        <p>The next time <em>repair</em> is run on the node it will start from scratch and do a full repair. It will not resume from where the stopped repair left off.</p>
+                        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">The <em>-stop</em> option stops a single in-progress repair on a single node. It does <b>not</b> disable the HyperStore scheduled auto-repair feature (it does not prevent future scheduled auto-repairs from launching). For information about <b>disabling</b> auto-repair, see <MadCap:xref href="../../Major Features/Automatic Data Repair/DataRepairDisable.htm">Temporarily Disabling Scheduled Auto-Repairs</MadCap:xref>.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>-i (called "proactive" in the CMC&#160;UI)</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Optional) Run a "proactive repair" (utilizing a list of object replicas that have recently failed to be written to the node and that were not handled by hinted handoff) rather than a regular repair. Under normal circumstances you should not need to use this option. Whenever a node starts up it checks to see whether it’s necessary to run a proactive repair on itself, and if so the proactive repair is automatically executed. Thereafter the nodes checks again — and if necessary executes proactive repair — on a recurring configurable interval (default is every 60 minutes). So proactive repair runs automatically on each node on an as-needed basis. For more information about the proactive repair feature see <MadCap:xref href="../../Major Features/Automatic Data Repair/DataRepairOverview.htm" target="_popup">Automatic Data Repair Feature Overview</MadCap:xref>.</p>
+                        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">In the CMC UI, this option is labeled as "proactive" rather than "i".</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>-d &lt;mount-point&gt;</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Optional) If you use this option the repair is performed only for objects mapped to the vNodes that are assigned to the specified HyperStore data mount point (for example <em>/cloudian1</em>), either as primary replicas or as secondary or tertiary replicas. This option may be useful in circumstances where data is known or suspected to be missing or incorrect on a particular disk.</p>
+                        <p>If you want to first see what vNodes are assigned to each of a physical node’s mount points, use the <MadCap:xref href="hsstoolLs.htm" target="_popup">hsstool ls</MadCap:xref> command.</p>
+                        <p>If you use the repair option <em>-d &lt;mount-point&gt;</em>, do not use the <em>-pr</em> option.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>-vnode &lt;token&gt;</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Optional) If you use this option the repair is performed only for objects mapped to the specified vNode (identified by its token such as 18315119863185730105557340630830311535). This option may be useful if during a full node repair (or a disk-specific repair), the operation failed for a particular vNode. In that case you can then use the <em>-vnode &lt;token&gt;</em> option to retry repairing just that one vNode.</p>
+                        <p>If a full repair operation fails for a particular vNode, this will be revealed by running <MadCap:xref href="hsstoolOpstatus.htm" target="_popup">hsstool opstatus</MadCap:xref> with the <em>-a</em> flag.</p>
+                        <p>If you use the repair option <em>-vnode &lt;token&gt;</em>, do not use the <em>-pr</em> option.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Command/Response Example</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The example below shows a default run of <em>repair</em>, using no options. Note that the system assigns the command run a numerical identifier — #32 in this example.</p><pre xml:space="preserve">[root]# /opt/cloudian/bin/hsstool -h cloudian-node1 repair
+Executing repair. computedigest=false keyspaces=UserData primaryrange=false
+merkletree=true logging=false check-metadata=false
+timestamp: 1424885320984
+Repair command #32 completed.</pre>
+                <p>For more detail on the operation results run <MadCap:xref href="hsstoolOpstatus.htm" target="_popup">hsstool opstatus</MadCap:xref> on the node. The results of this specific repair run (identified by command number) will remain available through <em>opstatus</em> until either <em>repair </em>is run again on the node or the HyperStore Service is restarted on the node.</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">Since repair is an important operation, it’s recommended that after running repair on a node you check <MadCap:xref href="hsstoolOpstatus.htm" target="_popup">hsstool opstatus</MadCap:xref>to confirm that the operation succeeded.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Problems Remedied by "repair" and "repair computedigest"</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The table below lists data problem cases and shows whether or not they are remedied by regular <em>repair</em> and by <em>repair </em>that uses the <em>computedigest</em> option. Although regular <em>repair</em> can handle some cases of corruption, if corruption is suspected on a node and you’re not certain exactly which data is corrupted, it’s best to use <em>repair computedigest</em>.</p>
+                <table style="width: 100%; border-left-style: solid; border-left-width: 1px; border-right-style: solid; border-right-width: 1px; border-top-style: solid; border-top-width: 1px; border-bottom-style: solid; border-bottom-width: 1px; border-collapse: separate;">
+                    <col />
+                    <col />
+                    <col />
+                    <thead>
+                        <tr>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;vertical-align: top;">Case </th>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;vertical-align: top;">Will <em>repair </em>fix it? </th>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;vertical-align: top;">Will <em>repair computedigest</em> fix it?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;vertical-align: top;">Missing blob file</td>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;vertical-align: top;">yes</td>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;vertical-align: top;">yes</td>
+                        </tr>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;vertical-align: top;">Missing digest file</td>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;vertical-align: top;">yes</td>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;vertical-align: top;">yes</td>
+                        </tr>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;vertical-align: top;">Missing blob file and digest file</td>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;vertical-align: top;">yes</td>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;vertical-align: top;">yes</td>
+                        </tr>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;vertical-align: top;">Corrupted blob file</td>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;vertical-align: top;">no</td>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;vertical-align: top;">yes</td>
+                        </tr>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;vertical-align: top;">Corrupted digest file</td>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;vertical-align: top;">yes</td>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;vertical-align: top;">yes</td>
+                        </tr>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;vertical-align: top;">Corrupted bob file and digest file</td>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;vertical-align: top;">yes</td>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;vertical-align: top;">yes</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

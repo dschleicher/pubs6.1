@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="10" MadCap:lastHeight="1355" MadCap:lastWidth="846">
+    <head>
+    </head>
+    <body>
+        <h1>DELETE User's Profile Data</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Admin API Method]</p>
+        <p>After deleting a user, you can use this Admin API method if you want to purge a deleted user’s profile information from the Cassandra database. Otherwise, the deleted user’s profile information is retained in Cassandra indefinitely.</p>
+        <p>Note that if you purge a deleted user’s profile information from Cassandra, you will no longer be able to retrieve that user’s profile information via the <MadCap:xref href="GetUserList.htm">GET User List</MadCap:xref> method. This means that you will no longer be able to retrieve the deleted user’s canonical user ID. Without a deleted user’s canonical user ID, you will not be able to retrieve usage history for the user. Consequently, you should purge a deleted user’s profile information <b>only if</b> you have some independent record of the user’s canonical user ID (outside of the Cassandra database); or if you are confident that you will no longer require access to the deleted user’s usage history.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Request Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Syntax</h4><pre xml:space="preserve">DELETE /user/deleted[?canonicalUserId=xxx|groupId=xxx]</pre>
+                <h4>Query Parameters</h4>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>canonicalUserId</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Optional, string) System-generated canonical user ID of the deleted user whose profile information you wish to purge from Cassandra.
+
+</p>
+                            <p>Note that you can retrieve deleted users' canonical IDs by using the <MadCap:xref href="GetUserList.htm">GET User List</MadCap:xref> method with <code>userStatus=deleted</code>.</p>
+                            <p>You must use <b>either</b> canonicalUserId <b>or</b> groupId but <b>not both</b>.</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>groupId</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Optional, string) Specify a group ID if you wish to purge user profile information for <b>all </b>deleted users within the group.</p>
+                            <p>You must use <b>either</b> canonicalUserId <b>or</b> groupId but <b>not both</b>.</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <h4>Request Payload</h4>
+                <p>None.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Response Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Response Status</h4>
+                <p>In addition to the <MadCap:xref href="../CommonStatusCodes.htm" target="_popup">Common Status Codes</MadCap:xref>, this method may return these codes:</p>
+                <table style="border-collapse: separate;border-top-left-radius: 0px;border-top-right-radius: 0px;border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;width: 100%;">
+                    <col style="width: 115px;">
+                    </col>
+                    <col style="width: 629px;">
+                    </col>
+                    <thead>
+                        <tr>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Status Code</th>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                            <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;">Conflicting or missing parameters : {canonicalUserId, groupId}</td>
+                        </tr>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                            <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;"> 	
+
+User does not exist or is not in a deleted state.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4>Response Payload</h4>
+                <p>None.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Example</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>In this example a user’s profile data is successfully deleted. In the request the user is identified by their canonical ID. Note that the request must include a <code>Content-Type: application/json</code> header even though there is no request body.</p><pre xml:space="preserve"># Request -&gt;
+
+DELETE http://192.168.2.16:18081/user/deleted?canonicalUserId=f3117ac8fa2c6f8fbc731ada593ebb2f
+
+# Response -&gt;
+
+Status Code: 200 OK
+Content-Length: 0
+Date: Wed, 23 Sep 2015 13:44:51 GMT</pre>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

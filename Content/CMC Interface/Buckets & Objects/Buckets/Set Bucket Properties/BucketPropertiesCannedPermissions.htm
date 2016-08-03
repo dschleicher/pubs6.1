@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="5" MadCap:lastHeight="878" MadCap:lastWidth="818">
+    <head>
+    </head>
+    <body>
+        <h1>Set "Canned" S3 Permissions on a Bucket</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[CMC Interface]</p>
+        <p>"Canned" S3 permissions (also known as "Canned ACLs") are pre-defined sets of S3 permissions that you can assign to a bucket. To set canned permissions on a bucket, select the <b>Bucket Canned ACL</b> tab of the CMC's bucket properties interface.</p>
+        <p>
+            <img src="../../../../Resources/Images/cmc/buckets/BucketProperties_canned.png" class="ImgCloudian" />
+        </p>
+        <ol>
+            <li>From the drop-down list, choose the canned ACL to assign to the bucket. You can only choose one. Options are:</li>
+        </ol>
+        <div class="Indent">
+            <MadCap:dropDown>
+                <MadCap:dropDownHead class="CloudianChildDropDown">
+                    <MadCap:dropDownHotspot>Private</MadCap:dropDownHotspot>
+                </MadCap:dropDownHead>
+                <MadCap:dropDownBody>
+                    <p>Bucket owner has full access rights and no one else has access rights. This is the default.</p>
+                </MadCap:dropDownBody>
+            </MadCap:dropDown>
+            <MadCap:dropDown>
+                <MadCap:dropDownHead class="CloudianChildDropDown">
+                    <MadCap:dropDownHotspot>Public Read</MadCap:dropDownHotspot>
+                </MadCap:dropDownHead>
+                <MadCap:dropDownBody>
+                    <p>Bucket owner has full access rights and the Public grantee group (the public at large) has read access. This means the public will be able to read a list of the bucket contents. (To allow read permissions on <b>files</b>, see <MadCap:xref href="../../Objects/Set Object Properties/ObjectPropertiesOverview.htm">Set File Properties</MadCap:xref>.)</p>
+                </MadCap:dropDownBody>
+            </MadCap:dropDown>
+            <MadCap:dropDown>
+                <MadCap:dropDownHead class="CloudianChildDropDown">
+                    <MadCap:dropDownHotspot>Public Read Write</MadCap:dropDownHotspot>
+                </MadCap:dropDownHead>
+                <MadCap:dropDownBody>
+                    <p>Bucket owner has full access rights and the Public grantee group (the public at large) has read and write access. The public will be able to read a list of contents in the bucket, and also to upload files to the bucket or delete files from the bucket.</p>
+                </MadCap:dropDownBody>
+            </MadCap:dropDown>
+            <MadCap:dropDown>
+                <MadCap:dropDownHead class="CloudianChildDropDown">
+                    <MadCap:dropDownHotspot>Authenticated Read</MadCap:dropDownHotspot>
+                </MadCap:dropDownHead>
+                <MadCap:dropDownBody>
+                    <p>Bucket owner has full access rights and the Cloudian User group (all users of the Cloudian HyperStore service) has read access.</p>
+                </MadCap:dropDownBody>
+            </MadCap:dropDown>
+            <MadCap:dropDown>
+                <MadCap:dropDownHead class="CloudianChildDropDown">
+                    <MadCap:dropDownHotspot>Log Delivery Write</MadCap:dropDownHotspot>
+                </MadCap:dropDownHead>
+                <MadCap:dropDownBody>
+                    <p>Bucket owner has full access rights and the Log Delivery group has write access and permission to read the access settings on the bucket. This canned ACL enables the HyperStore system to store the bucket’s server access logs in the bucket.</p>
+                </MadCap:dropDownBody>
+            </MadCap:dropDown>
+        </div>
+        <ol MadCap:continue="true">
+            <li>Click <b>Save</b>.</li>
+        </ol>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">A bucket can have only one canned ACL attached to it at a time. If you apply one canned ACL to a bucket, and then later apply a different canned ACL, the first canned ACL will be removed.</p>
+    </body>
+</html>

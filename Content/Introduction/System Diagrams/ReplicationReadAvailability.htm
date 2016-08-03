@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="2425" MadCap:lastWidth="687">
+    <head>
+    </head>
+    <body>
+        <p>
+            <MadCap:keyword term="09. Availability for Replicated Object Reads" />
+        </p>
+        <h1>Availability for Replicated Object Reads</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Diagram]</p>
+        <p>The read scenarios in this section continue the presumptions of the write scenarios from <MadCap:xref href="ReplicationWriteAvailability.htm">Replication -- Write Availability</MadCap:xref>: 3X replication is being used to protect objects in a six node cluster, in a single data center. We are now trying to read the same object that was written in the preceding section: object data replicas are stored on <em>node1</em>, <em>node5</em>, and <em>node6</em>; and object metadata replicas are stored on <em>node2</em>, <em>node3</em> and <em>node5</em>.</p>
+        <p>When you configure storage policies for replication in a single DC you can choose one of three supported consistency level (CL) requirements for S3 object data reads: ALL, QUORUM, or ONE. An object data read CL of ONE is sufficient to ensure that only fresh data is returned to clients (when combined with an object metadata read CL of QUORUM or stricter), and so the following scenarios assume an object data read CL of ONE. You can separately configure CL requirements for object metadata reads, choosing from ALL or QUORUM.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">The read scenarios that follow presume that all the object data replicas and all the object metadata replicas are consistent (having the same timestamp), which is the usual condition. For information about read availability if data is inconsistent, see <MadCap:xref href="DataFreshness.htm">Data Freshness for Read Requests</MadCap:xref>.</p>
+        <p>Presuming data consistency, the system behaves as shown in the diagrams that follow.</p>
+        <h2>Read Scenario: One Object Data Endpoint Is Down</h2>
+        <p>
+            <img src="../../Resources/Images/diagrams/Single-DC-Read-One-Data-Down.png" />
+        </p>
+        <h2>Read Scenario: One Object Metadata Endpoint Is Down</h2>
+        <p>
+            <img src="../../Resources/Images/diagrams/Single-DC-Read-One-Metadata-Down.png" />
+        </p>
+        <h2>Read Scenario: Two Object Data Endpoints and One Object Metadata Endpoint Are Down</h2>
+        <p>
+            <img src="../../Resources/Images/diagrams/Single-DC-Read-Two-Data-One-Metadata-Down.png" />
+        </p>
+        <p><b>See Also:</b>
+        </p>
+        <ul>
+            <li>
+                <MadCap:xref href="ReplicationWriteAvailability.htm">Replication -- Write Availability</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="ErasureCodingWriteAvailability.htm">Erasure Coding -- Write Availability</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="ErasureCodingReadAvailability.htm">Erasure Coding -- Read Availability</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="1777" MadCap:lastWidth="815">
+    <head>
+    </head>
+    <body>
+        <h1>Node Activity</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[CMC Interface]</p>
+        <p>Path: <b>Cluster → Nodes → Node Activity</b></p>
+        <p>
+            <img src="../../Resources/Images/cmc/cluster/NodeActivity.png" class="ImgCloudian" />
+        </p>
+        <p>Supported task:</p>
+        <ul>
+            <li>Check a node’s recent activity</li>
+        </ul>
+        <p>In the CMC's <b>Node Activity</b> page you can view a variety of health and performance statistics for individual HyperStore nodes. For each node, statistics from the past 30 days are available, and within that time period you can flexibly drill down into whatever specific interval you’re interested in.</p>
+        <p>Select a node in the "Host" field and then in the "Operation" field you can choose any one of the statistics listed below. </p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>CPU Utilization</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>CPU utilization percentage.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Disk Available</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Disk space available on the node. Note that:</p>
+                <ul>
+                    <li>Only disks that store HyperStore data directories (as configured by <em>common.csv:</em> <MadCap:xref href="../../System Configuration/Configuration Files/CommonCsv.htm#hyperstore_data_directory" target="_popup">hyperstore_data_directory</MadCap:xref>) or the Cassandra data directory (as configured by <em>common.csv:</em> <MadCap:xref href="../../System Configuration/Configuration Files/CommonCsv.htm#cassandra_data_directory" target="_popup">cassandra_data_directory</MadCap:xref>) count toward this stat. This stat does not count disks that are being used only for OS or application files, for example.</li>
+                    <li>This stat calculates disk usage in a way that counts a disk’s "reserved-blocks-percentage" (the portion of the disk space that’s reserved for privileged processes) as used space. Consequently this stat may indicate a higher degree of disk usage than would the Linux df command, which does not count reserved space towards a disk’s used space. By default in Linux systems the configurable "reserved-blocks-percentage" for a file system is 5% of disk capacity.</li>
+                </ul>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Disk Reads/Writes</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Across all the node’s disks that are being used for S3 object storage, the average disk read and write throughput per second.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Network Throughput Outgoing/Incoming</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The node’s outgoing and incoming network interface throughput per second. This encompasses all types of network traffic including but not limited to S3 request traffic. For example, data transmission associated with cluster maintenance operations would would count toward these statistics.</p>
+                <p>For throughput specifically of S3 request traffic, see the Request Throughput stats.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Transactions (GET/PUT)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Number of S3 transactions processed per second. This is broken out to GET transactions and PUT transactions.</p>
+                <p>HEAD transactions are counted toward the GET stat, and POST transactions are counted toward the PUT stat.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Request Throughput (GET/PUT)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>For S3 transactions, the data volume throughput per second. This is broken out to GET transactions and PUT transactions.</p>
+                <p>HEAD transactions are counted toward the GET stat, and POST transactions are counted toward the PUT stat.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Average Request Latency (GET/PUT)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Average latency for completing S3 transactions, in milliseconds. This is broken out to GET transactions and PUT transactions.</p>
+                <p>HEAD transactions are counted toward the GET stat, and POST transactions are counted toward the PUT stat.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>&lt;Service&gt; Memory Heap Usage</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The JVM heap memory usage by each of the HyperStore system’s major Java-based services: Admin, Cassandra, HyperStore, and S3.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <p>By default, when you choose a statistic from the "Operation" drop-down list, a graph of the statistic’s movement over the <b>past 24 hours</b> displays. The interface provides you two methods for adjusting this graphing interval:</p>
+        <ul>
+            <li>In the upper right of the page, you can click to change the graph to a 7 day or 30 day view.</li>
+            <li>In the small graph at the bottom of the page — which shows a compressed 30 day view — you can manipulate the gray block to control the time period that’s shown in the main graph. With your mouse you can click and drag the left or right edges of the block to expand or contract the time period shown in the main graph. You can also click the block’s center and drag the block to shift the main graph to an earlier or later time interval (within the bounds of the past 30 days).</li>
+        </ul>
+        <p>
+            <img src="../../Resources/Images/cmc/cluster/NodeActivity_graph.png" class="ImgCloudian" />
+        </p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">For statistics that measure quantities of data, the metric used on a graph’s Y-axis auto-scales to units that are most appropriate for the particular quantities being conveyed. Specifically, for a given statistic the Y-axis may be expressed in terms of bytes, KBs, MBs, or GBs, depending on the activity level during the full 30-day graphing interval. Pay attention to the Y-axis label to see what metric is being used.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot style="font-weight: bold;">Note for multi-region systems</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>If your HyperStore system has multiple service regions, a drop-down list displays at the top of the page so you can select a region first before selecting a node for which to view activity.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

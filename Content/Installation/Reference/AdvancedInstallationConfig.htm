@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="9" MadCap:lastHeight="3378" MadCap:lastWidth="776">
+    <head>
+    </head>
+    <body>
+        <h1>Advanced Installation Configuration Options</h1>
+        <p>The HyperStore installation tool supports several types of advanced system configurations which can be implemented at any time after initial installation of the system. In most cases, these are configuration tasks that can also be performed manually by editing system configuration files. The installer makes these tasks easier by enabling you to perform the configurations by responding to prompts from the installer.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">As a best practice, you should complete basic HyperStore installation first and confirm that things are working properly (by running the installer’s Validation Tests) before you consider using the advanced configuration option to customize port assignments or implement SSL for the S3 Service.</p>
+        <p>To access the advanced configuration options, first launch the installer.</p><pre xml:space="preserve">[root]# cd &lt;your-installation-staging-directory&gt;
+[root]# ./cloudianInstall.sh</pre>
+        <p>This opens the installer’s main menu.</p>
+        <p>
+            <img src="../../Resources/Images/installation/MainMenu.png" class="ImgCloudian" />
+        </p>
+        <p>Select "Advanced Configuration Options". This opens the "Advanced Configuration Options" sub-menu.</p>
+        <p>
+            <img src="../../Resources/Images/installation/AdvancedConfigurationOptions.png" class="ImgCloudian" />
+        </p>
+        <p>From this menu you can choose the type of configuration change that you want to make and then proceed through the interactive prompts to specify your desired settings. </p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Change server role assignments</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>This is for shifting role assignments — such as Redis QoS master or Redis Credentials master — from one of the hosts in your cluster to another. For the complete procedures, see <MadCap:xref href="../../Operations/Change Node Role/ChangeNodeRoleOverview.htm">Change Node Role Assignments</MadCap:xref>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Change S3, Admin and CMC ports</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>This lets you interactively change listening ports for the S3, Admin, and CMC services.</p>
+                <ol>
+                    <li>After selecting this option from the Advanced Configuration Options menu, follow the prompts to specify your desired port numbers.</li>
+                    <li>Go to the installer’s main menu and choose "Install Cloudian HyperStore" → "Review Cluster Configuration". Answer Yes to update the Puppet master configuration.</li>
+                    <li>Go to the main menu again and choose "Cluster Management" → "Push Configuration Settings to Cluster" and follow the prompts.</li>
+                    <li>Go to the "Cluster Management" menu again, choose "Manage Services", and restart the affected services:</li>
+                </ol>
+                <div class="Indent">
+                    <ul>
+                        <li> For changed S3 or Admin ports, restart the S3 Service and the CMC. Note that the Admin service is restarted automatically when you restart the S3 Service. </li>
+                        <li>For changed CMC port, restart the CMC</li>
+                    </ul>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Change S3, S3-Website, and CMC endpoints</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>This lets you interactively change the S3 service endpoint, S3 static website endpoint, and CMC endpoint. (For more information on HyperStore service endpoints, their default values, and how the endpoints are used, see <MadCap:xref href="../Networking Preparation/DnsSetup.htm" target="_popup">DNS Set-Up</MadCap:xref>.)</p>
+                <ol>
+                    <li>After selecting this option from the Advanced Configuration Options menu, follow the prompts to specify your desired endpoints.</li>
+                </ol>
+                <div class="Indent">
+                    <MadCap:dropDown>
+                        <MadCap:dropDownHead class="CloudianChildDropDown">
+                            <MadCap:dropDownHotspot>Note for <b>multi-region systems</b> only</MadCap:dropDownHotspot>
+                        </MadCap:dropDownHead>
+                        <MadCap:dropDownBody>
+                            <p>If you have a multi-region HyperStore system <b>and your customized S3 service endpoint and S3 static website endpoint do not include a service region string</b>, then make the system configuration change described below. (If you retained a region string in your custom S3 endpoints, this configuration file edit isn't necessary and you can skip ahead to Step 2.)</p>
+                            <ol style="list-style-type: lower-alpha;">
+                                <li>In a text editor open this file on your Puppet master node:</li>
+                            </ol>
+                            <div class="Indent"><pre>/etc/cloudian-&lt;ver#&gt;-puppet/modules/cloudians3/templates/mts.properties.erb</pre>
+                            </div>
+                            <ol style="list-style-type: lower-alpha;" MadCap:continue="true">
+                                <li>Find this line in the file:</li>
+                            </ol>
+                            <div class="Indent"><pre>cloudian.s3.authorizationV4.singleregioncheck=false</pre>
+                            </div>
+                            <ol style="list-style-type: lower-alpha;" MadCap:continue="true">
+                                <li>Below that found line, add this new line and then save your change and close the file:</li>
+                            </ol>
+                            <div class="Indent"><pre>cloudian.s3.authorizationV4.multiregioncheck=false</pre>
+                                <p>This disables the region validation aspect of AWS Signature Version 4 authentication in a multi-region system.</p>
+                            </div>
+                        </MadCap:dropDownBody>
+                    </MadCap:dropDown>
+                </div>
+                <ol MadCap:continue="true">
+                    <li>Go to the installer’s main menu and choose "Install Cloudian HyperStore" → "Review Cluster Configuration". Answer Yes to update the Puppet master configuration.</li>
+                    <li>Go to the main menu again and choose "Cluster Management" → "Push Configuration Settings to Cluster" and follow the prompts.</li>
+                    <li>Go to the "Cluster Management" menu again, choose "Manage Services", and restart the S3 Service and the CMC. If you are using DNSMASQ for HyperStore service endpoint resolution, then also restart DNSMASQ. (If instead you are using your DNS environment for HyperStore service endpoint resolution, update your DNS entries to match your custom endpoints if you have not already done so. For guidance see <MadCap:xref href="../Networking Preparation/DnsSetup.htm">DNS Set-Up</MadCap:xref>.)</li>
+                </ol>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Configure diagnostic data collection options</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>This lets you interactively configure Phone Home (Smart Support) settings.</p>
+                <ol>
+                    <li>After selecting this option from the Advanced Configuration Options menu, follow the prompts to specify your desired settings.</li>
+                    <li>Go to the installer’s main menu and choose "Install Cloudian HyperStore" → "Review Cluster Configuration". Answer Yes to update the Puppet master configuration.</li>
+                    <li>Go to the main menu again and choose "Cluster Management" → "Push Configuration Settings to Cluster" and follow the prompts.</li>
+                    <li>Go to the "Cluster Management" menu again, choose "Manage Services", and restart the S3 Service.</li>
+                </ol>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Generate a self-signed certificate in a JKS keystore</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>This generates a SSL certificate that you can use for implementing SSL for the S3 Service. For instructions on using this option, see SSL for S3 Service in the Cloudian HyperStore Administrator’s Guide [XREF].</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Enable and configure HTTPS access on S3 server</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>This configures the S3 Service to use HTTPS, using a specified SSL keystore. For instructions on using this option, see SSL for S3 Service in the Cloudian HyperStore Administrator’s Guide. [XREF]</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Import Java keystore to CMC</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>This enables you to use a specified SSL keystore for the CMC server rather than its default keystore. For instructions on using this option, see SSL for CMC in the Cloudian HyperStore Administrator’s Guide. [XREF]</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Remove existing Puppet SSL certificates</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>This is a troubleshooting measure in the event of Puppet connectivity problems, as described in <MadCap:xref href="InstallationTroubleshooting.htm">Installation Troubleshooting</MadCap:xref>.</p>
+                <p>This operation is specifically in regard to Puppet certificates and has nothing to do with SSL for the S3 Service.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Start or stop Puppet daemon</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>By default, after HyperStore installation the Puppet master and agent daemons are left running, and every 10 minutes the agents check the master to see if there are updated HyperStore configuration settings to download to the agent nodes. Alternatively you can use this option from the Advanced menu to stop the Puppet agent daemons.</p>
+                <p>Note that if you don’t leave the Puppet agent daemons running, you must remember to trigger a one-time Puppet sync-up each time you make a HyperStore configuration change on the Puppet master. By contrast, if you leave the Puppet agent daemons running, a sync-up will happen automatically every 10 minutes even if you don’t specifically trigger a sync-up after making a configuration change.</p>
+                <p>If you ever want to check on the current status of your Puppet master and agent daemons, you can do so by choosing "Cluster Management" from the installer’s main menu; then choose "Manage Services"; then in the Service Management sub-menu choose "Puppet service (status only)".</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Remove Puppet access lock</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>When Puppet is performing a sync-up, the system temporarily locks Puppet access (so that no additional Puppet instances are launched by other operators or systems). If the sync-up operation is terminated unexpectedly — such as by a &lt;CTRL&gt;-c command, or a Puppet master node shutdown — the temporary lock may fail to release.</p>
+                <p>You can clear the lock by running the "Remove Puppet access lock" operation.</p>
+                <p>To confirm that the lock is cleared, you can check to make sure that no <em>/tmp/cloudian_installer_lock</em> directory exists on the Puppet master node.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Enable or disable DNSMASQ</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>This menu option is for either of these circumstances:</p>
+                <ul>
+                    <li>When you ran the <em>cloudianInstall.sh</em> script to install your HyperStore system, you had the script automatically install and configure <a href="http://www.thekelleys.org.uk/dnsmasq/doc.html" target="_blank">dnsmasq</a> to perform DNS resolution for HyperStore service domains. (That is, you used the <em>configure-dnsmasq</em> option when you launched the install script.) However, now you want to use your own DNS solution for resolving HyperStore domains, and you’ve completed your DNS configuration as described in <MadCap:xref href="../Networking Preparation/DnsSetup.htm" target="_popup">DNS Set-Up</MadCap:xref>. You can use the installer’s "Enable or disable DNSMASQ" menu option to disable dnsmasq. This stops <em>dnsmasq</em> on all HyperStore nodes and disables <em>dnsmasq</em> by configuration.</li>
+                    <li>When you ran the <em>cloudianInstall.sh</em> script to install your HyperStore system, you did <b>not</b> have it install <em>dnsmasq</em> (the default installer behavior is not to install <em>dnsmasq</em>). However, now you want to use <em>dnsmasq</em> for HyperStore domain resolution. With the installer’s "Enable or disable DNSMASQ" menu option you can enable <em>dnsmasq</em>:</li>
+                </ul>
+                <div class="Indent">
+                    <ol>
+                        <li>After selecting this option from the Advanced Configuration Options menu, follow the prompts to choose to enable <em>dnsmasq</em>. </li>
+                        <li>Go to the installer’s main menu and choose "Install Cloudian HyperStore" → "Review Cluster Configuration". Answer Yes to update the Puppet master configuration.</li>
+                        <li>Go to the main menu again and choose "Cluster Management" → "Push Configuration Settings to Cluster" and follow the prompts.</li>
+                        <li>Go to the "Cluster Management" menu again, choose "Manage Services", and restart the DNSMASQ service.</li>
+                    </ol>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Mark host(s) down for maintenance</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Use this option if you want to add a new node to the cluster at a time when an existing node is down. For the full procedure see <MadCap:xref href="../../Operations/AddNode.htm">Adding a Node</MadCap:xref>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

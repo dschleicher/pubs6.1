@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="1324" MadCap:lastWidth="841">
+    <head>
+    </head>
+    <body>
+        <h1>Disk Failure Handling Feature Overview</h1>
+        <p>In the event of failure of a HyperStore data disk — a disk where S3 object data is stored — the HyperStore system automatically detects the failure and takes the disk offline. To detect disk failures, for each node the HyperStore system does the following:</p>
+        <ul>
+            <li>Continuously monitors the HyperStore Service application log for error messages indicating a failure to read from or write to a disk (messages containing the string "HSDISKERROR").</li>
+            <li>At a configurable interval (default is once each hour), tries to write one byte of data to each HyperStore data disk. If any of these writes fail, <em>/var/log/messages</em> is scanned for messages indicating that the file system associated with the disk drive in question is in a read-only condition (message containing the string "Remounting filesystem read-only"). This recurring audit of disk drive health is designed to proactively detect disk problems even during periods when there is no HyperStore Service read/write activity on a disk.</li>
+        </ul>
+        <p>If HyperStore Service application errors regarding a drive occur in excess of a configurable error rate threshold, or if the proactive audit detects that a drive is in read-only condition, then HyperStore <b>automatically disables the drive</b>. The system uses whichever of the following disk disabling methods you have specified by configuration:</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Disable Disk and Move Its Tokens (default)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>With this method, the disk is automatically unmounted and marked as disabled so HyperStore doesn’t try to write to or read from it any more. Also, the disabled disk’s <a href="../../Introduction/System Diagrams/vNodes.htm">tokens</a> are automatically moved to other disks on the same host.</p>
+                <p>Because its tokens are moved, <b>writes of new or updated</b> S3 object data that would have gone to the disabled disk will start going to the other disks on the host instead. This happens automatically, without any operator action. Meanwhile <b>existing</b> S3 object replicas and erasure coded fragments on the disabled disk will be unreadable on this host. Whether the system as a whole can still provide S3 clients with read access to the affected S3 objects depends on the storage policies with which the objects are associated, and on the availability of other replicas or erasure coded fragments within the cluster.</p>
+                <p>When you subsequently re-enable or replace the disk, the tokens will automatically be moved back to the re-enabled or replacement disk.</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">When moving tokens away from a disabled disk or back to a re-enabled or replacement disk, HyperStore uses Dynamic Object Routing. For more information on this low-impact method of token migration, see <MadCap:xref href="../Disk Usage Balancing/DiskUsageOverview.htm">Disk Usage Balancing Feature Overview</MadCap:xref>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Disable Disk But Don’t Move Tokens</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>With this method, the disk is automatically unmounted and marked as disabled so HyperStore doesn’t try to write to or read from it any more. The system does <b>not</b> move the disabled disk’s tokens to other disks on the host.</p>
+                <p>Because tokens are not moved, this host is not able to support writes of new or updated S3 object replicas or erasure coded fragments associated with the disabled disk’s tokens. Whether the system as a whole can successfully process writes of those S3 objects depends on the storage policies with which the objects are associated, and on the availability of other writable endpoints within the cluster.</p>
+                <p>Meanwhile existing S3 object replicas and erasure coded fragments on the disabled disk will be unreadable on this host. Whether the system as a whole can still provide S3 clients with read access to the affected S3 objects depends on the storage policies with which the objects are associated, and on the availability of other replicas or erasure coded fragments within the cluster.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">The automatic disk disabling feature works only if you have multiple HyperStore data disks on the host. If there is only one HyperStore data disk on the host, the system will not automatically disable the disk even if errors are detected.</p>
+        <p>&#160;</p>
+        <p><b>See Also:</b>
+        </p>
+        <ul>
+            <li>
+                <MadCap:xref href="DiskFailureConfigure.htm">Configuring Disk Failure Handling</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="DiskFailureStatus.htm">Checking Disk Status</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="DiskFailureAlerts.htm">Disk Error Alerts</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="DiskFailureRestore.htm">Bringing a Disk Online</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="../../Introduction/System Diagrams/ReplicationWriteAvailability.htm">Availability for Replicated Object Writes</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

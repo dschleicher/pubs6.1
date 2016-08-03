@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="908" MadCap:lastWidth="815">
+    <head>
+    </head>
+    <body>
+        <h1>View a Node's Memory Status</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[CMC Interface]</p>
+        <p>To check a node’s memory usage, in the CMC's <a href="../../../Resources/Images/cmc/cluster/NodeStatus.png" target="_popup">Node Status</a> page open the <b>Memory Usage</b> panel.</p>
+        <p>
+            <img src="../../../Resources/Images/cmc/cluster/NodeStatus_memory.png" class="ImgCloudian" />
+        </p>
+        <p>The panel displays the following information:</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Service</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Service name. This will be one of the HyperStore system’s four major Java-based services: Admin, Cassandra, HyperStore, and S3.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Heap Usage</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>This column shows each service’s current JVM heap memory usage and also the maximum JVM heap size allocated to each service.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>GC Info</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Statistics for garbage collection, the recurrent automatic process within a JVM whereby memory is freed up from Java objects that are no longer in-use. These statistics are provided only for the Cassandra service. The particular statistics that display will depend on which type(s) of garbage collection have been executed since the last start-up of the Cassandra service. The supported statistic are:</p>
+                <ul>
+                    <li>CMS count — The number of concurrent mark-sweep (CMS) garbage collections executed since the last start-up of the Cassandra service on this node. This collection type targets old-generation objects.</li>
+                    <li>CMS time — The aggregate time (in milliseconds) spent on executing CMC garbage collections since the last start-up of the Cassandra service on this node.</li>
+                    <li>ParNew count — The number of parallel new-generation (ParNew) garbage collections executed since the last start-up of the Cassandra service on this node.</li>
+                    <li>ParNew time — The aggregate time (in milliseconds) spent on executing ParNew garbage collections since the last start-up of the Cassandra service on this node.</li>
+                    <li>Copy count — The number of Copy garbage collections executed since the last start-up of the Cassandra service on this node.</li>
+                    <li>Copy time — The aggregate time (in milliseconds) spent on executing Copy garbage collections since the last start-up of the Cassandra service on this node.</li>
+                </ul>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

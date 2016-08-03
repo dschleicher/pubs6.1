@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="1573" MadCap:lastWidth="841">
+    <head>
+    </head>
+    <body>
+        <h1>Automatic Data Repair Feature Overview</h1>
+        <p>Through its <a href="../Storage Policies/StoragePoliciesOverview.htm">storage policies</a> feature, HyperStore provides you the option of using eventual consistency for writes of S3 object data and metadata. For example, in the context of a 3X replication storage policy you can configure a policy such that the system returns a success response to an S3 client’s PUT Object request so long as two of the three replicas can be written at the time of the request. As a second example, in the context of a 4+2 erasure coding storage policy you can configure a policy to return a success response to a PUT Object request so long as four of the six erasure coded fragments can be written at the time of the request.</p>
+        <p>Eventual consistency can reduce S3 write request latency and increase S3 write availability while still providing a high degree of data durability assurance. Eventual consistency also means that for a given object, there may be times when not all of the object’s intended replicas or EC fragments exist in the system. For example, in a 3X replication context there may be times when only two replicas of an object exist in the system, rather than the intended three replicas.</p>
+        <p>HyperStore implements several mechanisms to promptly detect and replace missing replicas or EC fragments:</p>
+        <ul>
+            <li><b>Hinted Handoff</b> — When an S3 Service node is processing an incoming S3 PUT request from a client, the node acts as the "coordinator" of the transaction as the system attempts to write replicas of the object to each of the hosts on which it should be stored. If enough replicas can be written to satisfy the storage policy’s consistency requirement (and therefore return a success response to the client), but not all of the replicas can be written (for example due to a target host being unavailable), then the coordinator node temporarily stores a local copy of the object. When the node that is supposed to host the missing replica becomes available again, the copy from the coordinator node is automatically streamed to the proper host node and then deleted from the coordinator node.</li>
+        </ul>
+        <div class="Indent">
+            <p>Hinted handoff works within configurable limits as to the maximum time interval during which coordinator nodes will write local copies of data that is bound for a given unavailable node (default is one hour); and as to the maximum volume of data that each coordinator node will temporarily store on behalf of all unavailable nodes combined (default is 1 GB).</p>
+            <p>Hinted handoff applies only to replicated data, not to erasure coded data.</p>
+        </div>
+        <ul>
+            <li><b>Proactive Repair</b> — When a node has been unavailable for long enough that hinted handoff limits have been reached, then when the node comes back online it is automatically brought up to date by a combination of hinted handoff (for missing data up to the point that the hinted handoff limit was reached) followed by proactive repair (for missing data from after the hinted handoff limit was reached). Proactive repair works by reading from Cassandra a list of failed object write attempts — from when the node was unavailable — that could not be handled by hinted handoff due to a hinted handoff limit having been reached. Working from this object list, proactive repair streams in any locally missing replicas by copying them from nodes where they do exist; or, in the case of erasure coded objects, the repair process re-generates the locally missing fragment.</li>
+        </ul>
+        <div class="Indent">
+            <p>Since hinted handoff does not work for EC objects, proactive repair handles the restoration of all of the EC object fragments that were missed when the node was unavailable.</p>
+        </div>
+        <ul>
+            <li><b>Repair-On-Read</b> — Whenever a read request is processed for a particular replicated object, all replicas of the object are checked and any missing or out-of-date replicas are automatically replaced or updated. Repair-on-read is also performed for a portion of erasure coded object reads (applied randomly to about 20% of EC object reads).</li>
+        </ul>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">For replicated metadata stored in Cassandra, Cassandra natively implements hinted handoff when needed. It also implements repair-on-read, for about 10% of reads. The HyperStore proactive repair feature does not apply to metadata in Cassandra.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Scheduled Auto-Repair</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>To ensure that your replicated object data and erasure coded object data are protected to the degree that you intend, HyperStore automatically <b>repairs each node on a scheduled interval</b>. By default replica data on each node is automatically repaired (by executing <MadCap:xref href="../../Commands/hsstool/hsstoolRepair.htm">hsstool repair</MadCap:xref>) once every 90 days, and erasure coded data on each node is automatically repaired (by executing <MadCap:xref href="../../Commands/hsstool/hsstoolRepairec.htm">hsstool repairec</MadCap:xref>) once every 89 days. These intervals are configurable. Metadata in Cassandra is also auto-repaired, once every seven days.</p>
+                <p>Repairs are not run on multiple nodes simultaneously; instead, the start times are staggered so that only one node is being auto-repaired at any given time.</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">You can also manually trigger a repair on a particular node using the <MadCap:xref href="../../Commands/hsstool/hsstoolRepair.htm">hsstool repair</MadCap:xref> command or <MadCap:xref href="../../Commands/hsstool/hsstoolRepairec.htm">hsstool repairec</MadCap:xref>. These commands support a variety of options including a "computedigest" option that includes as part of the repair re-calculating the MD5 digest of each replica or erasure coded fragment to check for and rectify data corruption on disk.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Data Rebalancing</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>A final type of "repair" is <b>Data Rebalancing</b>. Data rebalancing occurs when you’ve changed the size of your cluster by adding or removing a node. When you add a node to your cluster, the system migrates to the new node some of data from your existing nodes. Likewise, if you remove a node from your cluster, that node’s data is migrated to the remaining nodes in the cluster in an approximately balanced manner.</p>
+                <p>Unlike hinted handoff, proactive repair, repair-on-read, and auto-repair, all of which are implemented by the system with no operator involvement, data rebalancing is something that you trigger by issuing a system command. This is as described in the procedures for <MadCap:xref href="../../Operations/AddNode.htm">Adding a Node</MadCap:xref> and <MadCap:xref href="../../Operations/RemoveNode.htm">Removing a Node</MadCap:xref>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

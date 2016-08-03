@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="7" MadCap:lastHeight="1217" MadCap:lastWidth="846">
+    <head>
+    </head>
+    <body>
+        <h1>MonitoringEvent</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Admin API Object]</p>
+        <p>A list of MonitoringEvent objects is returned as the <b>response payload</b> for this Admin API operation:</p>
+        <ul>
+            <li>
+                <MadCap:xref href="../System Monitoring/GetEventList.htm">GET Event List</MadCap:xref>
+            </li>
+        </ul>
+        <p>The MonitoringEvent object consists of the attributes below.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>ack</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(&#160;boolean) Whether the event has been acknowledged, true or false. This will be false unless you explicitly retrieved acknowledged events when you executed the <MadCap:xref href="../System Monitoring/GetEventList.htm">GET Event List</MadCap:xref> method.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>condition</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(string) From the notification rule that triggered this event, the condition comparison type in the rule definition. This will be "=", "&lt;", or "&gt;".</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>conditionVal</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(string) From the notification rule that triggered this event, the condition value against which to compare. For example, this may be a numerical threshold value, or a service status such as "SVC_DOWN", or a log message level such as "LOG_ERR".</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>count</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(integer) Number of times that the event has occurred without being acknowledged.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>eventType</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(string) From the notification rule that triggered this event, the integer &lt;ruleId&gt; value . (Or, for log events, a concatenation of "&lt;ruleId&gt;|&lt;logCategory&gt;". The logCategory is derived from the line of code that generates the specific log message.)</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>nodeId</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(string) Hostname of the node on which the event occurred.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>statId</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(string) From the notification rule that triggered this event, the statId. See <MadCap:xref href="NotificationRule.htm">NotificationRule</MadCap:xref> for a list of supported statIds.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>timestamp</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(string) Timestamp of latest event occurrence in UTC milliseconds.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>value</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(string) On the node, the statistic value that triggered this event. For example, if the event was triggered by a statistic rising to a threshold-exceeding value, this attribute would indicate that value. In the case of a log event, the "value" is the log message.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <h2>Example</h2>
+        <p>This is an example of a MonitoringEvent object. It’s for S3 service status, and the event has been triggered by the S3 service being down.</p><pre xml:space="preserve">{"statId":"svcS3","condition":"=","conditionVal":"SVC_DOWN","ack":false,"eventType":"6",
+"timestamp":"1447893482603","count":1,"nodeId":"appliance6","value":"[SVC_DOWN]"}</pre>
+        <p>This second example is for a log event. The relevant notification rule was monitoring for ERROR level messages in the Cassandra application log. The log message that triggered this particular notification event is shown in the "value" attribute.</p><pre xml:space="preserve">{"count":1,"timestamp":"1451720703600","eventType":"7|CassandraDaemon.java:262",
+"nodeId":"jenkins-jdk8","statId":"svcCassandra","condition":"=","conditionVal":"LOG_ERR",
+"ack":false,"value":"ERROR [main] 2016-01-01 23:42:03,530 CassandraDaemon.java:262 - Directory
+/var/lib/cassandra/data doesn't exist"}</pre>
+    </body>
+</html>

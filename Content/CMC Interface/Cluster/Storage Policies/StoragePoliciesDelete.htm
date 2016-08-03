@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="5" MadCap:lastHeight="660" MadCap:lastWidth="828">
+    <head>
+    </head>
+    <body>
+        <h1>Delete a Storage Policy</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[CMC Interface]</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">You cannot delete the default storage policy. If you want to delete that policy you must first promote a different policy to be the new default.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">In a HyperStore system that upgraded from a version earlier than 5.2, your legacy system storage configuration is codified as a storage policy named "DEFAULT_&lt;regionName&gt;". You cannot delete this policy. You can however disable it so that no new buckets use that policy. See <MadCap:xref href="StoragePoliciesDisable.htm">Disable a Storage Policy</MadCap:xref>.</p>
+        <p>Deleting a storage policy completely removes the policy from the system. You can only delete a policy <b>if no buckets are using the policy</b>.</p>
+        <p>You cannot reconfigure buckets to use a different storage policy than they are currently using. Consequently, if any buckets are currently using a storage policy that you wish to delete, you must first delete all objects from those buckets, then delete the bucket themselves, and then you can delete the storage policy.</p>
+        <p>To see which buckets (if any) are currently using a given storage policy, use the Admin API method <MadCap:xref href="../../../Admin API/Storage Policies/GetStoragePolicyUsage.htm">GET Storage Policy Usage (Bucket List)</MadCap:xref>.</p>
+        <p>If you are going to delete a policy that has ever been used by buckets, before deleting the policy retrieve the policy’s system-generated "policy-id" by using the Admin API method <MadCap:xref href="../../../Admin API/Storage Policies/GetStoragePolicyList.htm">GET Storage Policy List</MadCap:xref>. You will need the "policy-id" in order to clean up residual data associated with the policy, as described in the Note further below.</p>
+        <p>Once you’ve deleted any buckets associated with the policy, and obtained the policy’s policy-id (if the policy was ever used by buckets), you can delete the policy. </p>
+        <p>To delete a policy, select the checkbox to the left of the policy name and then click <b>Delete</b>. The interface will ask you to confirm that you want to take this action.</p>
+    </body>
+</html>

@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="8" MadCap:lastHeight="2666" MadCap:lastWidth="789">
+    <head>
+    </head>
+    <body>
+        <h1>Setting Up Cross-Region Replication</h1>
+        <p>There are two stages to setting up cross-region replication on HyperStore storage buckets:</p>
+        <ol>
+            <li>Configure the HyperStore system to support cross-region replication.</li>
+            <li>Enable and configure cross-region replication for individual HyperStore buckets.</li>
+        </ol>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Configure the HyperStore System to Support Cross-Region Replication</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>In order for your service users to be able to replicate from a HyperStore source bucket to a destination bucket in a different HyperStore service region (or to a destination bucket in the same region as the source bucket), you must make the following HyperStore system configuration change:</p>
+                <ol>
+                    <li>On the Puppet master node, open this configuration file in a text editor:</li>
+                </ol>
+                <div class="Indent"><pre>/etc/cloudian-&lt;version&gt;-puppet/modules/cloudians3/templates/tiering-regions.xml.erb</pre>
+                    <p>The file is pre-configured with information about all the standard Amazon S3 regional endpoints. You need to add information about <b>each service region in your HyperStore system</b>, as described in the next step.</p>
+                </div>
+                <ol MadCap:continue="true">
+                    <li>For each of your HyperStore regions, do the following:</li>
+                </ol>
+                <div class="Indent">
+                    <ol style="list-style-type: lower-alpha;">
+                        <li>Copy the block of sample XML that’s at the top of <em>tiering-region.xml.erb</em> and paste it toward the bottom of the file, just before the file’s final enclosing <em>&lt;/XML&gt;</em> tag.</li>
+                    </ol>
+                    <div class="Indent"><pre xml:space="preserve">...
+...
+   &lt;Region&gt;
+      &lt;Name&gt;region1&lt;/Name&gt;
+      &lt;Endpoint&gt;
+         &lt;ServiceName&gt;s3&lt;/ServiceName&gt;
+         &lt;Http&gt;true&lt;/Http&gt;
+         &lt;Https&gt;true&lt;/Https&gt;
+         &lt;Hostname&gt;s3.cloudian.com&lt;/Hostname&gt;
+      &lt;/Endpoint&gt;
+   &lt;/Region&gt;
+&lt;/XML&gt;</pre>
+                    </div>
+                    <ol style="list-style-type: lower-alpha;" MadCap:continue="true">
+                        <li>In the pasted block, edit the following elements:</li>
+                    </ol>
+                    <div class="Indent">
+                        <ul>
+                            <li><em>&lt;Name&gt;</em> — Name of the service region.</li>
+                            <li><em>&lt;ServiceName&gt;</em> — Leave this as "S3".</li>
+                            <li><em>&lt;Http&gt;</em> and <em>&lt;Https&gt;</em> — Leave these as "true", unless you want to support one protocol and not the other when HyperStore replicates data to this region. For example, to require HTTPS you can set:</li>
+                        </ul>
+                        <div class="Indent"><pre xml:space="preserve">&lt;Http&gt;false&lt;/Http&gt;
+&lt;Https&gt;true&lt;/Https&gt;</pre>
+                            <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">To require HTTPS you have to also configure the S3 Service in the destination region to support SSL, if you haven’t already done so. For SSL set-up information see SSL for S3 Service. [XREF]</p>
+                        </div>
+                        <ul>
+                            <li><em>&lt;Hostname&gt;</em> — Destination service endpoint. For example, "s3-east.my-organization.com".</li>
+                        </ul>
+                    </div>
+                </div>
+                <ol MadCap:continue="true">
+                    <li>After copying and editing a block for <b>each of your HyperStore service regions</b>, save your changes to the file.</li>
+                    <li>Still on the Puppet master node, go to your installation staging directory and launch the <em>cloudianInstall.sh</em> script:</li>
+                </ol>
+                <div class="Indent"><pre xml:space="preserve">[root]# cd &lt;your-installation-staging-directory&gt;
+[root]# ./cloudianInstall.sh</pre>
+                </div>
+                <ol MadCap:continue="true">
+                    <li>From the script menu, push your configuration file change out to the cluster ("Cluster Management" → "Push Configuration Settings to Cluster").</li>
+                    <li>From the script menu, restart your S3 Service ("Cluster Management" → "Manage Services" → "S3" → restart).</li>
+                </ol>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Enable and Configure Cross-Region Replication for Individual HyperStore Buckets</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Once you have your HyperStore system configured to support cross-region replication, bucket owners can then enable and configure replication from a source bucket to destination bucket. This can be done either through the CMC or through a different S3 client application that invokes the HyperStore implementation of the S3 API.</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">After cross-region replication is enabled on a source bucket and has been active, the system supports the option of editing the source bucket’s configuration so that a different destination bucket is used. After that change, new data uploaded to the source bucket would replicate to the new destination bucket rather than to the original destination bucket. In other words, you are not permanently committed to the same destination bucket. However, after such a change, replicas already in the original destination bucket would remain there — they would not migrate to the new destination bucket.</p>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>Enable and Configure Cross-Region Replication for Individual HyperStore Buckets (CMC)</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>In the CMC, bucket owners can enable and configure cross-region replication through the <b>Buckets &amp; Objects</b> page. For a given source bucket, cross-region replication is among the options that can be configured as bucket properties. For detail, see <MadCap:xref href="../../CMC Interface/Buckets &amp; Objects/Buckets/Set Bucket Properties/BucketPropertiesReplication.htm#To">To Configure a Source Bucket for Replication</MadCap:xref>. Along with specifying a destination bucket to which objects will be replicated from the source bucket, bucket owners can indicate whether they want all newly uploaded objects to be replicated or only objects for which the full object name starts with a particular prefix (such as <em>/profile/images</em>). The UI also allows a bucket owner to configuring replication from a HyperStore source bucket to an Amazon S3 destination bucket.</p>
+                        <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">As with Amazon S3, with HyperStore both the source bucket and the destination bucket must have "versioning" enabled in order to activate cross-region replication. However, in the current HyperStore release, the CMC user interface does not support versioning. (The CMC UI will support versioning in a future HyperStore release, but does not in release 6.0).<br /><br />Because the CMC UI does not support versioning in HyperStore 6.0, configuring cross-region replication through the CMC should be done only with awareness of these restrictions and cautions:<br /><br /> ** If a HyperStore user uses the CMC to configure cross-region replication for a HyperStore source bucket, in the background the CMC will <b>automatically</b> enable versioning on that bucket. If the destination bucket is also in HyperStore, the CMC will automatically enable versioning on that bucket as well.<br /><br /> ** The user will have no ability to turn off versioning through the CMC UI, and disabling cross-region replication on a bucket will not disable versioning.<br /><br /> ** When versioning is enabled on a bucket, if updated versions of objects are uploaded to the bucket, the system stores <b>all</b> versions of those objects — old versions as well as the current version. Since all versions of objects are retained, the user’s storage space usage count will be higher than it would be without versioning.<br /><br /> ** Since the CMC UI does not support versioning, it does not allow the user to list all versions of an object — it only lists the newest version. The CMC also <b>does not allow a user to delete a versioned object</b>. Deleting a versioned object requires that an object versionID be provided with the delete request, and the CMC UI does not currently support this. An object delete action taken through the CMC UI — with no object versionID specified — will merely have the effect of hiding the object in the CMC display (technically the latest "version" of the object becomes a "Delete Marker"). In fact all previous versions of the object data will continue to exist in storage. In this scenario, the CMC user can neither see the previous versions of the object nor delete them.<br /><br /> ** Because a user cannot delete versioned objects from a bucket, the user will not be able to delete the bucket (since only empty buckets are allowed to be deleted).<br /><br />If the user also uses other S3 client applications (other than the CMC) to access a HyperStore bucket, then the user may be able to see a list of versioned objects, delete versioned objects, and so on — depending on whether the S3 client application supports versioning.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>Enable and Configure Cross-Region Replication for Individual HyperStore Buckets (S3 API)</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>S3 applications can invoke the HyperStore implementation of the S3 API to configure a source bucket for cross-region replication. For detail see <MadCap:xref href="../../S3 API Support/OperationsOnBuckets/PutBucketReplication.htm">PUT Bucket replication</MadCap:xref>. As described in that documentation, in addition to the standard Amazon S3 API for this operation HyperStore also supports extensions that give bucket owners the ability to replicate from a HyperStore source bucket to a destination bucket in an external S3 system such as Amazon S3.</p>
+                        <p>As with Amazon S3, the HyperStore implementation of the S3 API requires that versioning be enabled on both the source and the destination bucket before cross-region replication can be applied. HyperStore supports the standard S3 <MadCap:xref href="../../S3 API Support/OperationsOnBuckets/PutBucketVersioning.htm">PUT Bucket versioning</MadCap:xref> API.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

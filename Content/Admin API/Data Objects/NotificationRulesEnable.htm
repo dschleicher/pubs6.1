@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="7" MadCap:lastHeight="632" MadCap:lastWidth="814">
+    <head>
+    </head>
+    <body>
+        <h1>NotificationRulesEnable</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Admin API Object]</p>
+        <p>The NotificationRulesEnable object is required as the <b>request payload</b> for this Admin API operation:</p>
+        <ul>
+            <li>
+                <MadCap:xref href="../System Monitoring/PostNotificationRuleEnableDisable.htm">POST Notification Rule Enable/Disable</MadCap:xref>
+            </li>
+        </ul>
+        <p>The NotificationRulesEnable object consists of the attributes below. Each attribute description indicates whether the attribute is mandatory or optional when this object is transmitted as a request payload.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>enable</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(Mandatory, boolean) Set to <em>true</em> to enable the rule. Set to <em>false</em> to disable the rule.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>regionId</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(Optional, string) Service region in which the rule is configured. If you do not specify a region, the default region is assumed.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>ruleList</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(Mandatory, List&lt;string&gt;) List of ruleId(s) of the notification rule(s) to enable or disable.</p>
+                    <p>If you do not know the ruleIds of the rules that you want to enable/disable, you can retrieve them by using the <MadCap:xref href="../System Monitoring/GetNotificationRules.htm">GET Notification Rules</MadCap:xref> method. That method returns a list of rules which includes each rule’s ruleId.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <h2>Example</h2>
+        <p>This is an example of an NotificationRulesEnable object. It indicates a list of three notification rules to disable.</p><pre xml:space="preserve">{"regionId":"region1","enable":false,"ruleList":["4f9c4144-c6ad-4756-931c-2489d488b579",
+"08484ec1-640d-4c7c-9a33-235c1899fd7c","e2065231-2ae3-44da-a76a-63eb41e9f1ad"]}</pre>
+    </body>
+</html>

@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="10" MadCap:lastHeight="994" MadCap:lastWidth="864">
+    <head>
+    </head>
+    <body>
+        <h1>GET Rating Plan List</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Admin API Method]</p>
+        <p>Use this Admin API method to retrieve a list of all rating plans in the system, identified by ID and name.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">The HyperStore system comes with two pre-packaged rating plans. The first is the system default rating plan, for which the ID is "Default-RP". The second pre-packaged rating plan, with ID "Whitelist-RP", supports the billing whitelist feature.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Request Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Syntax</h4><pre xml:space="preserve">GET /ratingPlan/list</pre>
+                <h4>Query Parameters</h4>
+                <p>None.</p>
+                <h4>Request Payload</h4>
+                <p>None.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Response Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Response Status</h4>
+                <p>This method returns only the <MadCap:xref href="../CommonStatusCodes.htm" target="_popup">Common Status Codes.</MadCap:xref></p>
+                <h4>Response Payload</h4>
+                <p>List&lt;Map&lt;string,string,string,string&gt;&gt;. Strings are: {id,name,encodedid,currency}. "encodedId" value is a URL-encoding of the "id" value.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Example</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>In this example the list of rating plans in the system is successfully retrieved.</p><pre xml:space="preserve"># Request -&gt;
+
+GET http://192.168.2.16:18081/ratingPlan/list
+
+# Response -&gt;
+
+Status Code: 200 OK
+Content-Length: 264
+Content-Type: application/json
+Date: Wed, 30 Sep 2015 11:40:02 GMT
+[{"id":"Default-RP","name":"Default Rating Plan","encodedId":"Default-RP","currency":"USD"},
+{"id":"Gold","name":"Gold Level Plan","encodedId":"Gold","currency":"USD"},{"id":"Whitelist-RP",
+"name":"Whitelist Rating Plan","encodedId":"Whitelist-RP","currency":"USD"}]</pre>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

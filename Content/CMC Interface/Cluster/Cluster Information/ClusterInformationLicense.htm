@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="5" MadCap:lastHeight="835" MadCap:lastWidth="828">
+    <head>
+    </head>
+    <body>
+        <h1>Renew and Install a License</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[CMC Interface]</p>
+        <p>In the CMC's <b><a href="../../../Resources/Images/cmc/cluster/ClusterInfo.png" target="_popup">Cluster Information</a></b> page you can request a HyperStore license renewal, and install a new or renewed license file.</p>
+        <h2>Request a License Renewal</h2>
+        <p>Click <b>Request License</b> to send an email to support@cloudian.com to initiate the process of obtaining a new license file. Clicking this button should open your default email application (for instance, Gmail).</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">	If nothing happens when you click <b>Request License</b>, your browser is not configured for lauching your email application. You can instead open your email application manually and send a license renewal request to support@cloudian.com, or to your Cloudian sales representative.</p>
+        <h2>Install a New License File</h2>
+        <p>After you’ve obtained a new license file from Cloudian, you need to apply the new license file to your HyperStore system. You can do so through the <b>Cluster Information</b> page:</p>
+        <ol>
+            <li>Put the license file on the computer from which you are accessing the CMC (the computer on which your browser is running).</li>
+            <li>On the left side of the <b>Cluster Information</b> page, click <b>Browse</b>. On your local machine, browse to and select the license file.</li>
+            <li>Click <b>Update License</b>.</li>
+        </ol>
+        <p>The CMC pushes the license file to the Puppet master node, which in turn propagates the file to all your HyperStore nodes. The Puppet master then uses JMX to trigger your HyperStore nodes to dynamically reload the license file. You do not need to restart any services.</p>
+        <p>After the process completes, if you refresh the <b>Cluster Information</b> page you should see updated information in the <b>License Information</b> section.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">The system saves your old license file on the Puppet master node as <em>&lt;old-license-file-name&gt;.&lt;timestamp&gt;</em> (in directory <em>/etc/puppet/modules/baselayout/files</em>).</p>
+    </body>
+</html>

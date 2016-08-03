@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="1320" MadCap:lastWidth="783" MadCap:searchable="False">
+    <head>
+    </head>
+    <body>
+        <h1>Uninstalling HyperStore Software</h1>
+        <p>This topic describes how to uninstall HyperStore software from one node in a system, or from all nodes in a system.</p>
+        <h2>Uninstalling HyperStore Software from One Node in a Multi-Node System</h2>
+        <p>If you are removing a node from an active HyperStore storage cluster, then be sure to run <em>hsstool decommission</em> (if it’s a live node) or <em>hsstool removenode</em> (if it’s a dead node) on the node before uninstalling it [XREF]. These commands redistribute the node’s data storage responsibilities to the remaining nodes in the storage ring.</p>
+        <p>The <b>best way</b> to remove and uninstall a node is to use the Cloudian Management Console’s <b>Cluster → Nodes → Advanced</b> page. From there you can implement the appropriate <em>hsstool </em>operations, remove the node from HyperStore monitoring and management functions, and uninstall HyperStore packages from the node, in a highly automated way. For more information see the CMC’s online Help. [XREF]</p>
+        <p>If you prefer to <b>manually</b> uninstall HyperStore software from an individual host, delete the files as described below. These steps presume that all HyperStore services are installed on the host.</p>
+        <ol>
+            <li>Stop all HyperStore services. As <em>root</em> do:</li>
+        </ol>
+        <div class="Indent"><pre xml:space="preserve">root# /etc/init.d/cloudian-cmc stop
+root# /etc/init.d/cloudian-redismon stop
+root# /etc/init.d/cloudian-s3 stop
+root# /etc/init.d/cloudian-hyperstore stop
+root# /etc/init.d/cloudian-redis-credentials stop
+root# /etc/init.d/cloudian-redis-qos stop
+root# /etc/init.d/cloudian-cassandra stop
+root# sleep 1</pre>
+        </div>
+        <ol MadCap:continue="true">
+            <li>Check to make sure that no HyperStore java processes are running any more.</li>
+            <li>Remove all component applications and associated libraries and logs and files. The commands below presume that you’ve used the default locations:</li>
+        </ol>
+        <div class="Indent"><pre xml:space="preserve">root# rm -rf /var/log/{cassandra,cloudian,redis}
+root# rm -rf /var/lib/{cassandra,cassandra_commit,hyperstore,redis}
+root# rm -f /etc/init.d/cloudian-{cassandra,cmc,hyperstore,redis-credentials,redis-qos,
+redismon,s3}
+root# rm -f /etc/cron.d/cloudian-crontab
+root# rm -rf /opt/{cassandra,cloudian,dnsmasq,puppet,redis,tomcat}
+root# rm -rf /opt/puppet_*
+root# rm -rf /usr/local/cloudian
+root# rm -rf ~cloudian/{mtskeyspaces.txt,mtssampledata.txt,mts-ui.properties,log4j.xml}
+root# /usr/sbin/userdel -rf cloudian</pre>
+        </div>
+        <ol MadCap:continue="true">
+            <li>Restart your cron service:</li>
+        </ol>
+        <div class="Indent"><pre>root# /etc/init.d/crond restart</pre>
+        </div>
+        <h2>Uninstalling HyperStore Software from All Nodes in a System</h2>
+        <p>If you want to uninstall HyperStore software from <b>all</b> the hosts on which you installed it, you can do so using the HyperStore installation tool:</p>
+        <ol>
+            <li>On your Puppet master node, go to the staging directory in which the HyperStore installation tool resides. This is the directory in which you unpacked the HyperStore release package and initiated the software installation.</li>
+        </ol>
+        <div class="Indent"><pre>root# cd &lt;your-installation-staging-directory&gt;</pre>
+        </div>
+        <ol MadCap:continue="true">
+            <li>Launch the install tool:</li>
+        </ol>
+        <div class="Indent"><pre>root# ./cloudianInstall.sh</pre>
+        </div>
+        <ol MadCap:continue="true">
+            <li>From the install tool’s main menu, select "Uninstall Cloudian HyperStore". Note that this uninstallation method only supports uninstalling from <b>all</b> HyperStore hosts. You cannot limit the operation to individual hosts.</li>
+        </ol>
+        <p>&#160;</p>
+    </body>
+</html>

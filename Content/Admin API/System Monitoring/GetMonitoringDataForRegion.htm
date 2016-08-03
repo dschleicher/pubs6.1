@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="10" MadCap:lastHeight="1168" MadCap:lastWidth="873">
+    <head>
+    </head>
+    <body>
+        <h1>GET Monitoring Data for Region</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Admin API Method]</p>
+        <p>Use this Admin API method to retrieve system monitoring data for a specified HyperStore service region. The data includes S3 transaction performance statistics and disk space statistics, aggregated for the region as a whole.</p>
+        <p>If no region is specified in the request, monitoring data for the default service region is returned.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Request Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Syntax</h4><pre xml:space="preserve">GET /monitor?[region=xxx]</pre>
+                <h4>Query Parameters</h4>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>region</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Optional, string) Region name of the service region for which to retrieve system monitoring data. If a region is not specified in the request, the default region is assumed.</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <h4>Request Payload</h4>
+                <p>None.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Response Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Response Status</h4>
+                <p>In addition to the <MadCap:xref href="../CommonStatusCodes.htm" target="_popup">Common Status Codes</MadCap:xref>, this method may return these codes:</p>
+                <table style="border-collapse: separate;border-top-left-radius: 0px;border-top-right-radius: 0px;border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;width: 100%;">
+                    <col style="width: 115px;">
+                    </col>
+                    <col style="width: 629px;">
+                    </col>
+                    <thead>
+                        <tr>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Status Code</th>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                            <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;">Invalid region : {region}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4>Response Payload</h4>
+                <p>
+                    <MadCap:xref href="../Data Objects/MonitorSystemInfo.htm">MonitorSystemInfo</MadCap:xref> JSON object.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Example</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>In this example monitoring data for the system’s default service region is successfully retrieved.</p><pre xml:space="preserve"># Request -&gt;
+
+http://192.168.2.16:18081/monitor
+
+# Response -&gt;
+
+Status Code: 200 OK
+Content-Length: 680
+Content-Type: application/json
+Date: Wed, 30 Sep 2015 11:05:29 GMT
+{"s3PutThruput":{"timestamp":"1443611105930","value":"0"},"s3GetThruput":{"timestamp":
+"1443611105930","value":"0"},"s3GetLatency":{"timestamp":"1443611105930","value":"0.0"},
+"s3PutLatency":{"timestamp":"1443611105930","value":"0.0"},"nodeStatuses":[{"hostname":
+"hyperstore1","ipaddr":null,"status":["LOG_WARN"],"value":"[LOG_WARN]","timestamp":
+"1443611105930"}],"s3GetTPS":{"timestamp":"1443611105930","value":"0.0"},"s3PutTPS":{"timestamp":
+"1443611105930","value":"0.0"},"diskAvailKb":{"timestamp":"1443610986440","value":"61243096"},
+"diskTotalKb":{"timestamp":"1443610986440","value":"67049088"},"status":{"ipaddr":"","status":
+["OK"],"value":"[OK]","timestamp":"1443611105930"}}</pre>
+                <p>For more information about MonitorSystemInfo object attributes, see <MadCap:xref href="../Data Objects/MonitorSystemInfo.htm">MonitorSystemInfo</MadCap:xref>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

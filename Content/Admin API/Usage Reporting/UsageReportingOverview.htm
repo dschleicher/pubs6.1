@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="712" MadCap:lastWidth="655">
+    <head>
+    </head>
+    <body>
+        <h1>Admin API Methods for Usage Reporting</h1>
+        <p>This group of Admin API methods is for managing HyperStore usage reporting. The usage reporting feature captures service usage data for users and groups. There are API methods for aggregating usage data and ensuring its accuracy — many of these methods are invoked regularly by HyperStore system cron jobs. There are also methods for retrieving usage data for specified users or groups.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">The Cloudian Management Console’s <MadCap:xref href="../../CMC Interface/Analytics/Usage By Users &amp; Groups/UsageOverview.htm" target="_popup">Usage By Users &amp; Groups</MadCap:xref>  functionality is implemented by calling some of the methods in this section.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">For an overview of the HyperStore usage reporting feature, see <MadCap:xref href="../../Major Features/Usage Reporting/UsageOverview.htm" target="_popup">Usage Reporting Feature Overview</MadCap:xref>.</p>
+        <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">If you want to bill for data upload or download volume, or for HTTP request volume, you must enable the <MadCap:xref href="../../CMC Interface/Cluster/Configuration Settings/ConfigurationSettingsUsage.htm#Track/Report_Usage_for_Request_Rates_and_Data_Transfer_Rates" target="_popup">Track/Report Usage for Request Rates and Data Transfer Rates</MadCap:xref> setting in the CMC’s <b>Configuration Settings</b> page. By default this setting is disabled and the system does not maintain per-user HTTP request counts and data transfer byte counts.</p>
+        <ul>
+            <li>
+                <MadCap:xref href="DeleteUsageData.htm">DELETE Usage Data</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="GetUsageData.htm">GET Usage Data</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="PostUsageDataForActiveUsers.htm">POST Usage Data for Active Users</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="PostUsageDataForAllUsers.htm">POST Usage Data for All Users</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="PostUsageDataRepairForActiveUsers.htm">POST Usage Data Repair for Active Users</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="PostUsageDataRepairForGroupOrSystem.htm">POST Usage Data Repair for Group or System</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="PostUsageDataRepairForUser.htm">POST Usage Data Repair for User</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="PostUsageDataRollup.htm">POST Usage Data Rollup</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

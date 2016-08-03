@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="2" MadCap:lastHeight="528" MadCap:lastWidth="879">
+    <head>
+    </head>
+    <body>
+        <h1>Authenticating Requests (AWS Signature Version 4)</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[S3 API]</p>
+        <p>The HyperStore system supports AWS Signature Version 4 for authenticating inbound API requests. The HyperStore implementation of this feature is compliant with Amazon’s specification of the feature. For example, you can express authentication information in the HTTP Authorization header or in query string parameters; and you can compute a checksum of the entire payload prior to transmission, or for large uploads, you can use chunked upload.</p>
+        <p>For more information on this Amazon S3 feature, refer to the <a href="http://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html" target="_blank">"Authenticating Requests (AWS Signature Version 4)" section of the Amazon S3 REST API</a>.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">If you use chunked upload, each chunk must be no larger than the configurable HyperStore setting "Object Max Storage Chunk Size" (editable in the CMC Configuration Settings page [XREF-TBD]). The default is 10MB. Requests with chunks larger than this will be rejected with an HTTP 400 Bad Request error.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">The HyperStore S3 Service employs a fall-back device where if the region name specified in the request’s authorization header does not match against the local region name, the system checks whether the specified region name matches against the S3 service domain. If both checks fail then the request is rejected. This is to accommodate legacy HyperStore systems where the S3 service endpoint may not necessarily include the region name.</p>
+        <p>The HyperStore system continues to support AWS Signature Version 2 as well.</p>
+    </body>
+</html>

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="678" MadCap:lastWidth="853">
+    <head>
+    </head>
+    <body>
+        <h1>Search for a File</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[CMC Interface]</p>
+        <p>You can use the <b>Search by Prefix</b> function to find files that start with a particular prefix or to find one specific file.</p>
+        <p><b>To find files that start with a common prefix:</b>
+        </p>
+        <ol>
+            <li>Navigate to the folder that the files are in. (Or if the desired files are at the root level of the bucket, skip this step.)</li>
+            <li>Enter the prefix at the bottom of the <b>Objects</b> interface and click <b>Search By Prefix</b>. For example, if you enter the prefix "log" the display will list all files that start with "log".</li>
+        </ol>
+        <p class="NoteIndent" MadCap:autonum="&lt;b&gt;Note: &lt;/b&gt;">In the back end of the S3 storage system, folder paths are implemented as being part of the full object names. Therefore you cannot do a prefix search that retrieves files that are in different folders (since technically those files have different prefixes). For example you cannot do a prefix search that would retrieve both a file named "11-14-2015_notes.docx" under a "Documents" folder and a file named "11-14-2015_sunset.jpg" under an "Images" folder — since in the S3 storage layer those two objects are really named as "Documents/11-14-2015_notes.docx" and "Images/11-14-2015_sunset.jpg" and thus do not share a common prefix.</p>
+        <p><b>To find one specific file:</b>
+        </p>
+        <ol>
+            <li>Navigate to the folder that the file is in. (Or if the desired file is at the root level of the bucket, skip this step.)</li>
+            <li>Enter the file’s full name (or enough of its name to uniquely identify it) at the bottom of the <b>Objects</b> interface and click <b>Search By Prefix</b>. If the file exists, it will then display in the <b>Objects</b> view.</li>
+        </ol>
+        <p class="NoteIndent" MadCap:autonum="&lt;b&gt;Note: &lt;/b&gt;">	The <b>Search By Prefix</b> function does not search across multiple folders. You must be in the correct folder before doing the file search. For more explanation see the Note in the <b>To find files that start with a common prefix section</b> above.</p>
+    </body>
+</html>

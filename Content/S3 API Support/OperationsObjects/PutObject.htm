@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="7" MadCap:lastHeight="2595" MadCap:lastWidth="814">
+    <head>
+    </head>
+    <body>
+        <h1>PUT Object</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[S3 API Method]</p>
+        <p>For the Amazon S3 "PUT Object" operation, the HyperStore system supports the S3 <MadCap:xref href="../CommonRequestHeaders.htm" target="_popup">Common Request Headers</MadCap:xref> and <MadCap:xref href="../CommonResponseHeaders.htm" target="_popup">Common Response Headers</MadCap:xref> and also the operation-specific items listed below. If a parameter, header, element, or special error from the Amazon S3 specification for this operation is not listed below, the HyperStore system does not support it.</p>
+        <p>For operation usage information and for descriptions of request and response items, see <a href="http://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectPUT.html" target="_blank">PUT Object</a> in the Amazon S3 REST API specification.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">For HyperStore S3 bucket capacity information, see Maximum Objects Per S3 Bucket and Mass Deletes.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">For more information about HyperStore’s support for server-side encryption, including how to enable HyperStore to support the AES-256 encryption standard that Amazon-compliant server-side encryption requires, see Server-Side Encryption.[XREF-TBD]</p>
+        <h2>Request Headers</h2>
+        <ul>
+            <li>Cache-Control</li>
+            <li>Content-Disposition</li>
+            <li>Content-Encoding</li>
+            <li>Content-Length</li>
+            <li>Content-MD5</li>
+            <li>Content-Type</li>
+            <li>Expect</li>
+            <li>Expires</li>
+            <li>x-amz-meta-*</li>
+        </ul>
+        <p class="NoteIndent" MadCap:autonum="&lt;b&gt;Note: &lt;/b&gt;">The metadata values must be UTF-8 and must not contain control characters less than 0x20 except for \r, \n, and \t. Also, normal XML escaping is required where appropriate.</p>
+        <ul>
+            <li>x-amz-storage-class</li>
+            <li>x-amz-website-redirect-location</li>
+            <li>x-amz-acl</li>
+            <li>x-amz-grant-read</li>
+            <li>x-amz-grant-write</li>
+            <li>x-amz-grant-read-acp</li>
+            <li>x-amz-grant-write-acp</li>
+            <li>x-amz-grant-full-control</li>
+            <li>x-amz-server-side-encryption</li>
+        </ul>
+        <p class="NoteIndent" MadCap:autonum="&lt;b&gt;Note: &lt;/b&gt;">The presence of the <em>x-amz-server-side-encryption</em> header triggers server-side encryption, but the HyperStore S3 Service disregards the <b>value</b> of this header (for example, "AES256"). Instead it uses the encryption algorithm specified by the system setting <code>mts.properties: cloudian.s3.serverside.encryption.keylength</code>. By default, AES256 is not enabled in the HyperStore system and AES128 is used. While AES128 may be acceptable for testing purposes, to be compliant with Amazon S3 you <b>must</b> first enable AES256 in the HyperStore system. For instructions see Enabling AES-256. [XREF-TBD]</p>
+        <ul>
+            <li>x-amz-server-side-encryption-customer-algorithm</li>
+        </ul>
+        <p class="NoteIndent" MadCap:autonum="&lt;b&gt;Note: &lt;/b&gt;">To use the SSE-C feature you <b>must</b> first enable AES256 in the HyperStore system. By default it is not enabled. For instructions see Enabling AES-256. [XREF-TBD]</p>
+        <ul>
+            <li>x-amz-server-side-encryption-customer-key - x-amz-server-side-encryption-customer-key-MD5</li>
+        </ul>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>HyperStore Restrictions on Object Names</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The following control characters cannot be used anywhere in an object name and will result in a 400 Bad Request response: 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A ("\n"), 0x0B, 0x0C, 0x0D ("\r"), 0x0E, 0x0F, 0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1A, 0x1B, 0x1C, 0x1D, 0x1E, 0x1F</p>
+                <p>Also unsupported are:</p>
+                <ul>
+                    <li>0x09 ("\t") at the beginning of an object name</li>
+                    <li>0xBF (inverted question mark) at the end of an object name</li>
+                </ul>
+                <p>Also, an object name may result in 400 Bad Request or be stored as a different name if the supplied object name:</p>
+                <ul>
+                    <li>Consists only of "."</li>
+                    <li>Consists only of ".."</li>
+                    <li>Contains a combination of "." and "/", or ".." and "/"</li>
+                </ul>
+                <p>Examples of object names that will result in 400 Bad Request:</p>
+                <ul>
+                    <li>.</li>
+                    <li>..</li>
+                    <li>./</li>
+                    <li>../</li>
+                    <li>./.</li>
+                    <li>./..</li>
+                    <li>../.</li>
+                    <li>../..</li>
+                    <li>../a</li>
+                    <li>../a/</li>
+                    <li>a/../../b</li>
+                </ul>
+                <p>Examples of object names that will be stored as a different name:</p>
+                <table style="border-spacing: 2px 2px;border-collapse: separate;border-top-left-radius: 0px;border-top-right-radius: 0px;border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">
+                    <col />
+                    <col />
+                    <thead>
+                        <tr>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Supplied Object Name</th>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Stored As</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">./a</td>
+                            <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">a</td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">./a/</td>
+                            <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">a/</td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">a//b</td>
+                            <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">a/b</td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">a/./b</td>
+                            <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">a/b</td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">a/../b</td>
+                            <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">b</td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">a/.././b</td>
+                            <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">b</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <h2>Response Headers</h2>
+        <ul>
+            <li>x-amz-expiration</li>
+            <li>x-amz-server-side-encryption</li>
+            <li>x-amz-server-side-encryption-customer-algorithm</li>
+            <li>x-amz-server-side-encryption-customer-key-MD5</li>
+            <li>x-amz-version-id</li>
+        </ul>
+    </body>
+</html>

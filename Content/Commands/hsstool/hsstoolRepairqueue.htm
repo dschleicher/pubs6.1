@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="8" MadCap:lastHeight="4459" MadCap:lastWidth="837">
+    <head>
+    </head>
+    <body>
+        <h1>hsstool repairqueue</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Command]</p>
+        <p>The HyperStore "auto-repair" feature implements a periodic automatic repair of replicated object data, erasure coded object data, and Cassandra metadata. With the <em>hsstool repairqueue </em>command you can:</p>
+        <ul>
+            <li><b>Check on the upcoming auto-repair schedule</b> as well as the status from the most recent auto-repair runs.</li>
+            <li><b>Temporarily disable auto-repair</b> for a particular storage type or all types (if auto-repair is scheduled by configuration). You should disable auto-repair before performing any of the following cluster operations (and also wait for any in-progress repairs to complete, or stop them by using the "stop" option for the <MadCap:xref href="hsstoolRepair.htm" target="_popup">hsstool repair</MadCap:xref> and/or <MadCap:xref href="hsstoolRepairec.htm" target="_popup">hsstool repairec</MadCap:xref> commands):<ul style="list-style-type: circle;"><li><MadCap:xref href="../../Operations/AddNode.htm" target="_popup">Add a Node</MadCap:xref></li><li><MadCap:xref href="../../Operations/RemoveNode.htm" target="_popup">Remove a Node</MadCap:xref></li><li><MadCap:xref href="../../Operations/ReplaceNode.htm" target="_popup">Replace a Node</MadCap:xref></li></ul></li>
+            <li><b>Re-enable auto-repair</b>, if it has been disabled by the <em>hsstool repairqueue</em> command. If you disable auto-repair in order to perform a cluster operation, be sure to re-enable it afterwards.</li>
+        </ul>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">You cannot enable or disable auto-repair for just one particular node — the auto-repair feature is either enabled or disabled for the cluster as a whole.<br /><br />For background information on the auto-repair feature, see [<MadCap:xref href="../../Major Features/Automatic Data Repair/DataRepairOverview.htm" target="_popup">Automatic Data Repair Feature Overview</MadCap:xref>.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Command Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>In the CMC UI you can run the<em>hsstool repairqueue</em> command's <b>status reporting</b> function through this interface:</p>
+                <p>
+                    <img src="../../Resources/Images/cmc/cluster/Advanced_repairqueue.png" style="max-width: 8.00in;" />
+                </p>
+                <p>The function for <b>disabling and reenabling</b> auto-repair has its own separate CMC interface and the command is renamed as "autorepair" (although <em>hsstool repairqueue </em>is being invoked behind the scenes):</p>
+                <p>
+                    <img src="../../Resources/Images/cmc/cluster/Advanced_autorepair.png" style="max-width: 8.00in;" />
+                </p>
+                <p>Or on the command line the syntax for all <em>repairqueue</em> functionality is:</p><pre xml:space="preserve">[root]# /opt/cloudian/bin/hsstool [-h &lt;host&gt;] repairqueue [-enable true|false] [-t &lt;type&gt;]</pre>
+                <h3>Parameters</h3>
+                <p>This command supports these parameters:</p>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>-h &lt;host&gt; (called "Target Node" in CMC UI)</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Optional on command line; mandatory in CMC) You can use any node in the storage cluster as the target host. The repairqueue command applies to the cluster as a whole. Defaults to local host if you do not supply -h &lt;host&gt; on the command line.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>-enable true
+
+OR -enable false</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Optional) Enable or disable the scheduled auto-repair feature (the configurable schedule is in the <MadCap:xref href="../../CMC Interface/Cluster/Configuration Settings/ConfigurationSettingsAutoRepair.htm" target="_popup">Auto-Repair Schedule Settings</MadCap:xref> section of the CMC’s <b>Configuration Settings</b> page). This enabling or disabling action applies to all nodes in the cluster. Note that disabling the auto-repair feature does not abort in-progress auto-repairs. Rather, it prevents any additional scheduled auto-repairs from launching.</p>
+                        <p>If you disable the auto-repair feature through this command and then subsequently re-enable it through this command, the auto-repair feature continues implementing the same repair schedule that was in place when you disabled it. Put differently: when you reenable auto-repair, the "next repair at" times for each node and each repair type will not have changed. See the next section below for more information about "next repair at" times.</p>
+                        <p>Note that disabling scheduled auto-repair does not disable hinted handoff or proactive repair. The latter features cannot be disabled, nor should they be.</p>
+                        <p>On the command line, if you do not use the <em>-enable</em> option then the <em>repairqueue</em> command simply returns information about the current repair queue.</p>
+                        <p>In the CMC&#160;UI, in the <b>Cluster -&gt; Nodes -&gt; Advanced</b> page the enable/disable option is presented as part of a <b>Maintenance -&gt; autorepair</b> command rather than the <b>Info -&gt; repairqueue</b> command.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>-t &lt;type&gt;</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Optional) Apply the operation only to the specified storage type. Valid types are:</p>
+                        <ul>
+                            <li>cassandra</li>
+                            <li>replicas</li>
+                            <li>ec</li>
+                        </ul>
+                        <p>If the <em>-t &lt;type&gt;</em> option is not specified, the operation is applied to all storage types by default.</p>
+                        <p>In the CMC&#160;UI, in the <b>Cluster -&gt; Nodes -&gt; Advanced</b> page the type option is presented as part of a <b>Maintenance -&gt; autorepair</b> command (for enabling/disabling auto-repair) but not as part of the <b>Info -&gt; repairqueue</b> command (for retrieiving information about the auto-repair queue).</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Command/Response Example  and Response Description</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The first <em>repairqueue</em> example below shows the auto-repair queue status for a recently installed six-node cluster. Note that since Cassandra auto-repair is scheduled more frequently than HSFS replica or EC repair, Cassandra repair has occurred on each node in this cluster but HSFS replica and EC repair have not yet. (Response item descriptions follow the second example.)</p><pre xml:space="preserve">[root]# /opt/cloudian/bin/hsstool -h cloudian-node1 repairqueue
+Queue: replicas Auto-repair: enabled #endpoints: 6
+1: endpoint: 192.168.204.201 next repair at: Tue Mar 17 22:32:57 PDT 2015 last repair status:
+INIT interval: 43200 mins count: 0
+2: endpoint: 192.168.204.202 next repair at: Tue Mar 17 22:32:58 PDT 2015 last repair status:
+INIT interval: 43200 mins count: 0
+3: endpoint: 192.168.204.203 next repair at: Tue Mar 17 22:32:59 PDT 2015 last repair status:
+INIT interval: 43200 mins count: 0
+4: endpoint: 192.168.204.204 next repair at: Tue Mar 17 22:33:01 PDT 2015 last repair status:
+INIT interval: 43200 mins count: 0
+5: endpoint: 192.168.204.205 next repair at: Tue Mar 17 22:33:02 PDT 2015 last repair status:
+INIT interval: 43200 mins count: 0
+6: endpoint: 192.168.204.206 next repair at: Tue Mar 17 22:33:03 PDT 2015 last repair status:
+INIT interval: 43200 mins count: 0
+
+Queue: ec Auto-repair: enabled #endpoints: 6
+1: endpoint: 192.168.204.201 next repair at: Mon Mar 16 22:32:57 PDT 2015 last repair status:
+INIT interval: 41760 mins count: 0
+2: endpoint: 192.168.204.202 next repair at: Mon Mar 16 22:32:58 PDT 2015 last repair status:
+INIT interval: 41760 mins count: 0
+3: endpoint: 192.168.204.203 next repair at: Mon Mar 16 22:32:59 PDT 2015 last repair status:
+INIT interval: 41760 mins count: 0
+4: endpoint: 192.168.204.204 next repair at: Mon Mar 16 22:33:01 PDT 2015 last repair status:
+INIT interval: 41760 mins count: 0
+5: endpoint: 192.168.204.205 next repair at: Mon Mar 16 22:33:02 PDT 2015 last repair status:
+INIT interval: 41760 mins count: 0
+6: endpoint: 192.168.204.206 next repair at: Mon Mar 16 22:33:03 PDT 2015 last repair status:
+INIT interval: 41760 mins count: 0
+
+Queue: cassandra Auto-repair: enabled #endpoints: 6
+1: endpoint: 192.168.204.201 next repair at: Sun Mar 01 21:36:07 PST 2015 last repair status:
+COMPLETED interval: 10080 mins count: 1
+2: endpoint: 192.168.204.202 next repair at: Sun Mar 01 21:56:10 PST 2015 last repair status:
+COMPLETED interval: 10080 mins count: 1
+3: endpoint: 192.168.204.203 next repair at: Sun Mar 01 22:16:13 PST 2015 last repair status:
+COMPLETED interval: 10080 mins count: 1
+4: endpoint: 192.168.204.204 next repair at: Sun Mar 01 22:36:15 PST 2015 last repair status:
+COMPLETED interval: 10080 mins count: 1
+5: endpoint: 192.168.204.205 next repair at: Sun Mar 01 22:56:18 PST 2015 last repair status:
+COMPLETED interval: 10080 mins count: 1
+6: endpoint: 192.168.204.206 next repair at: Sun Mar 01 23:16:20 PST 2015 last repair status:
+COMPLETED interval: 10080 mins count: 1</pre>
+                <p>The next example command disables HSFS replica auto-repair. Note that this disables HSFS replica auto-repair for the whole cluster (you cannot disable/enable auto-repair on a node-by-node basis). It does not matter which node you submit the command to.</p><pre xml:space="preserve">[root]# /opt/cloudian/bin/hsstool -h cloudian-node1 repairqueue -t replicas -enable false
+Auto replicas repair disabled</pre>
+                <p xml:space="preserve">When you use the <em>repairqueue </em>command to retrieve auto-repair queue information, the command results have three sections — one for each repair type. Each section consists of the following items:</p>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>Queue</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Auto-repair type — either "replicas", "ec", or "cassandra"</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>Auto-repair</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Enabled or disabled</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>#endpoints</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Number of nodes in the cluster. Each node is separately scheduled for repair, for each repair type.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>&lt;Queue position&gt;</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>This is an integer that indicates the position of this node within the cluster-wide queue for auto-repairs of this type. The node at the head of the queue has queue position "1" and is listed first in the command results.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>endpoint</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>IP address of a node</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>next repair at</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>For each repair type, each node’s <em>next repair at</em> value is determined by adding the configurable auto-repair <em>interval</em> for that repair type to the start-time of the last repair of that type done on that node. It’s important to note that <em>next repair at</em> values are used to <b>order</b> the cluster-wide queues for each repair type, but the next repair of that type on that node won’t necessarily start at that exact time. This is because the queue processing logic takes into account several other considerations along with the scheduled repair time.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>last repair status</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>This can be INIT (meaning no repair has been performed on that node yet), INPROGRESS, COMPLETED, TERMINATED (meaning that an in-progress repair was aborted by the operator using the "stop" option for <MadCap:xref href="hsstoolRepair.htm" target="_popup">hsstool repair</MadCap:xref> or <MadCap:xref href="hsstoolRepairec.htm" target="_popup">hsstool repairec</MadCap:xref>), or FAILED.</p>
+                        <p>If a node restart interrupts a repair, that repair job is considered FAILED and it goes to the head of the queue.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>interval</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>The <a href="../../CMC Interface/Cluster/Configuration Settings/ConfigurationSettingsAutoRepair.htm" target="_popup">configurable interval</a> at which this type of repair is automatically initiated on each node, in number of minutes. (Note though the qualifiers indicated in the "next repair at"description above). </p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>count</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>The number of repairs of this type that have been executed on this node since HyperStore was installed on the node.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

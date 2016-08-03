@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="1224" MadCap:lastWidth="629">
+    <head>
+    </head>
+    <body>
+        <h1>SMTP/Email Settings for Alerts/Notifications</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[CMC Interface]</p>
+        <p>The settings in this section of the CMC’s <b><a href="../../../Resources/Images/cmc/cluster/ConfigurationSettings.png" target="_popup">Configuration Settings</a></b> page pertain to the SMTP service that you want the HyperStore system to use when it sends alert notification emails to system administrators. Providing the system with this contact information is essential for proper system monitoring and administration. After making any edits, click <b>Save</b> at the bottom of the page to dynamically apply the configuration change to the cluster.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">You can set alert notification triggers in the <MadCap:xref href="../Alert Rules/AlertRulesOverview.htm">Alert Rules</MadCap:xref> page.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="SMTP_Server_FQDN"></a>SMTP Server FQDN</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Fully qualified domain name (FQDN) of the SMTP service that the HyperStore system should utilize for sending alert notification emails to system administrators.</p>
+                <p>Default = smtp.notification.configure.me</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="SMTP_Protocol"></a>SMTP Protocol</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Protocol to use when sending alert notification emails. Options are <em>smtp</em> or <em>smtps</em>.</p>
+                <p>The HyperStore system uses the default SMTP ports (25 for <em>smtp</em> or 465 for <em>smtps</em>). If you want to use non-default SMTP ports, consult with Cloudian Support.</p>
+                <p>Default = smtps</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="SMTP_From_Address"></a>SMTP From Address</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The "From" address to use when sending alert notification emails.</p>
+                <p>Default = noreply@smtp.notification.configure.me</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="Notification_Message_Subject_Header"></a>Notification Message Subject Header</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The "Subject" to use when sending alert notification emails.</p>
+                <p>Default = Cloudian HyperStore Notification Alert</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="Default_Email_Address_to_Receive_Notifications"></a>Default Email Address to Receive Notifications</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Default system administrator email address(es) to which to send alert notification emails. If you want alert notification emails to go to multiple email addresses, enter the addresses as a comma-separated list.</p>
+                <p>Default = admin@mycloudianhyperstore.com</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="SMTP_Service_Requires_Authorization"></a>SMTP Service Requires Authorization</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Whether the SMTP service that the HyperStore system will use to send alert notification emails requires clients to use SMTP Authentication — Yes or No.</p>
+                <p>Default = No</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="User_Name_for_SMTP_Server"></a>User Name for SMTP Server</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>If SMTP Authentication is required by the SMTP server, the username to submit with requests to the server. Comma (,) and double-quote (") are not supported in this setting’s value.</p>
+                <p>Default = No default</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="Password_for_SMTP_Server"></a>Password for SMTP Server</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>If SMTP Authentication is required by the SMTP server, the password to submit with requests to the server. Comma (,) and double-quote (") are not supported in this setting’s value.</p>
+                <p>Default = No default</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

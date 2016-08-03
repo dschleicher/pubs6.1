@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="8" MadCap:lastHeight="2526" MadCap:lastWidth="603">
+    <head>
+    </head>
+    <body>
+        <h1>View a Node's Disk Status</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[CMC Interface]</p>
+        <p>To check the status of a node’s data disks, on the CMC's <a href="../../../Resources/Images/cmc/cluster/NodeStatus.png" target="_popup">Node Status</a> page open the <b>Disk Detail Info</b> panel.</p>
+        <p>
+            <img src="../../../Resources/Images/cmc/cluster/NodeStatus_disk.png" class="ImgCloudian" />
+        </p>
+        <p>The panel displays the information described below.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">For background information on HyperStore’s feature that automatically disables failed disks, see <MadCap:xref href="../../../Major Features/Disk Failure Handling/DiskFailureOverview.htm" target="_popup">Disk Failure Handling Feature Overview</MadCap:xref>.<br /><br />For instructions on bringing a disabled disk back online, see <MadCap:xref href="../../../Operations/ReenableDisk.htm">Re-Enabling a Disk</MadCap:xref>.<br /><br />For instructions on replacing a disabled disk with a new disk, see <MadCap:xref href="../../../Operations/ReplaceDisk.htm">Replacing a Disk</MadCap:xref>.<br /><br />For finding the physical location of a particular disk on a HyperStore Appliance, see <MadCap:xref href="NodeStatusApplianceDiskMap.htm">Locate a Disk on a HyperStore 1500 or 3000 Appliance</MadCap:xref>.<br /></p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Status</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>This field displays an icon that indicates the disk's summary status.</p>
+                <table style="width: 100%; border-left-style: solid; border-left-width: 1px; border-right-style: solid; border-right-width: 1px; border-top-style: solid; border-top-width: 1px; border-bottom-style: solid; border-bottom-width: 1px; border-collapse: separate;">
+                    <col style="width: 74px;" />
+                    <col />
+                    <thead>
+                        <tr>
+                            <th style="vertical-align: top;text-align: center;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">Icon</th>
+                            <th style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Meaning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="vertical-align: top;text-align: center;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">
+                                <img src="../../../Resources/Images/cmc/cluster/Icon_disk-ok.png" />
+                            </td>
+                            <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;"><b>OK</b> — There are no errors for the disk.</td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;text-align: center;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">
+                                <img src="../../../Resources/Images/cmc/cluster/Icon_disk-error.png" />
+                            </td>
+                            <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">
+                                <p><b>Error</b> — The disk is in an error state.
+
+</p>
+                                <p>For a HyperStore data ("HS") disk, an Error status indicates that read/write errors related to this disk are appearing in the HyperStore Service application log (<em>cloudian-hyperstore.log</em>), but not in excess of the configurable error rate threshold that would trigger the automatic disabling of the disk.
+[XREF]
+</p>
+                                <p>For a Cassandra disk, Error status is triggered if cassandra.log messages appear that include the string "No space left on device".
+
+</p>
+                                <p>If a disk is in an Error state, a <b>Clear Error History</b> button appears toward the bottom of the <b>Detail Disk Info</b> panel. You can click this button to clear the disk’s Error status and return the disk status to "OK". If the error occurs again, the disk status display will revert back to showing an Error status for the disk.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;text-align: center;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">
+                                <img src="../../../Resources/Images/cmc/cluster/Icon_disk-disabled.png" />
+                            </td>
+                            <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">
+                                <p><b>Disabled</b> — The disk has been automatically unmounted and marked as disabled (so HyperStore doesn’t try to write to or read from it any more); and its tokens have been automatically transferred to other disks on the host.
+
+</p>
+                                <p>A disk will be in this state if it was causing HyperStore Service log errors in excess of the configurable threshold (or the HyperStore drive audit feature detected that the drive was in a read-only condition), <b>and</b> your configured HyperStore Disk Failure Action in the <MadCap:xref href="../Configuration Settings/ConfigurationSettingsSystem.htm" target="_popup">System Settings</MadCap:xref> section of the CMC's <b>Configuration Settings</b> page is "Disable Disk and Move Its Tokens" (the default setting).
+
+</p>
+                                <p><b>Writes of new or updated</b> S3 object data that would have gone to the disabled disk are now going to the other disks on the host instead. This happens automatically, without any operator action. Meanwhile <b>existing</b> S3 object replicas and erasure coded fragments on the disabled disk are now unreadable on this host. Whether the system as a whole can still provide S3 clients with read access to the affected S3 objects depends on the storage policies with which the objects are associated, and on the availability of other replicas or erasure coded fragments within the cluster.
+
+This status is applicable only to HyperStore data ("HS") disks.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;text-align: center;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">
+                                <img src="../../../Resources/Images/cmc/cluster/Icon_disk-disabled-nomove.png" />
+                            </td>
+                            <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">
+                                <p><b>Disabled - No Move</b> — The disk has been automatically unmounted and disabled (so HyperStore doesn’t try to write to or read from it any more). Its tokens have <b>not</b> been automatically transferred to other disks on the host.
+
+</p>
+                                <p>A disk will be in this state if it was causing HyperStore Service log errors in excess of the configurable threshold (or the HyperStore drive audit feature detected that the drive was in a read-only condition), <b>and</b> your configured HyperStore Disk Failure Action in the <MadCap:xref href="../Configuration Settings/ConfigurationSettingsSystem.htm" target="_popup">System Settings</MadCap:xref> section of the CMC's <b>Configuration Settings</b> page is "Disable Disk But Don’t Move Tokens".
+
+</p>
+                                <p>Because tokens were not moved, this host is not able to support writes of new or updated S3 object replicas or erasure coded fragments associated with the disabled disk’s tokens. Whether the system as a whole can successfully process writes of those S3 objects depends on the storage policies with which the objects are associated, and on the availability of other writable endpoints within the cluster.
+
+</p>
+                                <p>Meanwhile existing S3 object replicas and erasure coded fragments on the disabled disk are now unreadable on this host. Whether the system as a whole can still provide S3 clients with read access to the affected S3 objects depends on the storage policies with which the objects are associated, and on the availability of other replicas or erasure coded fragments within the cluster.
+
+</p>
+                                <p>This status is applicable only to HyperStore data ("HS") disks.</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Device</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Disk drive device.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Mount Point</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>File system mount point for each disk.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Use Type</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>For each disk, this will be one or more of the following use types:</p>
+                <ul>
+                    <li>"HS" — The disk is storing the HyperStore File System (HSFS). The HSFS is where S3 object data is stored (in the form of object replicas and/or erasure coded fragments). Disks with mount points specified by the configuration file setting <em>common.csv: hyperstore_data_directory</em> are HS disks. In a typical configuration there will be multiple HS disks on each node.</li>
+                    <li>"Cassandra" — The disk is storing Cassandra data (the directory specified by the configuration file setting <em>common.csv: cassandra_data_directory</em>) and/or the Cassandra commit log (the directory specified by the configuration file setting <em>common.csv: cassandra_commit_log_directory</em>).</li>
+                    <li>"Redis" — The disk is storing Redis data (the directory specified by the configuration file setting <em>common.csv: redis_lib_directory</em>).</li>
+                    <li>"Log" — The disk is storing application logs (the directories specified by the <em>common.csv</em> settings <em>cloudian_log_directory</em>, <em>cassandra_log_directory</em>, and <em>redis_log_directory</em>).</li>
+                </ul>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Disk Usage</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Disk used amount and total capacity of the disk.</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">In calculating this value, a disk’s "reserved-blocks-percentage" (the portion of the disk space that’s reserved for privileged processes) is considered to be used space. By default in Linux systems the configurable "reserved-blocks-percentage" for a file system is 5% of disk capacity.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

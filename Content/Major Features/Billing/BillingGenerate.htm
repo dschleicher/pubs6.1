@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="691" MadCap:lastWidth="841">
+    <head>
+    </head>
+    <body>
+        <h1>Generating Billing Data for a User</h1>
+        <p>The HyperStore system supports generating a bill for a specified user. The system applies the user’s assigned rating plan to the user’s service usage during the billing period. Bills can be generated for any completed calendar month of service usage.</p>
+        <p>You can generate billing data for a user through either the CMC or the Admin API. While the CMC’s bill-generating function provides an easy way to view a user’s billable activity for a specified period and the associated charges, for full billing functionality it’s more likely that you will use the Admin API to generate billing data that can be ingested by a third party billing system.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">The system does not currently support generating a single bill for a group’s activity as a whole. You can only generate bills for individual users.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Generating Billing Data for a User (CMC)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>To generate user billing data through the CMC, use the <MadCap:xref href="../../CMC Interface/Users &amp; Groups/AccountActivity.htm">Account Activity</MadCap:xref> page. In this page you can specify a user and select a billing period. The most recent period you can select is the most recently completed calendar month. You cannot generate a billing report for an in-progress month.</p>
+                <p>The billing data that you can generate from this page displays in the form of a printable billing document that includes the user’s name and user-ID, their user group, the billing period, and the bill generation date. The document shows a summary of the user’s rating plan, the user’s service activity for the billing period, and the associated charges.</p>
+                <p>The <b>Account Activity</b> page also provides you an option to view a user’s service traffic originating from <a href="BillingWhitelist.htm">whitelisted domains</a>, if any.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Generating Billing Data for a User (Admin API)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>To generate user billing data through the HyperStore Admin API, use the <a href="../../Admin API/Billing/PostUsersBill.htm">POST /billing</a> method. This triggers the calculation of the user’s billing data for the specified calendar month, and returns the billing data as a JSON-encoded response payload.</p>
+                <p>The Admin API method also supports a <a href="../../Admin API/Billing/GetUsersBill.htm">GET /billing</a> method, which simply retrieves a user’s billing data that you’ve previously generated with the <em>POST /billing</em> method. Like the <em>POST /billing</em> method, the <em>GET /billing</em> method returns billing data as a JSON-encoded response payload.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

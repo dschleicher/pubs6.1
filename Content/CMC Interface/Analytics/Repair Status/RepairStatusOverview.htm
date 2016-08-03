@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="8" MadCap:lastHeight="1529" MadCap:lastWidth="837">
+    <head>
+    </head>
+    <body>
+        <h1>Repair Status</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[CMC Interface]</p>
+        <p>
+            <img src="../../../Resources/Images/cmc/analytics/RepairStatus.png" class="ImgCloudian" />
+        </p>
+        <p>Path: <b>Analytics → Repair Status</b></p>
+        <p>Supported tasks:</p>
+        <ul>
+            <li>
+                <MadCap:xref href="RepairStatusCluster.htm" target="_popup">View Repair Status for Cluster</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="RepairStatusNode.htm" target="_popup">View Repair Status for a Node</MadCap:xref>
+            </li>
+        </ul>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>View Repair Status for Cluster</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The upper section of the CMC's <b>Repair Status</b> page shows aggregate data repair status for your cluster as a whole. The information displays in three panels:</p>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>Proactive Rebuild</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>This panel is activated if proactive repair is in progress on any node in your cluster. It indicates the number of objects that still need to be repaired (an "object" in this context can be either an object replica or an erasure coded object fragment). It also indicates the total size of those objects in bytes. If proactive repair is running on multiple nodes simultaneously, the objects count and bytes count will be aggregate numbers for the cluster as a whole. The "Running Rebuild" field indicates the number of nodes that are currently running proactive repair.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>Data Rebalancing</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>This panel is activated if any of the following operations is in progress on any node:</p>
+                        <ul>
+                            <li>An operator-initiated <em>repair</em> or <em>repairec</em> operation (such as when you add a new node to the cluster).</li>
+                            <li>An operator-initiated <em>decommission</em> or <em>removenode</em> operation (when you remove a node from the cluster).</li>
+                        </ul>
+                        <p>The panel shows how many objects have been rebalanced so far, and the size of those objects in bytes. It also shows the completion percentage for the rebalancing operation, on the node on which it is being run.</p>
+                        <p>In typical circumstances where best practices are being followed, data rebalancing will only be run on one target node at a time — for example, only one node at a time should be added to the cluster.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>Data Integrity Check</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>This panel is activated if a <em>repair</em> or <em>repairec</em> operation using the "computedigest" option is in progress on any node in your cluster. It indicates the number of objects that have been scanned and (from among the scanned objects) the number of objects that needed and received repair. It also shows the completion percentage for the operation, on the node on which it is being run.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <p>If a panel is grayed-out, that indicates that no repair of that type is currently underway in the cluster.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>View Repair Status for a Node</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The lower section of the CMC's <b>Repair Status</b> page displays a color-coded node icon (cube) for each node in the cluster. The color-coding legend is indicated in the interface, with each node icon shown in a distinct color depending on which of these repair statuses applies to the node:</p>
+                <ul>
+                    <li><em>Repair is Required</em> — The node is in need of proactive repair (meaning that there is a queue of object replicas or erasure coded fragments that is known to be missing from the node, typically as a result of the node having been temporarily offline). Proactive repair will automatically occur at the next proactive repair interval (by default every 60 minutes).</li>
+                    <li><em>Proactive Rebuild</em> — Proactive repair is in progress on the node.</li>
+                    <li><em>Data Rebalancing</em> — Data rebalancing (an operator-initiated<em> repair</em>, <em>repairec</em>, <em>decommision</em>, or <em>removenode</em> operation) is in progress for the node.</li>
+                    <li><em>Data Integrity Check</em> — A repair using "computedigest" is in progress on the node.</li>
+                    <li><em>All Clear</em> — No repair of any type is in progress on the node, and the node is not currently in need of proactive repair.</li>
+                </ul>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">In the event that multiple repair types are simultaneously running on the node, the color-coding reflects whichever repair type started first on the node.<br></br><br></br>If the HyperStore Service is down on a node, the node icon displays as bright red.</p>
+                <p>If you click a node icon, information about in-progress and recently completed repairs on that node will display.</p>
+                <p>
+                    <img src="../../../Resources/Images/cmc/analytics/RepairStatus_nodeStatus.png" class="ImgCloudian">
+                    </img>
+                </p>
+                <p>This is the same information that is retrieved when you run the <em>opstatus</em> command on a node. For description of the available information items see the <a href="../../../Commands/hsstool/hsstoolOpstatus.htm/#Command/" target="_popup">Response section of the hsstool opstatus documentation</a>. If you click the host name at the top of the status information display you will jump to the <MadCap:xref href="../../Cluster/Node Status/NodeStatusOverview.htm">Node Status</MadCap:xref> page for that node.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

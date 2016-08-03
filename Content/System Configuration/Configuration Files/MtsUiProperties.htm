@@ -1,0 +1,798 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="12948" MadCap:lastWidth="846">
+    <head>
+    </head>
+    <body>
+        <h1>mts-ui.properties.erb</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Configuration File]</p>
+        <p>The <em>mts-ui.properties</em> file is the primary configuration file for the Cloudian Management Console server (CMC). On your CMC nodes, the file is located at the following path by default:</p><pre>/opt/tomcat/webapps/Cloudian/WEB-INF/classes/mts-ui.properties</pre>
+        <p>On the Puppet master node, the template file for <em>mts-ui.properties</em> is <em>mts-ui.properties.erb</em>:</p><pre>/etc/cloudian-&lt;version&gt;-puppet/modules/cmc/templates/mts-ui.properties.erb</pre>
+        <p>Certain <em>mts-ui.properties.erb</em> properties take their values from settings in Puppet extdata files (most often <em>common.csv</em>) or from settings that you can control through the CMC's <MadCap:xref href="../../CMC Interface/Cluster/Configuration Settings/ConfigurationSettingsOverview.htm" target="_popup">Configuration Settings</MadCap:xref> page. In the <em>mts.properties.erb</em> file these properties' values are formatted as bracket-enclosed variables, like <em>&lt;%= … %&gt;</em>.  In the property documentation below, the descriptions of such properties indicate "Takes its value from <em>&lt;location&gt;: &lt;setting&gt;</em>; use that setting instead.". For example, "Takes its value from <em>common.csv: hyperstore_data_directory</em>; use that setting instead."). Also in such cases, a link to the source setting's description is provided.</p>
+        <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">After making changes to <em>mts-ui.properties.erb</em> use the HyperStore installer (<em>cloudianInstall.sh</em>) on the Puppet master to propagate your changes to the cluster and to restart the CMC Service.</p>
+        <p>The <em>mts-ui.properties.erb</em> file has the settings below.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="admin.host"></a>admin.host</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Takes its value from <em>common.csv</em>: <MadCap:xref href="CommonCsv.htm#cmc_admin_host_ip" target="_popup">cmc_admin_host_ip</MadCap:xref>; use that setting instead.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="admin.port"></a>admin.port</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Takes its value from <em>common.csv</em>:<MadCap:xref href="CommonCsv.htm#ld_cloudian_s3_admin_port" target="_popup"> ld_cloudian_s3_admin_port</MadCap:xref>; use that setting instead.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="admin.secure.port"></a>admin.secure.port</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Takes its value from <em>common.csv</em>: <MadCap:xref href="CommonCsv.htm#cmc_admin_secure_port" target="_popup">cmc_admin_secure_port</MadCap:xref>; use that setting instead.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="admin.secure.ssl"></a>admin.secure.ssl</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Takes its value from <em>common.csv</em>: <MadCap:xref href="CommonCsv.htm#cmc_admin_secure_ssl" target="_popup">cmc_admin_secure_ssl</MadCap:xref>; use that setting instead.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="web.secure"></a>web.secure</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Takes its value from <em>common.csv</em>: <MadCap:xref href="CommonCsv.htm#cmc_web_secure" target="_popup">cmc_web_secure</MadCap:xref>; use that setting instead.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="web.secure.port"></a>web.secure.port</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Takes its value from <em>common.csv</em>: <MadCap:xref href="CommonCsv.htm#cmc_https_port" target="_popup">cmc_https_port</MadCap:xref>; use that setting instead.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="web.nonsecure.port"></a>web.nonsecure.port</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Takes its value from <em>common.csv</em>: <MadCap:xref href="CommonCsv.htm#cmc_http_port" target="_popup">cmc_http_port</MadCap:xref>; use that setting instead.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="storageuri.ssl.enabled"></a>storageuri.ssl.enabled</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>If this is set to "true", the CMC uses HTTPS to connect to the HyperStore S3 Service (in implementing the CMC <b>Buckets &amp; Objects</b> functionality). If "false", the CMC uses regular HTTP to connect to the HyperStore S3 Service.</p>
+                <p>Do not set this to "true" unless you have set up SSL for your HyperStore S3 Service [XREF]. By default the HyperStore S3 Service does not use SSL/HTTPS.</p>
+                <p>Default = false</p>
+                <p><b>If you used a CA-verified certificate to implement SSL for your HyperStore S3 Service</b>, then all that is necessary for the CMC to be able to connect to the S3 Service is for you to set <em>mts-ui.properties.erb: storageuri.ssl.enabled</em> to "true" on the Puppet master node, have Puppet push the change out to the cluster, and restart your CMC service.</p>
+                <p>However, <b>if you used a self-signed certificate to implement SSL for your HyperStore S3 Service</b> then additional action is necessary because the AWS-SDK that the CMC uses to implement its S3 client does not by default support connecting to an S3 service that is using a self-signed SSL certificate. The full procedure is:</p>
+                <ol>
+                    <li>Set <em>mts-ui.properties.erb: storageuri.ssl.enabled</em> to "true" on the Puppet master node.</li>
+                    <li>Have Puppet push the change out to the cluster.</li>
+                    <li><b>On each individual CMC node</b> use the following command to create a file <em>/opt/tomcat/bin/setenv.sh</em> with a single configuration line in it which disables certificate checking by the CMC’s S3 client:</li>
+                </ol>
+                <div class="Indent"><pre>echo "CATALINA_OPTS=-Dcom.amazonaws.sdk.disableCertChecking=true" &gt; /opt/tomcat/bin/setenv.sh </pre>
+                    <p>You cannot use Puppet to disseminate this configuration change; you must do it manually on each CMC node.</p>
+                </div>
+                <ol MadCap:continue="true">
+                    <li>Restart the CMC service.</li>
+                </ol>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="path.style.access"></a>path.style.access</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Whether the CMC should use "path style" request formatting when submitting S3 requests to the HyperStore S3 Service. In path style S3 requests, the bucket name is part of the URI rather than being part of the Host header value.</p>
+                <p>Options are:</p>
+                <ul>
+                    <li>true — The CMC will use path style HTTP request formatting when submitting S3 requests to the HyperStore S3 Service. The bucketname associated with the request will be in the request URI. For example:</li>
+                </ul>
+                <div class="Indent"><pre xml:space="preserve">PUT /bucket1/objectname HTTP/1.1
+Host: s3-region1.mycompany.com</pre>
+                </div>
+                <ul>
+                    <li>false — The CMC will not use path style HTTP request formatting when submitting S3 requests to the HyperStore S3 Service. The bucketname associated with the request will be in the Host header. For example:</li>
+                </ul>
+                <div class="Indent"><pre xml:space="preserve">PUT /objectname  HTTP/1.1
+Host: bucket1.s3-region1.mycompany.com</pre>
+                    <p>With this approach (which is what Amazon S3 currently uses) your DNS environment must be configured to resolve this type of Host value. See <MadCap:xref href="../../Installation/Networking Preparation/DnsSetup.htm" target="_popup">DNS Set-Up</MadCap:xref>.</p>
+                </div>
+                <p>Default = false</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="service.name"></a>service.name</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Service name for the Cloudian HyperStore S3 storage service.</p>
+                <p>Default = CLOUDIAN</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="application.name"></a>application.name</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Takes its value from <em>common.csv</em>: <MadCap:xref href="CommonCsv.htm#cmc_application_name" target="_popup">cmc_application_name</MadCap:xref>; use that setting instead.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="s3.client.timeout"></a>s3.client.timeout</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Connection timeout on requests to the S3 Service, in milliseconds.</p>
+                <p>Default = 1800000</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="s3.upload.part.minsize"></a>s3.upload.part.minsize</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>When the CMC uses Multipart Upload to transmit an object to the S3 Service, each of the parts will be this many bytes or larger — with the exception of the final part, which may be smaller. For example, if Multipart Upload is used for an 18MB object, and the configured minimum part size is 5MB, the object will be transmitted in four parts of size 5MB, 5MB, 5MB, and 3MB.</p>
+                <p>Default = 5242880 (5MB)</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="s3.upload.part.threshold"></a>s3.upload.part.threshold</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>When a CMC user uploads an object larger than this many bytes, the CMC uses Multipart Upload to transmit the object to the S3 Service, rather than PUT Object.</p>
+                <p>Default = 16777216 (16MB)</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="query.maxrows"></a>query.maxrows</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Maximum number of data rows to retrieve when processing a usage report request.</p>
+                <p>Default = 100000</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="page.size.default_"></a>
+
+page.size.default </MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>For usage report pagination, the maxium number of table rows that users can select to display on each page of a tabular report.</p>
+                <p>Default = 100</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="graph.datapoints.max"></a>
+
+graph.datapoints.max </MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Maximum number of datapoints to include within a graphical report.</p>
+                <p>Default = 1000</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="csv.rows.max"></a>csv.rows.max</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Maximum number of rows to include within a comma-separated value report.</p>
+                <p>Default = 1000</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="fileupload.abort.max.hours"></a>
+
+fileupload.abort.max.hours </MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>When a very large file is being uploaded through the CMC, the maximum number of hours for the CMC to wait for the S3 file upload operation to complete. If this maximum is reached, the upload operation is aborted.</p>
+                <p>Default = 3</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="license.request.email"></a>license.request.email</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Email address to which to send Cloudian license requests. This address is used in a request license information link in the CMC interface.</p>
+                <p>Default = support@cloudian.com [XREF]</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="admin.auth.user"></a>admin.auth.user</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Takes its value from <em>common.csv</em>: <MadCap:xref href="CommonCsv.htm#admin_auth_user" target="_popup">admin_auth_user</MadCap:xref>; use that setting instead.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="admin.auth.pass"></a>admin.auth.pass</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Takes its value from <em>common.csv</em>: <MadCap:xref href="CommonCsv.htm#admin_auth_pass" target="_popup">admin_auth_pass</MadCap:xref>; use that setting instead.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="ldap.enabled"></a>ldap.enabled</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Takes its value from CMC <b>System Configuration</b> page, LDAP Authentication section[XREF]: "Enable LDAP Authentication"; use that setting instead.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="ldap.url"></a>ldap.url</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Takes its value from CMC <b>System Configuration</b> page, LDAP Authentication section[XREF]: "LDAP Server URL"; use that setting instead.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="ldap.userdn"></a>ldap.userdn</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Takes its value from CMC <b>System Configuration</b> page, LDAP Authentication section[XREF]: "User DN Template"; use that setting instead.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="cloudian.s3.regions"></a>cloudian.s3.regions</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Takes its value from <em>common.csv</em>: <MadCap:xref href="CommonCsv.htm#regions" target="_popup">regions</MadCap:xref>; use that setting instead.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="cloudian.s3.default.region"></a>cloudian.s3.default.region</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Takes its value from <em>common.csv</em>: <MadCap:xref href="CommonCsv.htm#default_region" target="_popup">default_region</MadCap:xref>; use that setting instead.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="acl.grantee.public"></a>acl.grantee.public</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>In the CMC UI dialogs that let CMC users specify permissions on S3 buckets, folders, or files, the label to use for the ACL grantee "public". If the <em>acl.grantee.public</em> property is not set in <em>mts-ui.properties</em>, then the system instead uses the <em>acl.grantee.public</em> value from your <em>resources_xx_XX.properties</em> files (for example, for the U.S. English version of the UI, the value is in <em>resources_en_US.properties</em>).</p>
+                <p>Default = commented out (value is taken from resource file[s])</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="acl.grantee.cloudianUser"></a>acl.grantee.cloudianUser</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>In the CMC UI dialogs that let CMC users specify permissions on S3 buckets, folders, or files, the label to use for the ACL grantee "all Cloudian HyperStore service users". If the <em>acl.grantee.cloudianUser</em> property is not set in <em>mts-ui.properties</em>, then the system instead uses the <em>acl.grantee.cloudianUser</em> value from your <em>resources_xx_XX.properties</em> files (for example, for the U.S. English version of the UI, the value is in <em>resources_en_US.properties</em>).</p>
+                <p>Default = commented out (value is taken from resource file[s])</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="session.timedout.url"></a>session.timedout.url</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>URL of page to display if a CMC user’s login session times out.</p>
+                <p>If this value is not set in <em>mts-ui.properties</em>, the behavior defaults to displaying the CMC Login screen if the user’s session times out.</p>
+                <p>Default = commented out (CMC Login screen displays)</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="admin.manage_users.enabled"></a>admin.manage_users.enabled</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>This setting controls whether the <b>Manage Users</b> function will be enabled in the CMC GUI. For a screen shot and description of this function, see Manage Users[XREF] in the CMC Help document.</p>
+                <p>Options are:</p>
+                <ul>
+                    <li>true — This function will display for users logged in as a system administrator or group administrator. For group admins this function is restricted to their own group.</li>
+                    <li>false — This function will not display for any users. If you set this to "false" then the <b>Manage Users</b> functionality as a whole is disabled and the more granular <em>admin.manage_users.*.enabled</em> properties below are ignored.</li>
+                    <li>SystemAdmin — This function will display only for users logged in as a system administrator.</li>
+                    <li>GroupAdmin — This function will display only for users logged in as a group administrator.</li>
+                </ul>
+                <p>Default = Commented out and uses internal default of "true". To assign a different value, add an uncommented instance of the setting to <em>mts-ui.properties.erb</em>.</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">If you want to enable some aspects of the <b>Manage Users</b> function and not others, you can have <em>admin.manage_users.enabled</em> set so that the function is enabled for your desired user types, and then use the granular <em>admin.manage_users.*.enabled</em> properties below to enable/disable specific capabilities.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="admin.manage_users.create.enabled"></a>admin.manage_users.create.enabled</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Within the <b>Manage Users</b> function in the CMC GUI, this setting enables or disables the capability to create new users.</p>
+                <p>Options are:</p>
+                <ul>
+                    <li>true — This capability will display for users logged in as a system administrator or group administrator. For group admins this capability is restricted to their own group.</li>
+                    <li>false — This capability will not display for any users.</li>
+                    <li>SystemAdmin — This capability will display only for users logged in as a system administrator.</li>
+                    <li>GroupAdmin — This capability will display only for users logged in as a group administrator.</li>
+                </ul>
+                <p>Default = Commented out and uses internal default of "true". To assign a different value, add an uncommented instance of the setting to <em>mts-ui.properties.erb</em>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="admin.manage_users.edit.enabled"></a>admin.manage_users.edit.enabled</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Within the <b>Manage Users</b> function in the CMC GUI, this setting enables or disables the capability to edit existing users' profiles and service attributes.</p>
+                <p>Options are:</p>
+                <ul>
+                    <li>true — This capability will display for users logged in as a system administrator or group administrator. For group admins this capability is restricted to their own group.</li>
+                    <li>false — This capability will not display for any users.</li>
+                    <li>SystemAdmin — This capability will display only for users logged in as a system administrator.</li>
+                    <li>GroupAdmin — This capability will display only for users logged in as a group administrator.</li>
+                </ul>
+                <p>Default = Commented out and uses internal default of "true". To assign a different value, add an uncommented instance of the setting to <em>mts-ui.properties.erb.</em></p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">Regardless of your configuration choices, nobody but a system administrator can ever change a user’s rating plan assignment.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="admin.manage_users.delete.enabled"></a>admin.manage_users.delete.enabled</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Within the <b>Manage Users</b> function in the CMC GUI, this setting enables or disables the capability to delete users.</p>
+                <p>Options are:</p>
+                <ul>
+                    <li>true — This capability will display for users logged in as a system administrator or group administrator. For group admins this capability is restricted to their own group.</li>
+                    <li>false — This capability will not display for any users.</li>
+                    <li>SystemAdmin — This capability will display only for users logged in as a system administrator.</li>
+                    <li>GroupAdmin — This capability will display only for users logged in as a group administrator.</li>
+                </ul>
+                <p>Default = Commented out and uses internal default of "true". To assign a different value, add an uncommented instance of the setting to <em>mts-ui.properties.erb.</em></p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="admin.manage_users.viewuserdata.enabled"></a>admin.manage_users.viewuserdata.enabled</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Within the <b>Manage Users</b> function in the CMC GUI, this setting enables or disables the capability to access users' S3 storage buckets in order to view, add, delete, or change the properties of stored objects.</p>
+                <p>Options are:</p>
+                <ul>
+                    <li>true — This capability will display for users logged in as a system administrator or group administrator. For group admins this capability is restricted to their own group.</li>
+                    <li>false — This capability will not display for any users.</li>
+                    <li>SystemAdmin — This capability will display only for users logged in as a system administrator.</li>
+                    <li>GroupAdmin — This capability will display only for users logged in as a group administrator.</li>
+                </ul>
+                <p>Default = Commented out and uses internal default of "true". To assign a different value, add an uncommented instance of the setting to <em>mts-ui.properties.erb</em>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="admin.manage_users.edit.user_qos.enabled"></a>admin.manage_users.edit.user_qos.enabled</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Within the <b>Manage Users</b> function in the CMC GUI, this setting enables or disables the capability to set Quality of Service (QoS) controls for specific users.</p>
+                <p>Options are:</p>
+                <ul>
+                    <li>true — This capability will display for users logged in as a system administrator or group administrator. For group admins this capability is restricted to their own group.</li>
+                    <li>false — This capability will not display for any users.</li>
+                    <li>SystemAdmin — This capability will display only for users logged in as a system administrator.</li>
+                    <li>GroupAdmin — This capability will display only for users logged in as a group administrator.</li>
+                </ul>
+                <p>Default = Commented out and uses internal default of "true". To assign a different value, add an uncommented instance of the setting to <em>mts-ui.properties.erb</em>.</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">This setting is relevant only if the admin.manage_users.enabled[XREF] and admin.manage_users.edit.enabled[XREF]settings are enabled.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="admin.manage_groups.enabled"></a>admin.manage_groups.enabled</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>This setting controls whether the <b>Manage Groups</b> function will be enabled in the CMC GUI. For a screen shot and description of this function, see Manage Groups[XREF] in the CMC Help document.</p>
+                <p>Options are:</p>
+                <ul>
+                    <li>true — This function will display for users logged in as a system administrator or group administrator. For group admins this function is restricted to their own group.</li>
+                    <li>false — This function will not display for any users. If you set this to "false" then the <b>Manage Groups</b> functionality as a whole is disabled and the more granular <em>admin.manage_groups.*.enabled</em> properties below are ignored.</li>
+                    <li>SystemAdmin — This function will display only for users logged in as a system administrator.</li>
+                    <li>GroupAdmin — This function will display only for users logged in as a group administrator.</li>
+                </ul>
+                <p>Default = Commented out and uses internal default of "true". To assign a different value, add an uncommented instance of the setting to <em>mts-ui.properties.erb</em>.</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">If you want to enable some aspects of the <b>Manage Groups</b> function and not others, you can have <em>admin.manage_groups.enabled</em> set so that the function is enabled for your desired user types, and then use the granular <em>admin.manage_groups.*.enabled</em> properties below to enable/disable specific capabilities.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="admin.manage_groups.create.enabled"></a>admin.manage_groups.create.enabled</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Within the <b>Manage Groups</b> function in the CMC GUI, this setting enables or disables the capability to create new groups.</p>
+                <p>Options are:</p>
+                <ul>
+                    <li>true — This capability will display for users logged in as a system administrator.</li>
+                    <li>false — This capability will not display for any users.</li>
+                </ul>
+                <p>Default = Commented out and uses internal default of "true". To assign a different value, add an uncommented instance of the setting to <em>mts-ui.properties.erb</em>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="admin.manage_groups.edit.enabled"></a>admin.manage_groups.edit.enabled</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Within the <b>Manage Groups</b> function in the CMC GUI, this setting enables or disables the capability to edit an existing group’s profile and service attributes.</p>
+                <p>Options are:</p>
+                <ul>
+                    <li>true — This capability will display for users logged in as a system administrator or group administrator. For group admins this capability is restricted to their own group.</li>
+                </ul>
+                <p class="NoteIndent" MadCap:autonum="&lt;b&gt;Note: &lt;/b&gt;">Even when this capability is enabled for group admins, they will not be able to perform certain group-related actions that are reserved for system admins, such as setting QoS controls for the group as a whole or assigning a default rating plan for the group. Group admins' privileges will be limited to changing their group description and changing the default user QoS settings for the group. The latter capability is controlled by a more granular configuration property <em>admin.manage_groups.user_qos_groups_default.enabled</em> (below), which defaults to "true".</p>
+                <ul>
+                    <li>false — This capability will not display for any users.</li>
+                    <li>SystemAdmin — This capability will display only for users logged in as a system administrator.</li>
+                    <li>GroupAdmin — This capability will display only for users logged in as a group administrator.</li>
+                </ul>
+                <p>Default = Commented out and uses internal default of "true". To assign a different value, add an uncommented instance of the setting to <em>mts-ui.properties.erb</em>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="admin.manage_groups.delete.enabled"></a>admin.manage_groups.delete.enabled</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Within the <b>Manage Groups</b> function in the CMC GUI, this setting enables or disables the capability to delete a group.</p>
+                <p>Options are:</p>
+                <ul>
+                    <li>true — This capability will display for users logged in as a system administrator.</li>
+                    <li>false — This capability will not display for any users.</li>
+                </ul>
+                <p>Default = Commented out and uses internal default of "true". To assign a different value, add an uncommented instance of the setting to <em>mts-ui.properties.erb</em>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="admin.manage_groups.user_qos_groups_default.enabled"></a>admin.manage_groups.user_qos_groups_default.enabled</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Within the <b>Manage Groups</b> function in the CMC GUI, this setting enables or disables the capability to set default Quality of Service (QoS) controls for users within a specific group.</p>
+                <p>Options are:</p>
+                <ul>
+                    <li>true — This capability will display for users logged in as a system administrator or group administrator. For group admins this capability is restricted to their own group.</li>
+                    <li>false — This capability will not display for any users.</li>
+                    <li>SystemAdmin — This capability will display only for users logged in as a system administrator.</li>
+                    <li>GroupAdmin — This capability will display only for users logged in as a group administrator.</li>
+                </ul>
+                <p>Default = Commented out and uses internal default of "true". To assign a different value, add an uncommented instance of the setting to <em>mts-ui.properties.erb</em>.</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">This setting is relevant only if the admin.manage_groups.enabled[XREF] and admin.manage_groups.edit.enabled[XREF]  settings are enabled.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="account.profile.writeable.enabled"></a>account.profile.writeable.enabled</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>This setting controls whether a user can edit his or her own account profile information in the <b>Account</b> section of the CMC GUI. For user types for which this editing capability is not enabled, account profile information will be read-only. For a screen shot and description of this function, see Account Profile[XREF] in the CMC Help document.</p>
+                <p>Options are:</p>
+                <ul>
+                    <li>true — This capability will be enabled for all user types (system administrator, group administrator, and regular user).</li>
+                    <li>false — This capability will be disabled for all user types.</li>
+                    <li>SystemAdmin — This capability will be enabled only for users logged in as a system administrator.</li>
+                    <li>GroupAdmin — This capability will be enabled only for users logged in as a group administrator.</li>
+                    <li>User — This capability will be enabled only for users logged in as a regular user.</li>
+                    <li>You can also specify a comma-separated list of multiple user types for which to enable this capability — for example, "SystemAdmin,GroupAdmin".</li>
+                </ul>
+                <p>Default = Commented out and uses internal default of "true". To assign a different value, add an uncommented instance of the setting to <em>mts-ui.properties.erb</em>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="account.credentials.enabled"></a>account.credentials.enabled</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>This setting controls whether the <b>Security Credentials</b> function will be enabled in the CMC GUI. For a screen shot and description of this function, see Security Credentials in the CMC Help document.</p>
+                <p>Options are:</p>
+                <ul>
+                    <li>true — This function will display for all user types (system administrator, group administrator, and regular user).</li>
+                    <li>false — This function will not display for any user types. If you set this to "false" then the Security Credentials functionality as a whole is disabled and the more granular account.credentials.*.enabled properties below are ignored.</li>
+                    <li>SystemAdmin — This function will display only for users logged in as a system administrator.</li>
+                    <li>GroupAdmin — This function will display only for users logged in as a group administrator.</li>
+                    <li>User — This function will display only for users logged in as a regular user.</li>
+                    <li>You can also specify a comma-separated list of multiple user types for which to enable this function — for example, "SystemAdmin,GroupAdmin".</li>
+                </ul>
+                <p>Default = Commented out and uses internal default of "true". To assign a different value, add an uncommented instance of the setting to <em>mts-ui.properties.erb</em>.</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">	If you want to enable some aspects of the <b>Security Credentials</b> function and not others, you can have <em>account.credentials.enabled</em> set so that the function is enabled for your desired user types, and then use the granular <em>account.credentials.*.enabled</em> properties below to enable/disable specific capabilities.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="account.credentials.access.enabled"></a>account.credentials.access.enabled</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Within the <b>Security Credentials</b> function in the CMC GUI, this setting enables or disables the capability of CMC users to view and change their own S3 storage access keys.</p>
+                <p>Options are:</p>
+                <ul>
+                    <li>true — This capability will display for users logged in as a group administrator or regular user. (This capability is <b>not</b> supported for system admins since the system admin role does not have its own S3 storage account.)</li>
+                    <li>false — This capability will not display for any users.</li>
+                    <li>GroupAdmin — This capability will display only for users logged in as a group administrator.</li>
+                    <li>User — This capability will display only for users logged in as a regular user.</li>
+                </ul>
+                <p>Default = Commented out and uses internal default of "true". To assign a different value, add an uncommented instance of the setting to <em>mts-ui.properties.erb</em>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="account.credentials.signin.enabled"></a>account.credentials.signin.enabled</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Within the <b>Security Credentials</b> function in the CMC GUI, this setting enables or disables the capability CMC users to change their own CMC login password.</p>
+                <p>Options are:</p>
+                <ul>
+                    <li>true — This capability will display for all user types (system administrator, group administrator, and regular user).</li>
+                    <li>false — This capability will not display for any user types.</li>
+                    <li>SystemAdmin — This capability will display only for users logged in as a system administrator.</li>
+                    <li>GroupAdmin — This capability will display only for users logged in as a group administrator.</li>
+                    <li>User — This capability will display only for users logged in as a regular user.</li>
+                    <li>You can also specify a comma-separated list of multiple user types for which to enable this capability — for example, "SystemAdmin,GroupAdmin".</li>
+                </ul>
+                <p>Default = Commented out and uses internal default of "true". To assign a different value, add an uncommented instance of the setting to <em>mts-ui.properties.erb.</em></p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="account.activity.enabled"></a>account.activity.enabled</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>This setting controls whether the <b>Account Activity</b> function will be enabled in the CMC GUI. For a screen shot and description of this function, see Account Activity[XREF] in the CMC Help document.</p>
+                <p>Options are:</p>
+                <ul>
+                    <li>true — This function will display for all user types (system administrator, group administrator, and regular user).</li>
+                    <li>false — This function will not display for any user types.</li>
+                    <li>SystemAdmin — This function will display only for users logged in as a system administrator.</li>
+                    <li>GroupAdmin — This function will display only for users logged in as a group administrator.</li>
+                    <li>User — This function will display only for users logged in as a regular user.</li>
+                    <li>You can also specify a comma-separated list of multiple user types for which to enable this function — for example, "SystemAdmin,GroupAdmin".</li>
+                </ul>
+                <p>Default = Commented out and uses internal default of "true". To assign a different value, add an uncommented instance of the setting to <em>mts-ui.properties.erb</em>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="usage.enabled"></a>usage.enabled</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>This setting controls whether the <b>Report</b> function will be enabled in the CMC GUI. For a screen shot and description of this function, see Report[XREF] in the CMC Help document.</p>
+                <p>Options are:</p>
+                <ul>
+                    <li>true — This function will display for all user types (system administrator, group administrator, and regular user).</li>
+                    <li>false — This function will not display for any user types. If you set this to "false" then the <b>Report</b> functionality as a whole is disabled and the more granular <em>usage.aws.enabled</em> property below is ignored.</li>
+                    <li>SystemAdmin — This function will display only for users logged in as a system administrator.</li>
+                    <li>GroupAdmin — This function will display only for users logged in as a group administrator.</li>
+                    <li>User — This function will display only for users logged in as a regular user.</li>
+                    <li>You can also specify a comma-separated list of multiple user types for which to enable this function — for example, "SystemAdmin,GroupAdmin".</li>
+                </ul>
+                <p>Default = Commented out and uses internal default of "true". To assign a different value, add an uncommented instance of the setting to <em>mts-ui.properties.erb.</em></p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="usage.aws.enabled"></a>usage.aws.enabled</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>This setting is not typically used and can be ignored.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="login.grouplist.enabled"></a>login.grouplist.enabled</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>This setting controls whether to enable the <b>Group</b> drop-down menu in the CMC’s <b>Sign In</b> screen. The <b>Group</b> drop-down menu lists all groups registered in the HyperStore system, and when users log in they can choose their group from the list. If disabled, the drop-down menu will not display and instead users will need to enter their group name in a text input box when logging into the CMC.</p>
+                <p>Options are true, false.</p>
+                <p>Set this to "false" if you don’t want users to see the names of other groups that use the HyperStore service. You should also set it to "false" if there are more than 100 groups in your system. The CMC drop-down lists cannot support more than 100 items.</p>
+                <p>Default = Commented out and uses internal default of "true". To assign a different value, add an uncommented instance of the setting to <em>mts-ui.properties.erb.</em></p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="grouplist.enabled"></a>grouplist.enabled</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>This setting controls whether to use a drop-down list when selection of a group is necessary in interior parts of the CMC GUI (parts other than the login page). This is relevant only for system administrators, since only system administrators have the opportunity to choose among groups for certain features (such as user or group management). Set this to "false" to have the UI instead present a text box in which the administrator can type the group name.</p>
+                <p>Options are true, false.</p>
+                <p>Set this to "false" if there are more than 100 groups in your system. The CMC drop-down lists cannot support more than 100 items.</p>
+                <p>Default = Commented out and uses internal default of "true". To assign a different value, add an uncommented instance of the setting to <em>mts-ui.properties.erb</em>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="error.stacktrace.enabled"></a>error.stacktrace.enabled</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Throughout the CMC UI, when an exception occurs and an error page is displayed to the user, include on the error page a link to a stack trace.</p>
+                <p>Options are:</p>
+                <ul>
+                    <li>true — Stack trace links will display for all user types (system administrator, group administrator, and regular user).</li>
+                    <li>false — Stack trace links will not display for any user types.</li>
+                    <li>SystemAdmin — Stack trace links will display only for users logged in as a system administrator.</li>
+                    <li>GroupAdmin — Stack trace links will display only for users logged in as a group administrator.</li>
+                    <li>User — Stack trace links will display only for users logged in as a regular user.</li>
+                    <li>You can also specify a comma-separated list of multiple user types for which to enable this feature — for example, "SystemAdmin,GroupAdmin".</li>
+                </ul>
+                <p>Default = false</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="admin.whitelist.enabled"></a>admin.whitelist.enabled</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Takes its value from <em>common.csv</em>: <MadCap:xref href="CommonCsv.htm#admin_whitelist_enabled" target="_popup">admin_whitelist_enabled</MadCap:xref>; use that setting instead.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="sso.enabled"></a>sso.enabled</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Whether to enable CMC support for single sign-on functionality, true or false. When this is set to false, if a user attempts to access the CMC via SSO, the access will be denied and an error will be written to <em>cloudian-ui.log</em>.</p>
+                <p>Default = false</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">For more information on CMC SSO, see the Implementing Single Sign-On for the CMC[XREF] section of your Cloudian HyperStore S3 Compliance Guide.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="sso.shared.key"></a>sso.shared.key</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Shared security key used for hash creation, when using the "auto-login with one way hash" [XREF]method of single sign-on access to the CMC.</p>
+                <p>Default = ss0sh5r3dk3y</p>
+                <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">If you enable CMC SSO functionality (using the sso.enabled[XREF] setting), then for security reasons you should <b>set a custom value for <em>sso.shared.key</em></b>. Do not leave it at its default value.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="sso.tolerance.millis"></a>sso.tolerance.millis</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Maximum allowed variance between the CMC server time and the timestamp submitted in a client request invoking the "auto-login with one way hash"[XREF] method of single sign-on access to the CMC, in milliseconds. If the variance is greater than this, the request is rejected. This effectively serves as a request expiry mechanism.</p>
+                <p>Default = 3600000</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="sso.cookie.cipher.key"></a>sso.cookie.cipher.key</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Triple DES key used for cookie encryption.</p>
+                <p>Default = 123456789012345678901234</p>
+                <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">	If you enable CMC SSO functionality (using the sso.enabled[XREF] setting), then for security reasons you should <b>set a custom value for <em>sso.cookie.cipher.key</em></b>. Do not leave it at its default value.</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">If you change this value after CMC SSO has already been in service, end users who had used SSO previously will have on their browser a Cloudian SSO cookie that is no longer valid. If such users access the CMC after your <em>sso.cookie.cipher.key</em> change, the CMC detects the invalid cookie, deletes it, and drops a new, valid one.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="bucket.transition.enabled"></a>bucket.transition.enabled</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Takes its value from CMC Configuration Settings page, Auto-Tiering section: "Enable Auto-Tiering"[XREF]; use that setting instead.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="tiering.perbucketcredentials.enabled"></a>tiering.perbucketcredentials.enabled</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>If auto-tiering is enabled in the CMC UI (<em>bucket.transition.enabled</em> = true), whether the UI should allow bucket owners to specify their own Amazon Web Services credentials when configuring auto-tiering for a bucket.</p>
+                <p>Options are:</p>
+                <ul>
+                    <li>true — The CMC’s <b>Bucket Lifecycle</b> configuration interface will include fields in which a bucket owner can enter her own AWS credentials, thereby enabling her to auto-tier to her own AWS S3 account.</li>
+                    <li>false — The CMC’s <b>Bucket Lifecycle</b> configuration interface will not include fields in which a bucket owner can enter her own AWS credentials. Instead, all auto-tiering (from any bucket) will be directed to one default AWS account. Credentials for that account are specified by system administrators in the CMC’s <b>Auto-Tiering Credentials</b> page.</li>
+                </ul>
+                <p>Default = true</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="bucket.transition.url"></a>bucket.transition.url</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Takes its value from CMC Configuration Settings page, Auto-Tiering section[XREF]: "Auto-Tiering URL"; use that setting instead.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="bucket.transitiontocloudian.enabled"></a>bucket.transitiontocloudian.enabled</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>If auto-tiering is enabled in the CMC UI (<em>bucket.transition.enabled</em> = true), whether the UI should support auto-tiering to a remote HyperStore region or system rather than to Amazon.</p>
+                <p>Options are:</p>
+                <ul>
+                    <li>true — The auto-tiering functionality in the UI will be for auto-tiering to a remote HyperStore region or system. If you’re interested in this feature, consult with Cloudian Support.</li>
+                    <li>false — The auto-tiering functionality in the UI will be for auto-tiering to Amazon S3 or Amazon Glacier.</li>
+                </ul>
+                <p>Default = false</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="puppet.master.licensefile"></a>puppet.master.licensefile</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>This setting supports the feature whereby an updated HyperStore license file can be uploaded via the CMC. Do not edit.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="puppet.master.fileupdate.location"></a>puppet.master.fileupdate.location</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>This setting supports the feature whereby an updated HyperStore license file can be uploaded via the CMC. Do not edit.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="local.ssh.privateKey"></a>local.ssh.privateKey</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Private key to use when the CMC connects via SSH to the Puppet master node or HyperStore nodes when implementing node management functions. The Cloudian installation script automatically populates this setting.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="local.ssh.passphrase"></a>local.ssh.passphrase</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Pass phrase to use when the CMC connects via SSH to the Puppet master node or HyperStore nodes when implementing node management functions. The Cloudian installation script automatically populates this setting.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="local.temp.dir"></a>local.temp.dir</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>This setting supports the feature whereby an updated HyperStore license file can be uploaded via the CMC. Do not edit.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="remote.ssh.user"></a>remote.ssh.user</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The user as which to connect via SSH to the Puppet master node or HyperStore nodes.</p>
+                <p>Default = root</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="remote.ssh.port"></a>remote.ssh.port</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The port to which to connect via SSH to the Puppet master node or HyperStore nodes.</p>
+                <p>Default = 22</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="uninstall.node.options"></a>uninstall.node.options</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Options used by the "Uninstall Node" function on the CMC’s <b>Node Management</b> page. These options specify that HyperStore packages are to be removed from the target node as part of the uninstall process. This setting is for internal system use and should not be edited unless you first consult with Cloudian Support.</p>
+                <p>Default = -u -r</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

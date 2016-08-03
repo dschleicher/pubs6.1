@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="1381" MadCap:lastWidth="1007">
+    <head>
+    </head>
+    <body>
+        <p>
+            <MadCap:keyword term="14. Availability of Specialized Services" />
+        </p>
+        <h1>Specialized Services Availability</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Diagram]</p>
+        <p>Along with the services that are common to every HyperStore node (such as the S3 Service, HyperStore Service, Cassandra, and so on) your HyperStore system includes several specialized services that run only on certain nodes. The HyperStore installer <a href="../HyperStore Services/ServicesOverview.htm" target="_popup">automatically distributes these services across your cluster</a>. Each specialized service has a primary instance and a backup instance, and the installer ensures that for each specialized service the primary instance and backup instance are deployed on different nodes.</p>
+        <p>The diagram below illustrates how the system ensures high availability of these specialized services by supporting failover of each service type, from the primary instance to the backup instance. For nearly all service types, the system automatically detects a failure of the primary instance and automatically fails over to the backup instance. The one exception is the Puppet Master role (for managing system configuration) — in the case of the Puppet Master you can <a href="../../Operations/Change Node Role/MovePuppetMaster.htm">manually implement failover</a> if there’s a problem with the primary instance.</p>
+        <p>The diagram shows six nodes, but the principles are the same regardless of how many nodes you have: specialized services are dispersed across the cluster, and the backup instance of any given service is deployed on a different node than the primary instance.</p>
+        <p>
+            <img src="../../Resources/Images/diagrams/Specialized-Services-Availability.png" />
+        </p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">The automatic failover of the Cronjobs role from the primary to the backup instance invokes the <em>cloudianInstall.sh</em> script and will fail if <em>cloudianInstall.sh</em> is already running. When you occasionally use <em>cloudianInstall.sh</em> for system configuration tasks, remember to exit the installer when you are done — do not leave it running.</p>
+        <p><b>See Also:</b>
+        </p>
+        <ul>
+            <li>
+                <MadCap:xref href="ServicesDistribution3Nodes.htm">Services Distribution -- 3 Nodes, Single DC</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="ServicesDistributionMultiDC.htm">Services Distribution -- Multi-DC, Single Region</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="ServicesDistributionMultiRegion.htm">Services Distribution -- Multi-Region</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

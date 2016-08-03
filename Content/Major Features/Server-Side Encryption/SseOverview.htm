@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="1284" MadCap:lastWidth="815">
+    <head>
+    </head>
+    <body>
+        <h1>Server-Side Encryption Feature Overview</h1>
+        <p>Like Amazon S3, the HyperStore system supports server-side encryption (SSE) to protect the confidentiality of data at rest. And like Amazon, the HyperStore system can perform the encryption (and subsequent decryption upon object retrieval) either with a <b>system-generated encryption key</b> (regular SSE) or a <b>customer-provided encryption key</b> (SSE-C).</p>
+        <p>For SSE, the HyperStore system generates the encryption keys using AES-128 by default (AES-256 is also supported as described in <MadCap:xref href="SseAes256.htm">Enabling AES-256</MadCap:xref>). Each encrypted object has its own unique key, and the key is stored as part of the object’s metadata in Cassandra. The object’s metadata including the encryption key is protected by replication, in accordance with the particular storage policy assigned to the S3 bucket to which the object belongs.</p>
+        <p>In the case of SSE-C, the HyperStore system does not store the customer-provided encryption key itself but rather stores a hash of the key (for purposes of verifying the key if it’s subsequently submitted in a GET Object request). The key hash is stored in the object metadata in Cassandra.</p>
+        <p>Also, like Amazon S3, with the HyperStore system’s SSE-C implementation:</p>
+        <ul>
+            <li>The object upload and download requests must be submitted to the system via HTTPS, not regular HTTP.</li>
+            <li>The user is responsible for managing the encryption key. If an object is uploaded to HyperStore system and encrypted with a user-provided key, the user will need to provide that same key when later requesting to download the object. If the user loses the key, the encrypted object will not be downloadable.</li>
+        </ul>
+        <p>For more information on Amazon’s SSE-C feature see <a href="http://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html" target="_blank">Protecting Data Using Server-Side Encryption with Customer-Provided Encryption Keys (SSE-C)</a>.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Encryption and Auto-Tiering</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>When an object that has been encrypted with a <b>system-generated encryption key</b> is auto-tiered from HyperStore to Amazon:</p>
+                <ul>
+                    <li>The HyperStore system decrypts the object before uploading it to Amazon, and then during upload invokes the Amazon server-side encryption feature so that in tiered storage the object is encrypted with an Amazon-generated encryption key.</li>
+                    <li>A HyperStore S3 client can retrieve the object by any of the supported tiered object retrieval methods (restoral, streaming, or direct), in accordance with the bucket’s lifecycle policy.</li>
+                    <li>If the encrypted object is tiered into the bucket owner’s Amazon account, the owner can retrieve the object directly through Amazon S3. Amazon will automatically decrypt the object upon download.</li>
+                </ul>
+                <p>When an object that has been encrypted with a <b>user-provided encryption key</b> is auto-tiered from Hyperstore to Amazon:</p>
+                <ul>
+                    <li>The HyperStore system does not invoke Amazon server-side encryption. Instead HyperStore uploads the object to Amazon as if it were a regular object, but the object content is the <b>encrypted</b> value of the original object.</li>
+                    <li>Regardless of how the bucket lifecycle is configured, a HyperStore S3 client can only retrieve the auto-tiered object by restoring it. The object cannot be retrieved via streaming or redirect.</li>
+                    <li>The client does not include the user-provided encryption key with the object restore request. Instead, after a copy of the object has been restored to the HyperStore system, the client includes the user-provided encryption key with the <MadCap:xref href="../../S3 API Support/OperationsObjects/GetObject.htm">GET Object</MadCap:xref> request.</li>
+                    <li>Even if the encrypted object is tiered into the bucket owner’s Amazon account, the owner cannot retrieve the object directly through Amazon S3.</li>
+                </ul>
+                <p>For more information on auto-tiering, see <MadCap:xref href="../Auto-Tiering/AutoTieringOverview.htm">Auto-Tiering Feature Overview</MadCap:xref>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <p>&#160;</p>
+        <p><b>See Also:</b>
+        </p>
+        <ul>
+            <li>
+                <MadCap:xref href="SseAes256.htm">Enabling AES-256</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="SseRegular.htm">Using Regular Server-Side Encryption (SSE)</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="SseCustomerKeys.htm">Using Server-Side Encryption with Customer-Provided Keys (SSEC)</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

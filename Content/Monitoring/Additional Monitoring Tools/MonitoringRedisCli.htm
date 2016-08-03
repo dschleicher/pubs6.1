@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="800" MadCap:lastWidth="841">
+    <head>
+    </head>
+    <body>
+        <h1>Using the Redis CLI to Monitor Redis</h1>
+        <p>For Redis monitoring you can use the native Redis CLI.</p>
+        <p>To launch the Redis CLI on a Redis node, change into the node’s <em>/opt/redis</em> directory and do either of the following:</p><pre xml:space="preserve"># to connect to the CLI for the Redis Credentials DB:
+$ ./redis-cli
+redis 127.0.0.1:6379&gt;
+
+# to connect to the CLI for the Redis QoS DB:
+$ ./redis-cli -p 6380
+redis 127.0.0.1:6380&gt;</pre>
+        <p>Once you’re in the Redis CLI mode, you can issue commands. Use "quit" to exit the CLI.</p>
+        <p>With the Redis <a href="http://redis.io/commands/info" target="_blank">INFO command</a> you can retrieve statistics such as:</p>
+        <ul>
+            <li>Uptime since last start</li>
+            <li>Memory usage as allocated by Redis</li>
+            <li>Memory usage as seen by OS</li>
+            <li>Memory fragmentation ratio</li>
+            <li>Number of dataset-changing operations processed since last save</li>
+            <li>Keyspace hits</li>
+            <li>Keyspace misses</li>
+            <li>Total keys</li>
+            <li>Total expired keys</li>
+        </ul>
+        <p>You can reset Redis statistics with the <a href="http://redis.io/commands/config-resetstat" target="_blank">CONFIG RESETSTAT command</a>.</p>
+        <p>To check just on the number of keys currently in the database, you can use the <a href="http://redis.io/commands/dbsize" target="_blank">DBSIZE command</a>.</p>
+        <p>Also useful is the <a href="http://redis.io/commands/monitor" target="_blank">MONITOR command</a>, which enables you to monitor the complete sequence of commands received by the DB in near real-time.</p>
+        <p>In addition to monitoring Redis through its CLI, you should also monitor the size of the Redis data files (in default directory<em> /var/lib/redis/</em>) to ensure files are not growing excessively.</p>
+    </body>
+</html>

@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="1662" MadCap:lastWidth="768">
+    <head>
+    </head>
+    <body>
+        <h1>hsstool ls</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Command]</p>
+        <p>This <MadCap:xref href="hsstoolOverview.htm" target="_popup">hsstool </MadCap:xref> command returns a physical node’s list of HyperStore data mount points, the list of vNodes assigned to each mount point, and the current disk usage per mount point.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Command Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>You can run the <em>hsstool ls</em> command through the CMC UI:</p>
+                <p>
+                    <img src="../../Resources/Images/cmc/cluster/Advanced_ls.png" style="max-width: 8.00in;" />
+                </p>
+                <p>Or on the command line:</p><pre xml:space="preserve">[root]# /opt/cloudian/bin/hsstool [-h &lt;host&gt;] ls</pre>
+                <h3>Parameters</h3>
+                <p>This command supports only this parameter:</p>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>-h &lt;host&gt; (called "Target Node" in CMC UI)</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Optional on command line; mandatory in CMC) Target host for which to retrieve each mount point’s vNode list and disk usage information. Defaults to local host if you do not supply <em>-h &lt;host&gt;</em> on the command line.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Command/Response Example  and Response Description</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The <em>ls</em> command example below shows a response from a host that has only one disk for HyperStore data storage. On that disk, the HyperStore data is stored in the default HyperStore data directory<em> /var/lib/cloudian</em>. The command response snippet below is truncated; the actual response would list all the vNodes assigned to the data directory mount point. Response item descriptions follow the example.</p><pre xml:space="preserve">[root]# /opt/cloudian/bin/hsstool -h cloudian-node1 ls
+device  mount-point     total(KB)       available(KB)
+/dev/mapper/vg0_root  /     6765108  3058160
+/var/lib/cloudian:
+141316751540180598640305605509098079201 hsfs/3Ec1lIGYv7x5UZpsc92xLV
+19949940977513222423523370696251817296 hsfs/SJtjUfWcnOMR7Kd0x2nD6
+162976477770944122412606063101867655935 hsfs/3jMPhSTqCBRchm1kBAJgFD
+96934041981041406335044936626498694215 hsfs/2DbfkYKMLZ9Npwnazj8j4h
+23966431766852587419093045016634893942 hsfs/Y1PVEO5tUA3npGNGTfXi2
+106681672305937982418959292485150570964 hsfs/2RRc2AM8Mhkk5IlQW3vje8
+...
+...</pre>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">In a typical production environment, each host would have multiple disks that are mounted for HyperStore data storage. The ls command will return information for each such disk on the host.</p>
+                <p>For each disk on the target node, the <em>ls</em> command results display the following items:</p>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>Device name</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Device name of the disk drive</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>Mount point</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Mount point of the device</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>Total capacity of the disk, in KBs</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Remaining available capacity of the disk, in KBs</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>vNode list</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>For each HyperStore data mount point, the lower section of the ls command response lists all the vNodes assigned to that mount point. Each vNode is identified by its token number. Beside each vNode number is the HSFS directory corresponding to that vNode, in format <em>/hsfs/&lt;base62-encoded-vNode-token&gt;</em>. For more information on S3 storage directory structure see <MadCap:xref href="../../Introduction/HyperStore Services/ServicesHyperStore.htm" target="_popup">HyperStore Service and the HSFS</MadCap:xref>.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

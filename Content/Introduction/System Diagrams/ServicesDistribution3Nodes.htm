@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="1097" MadCap:lastWidth="1007">
+    <head>
+    </head>
+    <body>
+        <p>
+            <MadCap:keyword term="03. Services Distribution -- 3 Nodes, Single DC" />
+        </p>
+        <h1>Services Distribution -- 3 Nodes, Single DC</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Diagram]</p>
+        <p>Proper distribution of HyperStore service components across multiple physical nodes is handled automatically by the HyperStore installer. The diagram below shows a typical HyperStore services distribution in a three-node cluster within a single data center (DC). Things to note:</p>
+        <ul>
+            <li>On every node in your cluster are the S3 Service, Admin Service, HyperStore Service, Cassandra, CMC, Puppet Agent, and Monitoring Agent. These collectively are labeled as "COMMON SERVICES" in the diagram.</li>
+            <li>For each specialized service that has a primary instance and a backup instance (such as Puppet Master or Redis Monitor), the backup resides on a different node than the primary. Likewise the Redis QoS slave will reside on a different node than the Redis QoS master, and the two Redis Credentials slaves will reside on different nodes than the Redis Credentials master.</li>
+            <li>If you have a larger cluster in a single DC, you will still have the same number of specialized service instances as shown in the diagram (for example, one primary Cronjob instance and one backup instance) — the only difference is that this fixed set of specialized service instances will be spread across your cluster rather than concentrated among three nodes as shown in the diagram.</li>
+        </ul>
+        <p>
+            <img src="../../Resources/Images/diagrams/HyperStore_Physical_3-node.png" />
+        </p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">For information about the exact location of services in your HyperStore system, log into the CMC and go to the <MadCap:xref href="../../CMC Interface/Cluster/Cluster Information/ClusterInformationOverview.htm">Cluster Information</MadCap:xref> page.<br /><br />The system allows you to move services from one host to another, if you wish to do so. For instructions see <MadCap:xref href="../../Operations/Change Node Role/ChangeNodeRoleOverview.htm">Change Node Role Assignments</MadCap:xref>.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">If you have a very large cluster (25 nodes or more in a data center), consult with Cloudian Support about whether you should add more Redis Credentials slaves. For instructions on adding Credentials slaves, see <MadCap:xref href="../../Operations/Change Node Role/MoveRedisCredentialsSlave.htm">Move or Add a Redis Credentials Slave</MadCap:xref>.</p>
+        <p><b>See Also:</b>
+        </p>
+        <ul>
+            <li>
+                <MadCap:xref href="ServicesDistributionMultiDC.htm">Services Distribution -- Multi-DC, Single Region</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="ServicesDistributionMultiRegion.htm">Services Distribution -- Multi-Region</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

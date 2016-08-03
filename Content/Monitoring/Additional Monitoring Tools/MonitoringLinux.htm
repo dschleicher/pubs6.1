@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="494" MadCap:lastWidth="841">
+    <head>
+    </head>
+    <body>
+        <h1>Using Native Linux Utilities for System Resource Monitoring</h1>
+        <p>The Linux OS on which the HyperStore system runs includes several useful commands for checking on system resource utilization on individual host machines. For example, the <em>top</em> command returns a summary of host-wide resource utilization as well as a breakdown of resource usage per process. Using <em>top -c</em> (which returns more information in the "Command" column than <em>top</em> alone) makes it easier to distinguish between the several Java-based HyperStore processes that will be running on each host — including Cassandra, the S3 Service (cloudian_s3), the Admin Service (cloudian_admin), the HyperStore Service (storage_s3), and the CMC (tomcat).</p>
+        <p>Important statistics are the memory usage and CPU usage:</p>
+        <ul>
+            <li>VIRT: Virtual memory.</li>
+            <li>RES: Resident memory. VIRT minus RES is the amount of memory swapped out.</li>
+            <li>%CPU: Percentage of CPU used</li>
+        </ul>
+        <p>Other useful Linux utilities for monitoring system resource usage include:</p>
+        <ul>
+            <li><em>vmstat</em>
+            </li>
+            <li><em>iostat</em>
+            </li>
+            <li><em>dstat</em>
+            </li>
+        </ul>
+    </body>
+</html>

@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="1052" MadCap:lastWidth="629">
+    <head>
+    </head>
+    <body>
+        <h1>Quality of Service Settings</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[CMC Interface]</p>
+        <p>The settings in this section of the CMC’s <b><a href="../../../Resources/Images/cmc/cluster/ConfigurationSettings.png" target="_popup">Configuration Settings</a></b> page configure the HyperStore system’s quality of service (QoS) feature. After making any edits, click <b>Save</b> at the bottom of the page to dynamically apply the configuration change to the cluster.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">For an overview of the HyperStore QoS feature, see <MadCap:xref href="../../../Major Features/Quality of Service/QosOverview.htm" target="_popup">Quality of Service (QoS) Feature Overview</MadCap:xref>.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="Enforce_Configured_QoS_Limits_for_Storage_Utilization"></a>Enforce Configured QoS Limits for Storage Utilization</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>If this setting is <b>enabled</b> the system will enforce Quality of Service (QoS) limits for number of stored bytes and number of stored objects, if you have <a href="../../Users &amp; Groups/SetQoS.htm" target="_popup">set such limits for users and groups</a>.</p>
+                <p>If this setting is <b>disabled</b> the system will not enforce any QoS limits, even if you have set such limits for users and groups.</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">To enforce QoS limits for stored bytes and number of stored objects <b>but not</b> QoS limits for HTTP request rate, bytes-in rate, and bytes-out rate, set:<br /><br /><em>Enforce Configured QoS Limits for Storage Utilization</em> = enabled<br /><em>Enforce Configured QoS Limits for Request Rates and Data Transfer Rates</em> = disabled<br /><br />To enforce QoS limits for stored bytes and number of stored objects <b>and also</b> QoS limits for HTTP request rate, bytes-in rate, and bytes-out rate, set:<br /><br /><em>Enforce Configured QoS Limits for Storage Utilization</em> = enabled<br /><em>Enforce Configured QoS Limits for Request Rates and Data Transfer Rates</em> = enabled</p>
+                <p>Enforcing QoS for traffic rates but not for stored bytes and objects is not supported at the system configuration level. If you want to use QoS in this way, set both of the QoS enforcement settings to enabled, then when you’re configuring QoS limits for groups and users set the stored bytes and objects controls to unlimited and the rate controls to your desired levels.</p>
+                <p>Default = Disabled</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="Enforce_Configured_QoS_Limits_for_Request_Rates_and_Data_Transfer_Rates"></a>Enforce Configured QoS Limits for Request Rates and Data Transfer Rates</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>If this setting is <b>enabled</b> the system will enforce QoS limits for HTTP request rate, bytes-in rate, and bytes-out rate, if you have <a href="../../Users &amp; Groups/SetQoS.htm" target="_popup">set such limits for users and groups</a>.</p>
+                <p>If this setting is <b>disabled</b>, then the system will not enforce HTTP request rate, bytes-in rate, and bytes-out rate limits, even if you have set such limits for users and groups.</p>
+                <p>Enabling this setting is supported only if the <em>Enforce Configured QoS Limits for Storage Utilization</em> setting is also enabled.</p>
+                <p>Default = Disabled</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

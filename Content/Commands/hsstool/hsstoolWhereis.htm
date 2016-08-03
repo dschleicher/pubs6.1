@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="8" MadCap:lastHeight="4250" MadCap:lastWidth="819">
+    <head>
+    </head>
+    <body>
+        <h1>hsstool whereis</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Command]</p>
+        <p>This <MadCap:xref href="hsstoolOverview.htm" target="_popup">hsstool </MadCap:xref> command returns the current storage location of  each replica of a specified S3 object (or in the case of erasure coded objects, the location of  each of the object’s fragments). The command response also shows the specified object's metadata such as last modified timestamp and object digest.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Command Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>You can run the <em>hsstool whereis</em> command through the CMC UI:</p>
+                <p>
+                    <img src="../../Resources/Images/cmc/cluster/Advanced_whereis.png" style="max-width: 8.00in;" />
+                </p>
+                <p>Or on the command line:</p><pre xml:space="preserve">[root]# /opt/cloudian/bin/hsstool [-h &lt;host&gt;] whereis &lt;bucket&gt;/&lt;object&gt; [-v &lt;version&gt;]
+
+OR
+
+[root]# /opt/cloudian/bin/hsstool [-h &lt;host&gt;] whereis -a</pre>
+                <h3>Parameters</h3>
+                <p>This command supports these parameters:</p>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>-h &lt;host&gt; (called "Target Node" in CMC UI)</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Optional on command line; mandatory in CMC) You can use any node in the storage cluster as the target host. The  command retrieves information that is available via any node that belongs to the cluster. Defaults to local host if you do not supply <em>-h &lt;host&gt;</em> on the command line.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>&lt;bucket&gt;/&lt;object&gt;</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Mandatory unless using the <em>-a</em> option) Bucket name, followed by a forward slash, followed by the full object name (including "folder path", if any). For example, <em>mybucket/file1.txt </em>or <em>mybucket/Videos/Vacation/Italy_2016-06-27.mpg</em>.</p>
+                        <p>If the object name has spaces in it, enclose the <em>bucket/object</em> name pair in quotes. For example, <em>"mybucket/big document.doc".</em> <![CDATA[ ]]></p>
+                        <p>The <em>bucket/object</em> name is case-sensitive.</p>
+                        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">In the CMC UI implementation of this command, you enter the bucket name and the full object name (including folder path) in separate fields. For example, bucket name <em>mybucket</em> and full object name <em>Videos/Vacation/Italy_2016-06-27.mpg</em>.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>-v &lt;version&gt;</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Optional) Version ID of the object, if versioning has been used for the object. Versions are identified by <em>timeuuid</em> values in hexadecimal format (for example, "fe1be647-5f3b-e87f-b433-180373cf31f5"). If versioning has been used for the object but you do not specify a version number in this field, the operation returns location information for the most recent version of the object.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>-a</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Optional) Use the <em>-a</em> option if you want a full list of <b>all replicas of all objects in the entire service region</b>. This information will be written to a log file. For more information on the log file, see <MadCap:xref href="#WhereisLogfile">Log File for "whereis -a"</MadCap:xref> below.</p>
+                        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">The CMC does not support the <em>-a</em> option. To use this option you need to use <em>hsstool whereis</em> on the command line.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot><a name="Command/"></a>Command/Response Example  and Response Description</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The <em>whereis</em> command example below retrieves location information for a an object named "object2.txt". There are three replicas of the object in the system. Response item descriptions follow the example.</p><pre xml:space="preserve">[root]# /opt/cloudian/bin/hsstool -h cloudian-node1 whereis pubs.bucket/object2.txt
+Key: pubs.bucket/object2.txt
+Policy ID: d8d492e9482859017701fee7ff94b649
+Version: null
+Create Time: 2015-12-09T16:46:53.409Z
+Last Modified: 2015-12-09T16:46:53.409Z
+Last Access Time: 2015-12-09T16:46:53.428Z
+Size: 556
+Type: REPLICAS
+[DC1 10.50.200.201 vm1] pubs.bucket/object2.txt file://10.50.200.201:/cloudian1/hsfs/
+1jamLybV6jaoW9PYjdBL14/d8d492e9482859017701fee7ff94b649/
+008/022/75564101245606568843264719989271142664.1449679613409
+Last Modified:2015-12-09T16:46:53.409Z Version:null Digest:f0875d672f76c3c7f8626874000691ce
+[DC1 10.50.200.203 vm3] pubs.bucket/object2.txt file://10.50.200.203:/cloudian11/hsfs/
+1kdvre9gjLjrtawIABKf0H/d8d492e9482859017701fee7ff94b649/008/022/
+75564101245606568843264719989271142664.1449679613409
+Last Modified:2015-12-09T16:46:53.409Z Version:null Digest:f0875d672f76c3c7f8626874000691ce
+[DC1 10.50.200.206 vm6] pubs.bucket/object2.txt file://10.50.200.206:/cloudian6/hsfs/
+1lBJbme4ntOEW7fwVxBo5u/d8d492e9482859017701fee7ff94b649/008/022/
+75564101245606568843264719989271142664.1449679613409
+Last Modified:2015-12-09T16:46:53.409Z Version:null Digest:f0875d672f76c3c7f8626874000691ce</pre>
+                <p>The <em>whereis</em> command results consist of the following items:</p>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>Key</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Key that uniquely identifies the S3 object, in format <em>&lt;bucketname&gt;/&lt;objectname&gt;</em>. For example, <em>bucket1/Documents/Meetings_2016-06-27.docx</em>.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>PolicyID</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>System-generated identifier of the storage policy that applies to the bucket in which this object is stored.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>Version</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Object version, if versioning has been used for the object. Versions are identified by timeuuid values in hexadecimal format. If versioning has not been used for the object, the Version field displays "null".</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>Create Time</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Timestamp for the original creation of the object. Format is ISO 8601 and the time is in Coordinated Universal Time (UTC).</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>Last Modified</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Timestamp for last modification of the object. Format is ISO 8601 and time is in UTC.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>Last Access Time</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Timestamp for last access of the object. An object’s Last Access Time is updated if the object is accessed either for retrieval (GET or HEAD) or modification (PUT/POST/Copy). Format is ISO 8601 and time is in UTC.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>Size</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>The object’s size in bytes.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>Type</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>One of:</p>
+                        <ul>
+                            <li>REPLICAS — The object is replicated in the HyperStore File System (HSFS).</li>
+                            <li>EC — The object is erasure coded in the HSFS.</li>
+                            <li>TRANSITIONED — The object has been transitioned (<a href="../../Major Features/Auto-Tiering/AutoTieringOverview.htm" target="_popup">auto-tiered</a>) to a different storage system such as Amazon S3.</li>
+                        </ul>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>URL</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>This field appears only in the case of TRANSITIONED objects. For such objects, this field shows the URL that identifies the location of the object in the tiering destination system. For example:</p><pre>http://s3.amazonaws.com/bucket2.mdazyjgxnjyxndu2ody4mji1nty3/notes.txt</pre>
+                        <p>In this example, the tiering destination is Amazon S3; the bucket name in the destination system is <em>bucket2.mdazyjgxnjyxndu2ody4mji1nty3</em> (which is the HyperStore source bucket name — <em>bucket2</em> in this case — appended by a 28 character random string); and the object name is <em>notes.txt</em>. Note that the URL field will specify the transfer protocol as <em>http</em>, whereas to actually access the object in the destination system the protocol would typically be <em>https</em>.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>Location detail</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>For objects stored locally (objects that are not of type TRANSITIONED), the lower part of the whereis response shows the location of each object replica (for replicated objects) or of each erasure coded object fragment (for EC objects).</p>
+                        <p>For HSFS replicated objects each location is specified as:</p><pre xml:space="preserve">[&lt;datacenter&gt; &lt;IP-address&gt; &lt;hostname&gt;] &lt;objectname&gt; file://&lt;IP-address&gt;:&lt;mountpoint&gt;/hsfs/
+&lt;base62-encoded-vNode-token&gt;/&lt;policyid&gt;/&lt;000-255&gt;/&lt;000-255&gt;/&lt;filename&gt;</pre>
+                        <p>For replicas the object’s Last Modified timestamp, version, and MD5 digest are indicated as well.</p>
+                        <p>For erasure coded object fragments each location is specified as:</p><pre xml:space="preserve">&lt;datacenter&gt; &lt;key-suffix-digit&gt; &lt;IP-address&gt; &lt;hostname&gt; ec://&lt;IP_address&gt;:&lt;mountpoint&gt;/ec/
+&lt;base62-encoded-vNode-token&gt;/&lt;policyid&gt;/&lt;000-255&gt;/&lt;000-255&gt;/&lt;filename&gt;</pre>
+                        <ul>
+                            <li>The <em>&lt;base62-encoded-vNode-token&gt;</em> is a base-62 encoding of the token belonging to the vNode to which the object instance or fragment is assigned (for background information see <MadCap:xref href="../../Introduction/System Diagrams/vNodes.htm">How vNodes Work</MadCap:xref>). </li>
+                            <li>The <em>&lt;policyid&gt;</em> segment is the unique identifier of the storage policy applied to the bucket in which the object is stored. </li>
+                            <li>The two <em>&lt;000-255&gt;</em> segments of the path are based on a hash of the <em>&lt;filename&gt;</em>, normalized to a 255*255 number. </li>
+                            <li>The <em>&lt;filename&gt;</em> is a dot-separated concatenation of the object’s hash token and the object’s Last Modified timestamp expressed as Unix time in milliseconds. </li>
+                            <li>For EC objects only, the <em>&lt;key_suffix_digit&gt;</em> at the beginning of each location is a digit that the system generates and uses to ensure that each fragment goes to a different node.</li>
+                        </ul>
+                        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">If an object replica is supposed to be on a node (according to system metadata) but is missing, the node’s IP address is listed in the <em>whereis</em> results along with a message stating "0 replication found" For example, "[10.10.3.52] 0 replication found". This particular feature does not apply for missing erasure coded fragments — <em>whereis</em> will not report missing fragments.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot><a name="WhereisLogfile"></a>Log File for "whereis -a"</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>When you use the <em>whereis -a</em> command, information about all replicas of all objects in the entire service region is written to a log file. The log file is written on the HyperStore host that you connect to when you run <em>whereis -a</em>, and by default the log file path is:</p><pre>/var/log/cloudian/whereis.log</pre>
+                <p>This is the same directory in which other HyperStore S3 logs are written. The S3 log directory path is configurable by the setting <MadCap:xref href="../../System Configuration/Configuration Files/CommonCsv.htm#cloudian_log_directory" target="_popup">cloudian_log_directory</MadCap:xref> in <em>common.csv</em>.</p>
+                <p>By default the maximum log file size before rolling is 10MB. This is configurable in the <em>WHEREIS-APPENDER</em> section of the <em>log4j-tools.xml.erb</em> file.</p>
+                <p>In the <em>whereis.log</em> file, the start and completion of the output from a single run of <em>whereis -a</em> is marked by "START"and "END" timestamps. Within those timestamps, the output is organized by user. The start of output for a particular user is marked by "#user:&lt;canonical UID&gt;". This line is then followed by lines for the user’s buckets and objects. Users who do not have any buckets will not be included in the log file.</p>
+                <p>The output of multiple runs of <em>whereis -a </em>may be written to the same log file, depending on the size of the output and on your configuration for log file rolling. Because the output of <em>whereis -a</em> may be very large, it’s possible that the output of a single run may be spread across multiple log files, if maximum file size is reached and log rolling occurs.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

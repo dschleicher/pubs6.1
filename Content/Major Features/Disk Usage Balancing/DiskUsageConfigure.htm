@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="767" MadCap:lastWidth="841">
+    <head>
+    </head>
+    <body>
+        <h1>Configuring Disk Usage Balancing</h1>
+        <p>With the disk usage balancing feature there are the questions of how often to check the disk usage balance on each host and what degree of imbalance should trigger a token migration. Both of these factors are configurable.</p>
+        <p>By default, each node is checked for disk imbalance every 7 days, and token migration is triggered if a disk’s utilization percentage exceeds the average disk utilization percentage of all the host HyperStore data disks by more than 5%. For example, if the average disk space utilization for all HyperStore disks on a host is 35%, and the disk space utilization for DiskA is 43%, then one or more tokens will be migrated away from DiskA to other disks on the host (since the actual delta of 8% exceeds the maximum allowed delta of 5%).</p>
+        <p>The settings for adjusting the frequency of the disk balance check or the delta that triggers disk migration are in <em>hyperstore-server.properties.erb</em> on your Puppet master node:</p>
+        <ul>
+            <li>
+                <MadCap:xref href="../../System Configuration/Configuration Files/HyperstoreServerProperties.htm#disk.check.interval" target="_popup">disk.check.interval</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="../../System Configuration/Configuration Files/HyperstoreServerProperties.htm#disk.balance.delta" target="_popup">disk.balance.delta</MadCap:xref>
+            </li>
+        </ul>
+        <p>After editing either of these settings, do the following to apply your change to the cluster:</p>
+        <ol>
+            <li>Launch the HyperStore installer:</li>
+        </ol>
+        <div class="Indent"><pre>root# &lt;installation-staging-directory&gt;/cloudianInstall.sh</pre>
+        </div>
+        <ol MadCap:continue="true">
+            <li>From the installer’s main menu, select "Cluster Management". Then from the "Cluster Management" menu select "Push Configuration Settings to Cluster" and follow the prompts.</li>
+            <li>From the "Cluster Management" menu, select "Manage Services". Then from the "Service Management" menu, restart the HyperStore Service.</li>
+        </ol>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">The disk usage balancing feature applies only to HyperStore data disks (where S3 object data is stored). It does not apply to disks that store only Cassandra, Redis, or the OS.<br /><br />If a disk becomes <b>100% full</b>, all of that disk’s tokens are automatically and immediately moved to non-full disks on the host, regardless of the degree of usage delta between the full disk and the other disks. The S3 object data on the disk remains readable — it is not disabled — but no additional data will be written to the disk.</p>
+    </body>
+</html>

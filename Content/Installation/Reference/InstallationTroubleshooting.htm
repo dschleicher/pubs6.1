@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="7" MadCap:lastHeight="1903" MadCap:lastWidth="802">
+    <head>
+    </head>
+    <body>
+        <h1>Installation Troubleshooting</h1>
+        <h2>Installation Logs</h2>
+        <p>When you run the HyperStore installer it generates the following logs that may be helpful for troubleshooting installation problems:</p>
+        <p>On the Puppet master node (on which you’re running the install script):</p>
+        <ul>
+            <li><em>&lt;installation-staging-directory&gt;/cloudian-installation.log</em>
+            </li>
+            <li><em>/var/log/puppetserver/puppetserver.log</em>
+            </li>
+        </ul>
+        <p>On each Puppet agent node (each node on which you’re installing HyperStore):</p>
+        <ul>
+            <li><em>/tmp/puppet_agent.log</em>
+            </li>
+        </ul>
+        <p>Scanning these logs for error or warning messages should help you identify the stage at which the installation encountered a problem, and the nature of the problem. This information can further your own troubleshooting efforts, and also can help Cloudian Support pinpoint the problem in the event that you need assistance from Support.</p>
+        <h2>Debug Mode</h2>
+        <p>Another potentially useful source of troubleshooting information is to run the installer in debug mode:</p><pre>[root]# &lt;installation-staging-directory&gt;/cloudianInstall.sh -d</pre>
+        <p>For example, if you encounter an error while running the installer in regular (non-debug) mode, you can exit the installer menu and then launch the installer again in debug mode. You can then either re-execute the installation starting from the beginning, or re-execute the installation starting from the step that had previously failed. The Install Cloudian HyperStore sub-menu will let you choose from:</p>
+        <ul>
+            <li>a) Specify Nodes, Check Connectivity</li>
+            <li>b) Specify Cluster Configuration</li>
+            <li>c) Install Packages and Configure Nodes [includes Run Puppet]</li>
+            <li>d) Load Schema and Start Services</li>
+        </ul>
+        <p>When run in debug mode, the installer will write highly granular messages to both the console and the installation log (<em>cloudian-installation.log</em>).</p>
+        <h2>Specific Issues</h2>
+        <h3>Issue</h3>
+        <p>You encounter the following warnings:</p><pre xml:space="preserve">Warning: Could not retrieve fact fqdn
+Warning: Host is missing hostname and/or domain: cloudian-singlenode</pre>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot style="font-weight: bold;">Solution</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>As suggested by the warning messages, the domain part is missing for the host named "cloudian-singlenode". To resolve this edit the <em>/etc/hosts</em> file or <em>/etc/resolv.conf</em> file.</p>
+                <ol>
+                    <li>Edit the <em>/etc/hosts</em> file and make sure the following entry exists:</li>
+                </ol>
+                <div class="Indent"><pre xml:space="preserve">Ip-address   cloudian-singlenode.MyDomain.Com  cloudian-singlenode</pre>
+                    <ul>
+                        <li><em>Ip-address</em> should be replaced with host’s real IP address</li>
+                        <li><em>MyDomain.Com</em> should be replaced with your domain name of choice.</li>
+                    </ul>
+                </div>
+                <ol MadCap:continue="true">
+                    <li>Edit the <em>/etc/resolv.conf</em> file and make sure the following entry exists:</li>
+                </ol>
+                <div class="Indent"><pre>Domain MyDomain.Com</pre>
+                    <p><em>MyDomain.Com</em> should be replaced with your domain name of choice.</p>
+                </div>
+                <p>Verify that the <em>facter fqdn</em> and <em>hostname –f</em> commands output ‘ cloudian-singlenode.MyDomain.Com’ to the console.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <h3>Issue</h3>
+        <p>Puppet is unable to propagate configuration settings to the agent nodes, and in the <em>puppet_agent.log</em> and/or <em>puppet_server.log</em> you see errors indicating certificate problems or access failures.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot style="font-weight: bold;">Solution</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Try going to the installer’s "Advanced Options" sub-menu and executing task [g] — "Remove Existing Puppet SSL Certificates". Then go back to the main menu and choose the appropriate action below, depending on what you were doing when you encounted the Puppet run failure:</p>
+                <ul>
+                    <li>If you are doing the initial installation of your HyperStore cluster, choose "Install Cloudian HyperStore", then execute task "Install Packages and Configure Nodes [includes Run Puppet]".</li>
+                    <li>If you are performing post-installation configuration tasks, choose "Cluster Management", then execute task "Push Configuration Settings to the Cluster [Run Puppet]".</li>
+                </ul>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <h3>Issue</h3>
+        <p>While working with the installation script, you get a console message indicating that Puppet access is locked.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot style="font-weight: bold;">Solution</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The Puppet process can sometimes end up left in a "locked" state if a Puppet run is interrupted, such as by a Ctrl-&lt;c&gt; command or a host shutdown.</p>
+                <p>To unlock Puppet, go to the installer’s "Advanced Options" sub-menu and execute task [i] — "Remove Puppet Access Lock". Then go back to the main menu and choose the appropriate Puppet-running action below, depending on what you were doing when you encountered the Puppet lock error:</p>
+                <ul>
+                    <li>If you are doing the initial installation of your HyperStore cluster, choose "Install Cloudian HyperStore", then execute task "Install Packages and Configure Nodes [includes Run Puppet]".</li>
+                    <li>If you are performing post-installation configuration tasks, choose "Cluster Management", then execute task "Push Configuration Settings to the Cluster [Run Puppet]".</li>
+                </ul>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="10" MadCap:lastHeight="3922" MadCap:lastWidth="811">
+    <head>
+    </head>
+    <body>
+        <h1>System Settings</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[CMC Interface]</p>
+        <p>The settings in this section of the CMC’s <b><a href="../../../Resources/Images/cmc/cluster/ConfigurationSettings.png" target="_popup">Configuration Settings</a></b> page configure storage system operations. After making any edits, click <b>Save</b> at the bottom of the page to dynamically apply the configuration change to the cluster.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="Max_Connections_from_One_S3_Service_Node_to_All_HyperStore_Service_Node"></a>Max Connections from One S3 Service Node to All HyperStore Service Nodes</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The maximum allowed number of concurrently open connections between <b>each S3 Service node and all HyperStore Service nodes, combined</b>. This allows you to limit the traffic load between each front-end S3 Service node (as it processes incoming requests from S3 clients) and the whole back-end HyperStore storage layer.</p>
+                <p>Note that each of your S3 Service nodes has its own pool of connections to the HyperStore storage layer, so the total possible connections from the front-end S3 Service as a whole to the back-end HyperStore storage layer as a whole would be the number of S3 Service nodes multiplied by the value of "Max Connections from One S3 Service Node to All HyperStore Service Nodes".</p>
+                <p>Default = 600</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="Max_Connections_from_One_S3_Service_Node_to_One_HyperStore_Service_Node"></a>Max Connections from One S3 Service Node to One HyperStore Service Node</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The maximum allowed number of concurrently open connections between <b>each S3 Service node and each HyperStore Service node</b>. This allows you to limit the traffic load between each front-end S3 Service node (as it processes incoming requests from S3 clients) and any single HyperStore Service node.</p>
+                <p>Note that each of your S3 Service nodes has its own pool of connections to the HyperStore storage layer, so the total possible connections from the S3 Service as a whole to a single HyperStore Service node would be the number of S3 Service nodes multiplied by the value of "Max Connections from One S3 Service Node to One HyperStore Service Node".</p>
+                <p>Default = 200</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="Object_Size_Threshold_for_Storing_in_OS_File_System_Rather_Than_Cassandra"></a>Object Size Threshold for Storing in OS File System Rather Than Cassandra</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>S3 objects <b>larger than this many bytes</b> will be stored in the Linux file system.</p>
+                <p>S3 objects <b>equal to or smaller than this many bytes</b> will be stored in the Cassandra DB.</p>
+                <p>By default, this threshold is set to 0 so that all S3 objects are stored in the Linux file system, and none are stored in Cassandra. With this approach, Cassandra is used exclusively for storing various types of metadata. This makes certain cluster maintenance operations, such as repair of S3 object data, simpler than if small S3 objects are stored in Cassandra while large objects are stored in the file system.</p>
+                <p>For background information, see <MadCap:xref href="../../../Introduction/HyperStore Services/ServicesHyperStore.htm" target="_popup">HyperStore Service and the HSFS</MadCap:xref>.</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">The threshold setting must not be larger than the "Object Max Storage Chunk Size" setting. Also, for performance reasons, it’s recommended that the HyperStore Size Threshold setting not be larger than 5MB.</p>
+                <p>Default = 0</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="HyperStore_Compression_Type"></a>HyperStore Compression Type</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The type of compression to use for S3 objects stored in the HyperStore file system. This applies to replicated S3 object data and erasure coded S3 object data stored in the HyperStore file system. It does not apply to data stored in Cassandra.</p>
+                <p>Supported options are:</p>
+                <ul>
+                    <li><a href="http://google.github.io/snappy/" target="_blank">Snappy</a>
+                    </li>
+                    <li><a href="http://zlib.net/" target="_blank">Zlib</a>
+                    </li>
+                    <li><a href="https://github.com/Cyan4973/lz4" target="_blank">LZ4</a>
+                    </li>
+                    <li>None (no compression)</li>
+                </ul>
+                <p>When enabled, compression is applied to incoming S3 objects by the S3 Service, before those objects are transmitted to the HyperStore Service and placed into storage. Any change that you make to the HyperStore Compression Type — such as changing it from disabled to a particular compression type, or from one compression type to another — is applied only to new S3 objects as they come into the system, not retroactively to objects that are already stored in the system.</p>
+                <p>Each object’s compression type (if any) is stored in the object’s metadata in Cassandra. Consequently, if for example you use Snappy for a while and then switch to LZ4, those objects that had been compressed with Snappy will continue to have in their metadata an indicator that they were compressed with Snappy — and so the system will be able to de-compress the objects when they are downloaded by S3 client applications.</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">For S3 service usage tracking (for purposes of QoS enforcement and billing), the <b>uncompressed</b> size of objects is always used, even if you enable HyperStore compression.<br /><br />For a <MadCap:xref href="../../../S3 API Support/OperationsObjects/PutObjectCopy.htm" target="_popup">PUT Object - Copy</MadCap:xref> operation, the copy of the object will be subject to whatever the <b>current</b> HyperStore Compression Type setting is (which may be different than the setting that was in effect when the original object was uploaded).</p>
+                <p>Default = None</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="Chunk_Size_for_Replicated_Objects_(Bytes)"></a>Chunk Size for Replicated Objects (Bytes)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>For large objects that are subject to a replication storage policy, as a performance optimization the HyperStore system breaks the objects into multiple chunks before replicating and storing them. This property sets the maximum size of a single chunk, in bytes. If an uploaded object subject to replication is larger than this, the system will first divide the object data into chunks. Each chunk will then be replicated in accordance with the storage policy that applies to that object.</p>
+                <p>For example, suppose that the configured chunk size is 10MB, and that a 25MB object is uploaded to a bucket that uses 3X replication. The system will first divide the object data into three chunks of size 10MB, 10MB, and 5MB, and each of those chunks will then be replicated three times. For each chunk, its three replicas will each be stored on a different node so as to safeguard the chunk’s durability and availability.</p>
+                <p>On reads, the system reassembles the object from its chunks.</p>
+                <p>Default = 10485760</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="Chunk_Size_for_Erasure_Coded_Objects_(Bytes)"></a>Chunk Size for Erasure Coded Objects (Bytes)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>For large objects that are subject to an erasure coding storage policy, as a performance optimization the HyperStore system breaks the objects into multiple chunks before erasure coding and storing them. This property sets the maximum size of a single chunk, in bytes. If an uploaded object subject to erasure coding is larger than this, the system will first divide the object data into chunks. Each chunk will then be erasure coded in accordance with the storage policy that applies to that object.</p>
+                <p>For example, suppose that the configured chunk size is 40MB, and that a 100MB object is uploaded to a bucket that uses 4+2 erasure coding. The system will first divide the object data into three chunks of size 40MB, 40MB, and 20MB. Each of those chunks will then be subjected to 4+2 erasure coding. For example the first 40MB chunk will be erasure coded into six 10MB fragments, each of which will be stored on a different node.</p>
+                <p>On reads, the system decodes each chunk from its fragments and then reassembles the object from its chunks.</p>
+                <p>Default = 41943040</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="HyperStore_Disk_Failure_Action"></a>HyperStore Disk Failure Action</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The automated action for the system to take in the event that read or write errors occur for a particular HyperStore data disk. Supported automated actions are:</p>
+                <ul>
+                    <li><b>Disable Disk and Move its Tokens</b> — With this setting, if disk errors are detected the system will automatically unmount the disk and mark it as disabled. The system will also automatically transfer the disabled disk’s vNodes (tokens) to the remaining disks on the host, in an approximately balanced way. Writes of new or updated S3 object data that would have gone to the disabled disk will now start going to the other disks on the host instead. Note that the existing data on the disabled disk will not be moved; the migration of the tokens will only impact writes of new data.</li>
+                </ul>
+                <div class="Indent">
+                    <p>When a disk has been automatically disabled in this manner, the disk’s status will be indicated as "Disabled" in the <a href="../Node Status/NodeStatusDisks.htm" target="_popup">Disk Detail Info</a> section of the CMC’s <b>Node Status</b> page.</p>
+                    <p>When you subsequently re-enable or replace the disk, the tokens will automatically be moved back to the re-enabled or replacement disk.</p>
+                    <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">When moving tokens away from a disabled disk or back to a re-enabled or replacement disk, HyperStore uses a low-impact token migration technology called <MadCap:xref href="../../../Major Features/Disk Usage Balancing/DiskUsageOverview.htm#Dynamic" target="_popup">Dynamic Object Routing</MadCap:xref>.</p>
+                </div>
+                <ul>
+                    <li><b>Disable Disk But Do Not Move Tokens</b> — With this setting, if disk errors are detected the system will automatically unmount the disk and mark it as disabled. However, the disk’s tokens will not be transferred to other disks on the node. Consequently while the disk is disabled the host will no longer be able to support S3 object data writes to the token ranges associated with the disabled disk.</li>
+                </ul>
+                <div class="Indent">
+                    <p>This option may be acceptable if you expect to always be able to promptly replace any failed disks.</p>
+                    <p>When a disk has been automatically disabled in this manner, the disk’s status will be indicated as "Disabled - No Move" in the <a href="../Node Status/NodeStatusDisks.htm" target="_popup">Disk Detail Info</a> section of the CMC’s <b>Node Status</b> page.</p>
+                </div>
+                <p>By default, your configured automatic disk failure action will be triggered if 10 "HSDISKERROR" error messages for the disk occur in the HyperStore Service application log within a 5 minute span. This threshold is configurable by these settings in <em>hyperstore-server.properties.erb</em>:</p>
+                <ul>
+                    <li>disk.fail.error.count.threshold [XREF]</li>
+                    <li>disk.fail.error.time.threshold [XREF]</li>
+                </ul>
+                <p>Your configured automatic disk failure action will also be triggered if the HyperStore drive audit feature detects that a disk is in a read-only condition.</p>
+                <p>For instructions on <b>recovering from a disabled disk condition</b>:</p>
+                <ul>
+                    <li>To re-enable the same disk, see <MadCap:xref href="../../../Operations/ReenableDisk.htm">Re-Enabling a Disk</MadCap:xref>.</li>
+                    <li>To replace the disk with a new one, see <MadCap:xref href="../../../Operations/ReplaceDisk.htm">Replacing a Disk</MadCap:xref>.</li>
+                </ul>
+                <p>For more information on HyperStore’s feature for automatically disabling failed disks see <MadCap:xref href="../../../Major Features/Disk Failure Handling/DiskFailureOverview.htm" target="_popup">Disk Failure Handling Feature Overview</MadCap:xref>.</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">The automatic disk disabling feature works only if you have multiple HyperStore data disks on the host. If there is only one HyperStore data disk on the host, the system will not automatically disable the disk even if errors are detected.</p>
+                <p>Default = Disable Disk and Move Its Tokens</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="HyperStore_Max_Hints_Time_Limit_(Sec)"></a>HyperStore Max Hints Time Limit (Sec)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>When a node is temporarily down or otherwise unable to perform local writes of S3 object replicas, other nodes in the cluster may create and store hinted handoffs for the unavailable node. The <em>HyperStore Max Hints Time Limit</em> sets a maximum interval (in seconds) during which other nodes may create hinted handoffs for an unavailable node. The interval starts when any node in the cluster creates a first hinted handoff for the unavailable node. The timer is reset when the unavailable node comes back online and all the hinted handoffs for the node are automatically processed.</p>
+                <p>If a node is offline for <b>more than</b> this maximum interval, then:</p>
+                <ul>
+                    <li>Once the maximum interval ends no further hinted handoffs are created for the offline node, by any of the other nodes in the cluster.</li>
+                    <li>When the offline node comes back online:<ul style="list-style-type: circle;"><li>Hinted handoffs intended for the node are automatically processed.</li><li>Proactive repair of the node is automatically performed, targeting the time period from when hinted handoffs stopped being created for the node up to the time that the node came back online.</li></ul></li>
+                </ul>
+                <p>Setting this to 0 has the effect of disabling hinted hand-off so that only proactive repair is used when a node has been down and then comes back online.</p>
+                <p>For more information about hinted handoffs and proactive repair, see <MadCap:xref href="../../../Major Features/Automatic Data Repair/DataRepairOverview.htm" target="_popup">Automatic Data Repair Feature Overview</MadCap:xref>.</p>
+                <p>Default = 3600</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="HyperStore_Max_Hints_Space_Limit_(Bytes)"></a>HyperStore Max Hints Space Limit (Bytes)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Each node can locally store a maximum of this many bytes of hinted handoff data. If a coordinator node (a node processing an incoming S3 request) is unable to store a particular hinted handoff for an offline target node because doing so would exceed the coordinator node’s <em>HyperStore Max Hints Space Limit</em>, then:</p>
+                <ul>
+                    <li>That particular hinted handoff is not created on the coordinator node.</li>
+                    <li>No further hinted handoffs are created for the offline node, by any of the other nodes in the cluster.</li>
+                    <li>When the offline node comes back online:<ul style="list-style-type: circle;"><li>Hinted handoffs intended for the node are automatically processed.</li><li>Proactive repair of the node is automatically performed, targeting the time period from when hinted handoffs stopped being created for the node up to the time that the node came back online.</li></ul></li>
+                </ul>
+                <p>Setting this to 0 has the effect of disabling hinted hand-off so that only proactive repair is used when a node has been down and then comes back online.</p>
+                <p>For more information about hinted handoffs and proactive repair, see <MadCap:xref href="../../../Major Features/Automatic Data Repair/DataRepairOverview.htm" target="_popup">Automatic Data Repair Feature Overview</MadCap:xref>.</p>
+                <p>Default = 1073741824</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

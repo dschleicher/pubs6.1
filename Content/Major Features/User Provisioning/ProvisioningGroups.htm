@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="744" MadCap:lastWidth="815">
+    <head>
+    </head>
+    <body>
+        <h1>Provisioning Groups</h1>
+        <p>You can provision user groups through either the CMC or the Admin API.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Provisioning Groups (CMC)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>In the CMC’s <MadCap:xref href="../../CMC Interface/Users &amp; Groups/Manage Groups/ManageGroupsOverview.htm">Manage Groups</MadCap:xref> page you can perform group operations including:</p>
+                <ul>
+                    <li>
+                        <MadCap:xref href="../../CMC Interface/Users &amp; Groups/Manage Groups/ManageGroupsAdd.htm">Add a Group</MadCap:xref> (including assigning a rating plan as you create the group)</li>
+                    <li>
+                        <MadCap:xref href="../../CMC Interface/Users &amp; Groups/SetQoS.htm">Set Quality of Service (QoS) for Users and Groups</MadCap:xref>
+                    </li>
+                    <li>
+                        <MadCap:xref href="../../CMC Interface/Users &amp; Groups/Manage Groups/ManageGroupsRetrieve.htm">Retrieve a Group or a List of Groups</MadCap:xref>
+                    </li>
+                    <li>
+                        <MadCap:xref href="../../CMC Interface/Users &amp; Groups/Manage Groups/ManageGroupsEdit.htm">Edit a Group</MadCap:xref> (including suspending a group)</li>
+                    <li>
+                        <MadCap:xref href="../../CMC Interface/Users &amp; Groups/Manage Groups/ManageGroupsDelete.htm">Delete a Group</MadCap:xref>
+                    </li>
+                </ul>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Provisioning Groups (Admin API)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Through the HyperStore Admin API you can perform group operations including:</p>
+                <ul>
+                    <li>Create a new group: <a href="../../Admin API/Group Management/PutNewGroup.htm">PUT /group</a></li>
+                    <li>Assign a rating plan to a group: <a href="../../Admin API/Group Management/PostGroupsRatingPlanId.htm">POST /group/ratingPlanId</a></li>
+                    <li>Assign QoS limits to a group: <a href="../../Admin API/Quality of Service/PostQosLimits.htm">POST /qos/limits</a></li>
+                    <li>Retrieve a list of groups: <a href="../../Admin API/Group Management/GetGroupList.htm">GET /group/list</a></li>
+                    <li>Edit a group (including suspending a group): <a href="../../Admin API/Group Management/PostUpdatedGroup.htm">POST /group</a></li>
+                    <li>Delete a group: <a href="../../Admin API/Group Management/DeleteGroup.htm">DELETE /group</a></li>
+                </ul>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <p>&#160;</p>
+        <p><b>See Also:</b>
+        </p>
+        <ul>
+            <li>
+                <MadCap:xref href="ProvisioningUsers.htm">Provisioning Users</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="ProvisioningLdap.htm">Integrating with an LDAP System</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

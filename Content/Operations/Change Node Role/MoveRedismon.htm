@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="662" MadCap:lastWidth="841">
+    <head>
+    </head>
+    <body>
+        <h1>Move the Redis Monitor Primary or Backup Role</h1>
+        <p>The Redis Monitor runs on two nodes in your cluster, with one being the primary Redis Monitor instance and the other being a backup instance. In the event that the Redis Monitor primary goes offline the Redis Monitor backup <b>automatically</b> detects this and takes over as the active Redis Monitor.</p>
+        <p>The system supports moving the primary or backup Redis Monitor to a different host as described below.</p>
+        <ol>
+            <li>On the Puppet master node, launch the HyperStore installer.</li>
+        </ol>
+        <div class="Indent"><pre xml:space="preserve">[root]# cd &lt;your-installation-staging-directory&gt;
+[root]# ./cloudianInstall.sh</pre>
+        </div>
+        <ol MadCap:continue="true">
+            <li>From the installer’s main menu, select "Advanced Configuration Options". Then from the Advanced Configuration Options menu select "Change server role assignments".</li>
+            <li>From the Change Server Role Assignments menu select the option for the Redis Monitor instance that you want to move (Primary Redis Monitor or Backup Redis Monitor).</li>
+            <li>At the prompt specify the host to which you want to move the Redis Monitor instance.</li>
+            <li>After completing the interaction for specifying the new Redis Monitor location, return to the Change Server Role Assignments menu and select "Review cluster configuration". Then at the prompt confirm that you want to apply the updated configuration to the Puppet master.</li>
+            <li>Go to the installer’s main menu and choose "Cluster Management" → "Push Configuration Settings to Cluster" and follow the prompts.</li>
+            <li>From the "Cluster Management" menu choose "Manage Services" and restart the Redis Monitor service.</li>
+            <li>Exit the installer, then log into the CMC and go to the <a href="../../Resources/Images/cmc/cluster/ClusterInfo.png" target="_popup">Cluster Information</a> page. Review the service information section to confirm that your Redis Monitor primary and backup hosts are what you want them to be.</li>
+        </ol>
+    </body>
+</html>

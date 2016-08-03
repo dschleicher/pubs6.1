@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="1201" MadCap:lastWidth="815">
+    <head>
+    </head>
+    <body>
+        <h1>hsstool removenode</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Command]</p>
+        <p>Use this <MadCap:xref href="hsstoolOverview.htm" target="_popup">hsstool </MadCap:xref> command to remove a dead physical node from the storage cluster. When you remove the dead physical node, the data associated with each vNode on the physical node is streamed to the vNode with the next-higher token, wherever it is in the storage cluster. Because there are many vNodes per physical node, and the vNodes are distributed randomly around the cluster, a removed physical node’s data is likely to be redistributed in a balanced way to the remaining nodes in the cluster.</p>
+        <p>The operational procedure during which you would use <em>removenode </em>(if the node is dead) is:</p>
+        <ul>
+            <li>
+                <MadCap:xref href="../../Operations/RemoveNode.htm">Remove a Node</MadCap:xref>
+            </li>
+        </ul>
+        <p>Please refer to that procedure for step-by-step instructions, including the proper use of <em>removenode </em>within the context of the procedure.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Command Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>You can run the <em>hsstool removenode</em> command through the CMC UI:</p>
+                <p>
+                    <img src="../../Resources/Images/cmc/cluster/Advanced_removenode.png" style="max-width: 8.00in;" />
+                </p>
+                <p>Or on the command line:</p><pre xml:space="preserve">[root]# /opt/cloudian/bin/hsstool -h &lt;host&gt; removenode &lt;hostid&gt;</pre>
+                <h3>Parameters</h3>
+                <p>This command supports these parameters:</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">Send the command to a host other than the one that you are removing.</p>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>-h &lt;host&gt; (called "Target Node" in CMC UI)</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Mandatory) The target host must <b>not</b> be the node that you want to remove. Instead, choose any other node in the cluster. This live node will orchestrate the removal of the dead node..</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>&lt;hostid&gt;</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Mandatory) Host ID of the dead node that you want to remove from the ring. The Host ID is a hexadecimal number that uniquely identifies the physical host within the cluster. This host identifier is available in the results of the <MadCap:xref href="hsstoolStatus.htm" target="_popup">hsstool status</MadCap:xref> command.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

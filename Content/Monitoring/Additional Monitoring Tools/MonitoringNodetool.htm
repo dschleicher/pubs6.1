@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="1457" MadCap:lastWidth="815">
+    <head>
+    </head>
+    <body>
+        <h1>Using nodetool to Monitor Cassandra</h1>
+        <p>For cluster management operations you will typically use the Cloudian HyperStore utility <em>hsstool</em> rather than the native Cassandra utility <em>nodetool</em>. However, you can use <em>nodetool</em> to retrieve certain types of Cassandra performance information that’s not accessible through <em>hsstool</em>.</p>
+        <p>The <em>nodetool</em> utility resides in each Cassandra host’s <em>/opt/cassandra/bin</em> directory. From that directory, the general syntax for <em>nodetool</em> is:</p><pre>$ ./nodetool -h &lt;host&gt; [-p &lt;CassandraJMXport&gt;] &lt;COMMAND&gt;</pre>
+        <p>The Cassandra JMX port defaults to 7199.</p>
+        <p>Some <em>nodetool</em> commands that you may find useful for monitoring a Cassandra cluster are summarized below. </p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>cfstats [&lt;Keyspace.ColumnFamily&gt;]</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Returns information about each keyspace and each column family, including:</p>
+                <ul>
+                    <li>Read count</li>
+                    <li>Read latency</li>
+                    <li>Write count</li>
+                    <li>Write latency</li>
+                    <li>Pending tasks</li>
+                </ul>
+                <p>For column families only (not keyspaces):</p>
+                <ul>
+                    <li>Memtable stats</li>
+                    <li>Key cache capacity</li>
+                    <li>Key cache hit rate</li>
+                </ul>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>cfhistograms &lt;Keyspace&gt; &lt;ColumnFamily&gt;</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Returns information for a specific column family, including:</p>
+                <ul>
+                    <li>Read latency</li>
+                    <li>Write latency</li>
+                    <li>Row size</li>
+                    <li>Column count</li>
+                </ul>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>tpstats</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Returns information for each thread pool, including:</p>
+                <ul>
+                    <li>Active tasks</li>
+                    <li>Completed tasks</li>
+                    <li>Pending tasks</li>
+                </ul>
+                <p class="NoteIndent" MadCap:autonum="&lt;b&gt;Note: &lt;/b&gt;">A significant and sustained increase in the pending task counts for the Cassandra thread pools is an indicator of a need to increase cluster capacity.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>compactstats</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Returns information for an in-progress compaction, including:</p>
+                <ul>
+                    <li>Compaction type (major or minor)</li>
+                    <li>Column family for which the compaction is being performed</li>
+                    <li>Bytes compacted so far</li>
+                </ul>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>netstats</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Returns network information, including:</p>
+                <ul>
+                    <li>Status of streaming operations such as bootstrap, repair, move, or decommission</li>
+                    <li>Active, pending, and completed command counts</li>
+                </ul>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <p>For more information about <em>nodetool</em>, see either the Apache Cassandra online documentation or the DataStax Cassandra online documentation.</p>
+    </body>
+</html>

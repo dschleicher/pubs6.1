@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="427" MadCap:lastWidth="841">
+    <head>
+    </head>
+    <body>
+        <h1>Doing a Simple HTTP Responsiveness Check</h1>
+        <p>The HyperStore system supports a health check that lets you quickly determine whether certain HTTP interfaces are responsive on particular hosts. This function is supported only for:</p>
+        <ul>
+            <li>S3 Service (port 80 by default)</li>
+            <li>HyperStore Service (port 19090 by default)</li>
+        </ul>
+        <p>This function is not supported for HTTPS ports. </p>
+        <p>To do the health check on a particular host, submit an HTTP HEAD request to <em>&lt;host&gt;:&lt;port&gt;/.healthCheck</em>. If the service is up and running and listening on its assigned HTTP port, you will receive back an HTTP 200 OK status. If not, your request will time out.</p>
+        <p>The example below shows a health check of an S3 Service instance that is responsive.</p><pre xml:space="preserve">HEAD http://192.168.2.16:80/.healthCheck
+Status Code: 200 OK
+Content-Length: 0
+Date: Wed, 20 Apr 2016 12:51:50 GMT
+Server: CloudianS3</pre>
+    </body>
+</html>

@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="971" MadCap:lastWidth="815">
+    <head>
+    </head>
+    <body>
+        <h1>hsstool decommission</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Command]</p>
+        <p>Use this <MadCap:xref href="hsstoolOverview.htm" target="_popup">hsstool </MadCap:xref> command to remove a live physical node from the storage cluster. When you decommission a node, the data associated with each vNode on the physical node is streamed to the vNode with the next-higher token, wherever it is in the storage cluster. Because there are many vNodes per physical node, and the vNodes are distributed randomly around the cluster, a decommissioned physical node’s data is likely to be redistributed in a balanced way to the remaining nodes in the cluster.</p>
+        <p>The operational procedure during which you would use <em>decommission</em> (if the node is live) is:</p>
+        <ul>
+            <li>
+                <MadCap:xref href="../../Operations/RemoveNode.htm">Remove a Node</MadCap:xref>
+            </li>
+        </ul>
+        <p>Please refer to that procedure for step-by-step instructions, including the proper use of <em>decommission</em> within the context of the procedure.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Command Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>You can run the <em>hsstool decommission</em> command through the CMC UI:</p>
+                <p>
+                    <img src="../../Resources/Images/cmc/cluster/Advanced_decommission.png" style="max-width: 8.00in;" />
+                </p>
+                <p>Or on the command line:</p><pre xml:space="preserve">[root]# /opt/cloudian/bin/hsstool -h &lt;host&gt; decommission</pre>
+                <h3>Parameters</h3>
+                <p>This command supports only this parameter:</p>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>-h &lt;host&gt; (called "Target Node" in CMC UI)</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Mandatory) Target host to decommission.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

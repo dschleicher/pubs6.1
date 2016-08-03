@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="8" MadCap:lastHeight="2095" MadCap:lastWidth="801">
+    <head>
+    </head>
+    <body>
+        <h1>PUT Bucket replication</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[S3 API Method]</p>
+        <p>For the Amazon S3 "PUT Bucket replication" operation, the HyperStore system supports the S3 <MadCap:xref href="../CommonRequestHeaders.htm" target="_popup">Common Request Headers</MadCap:xref> and <MadCap:xref href="../CommonResponseHeaders.htm" target="_popup">Common Response Headers</MadCap:xref> and also the operation-specific items listed below. If a parameter, header, element, or special error from the Amazon S3 specification for this operation is not listed below, the HyperStore system does not support it.</p>
+        <p>For operation usage information and for descriptions of request and response items, see <a href="http://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTreplication.html" target="_blank">PUT Bucket replication</a> in the Amazon S3 REST API specification. For an overview of this Amazon S3 feature see <a href="http://docs.aws.amazon.com/AmazonS3/latest/dev/crr.html" target="_blank">Cross-Region Replication</a> in the Amazon S3 Developer’s Guide.</p>
+        <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">Unlike Amazon S3, HyperStore does not require that you set up an IAM Role (or anything analogous) in order to use bucket replication. Also, HyperStore does not require that the destination bucket be in a different region than the source bucket. With HyperStore you can replicate to a destination bucket that’s in the same region as the source bucket, if you want to. Note however that replicating from a source bucket to another bucket in the same region will not provide the geographical dispersion of data copies that replicating across regions does.<br /><br />Apart from the above exceptions, HyperStore bucket replication has the same requirements as Amazon S3 bucket replication, including that <b>versioning must be enabled</b> (using the <MadCap:xref href="PutBucketVersioning.htm">PUT Bucket versioning</MadCap:xref> operation) on both the source bucket and the destination bucket in order to use bucket replication.<br /><br /><b>In addition</b>, HyperStore has this requirement in order to use bucket replication: To replicate to a destination bucket in a given service region, there must be an entry for that region in the system configuration file <code>tiering-regions.xml</code> [XREF-TBD]. This is true regardless of whether that service region is part of your HyperStore system or is in an external system like Amazon S3. By default <code>tiering-region.xml</code> is pre-configured with all the standard Amazon S3 service regions. However if you are replicating to a region within your HyperStore system, or to region in an external S3 system other than Amazon’s, you must manually configure an entry for the region in <code>tiering-region.xml</code> before you can use the bucket replication feature.</p>
+        <h2>Request Headers</h2>
+        <ul>
+            <li>Content-MD5</li>
+        </ul>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>HyperStore Extension to the S3 API</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The HyperStore system supports the following Request Headers as extensions to the "PUT Bucket replication" operation. These headers are required <b>only if you are replicating to a destination bucket that is not in the same HyperStore system as the source bucket</b> (for example, if you are replicating from a HyperStore source bucket to a destination Amazon S3 bucket; or from a HyperStore source bucket to a destination bucket in a completely independent HyperStore system).</p>
+                <table style="width: 100%; border-spacing: 2px 2px; border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; border-left-style: solid; border-left-width: 1px; border-right-style: solid; border-right-width: 1px; border-top-style: solid; border-top-width: 1px; border-bottom-style: solid; border-bottom-width: 1px; border-collapse: separate;">
+                    <col style="width: 144px;" />
+                    <col />
+                    <col />
+                    <thead>
+                        <tr>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Parameter</th>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Description</th>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Required</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">x-gmt-crr-endpoint</td>
+                            <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">
+                                <p>Sevice endpoint of the destination S3 service, in format <em>&lt;protocol&gt;://&lt;endpoint&gt;:&lt;port&gt;</em>. For example <em>https://s3.amazonaws:443</em>. Since security credentials will be transmitted in this request (see "x-gmt-crr-credentials" below), HTTPS is the recommended protocol rather than regular HTTP. HyperStore does not force HTTP use here, but for security HTTP is advisable.
+</p>
+                                <p>
+This header is required only if the destination bucket is not in the same HyperStore system as the source bucket. Do not use this header if the destination bucket is in the same HyperStore region as the source bucket, or if it is in a different region within the same HyperStore system as the source bucket.</p>
+                            </td>
+                            <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">See description</td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">x-gmt-crr-credentials</td>
+                            <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">
+                                <p>Access key and secret key for the user account that HyperStore should use to write to the destination bucket in the destination S3 system, in format
+<em>&lt;access-key&gt;:&lt;secret-key&gt;</em>. For example,
+<em>00caf3940dc923c59406:Ku0bMR0H5nSA7t8N+ngP6uPPTINSxJ/Q2olCMexx</em>. This user account must have write permissions on the destination bucket. For example, if the destination bucket is in the Amazon S3 system, this header is used to specify the Amazon S3 access key and secret key for an account that has write permissions on the destination bucket.
+
+</p>
+                                <p>&#160;</p>
+                                <p>This header is required only if the destination bucket is not in the same HyperStore system as the source bucket. Do not use this header if the destination bucket is in the same HyperStore region as the source bucket, or if it is in a different region within the same HyperStore system as the source bucket.</p>
+                            </td>
+                            <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">See description</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <h2>Request Elements</h2>
+        <ul>
+            <li>ReplicationConfiguration</li>
+            <li>Role</li>
+        </ul>
+        <p class="NoteIndent" MadCap:autonum="&lt;b&gt;Note: &lt;/b&gt;">As with the Amazon S3 API specification, for HyperStore the "Role" element must be included in the PUT Bucket replication request. However, HyperStore ignores the "Role" element’s value (so, you can use any random string as its value). HyperStore does not use an IAM role or anything analogous when implementing cross-region replication.</p>
+        <ul>
+            <li>Rule</li>
+            <li>ID</li>
+            <li>Status</li>
+            <li>Prefix</li>
+            <li>Destination</li>
+            <li>Bucket</li>
+        </ul>
+        <p class="NoteIndent" MadCap:autonum="&lt;b&gt;Note: &lt;/b&gt;">Use the same "Bucket" value formatting as in the Amazon S3 API spec, i.e.</p>
+        <ul>
+            <li>arn:aws:s3:::&lt;bucketname&gt;.</li>
+            <li>StorageClass</li>
+        </ul>
+        <p class="NoteIndent" MadCap:autonum="&lt;b&gt;Note: &lt;/b&gt;">	If you include this optional element in the request, HyperStore ignores its value.</p>
+    </body>
+</html>

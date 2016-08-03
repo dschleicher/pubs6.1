@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="2" MadCap:lastHeight="815" MadCap:lastWidth="879">
+    <head>
+    </head>
+    <body>
+        <h1>Installed Packages and Update Restrictions</h1>
+        <p>When you install HyperStore 6.0, the following prerequisite third party packages are automatically installed first if they are not already present on your host machines:</p><pre xml:space="preserve">facter-1.7.6-1.el6.x86_64
+jdk1.8.0_60-1.8.0_60-fcs.x86_64
+puppet-3.7.4-1.el6.noarch
+puppetserver-1.0.2-1.el6.noarch
+puppet-server-3.7.4-1.el6.noarch
+ruby-1.8.7.374-4.el6_6.x86_64
+ruby-augeas-0.4.1-1.el6.x86_64
+rubygem-json-1.5.5-3.el6.x86_64
+rubygems-1.3.7-5.el6.noarch
+ruby-irb-1.8.7.374-4.el6_6.x86_64
+ruby-libs-1.8.7.374-4.el6_6.x86_64
+ruby-rdoc-1.8.7.374-4.el6_6.x86_64
+ruby-shadow-1.4.1-13.el6.x86_64</pre>
+        <p>On your Puppet master node, the prerequisites listed above are installed when you unpack the <em>CloudianHyperStore-6.0.bin</em> file. For your other nodes, these prerequisites are installed remotely when you run the HyperStore installation script <em>cloudianInstall.sh</em> on your Puppet master node.</p>
+        <p>If at any time you are updating a CentOS or RHEL instance that is running HyperStore, <b>do not update any of the third party packages listed above</b>. Exclude these packages if you are updating your OS. If you have questions about a particular package, contact Cloudian Support. Cloudian Support will proactively notify customers if a particular package needs to be updated for security reasons.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note: &lt;/b&gt;">If you install additional third party software on a HyperStore node, you are doing so at your own risk. Be careful that any additional third party software does not interfere with HyperStore software, and particularly that such software does not compete with HyperStore for host resources such as CPU, RAM, and disk space.</p>
+        <p>After the installer installs third party prerequisite packages, HyperStore itself is then installed, comprising these additional packages on each host:</p><pre xml:space="preserve">cloudian-agent-6.0-1.x86_64
+cloudian-cassandra-2.1.13-1.x86_64
+cloudian-redis-2.8.23-1.x86_64
+cloudian-s3-6.0-1.x86_64
+cloudian-tomcat-7.0.59-1.x86_64
+rdiff-backup-1.2.8-4.el6.rf.x86_64</pre>
+    </body>
+</html>

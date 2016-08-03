@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="526" MadCap:lastWidth="841">
+    <head>
+    </head>
+    <body>
+        <h1>Using the S3 Storage Interface (S3 API)</h1>
+        <p>HyperStore supports nearly all of the Amazon S3 REST API. HyperStore’s compliance with Amazon’s S3 API is covered in detail in the S3 API Support section of the Cloudian HyperStore documentation. To review which S3 API methods, parameters, headers, XML elements, and error codes HyperStore supports, see that documentation. That documentation also covers HyperStore extensions to the Amazon S3 API.</p>
+        <p>Because of HyperStore’s comprehensive compliance with the Amazon S3 API, you should be able to use most well-established S3 client applications with HyperStore. For feedback on particular S3 applications that you are considering using with HyperStore, consult with Cloudian Support.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">By default the HyperStore S3 Service listens on port 80 for HTTP connections. The S3 Service does not support HTTPS (HTTP over TLS/SSL) by default, but you can set up HTTPS support for the S3 Service as described in SSL for S3 Service [XREF]. If you do so then the S3 Service will listen for HTTPS connections on port 443.<br /><br />To check to see what is your HyperStore S3 Service endpoint (such as <em>s3-region1.mycompany.com</em>), in the CMC go to <b>Cluster → Cluster Config → Cluster Information</b>.</p>
+        <p>&#160;</p>
+        <p><b>See Also:</b>
+        </p>
+        <ul>
+            <li>
+                <MadCap:xref href="../../S3 API Support/DevelopingS3ForHyperStore.htm">General Guidance on Developing S3 Client Applications for HyperStore</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

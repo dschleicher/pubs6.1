@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="8" MadCap:lastHeight="4853" MadCap:lastWidth="789">
+    <head>
+    </head>
+    <body>
+        <h1>Using JMX to Monitor Java-Based HyperStore Services</h1>
+        <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">It’s recommended that you don’t use JMX for monitoring a HyperStore production environment, as it may negatively impact performance (particularly if you run JConsole on one of your production nodes). However, JMX-based monitoring can be useful when testing the system.</p>
+        <p>The S3 Service, Admin Service, HyperStore Service, and Cassandra Service support monitoring via Java Management Extensions (JMX). You can access JMX statistics using the graphical JMX client JConsole, which comes with your Java platform. By default the full path to the JConsole executable is <em>/usr/java/latest/bin/jconsole</em>.</p>
+        <p>After launching JConsole, in the JConsole GUI specify the <em>&lt;host&gt;:&lt;jmx-port&gt;</em> that you want to connect to. Each of the HyperStore system’s Java-based services has a different JMX listening port as indicated in the sections that follow. <b>The statistics that you view will be only for the particular node to which you are connected via JConsole.</b></p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">By default a JConsole connection does not require a user name and password, so in the JConsole GUI these fields can be left empty. For general information about using JConsole, including password protection and security options, see the JConsole Help.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">This section on JMX statistics presumes that you are using JConsole, but there are other JMX clients available. Your HyperStore system comes with two command-line JMX clients — <em>cmdline-jmxclient</em> and <em>jmxterm</em> — which are in the <em>/opt/cloudian/tools</em> directory.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>S3 Service JMX Statistics</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Default JMX port: 19080</p>
+                <p>For the S3 Service, these categories of JMX statistics are supported:</p>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>S3 operation timing and rate stats</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>In JConsole’s MBeans tab, timing performance statistics for S3 operations are available under the <em>metrics</em> MBean. Under <em>metrics</em> there is <em>com.cloudian.s3.stats.&lt;operation&gt;</em>, where <em>&lt;operation&gt;</em> is an S3 API operation such as <em>putObject</em>, <em>getObject</em>, <em>deleteObject</em>, <em>getBucket</em>, and so on. For each operation type, under <em>Attributes</em> there is a set of timing statistics including:</p>
+                        <ul>
+                            <li>Count — The total number of executions that were timed.</li>
+                            <li>Max — The maximum value in milliseconds of the logged execution times.</li>
+                            <li>Mean — The mean execution time, in milliseconds.</li>
+                            <li>Min — The minimum value in milliseconds of the logged execution times.</li>
+                            <li>StdDev — The standard deviation, in milliseconds.</li>
+                        </ul>
+                        <p>For each operation type there are also rate stats including:</p>
+                        <ul>
+                            <li>MeanRate — Average transactions-per-second (TPS) since last restart.</li>
+                            <li>FifteenMinuteRate — 15 minute exponentially weighted moving average rate for TPS.</li>
+                        </ul>
+                        <p>The statistics are initialized at each restart of the S3 Service. Statistics will only be available for operations that have been performed since the last S3 Service restart — for example, if no <em>deleteObject</em> operations have been performed since the last restart, then no <em>deleteObject</em> statistics will be available.</p>
+                        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">These timing and rates stats are implemented with the Metrics Core library.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>S3 operation success stats</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>In JConsole’s MBeans tab, success rate statistics for S3 operations are available under <em>com.gemini.cloudian.s3 → Accounting → Success Rate → Attributes</em>. For each S3 operation, the success rate is expressed as a double between 0 and 1 indicating the percentage of successful processing for that S3 operation. The success rate statistics are cumulative since the last start of the S3 Service on the node to which you are connected.</p>
+                        <p>For example, the statistic "DeleteBucket" would have a value such as 1.0 or 0.92, indicating a 100% or 92% success rate for S3 "DELETE Bucket" operations since the last start-up of the S3 Service.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="S3CassandraClientStats"></a>S3 Service’s Cassandra client stats</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>For its client interface to Cassandra, the S3 Service leverages open source Hector technology. In JConsole’s MBeans tab, Hector statistics are available under <em>me.prettyprint.cassandra.service_Cloudian&lt;regionName&gt; → hector → hector → Attributes</em>. Descriptions of these statistics are available in the <a href="https://github.com/hector-client/hector/wiki/User-Guide#health-check-attributes-available-for-hector" target="_blank">Health Check Attributes Available for Hector</a> section of the online Hector user guide.</p>
+                        <p>The list of supported statistics is below.</p>
+                        <ul>
+                            <li>ExhaustedPoolNames</li>
+                            <li>KnownHosts</li>
+                            <li>NumActive</li>
+                            <li>NumBlockedThreads</li>
+                            <li>NumConnectionErrors</li>
+                            <li>NumExhaustedPools</li>
+                            <li>NumIdleConnections</li>
+                            <li>NumPoolExhaustedEventCount</li>
+                            <li>NumPools</li>
+                            <li>NumRenewedIdleConnections</li>
+                            <li>NumRenewedTooLongConnections</li>
+                            <li>ReadFail</li>
+                            <li>RecoverableErrorCount</li>
+                            <li>RecoverableLoadBalancedConnectErrors</li>
+                            <li>RecoverableTimedOutCount</li>
+                            <li>RecoverableTransportExceptionCount</li>
+                            <li>RecoverableUnavailableCount</li>
+                            <li>SkipHostSuccess</li>
+                            <li>StatisticsPerPool</li>
+                            <li>SuspendedCassandraHosts</li>
+                            <li>WriteFail</li>
+                        </ul>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>HTTP server thread pool stats</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>For serving HTTP requests, the S3 Service leverages open source Jetty technology. In JConsole’s MBeans tab, Jetty thread pool statistics are available under <em>org.eclipse.jetty.util.thread → queuedthreadpool → 0 → Attributes</em>. The statistics available are:</p>
+                        <ul>
+                            <li>threads</li>
+                            <li>idleThreads</li>
+                            <li>queueSize</li>
+                        </ul>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Admin Service JMX Statistics</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Default JMX port: 19081</p>
+                <p>In JConsole’s MBeans tab, timing performance statistics for Admin Service operations are available under the <em>metrics</em> MBean. Under <em>metrics</em> there is <em>com.cloudian.admin.stats.&lt;operation&gt;</em>, where <em>&lt;operation&gt;</em> is an S3 API operation such as <em>getUser</em>, <em>createUser</em>, and so on. For each operation type, under <em>Attributes</em> there is a set of timing statistics including:</p>
+                <ul>
+                    <li>Count — The total number of executions that were timed.</li>
+                    <li>Max — The maximum value in milliseconds of the logged execution times.</li>
+                    <li>Mean — The mean execution time, in milliseconds.</li>
+                    <li>Min — The minimum value in milliseconds of the logged execution times.</li>
+                    <li>StdDev — The standard deviation, in milliseconds.</li>
+                </ul>
+                <p>For each operation type there are also rate stats including:</p>
+                <ul>
+                    <li>MeanRate — Average transactions-per-second (TPS) since last restart.</li>
+                    <li>FifteenMinuteRate — 15 minute exponentially weighted moving average rate for TPS.</li>
+                </ul>
+                <p>The statistics are initialized at each restart of the S3 Service (the Admin Service stops and starts together with the S3 Service). Statistics will only be available for operations that have been performed since the last S3 Service restart — for example, if no <em>createUse</em>r operations have been performed since the last restart, then no <em>createUser</em> statistics will be available.</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">These timing and rates stats are implemented with the Metrics Core library.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>HyperStore Service JMX Statistics</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Default JMX port: 19082</p>
+                <p>For the HyperStore Service, these categories of JMX statistics are supported:</p>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>HyperStore operation timing and rate stats</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>In JConsole’s MBeans tab, timing performance statistics for HyperStore Service operations are available under the <em>metrics</em> MBean. Under metrics there is <em>com.cloudian.hybrid.stats.&lt;operation&gt;</em>, where <em>&lt;operation&gt;</em> is a HyperStore Service operation such as <em>put</em>, <em>getBlob</em>, <em>getDigest</em>, or <em>delete</em>. For each operation type, under <em>Attributes</em> there is a set of timing statistics including:</p>
+                        <ul>
+                            <li>Count — The total number of executions that were timed.</li>
+                            <li>Max — The maximum value in milliseconds of the logged execution times.</li>
+                            <li>Mean — The mean execution time, in milliseconds.</li>
+                            <li>Min — The minimum value in milliseconds of the logged execution times.</li>
+                            <li>StdDev — The standard deviation, in milliseconds.</li>
+                        </ul>
+                        <p>For each operation type there are also rate stats including:</p>
+                        <ul>
+                            <li>MeanRate — Average transactions-per-second (TPS) since last restart.</li>
+                            <li>FifteenMinuteRate — 15 minute exponentially weighted moving average rate for TPS.</li>
+                        </ul>
+                        <p>The statistics are initialized at each restart of the HyperStore Service. Statistics will only be available for operations that have been performed since the last HyperStore Service restart — for example, if no <em>delete</em> operations have been performed since the last restart, then no <em>delete</em> statistics will be available.</p>
+                        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">These timing and rates stats are implemented with the Metrics Core library.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>HyperStore operation success stats</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>In JConsole’s MBeans tab, HyperStore file system operations statistics are available under <em>com.gemini.cloudian.hybrid.server → HyperstoreOperationsStats → Attributes</em>. The statistics available are:</p>
+                        <ul>
+                            <li>NumberOfSuccessfulDeleteOperations</li>
+                            <li>NumberOfSuccessfulReadOperations</li>
+                            <li>NumberOfSuccessfulWriteOperations</li>
+                            <li>TotalNumberOfDeleteOperations</li>
+                            <li>TotalNumberOfReadOperations</li>
+                            <li>TotalNumberOfWriteOperations</li>
+                        </ul>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>Cassandra client stats</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>For its client interface to Cassandra, the HyperStore Service leverages open source Hector technology. In JConsole’s MBeans tab, Hector statistics are available under <em>me.prettyprint.cassandra.service_Cloudian&lt;regionName&gt; → hector → hector → Attributes.</em></p>
+                        <p>The list of supported statistics is the same as indicated for the <a href="#S3CassandraClientStats">S3 Service’s Hector statistics</a>. Descriptions of these statistics are available in the <a href="https://github.com/hector-client/hector/wiki/User-Guide#health-check-attributes-available-for-hector" target="_blank">Health Check Attributes Available</a> for Hector section of the online Hector user guide.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>HTTP server thread pool stats</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>For serving HTTP requests, the HyperStore Service leverages open source Jetty technology. In JConsole’s MBeans tab, Jetty thread pool statistics are available under <em>org.eclipse.jetty.util.thread → queuedthreadpool → 0 → Attributes</em>. The statistics available are:</p>
+                        <ul>
+                            <li>threads</li>
+                            <li>idleThreads</li>
+                            <li>queueSize</li>
+                        </ul>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Cassandra Service JMX Statistics</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Default JMX port: 7199</p>
+                <p>In JConsole’s MBeans tab, under <em>org.apache.cassandra.metrics</em>, Cassandra supports a wide range of statistics.</p>
+                <p>The <em>Compaction</em> MBean exposes statistics including:</p>
+                <ul>
+                    <li>Number of completed compactions.</li>
+                    <li>Number of pending compaction tasks.</li>
+                    <li>Progress of currently running compactions.</li>
+                </ul>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">	If the number of pending compaction tasks grows over time, this is an indicator of a need to increase cluster capacity.</p>
+                <p>The <em>ColumnFamily</em> MBean exposes statistics for active, pending, and completed tasks for each of Cassandra’s thread pools. This is the same information as is available through the <a href="MonitoringNodetool.htm" target="_popup">nodetool tpstats</a> command.</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">A significant and sustained increase in the pending task counts for the Cassandra thread pools is an indicator of a need to increase cluster capacity.</p>
+                <p>The <em>ColumnFamily</em> MBean exposes individual column family statistics including:</p>
+                <ul>
+                    <li>Memtable data size</li>
+                    <li>Number of live SSTables</li>
+                    <li>Average read latency</li>
+                    <li>Average write latency</li>
+                </ul>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">A sustained increase in read and write latencies may indicate a need to increase cluster capacity.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="5" MadCap:lastHeight="923" MadCap:lastWidth="642">
+    <head>
+    </head>
+    <body>
+        <h1>View a Node's Services Status</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[CMC Interface]</p>
+        <p>To check on the status of individual services on a node, in the CMC's <a href="../../../Resources/Images/cmc/cluster/NodeStatus.png" target="_popup">Node Status</a> page open the <b>Services Status</b> panel.</p>
+        <p>
+            <img src="../../../Resources/Images/cmc/cluster/NodeStatus_services.png" class="ImgCloudian" />
+        </p>
+        <p>For each service, one of the following service status icons is displayed:</p>
+        <table style="width: 100%;">
+            <col style="width: 57px;" />
+            <col />
+            <tbody>
+                <tr>
+                    <td>
+                        <img src="../../../Resources/Images/cmc/cluster/Icon_GreenCheckMark.png" />
+                    </td>
+                    <td style="vertical-align: top;">The service is <b>up and running</b>.</td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="../../../Resources/Images/cmc/cluster/Icon_RedCircle.png" />
+                    </td>
+                    <td style="vertical-align: top;">The service is <b>down</b>.</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">The node’s status is automatically checked and updated each minute, as indicated by the "Last Update" column.</p>
+        <p>Status is shown for the following services.  Note that the Redis services will not necessarily be present on each node, if you have a multi-node system. For more detail about these services see <MadCap:xref href="../../../Introduction/HyperStore Services/ServicesOverview.htm" target="_popup">HyperStore Services</MadCap:xref>.</p>
+        <ul>
+            <li><b>Admin</b> -- Implements the Admin API that is invoked by the CMC and by HyperStore maintenance cron jobs.</li>
+            <li><b>Cassandra</b> -- Manages access to the Cassandra database which stores various types of data in support of S3 service delivery. The Cassandra database may also store small S3 objects, depending on your system configuration.</li>
+            <li><b>HyperStore</b> -- Manages access to the HyperStore File System (HSFS). Implements hsstool operations for managing the distributed S3 object store.</li>
+            <li><b>Redis Cred</b> -- Manages access to the Redis Credentials database which stores S3 user credentials as well as additional data that supports S3 service delivery.</li>
+            <li><b>Redis QoS</b> -- Manages access to the Redis QoS database which stores data required to implement quality of service controls.</li>
+            <li><b>Redis Mon</b> -- Monitors Redis Credentials and Redis QoS cluster health and if needed implements automatic failover of the Redis master node role within each of the two Redis DBs</li>
+            <li><b>S3</b> -- Services S3 requests from client applications.</li>
+        </ul>
+    </body>
+</html>

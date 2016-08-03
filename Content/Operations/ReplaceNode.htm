@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="9" MadCap:lastHeight="3573" MadCap:lastWidth="819">
+    <head>
+    </head>
+    <body>
+        <h1>Replacing a Node</h1>
+        <p>This procedure is for replacing an existing node in your HyperStore cluster, for example due to hardware failure. With this procedure the replacement node will take over the dead node’s place in the cluster and will have the same data storage reponsibilities that the dead node had and the same specialized service roles (if any).</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Before You Begin</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Before you replace a node within your HyperStore cluster, take these actions to prepare:</p>
+                <ul>
+                    <li>If you are using the software-only version of HyperStore (as opposed to a HyperStore Appliance), <b>make sure that the replacement host meets HyperStore host requirements</b>. If you need a refresher see:<ul style="list-style-type: circle;"><li><MadCap:xref href="../Installation/Host Machine Preparation/Software-Only Users/HardwareRequirements.htm" target="_popup">Hardware Requirements</MadCap:xref></li><li><MadCap:xref href="../Installation/Host Machine Preparation/Software-Only Users/OsRequirements.htm" target="_popup">Operating System Requirements</MadCap:xref></li><li><MadCap:xref href="../Installation/Host Machine Preparation/Software-Only Users/FileSystemRequirements.htm" target="_popup">File System Requirements</MadCap:xref></li></ul></li>
+                    <li>Configure the replacement host so that:<ul style="list-style-type: circle;"><li>The new host’s <b>IP address is different</b> than the IP address of the host that you are replacing.</li><li>The new host’s <b>hostname is the same</b> as the hostname of the host that you are replacing.</li><li>The new host has the <b>same number of disks and the same mount points</b> as the host you are replacing.</li></ul><div class="Indent"><p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">If you are reusing any disks from the dead node, <b>delete all data</b> from the disks.</p></div></li>
+                    <li>Because replacing a node in your cluster requires potentially large-scale data transfers within the system, before you replace a node you should temporarily <b>shut down the scheduled auto-repair feature</b>, so that there are not auto-repairs running at the same time as the node addition process. For instructions see <MadCap:xref href="../Major Features/Automatic Data Repair/DataRepairDisable.htm" target="_popup">Temporarily Disabling Scheduled Auto-Repairs</MadCap:xref>.</li>
+                </ul>
+                <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">Do not add multiple nodes simultaneously. If you want to add multiple nodes, add one node at a time from start to finish for each node.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Prepping and Installing the Replacement Node</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <ol>
+                    <li>Confirm that Cassandra is down on the node you are replacing by using the <em>hsstool status</em> command (submitted to any other host in your cluster):</li>
+                </ol>
+                <div class="Indent"><pre>[root]# /opt/cloudian/bin/hsstool [-h &lt;host&gt;] status</pre>
+                    <p>In the status response, for the node you are replacing the "Cassandra" column should say "Down".</p>
+                    <p>If the node’s Cassandra status is not Down, log into that node and stop the Cassandra service:</p><pre>[root]# /etc/init.d/cloudian-cassandra stop</pre>
+                </div>
+                <ol MadCap:continue="true">
+                    <li>Log into the Puppet Master node as root, change into the installation staging directory, and launch the HyperStore installer:</li>
+                </ol>
+                <div class="Indent"><pre> [root]# /&lt;installation-staging-directory&gt;/cloudianInstall.sh</pre>
+                </div>
+                <ol MadCap:continue="true">
+                    <li>From the installer menu, select "Advanced", then "Start or stop the Puppet daemon", then type "stop" at the prompt. After stopping the Puppet daemons exit the installer.</li>
+                    <li>Still in the installation staging directory, edit your <em>survey.csv</em> file to add an entry for the replacement host (recall that its IP address must be different than the dead node’s address and its hostname must be the same as the dead node’s hostname) and also remove the entry for the dead node.</li>
+                    <li>On the Puppet Master and also on each other node in your HyperStore cluster, remove the dead node’s IP address and hostname from the <em>~root/.ssh/known_hosts</em> file.</li>
+                    <li>On the Puppet Master, in the installation staging directory launch the installer again:</li>
+                </ol>
+                <div class="Indent"><pre>[root]# /&lt;installation-staging-directory&gt;/cloudianInstall.sh</pre>
+                </div>
+                <ol MadCap:continue="true">
+                    <li>From the menu select "Advanced Configuration Options", then complete the "Remove existing Puppet SSL certificates" function. Then return to the installer’s main menu.</li>
+                    <li>From the installer’s main menu select "Install Cloudian HyperStore". Then from the "Install Cloudian HyperStore" sub-menu, complete these functions in this order:</li>
+                </ol>
+                <div class="Indent">
+                    <ol style="list-style-type: lower-alpha;">
+                        <li>"Specify Nodes, Check Connectivity"</li>
+                    </ol>
+                    <div class="Indent">
+                        <p>When asked "Would you like to use key ./cloudian-installation-key?" reply Yes.</p>
+                    </div>
+                    <ol style="list-style-type: lower-alpha;" MadCap:continue="true">
+                        <li>"Specify Cluster Configuration"</li>
+                    </ol>
+                    <div class="Indent">
+                        <p>When asked "Do you want to preserve service roles assigned to existing nodes?" reply Yes. Leave everything else at the current default (as shown within the prompts — just press Enter to accept the current values).</p>
+                    </div>
+                    <ol style="list-style-type: lower-alpha;" MadCap:continue="true">
+                        <li>"Review Cluster Configuration"</li>
+                        <li>"Install Packages and Configure Nodes"</li>
+                    </ol>
+                    <p class="ImportantIndent" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">Do not complete the "Load schema and start services" function.</p>
+                </div>
+                <ol MadCap:continue="true">
+                    <li>Exit the installer.</li>
+                </ol>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Integrating the Replacement Node Into the Cluster</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>After installing HyperStore on the replacement node, log into the replacement node and do the following:</p>
+                <ol>
+                    <li>Open the <em>/opt/cassandra/conf/cassandra-topology.properties</em> file in a text editor. Verify that the file includes a line like this for the replacement node (this should be there as a result of the configuration that you pushed from the HyperStore installer):</li>
+                </ol>
+                <div class="Indent"><pre xml:space="preserve"># Cassandra Node IP=Data Center:Rack
+&lt;address_of_replacement_node&gt;=&lt;data_center&gt;:&lt;rack&gt;
+
+For example:
+
+
+10.10.1.34=DC1:RAC1</pre>
+                    <p>After verifying that this line is there, close the file. (If the line is not there, log into the Puppet Master again, launch the installer, and push configuration settings out to the cluster again.)</p>
+                </div>
+                <ol MadCap:continue="true">
+                    <li>Open the <em>/opt/cassandra/conf/cassandra-env.sh</em> file in a text editor. Then add this line to the bottom of the file:</li>
+                </ol>
+                <div class="Indent"><pre xml:space="preserve">JVM_OPTS="$JVM_OPTS -Dcassandra.replace_address=&lt;address_of_dead_node&gt;"
+
+For example:
+
+JVM_OPTS="$JVM_OPTS -Dcassandra.replace_address=10.10.1.29"</pre>
+                </div>
+                <div class="Indent">
+                    <p>Save your change and close the file.</p>
+                </div>
+                <ol MadCap:continue="true">
+                    <li>Start Cassandra on the replacement node:</li>
+                </ol>
+                <div class="Indent"><pre>[root]# /etc/init.d/cloudian-cassandra start</pre>
+                </div>
+                <ol MadCap:continue="true">
+                    <li>After Cassandra is up and running on the replacement node, open the <em>/opt/cassandra/conf/cassandra-env.sh</em> file again and <b>remove</b> the line that you added (<em>JVM_OPTS="$JVM_OPTS -Dcassandra.replace_address=&lt;address_of_dead_node&gt;"</em>). Save your change and close the file.</li>
+                    <li>Use the Cassandra <em>nodetool status</em> command (<b>not</b> <em>hsstool</em>) to confirm that the replacement node is up in the ring. In the example below the replacement node is "host3" with IP address 10.10.1.34. The "UN" on the left indicates that the node is up and in a normal state.</li>
+                </ol>
+                <div class="Indent"><pre xml:space="preserve">[root]# /opt/cassandra/bin/nodetool -h host1 status
+Datacenter: DC1
+===============
+Status=Up/Down |/ State=Normal/Leaving/Joining/Moving Address Load Tokens Owns Host ID Rack
+UN 10.10.1.131 368.42 KB 40 43.2% d2b176ad-417d-43c8-82a3-c5f7c4eb3d25 RAC1
+UN 10.10.1.134 333.77 KB 40 30.9% 380171d1-0d6f-4738-9b4a-f340268a6073 RAC1
+UN 10.10.1.132 216.46 KB 40 26.0% 3d09ad3a-efbb-4d9e-8f8c-5ec31e9b03c3 RAC1</pre>
+                </div>
+                <ol MadCap:continue="true">
+                    <li>On the replacement node, start the rest of the services:</li>
+                </ol>
+                <div class="Indent"><pre xml:space="preserve">[root]# /etc/init.d/cloudian-hyperstore start
+[root]# /etc/init.d/cloudian-s3 start
+[root]# /etc/init.d/cloudian-agent start
+[root]# /etc/init.d/cloudian-cmc start
+
+# And if the node is running Redis Credentials, Redis QoS, or Redis Monitor (if
+# you're uncertain about this you can check the CMC's Cluster Information page,
+# which shows which hosts are supposed to be running which specialized services):
+
+[root]# /etc/init.d/cloudian-redis-credentials start
+[root]# /etc/init.d/cloudian-redis-qos start
+[root]# /etc/init.d/cloudian-redismon start</pre>
+                </div>
+                <p>Your replacement node is now part of the HyperStore cluster and has all services up and running. Now do the following to populate the replacement node with its proper share of HyperStore data:</p>
+                <ol>
+                    <li>Run <em>hsstool repair</em> on the replacement node, using the "allkeyspaces" option:</li>
+                </ol>
+                <div class="Indent"><pre>[root]# /opt/cloudian/bin/hsstool -h &lt;replacement_host&gt; repair allkeyspaces</pre>
+                </div>
+                <ol MadCap:continue="true">
+                    <li>If you have erasure coded data in your system, then after the <em>repair</em> operation completes run <em>hsstool repairec</em> on the replacement node:</li>
+                </ol>
+                <div class="Indent"><pre>[root]# /opt/cloudian/bin/hsstool -h &lt;replacement_host&gt; repairec</pre>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>After Replacing a Node</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>After completing the node replacement procedure:</p>
+                <ul>
+                    <li>Go to the CMC's <a href="../Resources/Images/cmc/cluster/NodeStatus.png" target="_popup">Node Status</a> page and <b>confirm that the replacement node appears</b> in the "Host" drop-down list (with the same hostname as  the node that you replaced), and that you can select the node and view its status information. In the status information you should see the correct IP address for the replacement node (which is different than the IP address of the node that you replaced).</li>
+                    <li><b>Next</b> go to the CMC's <b>Advanced</b> node management page and from the Maintenance command type group execute <em>hsstool autorepair</em> to <b>re-enable the HyperStore auto-repair feature</b> for the cluster. Submit the command to any one of the nodes in your cluster. Leave the "t &lt;type&gt;" option unspecified so that all repair types are enabled.</li>
+                </ul>
+                <div class="Indent">
+                    <p>
+                        <img src="../Resources/Images/operations/Autorepair_enable_cloudian-node5.png" class="ImgCloudian" />
+                    </p>
+                    <p>If using the command line rather than the CMC, the command is:</p><pre>[root]# /opt/cloudian/bin/hsstool -h &lt;any-host&gt; repairqueue -enable true</pre>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

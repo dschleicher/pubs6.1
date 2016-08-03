@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="1081" MadCap:lastWidth="841">
+    <head>
+    </head>
+    <body>
+        <h1>Enabling AES-256</h1>
+        <p>By default the HyperStore system does not support AES-256, the most secure form of the Advanced Encryption Standard. You must enable AES-256 if you want to do either of the following:</p>
+        <ul>
+            <li>Use SSE in a manner compliant with the Amazon SSE specification</li>
+            <li>Use SSE-C</li>
+        </ul>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">The HyperStore system supports the ability to test its regular SSE functionality (not SSE-C) using AES-128, rather than the more secure AES-256. If that’s all you want to do, you do not need to enable AES-256. HyperStore supports AES-128 by default.</p>
+        <p>To enable AES-256 in your HyperStore system, do the following:</p>
+        <ol>
+            <li>On every HyperStore node, download and install the Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files package for your JRE.</li>
+        </ol>
+        <div class="Indent">
+            <p>The cryptography extension package is available from the Java downloads site:</p>
+            <p><a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank">http://www.oracle.com/technetwork/java/javase/downloads/index.html</a>
+            </p>
+            <p>The cryptography extension packages are toward the bottom of the download page. Download and install the package that’s for your JRE version (which, as bundled with HyperStore, is JRE 7).</p>
+            <p>Installing this cryptograpy extension package will enable your JRE to support the AES-256 encryption standard. The default JRE supports only up to AES-128.</p>
+        </div>
+        <ol MadCap:continue="true">
+            <li>On your Puppet master node, open this file in a text editor:</li>
+        </ol>
+        <div class="Indent"><pre>/etc/cloudian-&lt;version&gt;-puppet/modules/cloudians3/templates/mts.properties.erb</pre>
+            <p>In <em>mts.properties.erb</em>, uncomment the following setting:</p><pre># cloudian.s3.serverside.encryption.keylength = 256</pre>
+            <p>Then save and close the file.</p>
+        </div>
+        <ol MadCap:continue="true">
+            <li>Still on your Puppet master node, launch the HyperStore install tool:</li>
+        </ol>
+        <div class="Indent"><pre>root# /&lt;your-installation-staging-directory&gt;/cloudianInstall.sh</pre>
+        </div>
+        <ol MadCap:continue="true">
+            <li>From the main menu select "Cluster Management" and then from the sub-menu that displays select "Push Configuration Settings to Cluster".</li>
+            <li>After the Puppet run completes for all the Puppet agents, from the Cluster Management sub-menu select "Manage Services". Then from the Service Management sub-menu, restart your S3 Service to apply your configuration change.</li>
+        </ol>
+        <p>AES-256 is now enabled in your HyperStore system.</p>
+        <p>&#160;</p>
+        <p><b>See Also:</b>
+        </p>
+        <ul>
+            <li>
+                <MadCap:xref href="SseRegular.htm">Using Regular Server-Side Encryption (SSE)</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="SseCustomerKeys.htm">Using Server-Side Encryption with Customer-Provided Keys (SSEC)</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

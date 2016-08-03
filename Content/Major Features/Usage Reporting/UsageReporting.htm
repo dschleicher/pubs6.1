@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="654" MadCap:lastWidth="841">
+    <head>
+    </head>
+    <body>
+        <h1>Generating a Usage Report</h1>
+        <p>You can generate usage report data through either the CMC or the Admin API.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Generating a Usage Report (CMC)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>In the CMC <MadCap:xref href="../../CMC Interface/Analytics/Usage By Users &amp; Groups/UsageOverview.htm">Usage By Users &amp; Groups</MadCap:xref> page you can generate usage reports for a user, a group, a whole region, or your whole system. You can choose a report interval, a report granularity (raw, hourly, daily, or monthly roll-up), and the usage type to report on (Storage Bytes, Storage Objects, or — if request tracking is enabled —  HTTP GETs, PUTs, DELETEs, All HTTP Requests, Data Transfer-In-Bytes, or Data Transfer-Out-Bytes).</p>
+                <p>You can display reports in the CMC in tabular format or dynamic graph format, or download report data in comma-separated value (CSV) format.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Generating a Usage Report (Admin API)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The Admin API method <a href="../../Admin API/Usage Reporting/GetUsageData.htm">GET /usage</a> returns usage data for a specified user or a specified group. You can choose a report interval, a report granularity (raw, hourly, daily, or monthly roll-up), and the usage type to report on (Storage Bytes, Storage Objects, or — if request tracking is enabled — HTTP GETs, PUTs, or DELETEs). Optionally you can limit the report to a specified service region.</p>
+                <p>The usage data is returned as a JSON-formatted list of <MadCap:xref href="../../Admin API/Data Objects/UsageData.htm">UsageData</MadCap:xref> objects.</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">To retrieve usage data for a whole region or the whole system, you must execute <a href="../../Admin API/Usage Reporting/GetUsageData.htm">GET /usage</a> separately for each group.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <p>&#160;</p>
+        <p><b>See Also:</b>
+        </p>
+        <ul>
+            <li>
+                <MadCap:xref href="UsageEnablingTracking.htm">Enabling Usage Tracking for Traffic</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="UsageRetention.htm">Setting Usage Data Retention Periods</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

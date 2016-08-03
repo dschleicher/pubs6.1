@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="5" MadCap:lastHeight="892" MadCap:lastWidth="840">
+    <head>
+    </head>
+    <body>
+        <h1>Hostnames and IP Addresses</h1>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note: &lt;/b&gt;">For HyperStore Appliances, these hostname and IP addressing requirements are met if you followed the instructions in <MadCap:xref href="../Host Machine Preparation/Appliance Users/AppliancePrep.htm">Installing CentOS from the HyperStore ISO File</MadCap:xref>.</p>
+        <p>For all hosts on which you will install HyperStore software, make sure that the hostname:</p>
+        <ul>
+            <li>Does not contain upper case letters. Must be lower case only.</li>
+            <li>Is not set to <em>localhost</em>.</li>
+        </ul>
+        <div class="Indent">
+            <MadCap:dropDown>
+                <MadCap:dropDownHead class="CloudianChildDropDown">
+                    <MadCap:dropDownHotspot>How to confirm</MadCap:dropDownHotspot>
+                </MadCap:dropDownHead>
+                <MadCap:dropDownBody>
+                    <p>At the Linux prompt type<em> hostname</em> and verify that the command does not return <em>localhost</em>. In the example below, the hostname is <em>cloudian-machine</em>.</p><pre xml:space="preserve">root# hostname
+cloudian-machine</pre>
+                </MadCap:dropDownBody>
+            </MadCap:dropDown>
+        </div>
+        <ul>
+            <li>Is not mapped to the loopback address (127.0.0.1) in <em>/etc/hosts</em>.</li>
+        </ul>
+        <div class="Indent">
+            <MadCap:dropDown>
+                <MadCap:dropDownHead class="CloudianChildDropDown">
+                    <MadCap:dropDownHotspot>How to confirm</MadCap:dropDownHotspot>
+                </MadCap:dropDownHead>
+                <MadCap:dropDownBody>
+                    <p>Check the contents of <em>/etc/hosts</em>. In the example below, the hostname <em>cloudian-machine</em> is mapped to IP address 10.0.1.20, not to the loopback address..</p><pre xml:space="preserve">root# cat /etc/hosts
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+10.0.1.20 cloudian-machine
+...
+</pre>
+                </MadCap:dropDownBody>
+            </MadCap:dropDown>
+        </div>
+        <ul>
+            <li>Is assigned a static IPv4 address. Do not use DHCP. Do not use IPv6.</li>
+        </ul>
+        <div class="Indent">
+            <MadCap:dropDown>
+                <MadCap:dropDownHead class="CloudianChildDropDown">
+                    <MadCap:dropDownHotspot>How to confirm</MadCap:dropDownHotspot>
+                </MadCap:dropDownHead>
+                <MadCap:dropDownBody>
+                    <p>Check the contents of <em>/etc/sysconfig/network-scripts/ifcfg-eth0</em> and verify that <em>BOOTPROTO=none</em>.</p><pre xml:space="preserve">root# cat /etc/sysconfig/network-scripts/ifcfg-eth0
+DEVICE=eth0
+BOOTPROTO=none
+...
+</pre>
+                    <p class="Note" MadCap:autonum="&lt;b&gt;Note: &lt;/b&gt;">If you are using a network interface device other than <em>eth0</em>, check the <em>ifcfg-&lt;interface&gt;</em> file for the interface that you’re using to confirm that <em>BOOTPROTO=none</em>.</p>
+                </MadCap:dropDownBody>
+            </MadCap:dropDown>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="781" MadCap:lastWidth="841">
+    <head>
+    </head>
+    <body>
+        <h1>Responding to Disks Nearing Capacity</h1>
+        <p>HyperStore implements an <a href="../Major Features/Disk Usage Balancing/DiskUsageOverview.htm" target="_popup">automatic mechanism for helping to ensure balanced disk usage</a> among the disks on a host. However, if service utilization is heavy for the size of your cluster, there may be times when one or more disks nears their capacity.</p>
+        <p>If an individual disk or a node as a whole is running low on available capacity, HyperStore alerts administrators. In the CMC’s <a href="../Resources/Images/cmc/cluster/AlertRules.png" target="_popup">Alert Rules</a> page you can configure the available capacity threshold that triggers alerts. By default alerts are triggered if an individual disk drops below 15% available capacity or if a node as a whole drops below 10% available capacity.</p>
+        <p>When capacity-related alerts are triggered, they appear in the CMC’s <a href="../Resources/Images/cmc/cluster/NodeStatus.png" target="_popup">Node Status</a> page and <a href="../Resources/Images/cmc/alerts/Alerts.png" target="_popup">Alerts</a> page. Alerts are also sent to the system administrator email address(es). Optionally, alerts can also be transmitted as SNMP traps (this option is configurable in the <a href="../Resources/Images/cmc/cluster/AlertRules.png" target="_popup">Alert Rules</a> page.)</p>
+        <p>If a <b>HyperStore data disk</b> (a disk storing S3 object data) is nearing capacity, the first two things to try are:</p>
+        <ul>
+            <li>Use <MadCap:xref href="../Commands/hsstool/hsstoolCleanup.htm" target="_popup">hsstool cleanup</MadCap:xref> (and <MadCap:xref href="../Commands/hsstool/hsstoolCleanupec.htm" target="_popup">hsstool cleanupec</MadCap:xref> if you use erasure coding in your system) on the node to clear it of any data that’s no longer supposed to be there. Such "garbage data" may be present if, for example, S3 objects have been deleted from the system as a whole but the deletion operations on the node in question failed.</li>
+            <li>Delete S3 objects. Note that the associated files will not be deleted from the disk immediately since HyperStore uses batch processing for deletion of S3 object data. The batch processing is triggered hourly by a cron job (see Object Deletion Queue Processing [XREF]).</li>
+        </ul>
+        <p class="NoteIndent" MadCap:autonum="&lt;b&gt;Note: &lt;/b&gt;">For additional guidance on removing data to free up disk space, consult with Cloudian Support.</p>
+        <p>If these measures do not free up sufficient disk space, the solution is to increase system capacity by adding one or more new nodes to your cluster. For the procedure see <MadCap:xref href="AddNode.htm">Adding a Node</MadCap:xref>. When you add a node, a portion of the data on your existing nodes is copied to the new node and then deleted from the existing nodes — thereby freeing up space on the existing nodes. The degree to which space will be freed up on existing nodes depends on the number of new nodes that you add in proportion to the size of your existing cluster — for example, adding two nodes to a four node cluster would free up a larger percentage of the existing nodes' disk space than would adding two nodes to a twenty node cluster. Note that you can only add one node at a time (you must fully complete the addition of one node before starting to add a second node).</p>
+        <p><b>See Also:</b>
+        </p>
+        <ul>
+            <li>
+                <MadCap:xref href="RespondDiskCapacityCassandra.htm">Responding to a Cassandra Disk Nearing Capacity</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

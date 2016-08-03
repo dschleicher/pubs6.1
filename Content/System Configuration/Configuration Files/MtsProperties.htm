@@ -1,0 +1,1707 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="8" MadCap:lastHeight="23915" MadCap:lastWidth="837">
+    <head>
+    </head>
+    <body>
+        <h1>mts.properties.erb</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Configuration File]</p>
+        <p>The <em>mts.properties</em> file is the primary configuration file for both the S3 Service and the Admin Service. On your S3 Service / Admin Service nodes, the file is located at the following path by default:</p><pre>/opt/cloudian/conf/mts.properties</pre>
+        <p>On the Puppet master node, the template file for <em>mts.properties</em> is <em>mts.properties.erb</em>:</p><pre>/etc/cloudian-&lt;version&gt;-puppet/modules/cloudians3/templates/mts.properties.erb</pre>
+        <p>Certain <em>mts.properties.erb</em> properties take their values from settings in Puppet extdata files (most often <em>common.csv</em>) or from settings that you can control through the CMC's <MadCap:xref href="../../CMC Interface/Cluster/Configuration Settings/ConfigurationSettingsOverview.htm" target="_popup">Configuration Settings</MadCap:xref> page. In the <em>mts.properties.erb</em> file these properties' values are formatted as bracket-enclosed variables, like <em>&lt;%= … %&gt;</em>.  In the property documentation below, the descriptions of such properties indicate "Takes its value from <em>&lt;location&gt;: &lt;setting&gt;</em>; use that setting instead.". For example, "Takes its value from <em>common.csv: hyperstore_data_directory</em>; use that setting instead."). Also in such cases, a link to the source setting's description is provided.</p>
+        <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">After making changes to <em>mts.properties.erb</em> use the HyperStore installer (<em>cloudianInstall.sh</em>) on the Puppet master to propagate your changes to the cluster and to restart the S3 Service.</p>
+        <p>The <em>mts.properties.erb</em> file is divided into these sections:</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Cassandra Interfaces</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The S3 Service, Admin Service, and HyperStore Service each separately maintain their own pool of connections to the Cassandra data store. The configuration settings in this section are applied separately to each of the three connection pools. For example, if <em>MaxActive=10</em>, then the S3 Service to Cassandra, Admin Service to Cassandra, and HyperStore Service to Cassandra connection pools are <b>each</b> allowed a maximum of 10 simultaneously active connections.</p>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra.cluster.name"></a>cassandra.cluster.name</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from region.csv: cassandra_cluster_name[XREF]; use that setting instead.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra.cluster.Hosts"></a>cassandra.cluster.Hosts</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Use the cluster inventory file topology.csv[XREF] instead.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra.cluster.CassandraThriftSocketTimeout"></a>cassandra.cluster.CassandraThriftSocketTimeout</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>After submitting a request to a Cassandra instance via its Thrift socket, the amount of time in milliseconds to wait for a response from Cassandra before failing the operation.</p>
+                        <p>Default = 15000</p>
+                        <p>[XREF DIAGRAM]</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra.cluster.MaxActive"></a>cassandra.cluster.MaxActive</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>The maximum allowed number of simultaneously active connections in a Cassandra connection pool. If this limit has been reached and a thread requires a new connection to Cassandra, the thread will wait <em>cassandra.cluster.MaxWaitTimeWhenExhausted</em> before returning an error to the client. Set to a negative value (e.g. -1) to disable this limit.</p>
+                        <p>Default = 50</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra.cluster.MaxIdle"></a>cassandra.cluster.MaxIdle</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>The maximum allowed number of idle connections in a Cassandra connection pool. Any idle connections in excess of this limit are subject to being closed. Set to a negative value to disable this limit. Note this control is applicable only if <em>TimeBetweenEvictionRunsMillis</em> is set to a positive value.</p>
+                        <p>Default = 20</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra.cluster.MaxWaitTimeWhenExhausted"></a>cassandra.cluster.MaxWaitTimeWhenExhausted</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>If <em>cassandra.cluster.MaxActive</em> has been reached for a target Cassandra host and a thread requires a new connection to the host, the thread will wait this many milliseconds before returning an error to the client.</p>
+                        <p>Default = 9000</p>
+                        <p>For a diagram showing the place of this timeout within the S3 request processing flow, see here[XREF].</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra.cluster.RetryDownedHosts"></a>cassandra.cluster.RetryDownedHosts</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Whether or not to periodically retry Cassandra hosts that have been detected as being down, using a background thread. If set to "true", the retry is attempted at configurable interval <em>cassandra.cluster.RetryDownedHostsDelayInSeconds</em>.</p>
+                        <p>Default = true</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra.cluster.RetryDownedHostsQueueSize"></a>cassandra.cluster.RetryDownedHostsQueueSize</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Maximum number of downed Cassandra hosts to maintain in the downed host retry queue at the same time. If multiple Cassandra nodes are down, and if <em>cassandra.cluster.RetryDownedHosts=true</em>, then a queue is maintained for retrying downed nodes. The <em>cassandra.cluster.RetryDownedHostsQueueSize</em> sets a limit on the number of nodes that can be in the retry queue simultaneously.</p>
+                        <p>Default = -1 (unlimited)</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra.cluster.RetryDownedHostsDelayInSeconds"></a>cassandra.cluster.RetryDownedHostsDelayInSeconds</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>The number of seconds to wait between retry attempts for downed hosts. Applicable only if</p>
+                        <p><em>cassandra.cluster.RetryDownedHosts=true</em>.</p>
+                        <p>Default = 10</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra.cluster.Lifo"></a>cassandra.cluster.Lifo</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>If true, use a “last in, first out” policy for retrieving idle connections from a pool (use the most recently used idle connection). If false, use "first in, first out" retrieval of idle connections (use the oldest idle connection).</p>
+                        <p>Default = true</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra.cluster.MinEvictableIdleTimeMillis"></a>cassandra.cluster.MinEvictableIdleTimeMillis</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>The minimum time in milliseconds that a connection must be idle before it becomes eligible for closing due to maximum idle connection limits.</p>
+                        <p>Default = 100000</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra.cluster.TimeBetweenEvictionRunsMillis"></a>cassandra.cluster.TimeBetweenEvictionRunsMillis</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>The interval in milliseconds at which to check for idle connections in a pool, for enforcement of maximum idle connection limits.</p>
+                        <p>Default = 100000</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra.cluster.UseThriftFramedTransport"></a>cassandra.cluster.UseThriftFramedTransport</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Whether to use framed transport for Thrift. Strongly recommended to leave as true. If set to false, then</p>
+                        <p><em>thrift_framed_transport_size_in_mb</em> in <em>cassandra.yaml </em>must be set to 0.</p>
+                        <p>Default = true</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra.cluster.AutoDiscoverHosts"></a>cassandra.cluster.AutoDiscoverHosts</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Whether or not to periodically check for the presence of new Cassandra hosts within the cluster and to use these same settings to interface with those new hosts. If set to true, a check for new hosts is performed at configurable interval <em>cassandra.cluster.AutoDiscoveryDelayInSeconds</em>.</p>
+                        <p>Default = true</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra.cluster.AutoDiscoveryDelayInSeconds"></a>cassandra.cluster.AutoDiscoveryDelayInSeconds</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Number of seconds to wait between checks for new hosts. Applicable only <em>if cassandra.cluster.AutoDiscoverHosts=true</em></p>
+                        <p>Default = 60</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra.cluster.RunAutoDiscoveryAtStartup"></a>cassandra.cluster.RunAutoDiscoveryAtStartup</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Whether or not to perform auto-discovery at cluster start-up. See <em>cassandra.cluster.AutoDiscoverHosts</em>.</p>
+                        <p>Default = false</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra.cluster.HostTimeoutCounter"></a>cassandra.cluster.HostTimeoutCounter</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>If a Cassandra node returns more than this many host timeout exceptions within an interval of</p>
+                        <p><em>cassandra.cluster.HostTimeoutWindow</em>, mark the node as temporarily suspended. This setting and the other <em>HostTimeout*</em> settings below are applicable only if <em>cassandra.cluster.UseHostTimeoutTracker=true</em>.</p>
+                        <p>Default = 3</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra.cluster.HostTimeoutWindow"></a>cassandra.cluster.HostTimeoutWindow</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>If within an interval of this many milliseconds a Cassandra node returns more than <em>cassandra.cluster.HostTimeoutCounter</em> host timeout exceptions, mark the node as temporarily suspended.</p>
+                        <p>Default = 1000</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra.cluster.HostTimeoutUnsuspendCheckDelay"></a>cassandra.cluster.HostTimeoutUnsuspendCheckDelay</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>How often to check suspended nodes list to see which nodes should be unsuspended, in seconds.</p>
+                        <p>Default = 10</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra.cluster.HostTimeoutSuspensionDurationInSeconds"></a>cassandra.cluster.HostTimeoutSuspensionDurationInSeconds</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>When the periodic check of the suspended nodes list is performed, if a node has been suspended for more than this many seconds, unsuspend the node and place it back in the available pool.</p>
+                        <p>Default = 30</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra.cluster.UseHostTimeoutTracker"></a>cassandra.cluster.UseHostTimeoutTracker</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Whether to keep track of how often each Cassandra node replies with a host timeout exception, and to temporarily mark nodes as suspended if their timeout exceptions are too frequent. See the <em>HostTimeout*</em> setting descriptions above for details.</p>
+                        <p>Default = true</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra.cluster.UseSocketKeepalive"></a>cassandra.cluster.UseSocketKeepalive</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Whether to periodically send keep-alive probes to test pooled connections to Cassandra hosts.</p>
+                        <p>Default = true</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra.data.directories"></a>cassandra.data.directories</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from <em>common.csv</em>: <MadCap:xref href="CommonCsv.htm#cassandra_data_directory" target="_popup">cassandra_data_directory</MadCap:xref>; use that setting instead.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra.fs.keyspace"></a>cassandra.fs.keyspace</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Name of the Cassandra keyspace in which users' S3 objects are stored. (The "fs" in the setting name denotes "file system").</p>
+                        <p>Default = UserData</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.fs.autopurgems"></a>cloudian.fs.autopurgems</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>If two S3 objects with the same name are PUT to the same bucket within this many milliseconds, the HyperStore system retains <b>both</b> objects rather than trying to determine on-the-fly which is the older object and which the newer. This eliminates the possibility of losing data in the very unlikely event that two same-named objects are PUT to the same bucket within the same second. By keeping both objects, you allow the next run of hsstool cleanup[XREF] to determine which object to keep and which to delete, based on object metadata in the system.</p>
+                        <p>If more than <em>cloudian.fs.autopurgems</em> milliseconds have passed between two PUTs of an object with the same name, the system automatically purges the older object.</p>
+                        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">	If two same-named objects are PUT within <em>cloudian.fs.autopurgems</em> milliseconds, and both are retained by the system, and then subsequently the same-named object is PUT again — for example, an hour later — the system will purge whichever of the earlier two objects that the object metadata is pointing to. The other of the earlier objects is orphaned and will be removed when hsstool cleanup[XREF] is run.</p>
+                        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">If object versioning is being used, the <em>cloudian.fs.autopurgems</em> setting is irrelevant. When versioning is used, all versions of the object are retained regardless of the timing of PUTs. </p>
+                        <p>Default = 1000. This is the recommended value.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra.fs.max_chunk_size"></a>cassandra.fs.max_chunk_size</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from CMC Configuration Settings page, System section[XREF]: "Chunk Size for Replicated Objects"; use that setting instead.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra.fs.ec_max_chunk_size"></a>cassandra.fs.ec_max_chunk_size</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from CMC Configuration Settings page, System section[XREF]: "Chunk Size for Erasure Coded Objects"; use that setting instead.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra.jmx.port"></a>cassandra.jmx.port</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Cassandra’s JMX listening port.</p>
+                        <p>Default = 7199</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra.tombstone_cleanup_threshold"></a>cassandra.tombstone_cleanup_threshold</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>If more than this many tombstones (objects marked for deletion) exist in a CLOUDIAN_METADATA or MPSession column family in Cassandra, a tombstone purge process is automatically triggered for that column family.</p>
+                        <p>Default = 10000</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra.tombstone_gcgrace"></a>cassandra.tombstone_gcgrace</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>While doing a purge of tombstones in a CLOUDIAN_METADATA or MPSession column family, do not purge tombstones that are fewer than this many seconds old.</p>
+                        <p>Default = 2400</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.hints.max_hints_time_limit_in_s"></a>cloudian.hints.max_hints_time_limit_in_s</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from CMC Configuration Settings page, System section[XREF]: "HyperStore Max Hints Time Limit"; use that setting instead.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.hints.max_hint_space_limit_in_b"></a>cloudian.hints.max_hint_space_limit_in_b</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from CMC Configuration Settings page, System section[XREF]: "HyperStore Max Hint Space Limit"; use that setting instead.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.hints.dir"></a>cloudian.hints.dir</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from <em>common.csv</em>: cloudian_hints_directory[XREF]; use that setting instead.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.hints.writerthreads"></a>cloudian.hints.writerthreads</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>On each S3 Service node, the maximum number of processing threads to allocate to writing hinted handoff data to the <em>cloudian.hints.dir</em> directory.</p>
+                        <p>Default = 5</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.repair.eventqueue.create.interval"></a>cloudian.repair.eventqueue.create.interval</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>When proactive repair[XREF] is run on a node, it reads from a queue of node-specific object write failure events that is stored in Cassandra. The object write failure events are timestamped and are bundled together based on the time interval in which they occurred. The <em>cloudian.repair.eventqueue.create.interval</em> setting controls the time span (in minutes) that’s used for the bundling. For example with the default of 60 a new bundle starts each 60 minutes, if a node is unavailable for longer than this and write failure events for the node are accumulating.</p>
+                        <p>When the node comes back online, the first automatic run of proactive repair will repair the objects from all the interval-based bundles except for the most current one (the in-progress interval, such as the current hour if the default of 60 is being used). That bundle will be processed at the next automatic run of proactive repair. By default proactive repair runs (if needed) every 60 minutes — this frequency is configurable by hyperstore.hints.poll_time[XREF].</p>
+                        <p>Default = 60</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Consistency Levels</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>In a distributed storage ring in which data is replicated on more than one node, there is the question of consistency requirements for read and write operations. With the HyperStore system you can configure these requirements.</p>
+                <p>Consistency requirements for S3 object data are managed through the creation and application of storage policies. For information about creating storage policies, <MadCap:xref href="../../CMC Interface/Cluster/Storage Policies/StoragePoliciesAdd.htm">Add a Storage Policy</MadCap:xref>.</p>
+                <p>In the "Consistency Levels" section  are consistency level settings for service metadata and for metadata utilized by <em>hsstool</em> operations such as node repair.</p>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.cassandra.default.ConsistencyLevel.Read"></a>cloudian.cassandra.default.ConsistencyLevel.Read</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>For the Reports keyspace (service usage data), AccountInfo keyspace (user account information), and Monitoring keyspace (system monitoring data), the consistency level to require for read operations.</p>
+                        <p>Supported levels:</p>
+                        <ul>
+                            <li>Single-DC: ALL, QUORUM, ONE[XREF]</li>
+                            <li>Multi-DC: ALL, QUORUM, LOCAL_QUORUM, ONE[XREF]</li>
+                        </ul>
+                        <p>Default = QUORUM</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.cassandra.default.ConsistencyLevel.Write"></a>cloudian.cassandra.default.ConsistencyLevel.Write</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>For the Reports keyspace (service usage data), AccountInfo keyspace (user account information), and Monitoring keyspace (system monitoring data), the consistency level to require for write operations.</p>
+                        <p>Supported levels:</p>
+                        <p>Single-DC: ALL, QUORUM, ONE[XREF]</p>
+                        <p>Multi-DC: ALL, EACH_QUORUM, QUORUM, LOCAL_QUORUM, ONE[XREF]</p>
+                        <p>Default = QUORUM</p>
+                        <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">Since this setting applies to writes, using "ONE" is not recommended.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.cassandra.UserData.ConsistencyLevel.HyperStore"></a>cloudian.cassandra.UserData.ConsistencyLevel.HyperStore</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>The consistency level to require when hsstool[XREF] is implementing a repair or cleanup operation. This setting applies to reads and writes:</p>
+                        <ul>
+                            <li>The <em>hsstool</em> utility reads metadata in the UserData keyspace to perform these operations, so your consistency level setting will determine how many of the replicas of a given set of metadata must be successfully read in order for the operation to continue.</li>
+                            <li>When cleaning a UserData BLOB file, <em>hsstool </em>tries to clean all replicas for that BLOB. Your consistency level setting determines on how many replicas the cleanup-associated writes must succeed in order for the operation to continue.</li>
+                        </ul>
+                        <p>If the consistency requirement can’t be met, the operation fails and subsequently retries. The operation will abort if two retry attempts fail to achieve the required consistency level.</p>
+                        <p>Supported levels:</p>
+                        <ul>
+                            <li>Single-DC: ALL, QUORUM, ONE[XREF]</li>
+                            <li>Multi-DC: ALL, QUORUM, LOCAL_QUORUM, ONE[XREF]</li>
+                        </ul>
+                        <p>Default = QUORUM</p>
+                        <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">	Since this setting applies to writes as well as reads, using "ONE" is not recommended.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.cassandra.localdatacenter"></a>cloudian.cassandra.localdatacenter</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Use the cluster inventory file topology.csv[XREF] instead. The HyperStore installer populates this automatically. No manual configuration is required.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <p><b>Consistency Level Definitions</b> [XREF]</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Authorized Services and Namespaces</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.services"></a>cloudian.s3.services</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Comma-separated list of service names allowed in Authorization header of incoming S3 requests.</p>
+                        <p>Default = AWS,CLOUDIAN</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.default_service"></a>cloudian.s3.default_service</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Default service name for the S3 Service to use when incoming S3 requests do not specify a service name in an Authorization header. Must be one from the <em>cloudian.s3.services</em> list.</p>
+                        <p>Default = AWS</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.customheader.AWS"></a>cloudian.s3.customheader.AWS</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>When service name is "AWS", the string identifying custom extension headers, of type "x-&lt;string&gt;-*".</p>
+                        <p>Default = amz</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.customheader.CLOUDIAN"></a>cloudian.s3.customheader.CLOUDIAN</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>When service name is "CLOUDIAN", the string identifying custom extension headers, of type "x-&lt;string&gt;-*".</p>
+                        <p>Default = cloudian</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.xmlns.AWS"></a>cloudian.s3.xmlns.AWS</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>When service name is "AWS", the URI for the XML namespace.</p>
+                        <p>Default = http://s3.amazonaws.com/doc/2006-03-01/</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.xmlns.CLOUDIAN"></a>cloudian.s3.xmlns.CLOUDIAN</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>When service name is "CLOUDIAN", the URI for the XML namespace.</p>
+                        <p>Default = http://s3.cloudian.com/2013-10-01/</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.acp.acl.grant.group.alluser.uri.AWS"></a>cloudian.s3.acp.acl.grant.group.alluser.uri.AWS</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>When service name is "AWS", the URI representing the "all users" access control grantee group.</p>
+                        <p>Default = http://acs.amazonaws.com/groups/global/AllUsers</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.acp.acl.grant.group.alluser.uri.CLOUDIAN"></a>cloudian.s3.acp.acl.grant.group.alluser.uri.CLOUDIAN</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>When service name is "CLOUDIAN", the URI representing the "all users" access control grantee group.</p>
+                        <p>Default = http://acs.cloudian.com/groups/global/AllUsers</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.acp.acl.grant.group.authuser.uri.AWS"></a>cloudian.s3.acp.acl.grant.group.authuser.uri.AWS</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>When service name is "AWS", the URI representing the "authenticated users" access control grantee group.</p>
+                        <p>Default = http://acs.amazonaws.com/groups/global/AuthenticatedUsers</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.acp.acl.grant.group.authuser.uri.CLOUDIAN"></a>cloudian.s3.acp.acl.grant.group.authuser.uri.CLOUDIAN</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>When service name is "CLOUDIAN", the URI representing the "authenticated users" access control grantee group.</p>
+                        <p>Default = http://acs.cloudian.com/groups/global/AuthenticatedUsers</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.acp.acl.grant.group.logdelivery.uri.AWS"></a>cloudian.s3.acp.acl.grant.group.logdelivery.uri.AWS</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>When service name is "AWS", the URI representing the "LogDelivery" access control grantee group. This canned ACL is associated with the S3 bucket logging feature and grants to the system the authority to write bucket logs into a target bucket.</p>
+                        <p>Default = http://acs.amazonaws.com/groups/s3/LogDelivery</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.acp.acl.grant.group.logdelivery.uri.CLOUDIAN"></a>
+
+cloudian.s3.acp.acl.grant.group.logdelivery.uri.CLOUDIAN </MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>When service name is "CLOUDIAN", the URI representing the "LogDelivery" access control grantee group. This canned ACL is associated with the S3 bucket logging feature and grants to the system the authority to write bucket logs into a target bucket.</p>
+                        <p>Default = http://acs.cloudian.com/groups/s3/LogDelivery</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.authorizationV4.singleregioncheck"></a>cloudian.s3.authorizationV4.singleregioncheck</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>In Cloudian deployments that consist of only one service region[XREF], this setting impacts the system’s handling of incoming S3 requests that are using AWS Signature Version 4 Authentication:</p>
+                        <ul>
+                            <li>If this setting is set to "true", the system will validate that the region name that the client used when creating the request signature (as indicated in the scope information that the client specifies in the request) is in fact the region name for your single region. If not the request will be rejected.</li>
+                            <li>If set to "false" the system will not validate the region name. Instead, the system calculates and validates the signature using whatever region name is specified in the request.</li>
+                        </ul>
+                        <p>Default = false</p>
+                        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">This setting is applicable only to single-region HyperStore deployments. In multi-region deployments the system always validates the region name that’s specified in the Signature Version 4 scope information within a request to confirm that it matches the region name of the HyperStore service region that’s processing the request. If not the request will be rejected.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.serverside.encryption.keylength"></a>cloudian.s3.serverside.encryption.keylength</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>This setting is for enabling AES-256 support in the HyperStore system, for use with the server-side encryption feature. To do so you must first install a Java cryptography extension package. For instructions see Enabling AES-256[XREF].</p>
+                        <p>Default = Commented out. Internally defaults to 128.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>QoS</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The following settings pertain to the implementation of quality of service (QoS) limits for the S3 service. For more detail on the HyperStore QoS feature, see <MadCap:xref href="../../Major Features/Quality of Service/QosOverview.htm" target="_popup">Quality of Service (QoS) Feature Overview</MadCap:xref>.</p>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.qos.enabled"></a>cloudian.s3.qos.enabled</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from CMC Configuration Settings page, Quality of Service section[XREF]: "Enforce Configured QoS Limits for Storage Utilization"; use that setting instead.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.qos.rate.enabled"></a>cloudian.s3.qos.rate.enabled</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from CMC Configuration Settings page, Quality of Service section[XREF]: "Enforce Configured QoS Limits for Request Rates and Data Transfer Rates"; use that setting instead.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.qos.cache.enabled"></a>cloudian.s3.qos.cache.enabled</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>When QoS enforcement is enabled, for each S3 request the S3 Service checks current user and group QoS usage against configured QoS limits. The usage counters and configured limits are stored in the Redis QoS DB. This setting if set to "true" enables the S3 Service to cache QoS counter and limits data and to check that cached data first when performing its QoS enforcement role. If there is no cache hit then Redis is checked.</p>
+                        <p>Default = false</p>
+                        <p>Reloadable via JMX (S3 Service’s JMX port 19080; MBean attribute = com.gemini.cloudian.s3 → Configuring → Attributes → QosCacheEnabled)</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.qos.cache.expiryms"></a>cloudian.s3.qos.cache.expiryms</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>For the S3 Service’s QoS data cache (if enabled), the cache entry expiry time in milliseconds.</p>
+                        <p>Default = 10000</p>
+                        <p>Reloadable via JMX (S3 Service’s JMX port 19080; MBean attribute = com.gemini.cloudian.s3 → Configuring → Attributes → QosCacheExpiryMs)</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.qos.storagewrite.batch.enabled"></a>cloudian.s3.qos.storagewrite.batch.enabled</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>If set to "true" then the AccountHandler’s updates of storage object and storage bytes counters in Redis are batched together.</p>
+                        <p>Default = false</p>
+                        <p>Reloadable via JMX (S3 Service’s JMX port 19080; MBean attribute = com.gemini.cloudian.s3 → Configuring → Attributes → QosStorageWriteEnabled)</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.qos.storagewrite.intervalms"></a>cloudian.s3.qos.storagewrite.intervalms</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>If batching of storage counter updates is enabled, the batch interval in milliseconds.</p>
+                        <p>Default = 60000</p>
+                        <p>Reloadable via JMX (S3 Service’s JMX port 19080; MBean attribute = com.gemini.cloudian.s3 → Configuring → Attributes → QosStorageWriteIntervalMs)</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.qos.maxdelay"></a>cloudian.s3.qos.maxdelay</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>If a PUT Object or PUT Object Copy operation that is overwriting an existing object takes more than this many milliseconds to complete, then before the system updates the user’s Storage Bytes (SB) count it re-checks the existing object’s metadata to ensure that the calculated size differential between the existing object and the new object is based on fresh metadata. This configurable behavior is intended to reduce the likelihood of erroneous SB counts resulting from race conditions wherein multiple client requests are overwriting the same object at the same time.</p>
+                        <p>The context is that in the case of an existing object being overwritten by a new instance of the object, the system updates the user’s SB count by calculating the delta between the original object’s size (as indicated by its metadata) and the new object’s size and then applying that difference to the user’s SB count. It’s important therefore that the calculated delta be based on up-to-date metadata for the object that’s being overwritten, even in the case where the writing of the new object takes a long time to complete.</p>
+                        <p>Default = 60000</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>S3 Service Caching (Bucket Metadata, etc)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.metadata.cache.enabled_"></a>
+
+cloudian.s3.metadata.cache.enabled </MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>If "true", bucket metadata is cached by the S3 Service. When S3 request processing requires bucket metadata, the cache is checked first. If there is no cache hit then Redis is checked. Set to "false" to disable bucket metadata caching.</p>
+                        <p>Default = true</p>
+                        <p>Reloadable via JMX (S3 Service’s JMX port 19080; MBean attribute = com.gemini.cloudian.s3 → Configuring → Attributes → MDCacheEnabled)</p>
+                        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">If a user updates her bucket metadata by S3 request, the cached bucket metadata on <b>the S3 Service node that processed the request</b> will be immediately invalidated, but on other S3 Service nodes the cached data will persist (and potentially be used) until it expires. This may impact things like ACL and lifecycle policies. Keep this in mind when setting your bucket metadata cache expiry.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.metadata.cache.expiryms"></a>cloudian.s3.metadata.cache.expiryms</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>For the bucket metadata cache (if enabled), the cache entry expiry time in milliseconds.</p>
+                        <p>Default = 60000</p>
+                        <p>Reloadable via JMX (S3 Service’s JMX port 19080; MBean attribute = com.gemini.cloudian.s3 → Configuring → Attributes → MDCacheExpiryMs)</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.group.cache.enabled"></a>cloudian.s3.group.cache.enabled</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>If "true", then the active/inactive status of user groups is cached by the S3 Service. When S3 request processing requires group active/inactive status, the cache is checked first. If there is no cache hit then Redis is checked. Set to "false" to disable group status caching.</p>
+                        <p>Default = true</p>
+                        <p>Reloadable via JMX (S3 Service’s JMX port 19080; MBean attribute = com.gemini.cloudian.s3 → Configuring → Attributes → GroupCacheEnabled)</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.group.cache.expiryms"></a>cloudian.s3.group.cache.expiryms</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>For the group status cache (if enabled), the cache entry expiry time in milliseconds.</p>
+                        <p>Default = 300000</p>
+                        <p>Reloadable via JMX (S3 Service’s JMX port 19080; MBean attribute = com.gemini.cloudian.s3 → Configuring → Attributes → GroupCacheExpiryMs)</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.credentials.cache.enabled"></a>cloudian.s3.credentials.cache.enabled</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>If "true", users active security credentials are cached by the S3 Service. When S3 request processing requires a user’s credentials, the cache is checked first. If there is no cache hit then Redis is checked. Set to "false" to disable credentials caching.</p>
+                        <p>Default = false</p>
+                        <p>Reloadable via JMX (S3 Service’s JMX port 19080; MBean attribute = com.gemini.cloudian.s3 → Configuring → Attributes → GroupCacheEnabled)</p>
+                        <p>Important 	This caching functionality should be used with caution since it could potentially result in an S3 Service node using a slightly out-of-date credential to authorize an S3 user request. This feature is really geared toward a service deployment scenario in which the HyperStore service has just one S3 user in the system, whose credential changes rarely or never.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.credentials.cache.expiryms"></a>cloudian.s3.credentials.cache.expiryms</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>For the credentials cache (if enabled), the cache entry expiry time in milliseconds.</p>
+                        <p>Default = 300000</p>
+                        <p>Reloadable via JMX (S3 Service’s JMX port 19080; MBean attribute = com.gemini.cloudian.s3 → Configuring → Attributes → GroupCacheExpiryMs)</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.user.cache.enabled"></a>cloudian.s3.user.cache.enabled</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>If "true", users' active/inactive status and display names are cached by the S3 Service. When S3 request processing requires a user’s status and/or display name, the cache is checked first. If there is no cache hit then Redis is checked. Set to "false" to disable user caching.</p>
+                        <p>Default = true</p>
+                        <p>Reloadable via JMX (S3 Service’s JMX port 19080; MBean attribute = com.gemini.cloudian.s3 → Configuring → Attributes → UserCacheEnabled)</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.user.cache.expiryms"></a>cloudian.s3.user.cache.expiryms</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>For the user status and display name cache (if enabled), the cache entry expiry time in milliseconds.</p>
+                        <p>Default = 300000</p>
+                        <p>Reloadable via JMX (S3 Service’s JMX port 19080; MBean attribute = com.gemini.cloudian.s3 → Configuring → Attributes → UserCacheExpiryMs)</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Domains and Regions</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The "region" settings in this section are applicable to multi-region HyperStore deployments. If your HyperStore system does not have multiple service regions, you can leave the settings in this section at their default values.</p>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.regions"></a>cloudian.s3.regions</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from <em>common.csv</em>: <MadCap:xref href="CommonCsv.htm#regions" target="_popup">regions</MadCap:xref>; use that setting instead.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.home_region"></a>cloudian.s3.home_region</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from region.csv: region_name; use that setting instead.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.default_region"></a>cloudian.s3.default_region</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from <em>common.csv</em>: <MadCap:xref href="CommonCsv.htm#default_region" target="_popup">default_region</MadCap:xref>; use that setting instead.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>cassandra.cluster.name</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from region.csv: cassandra_cluster_name[XREF]; use that setting instead.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra.cluster.hosts"></a>cassandra.cluster.hosts</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Use the cluster inventory file topology.csv[XREF] instead.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.domain.&lt;region&gt;"></a>cloudian.s3.domain.&lt;region&gt;</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from region.csv: s3_domain_and_port[XREF]; use that setting instead.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.ssl_domain.&lt;region&gt;"></a>cloudian.s3.ssl_domain.&lt;region&gt;</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Domain and SSL listening port from one of your regions, in format <em>&lt;FQDN&gt;.&lt;port&gt;</em>. This is used if your system has multiple service regions and you have configured your S3 service to use SSL. For example, if a GET Object request comes in to the S3 service in region1, and the object is stored in region2, and region2 is configured to use SSL for its S3 service — then the S3 service in region1 needs to know the domain and SSL port for the S3 service in region2, so that it can specify a correct Location header in the Redirect message it returns to the requesting client.</p>
+                        <p>If you have a multi-region HyperStore deployment, create and configure a <em>cloudian.s3.ssl_domain.&lt;region&gt;</em> for <b>each</b> of your regions, including the local region. For example:</p><pre xml:space="preserve">cloudian.s3.ssl_domain.region1 = s3.region1.mycompany.com:443
+cloudian.s3.ssl_domain.region2 = s3.region2.mycompany.com:443
+cloudian.s3.ssl_domain.region3 = s3.region3.mycompany.com:443</pre>
+                        <p>If you have only one region in your HyperStore deployment, then this setting is not relevant to your system.</p>
+                        <p>Default = commented out</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.website_endpoint"></a>cloudian.s3.website_endpoint</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from region.csv: cloudians3_website_endpoint[XREF].</p>
+                        <p>To change this, use the HyperStore installer’s Advanced Installation Configuration Options[XREF].</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.util.dns.resolver"></a>cloudian.util.dns.resolver</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Method used to resolve foreign buckets to the correct region, in support of the S3 LocationConstraint feature. Currently only one option is supported:</p>
+                        <ul>
+                            <li>com.gemini.cloudian.util.dns.RedirectResolver — Never resolve foreign bucket domain names, always reply with a 307 redirect. The Location value to supply in the redirect response is obtained from the global Redis database.</li>
+                        </ul>
+                        <p>Default = com.gemini.cloudian.util.dns.RedirectResolver</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.publicurl.port"></a>cloudian.publicurl.port</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from <em>common.csv</em>:<MadCap:xref href="CommonCsv.htm#ld_cloudian_s3_port" target="_popup">ld_cloudian_s3_port</MadCap:xref>; use that setting instead.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.publicurl.sslport"></a>cloudian.publicurl.sslport</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from <em>common.csv</em>: <MadCap:xref href="CommonCsv.htm#ld_cloudian_s3_ssl_port_" target="_popup">
+ld_cloudian_s3_ssl_port </MadCap:xref>; use that setting instead.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>S3 Service</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.server"></a>cloudian.s3.server</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>HTTP Server header value to return in responses to S3 requests. If you want no Server header value returned in responses to S3 requests, set this setting to blank.</p>
+                        <p>Default = Commented out; uses internal default "CloudianS3"</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.tmpdir"></a>cloudian.s3.tmpdir</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>The directory in which to temporarily store large files in order to reduce memory usage.</p>
+                        <p>Default = Commented out; uses internal default <em>java.io.tmpdir</em>.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.fs.read_buffer_size"></a>cloudian.fs.read_buffer_size</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>When interacting with the file storage system in Cassandra, the size of the S3 Service’s and Admin Service’s read buffer, in bytes. A larger read buffer can enhance performance but will also consume more memory.</p>
+                        <p>Default = 65536</p>
+                        <p>Reloadable via JMX (S3 Service’s JMX port 19080; MBean attribute = com.gemini.cloudian.s3 → Configuring → Attributes → ReadBufferSize)</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.putobject.max_size"></a>cloudian.s3.putobject.max_size</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from the <MadCap:xref href="../../CMC Interface/Cluster/Configuration Settings/ConfigurationSettingsS3Restrictions.htm#Put_Object_Maximum_Size_(Bytes)" target="_popup">Put Object Maximum Size (Bytes)</MadCap:xref> setting on the CMC <b>Configuration Settings</b> page; use that setting instead.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.getbucket.max_num_of_keys"></a>cloudian.s3.getbucket.max_num_of_keys</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>When performing an S3 GET Bucket operation (which returns meta-data about the objects in the bucket specified in the request), the maximum number of objects to list in the response. If the client request sets a "max-keys" parameter, then the lower of the client-specified value and the <em>cloudian.s3.getbucket.max_num_of_keys</em> value is used.</p>
+                        <p>Default = 1000</p>
+                        <p>Reloadable via JMX (S3 Service’s JMX port 19080; MBean attribute = com.gemini.cloudian.s3 → Configuring → Attributes → GetBucketMaxKeys)</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.max_user_buckets"></a>cloudian.s3.max_user_buckets</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from the <MadCap:xref href="../../CMC Interface/Cluster/Configuration Settings/ConfigurationSettingsS3Restrictions.htm#Maximum_Buckets_Per_User" target="_popup">Maximum Buckets Per User</MadCap:xref> setting on the CMC <b>Configuration Settings</b> page; use that setting instead.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.delimiter_regex"></a>cloudian.s3.delimiter_regex</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Regular expression indicating allowed delimiters in getBucketList objects.</p>
+                        <p>Default = .+</p>
+                        <p>Reloadable via JMX (S3 Service’s JMX port 19080; MBean attribute = com.gemini.cloudian.s3 → Configuring → Attributes → DelimiterRegex)</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.multipart.maxparts"></a>cloudian.s3.multipart.maxparts</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from the <MadCap:xref href="../../CMC Interface/Cluster/Configuration Settings/ConfigurationSettingsS3Restrictions.htm#Multipart_Upload_Maximum_Parts" target="_popup">Multipart Upload Maximum Parts</MadCap:xref> setting on the CMC <b>Configuration Settings</b> page; use that setting instead.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown"><a name="cloudian.s3.multipart.minsize"></a>
+                        <MadCap:dropDownHotspot>cloudian.s3.multipart.minsize</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>In an S3 Multipart Upload, the required minimum size per part, excluding the last part. Expressed in number of bytes. The operation will fail if a part other than the last part is smaller than this many bytes. For example, if you set this to 5242880 (5MB, which is the Amazon S3 default) then in a Multipart Upload each part uploaded must be at least 5MB in size, except for the last part which is allowed to be as small as necessary to complete the object.</p>
+                        <p>Default = 1</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.deleteobjects.maxKeys"></a>cloudian.s3.deleteobjects.maxKeys</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from the <MadCap:xref href="../../CMC Interface/Cluster/Configuration Settings/ConfigurationSettingsS3Restrictions.htm#Maximum_Objects_Per_Multi-Object_Delete" target="_popup">Maximum Objects Per Multi-Object Delete</MadCap:xref> setting on the CMC <b>Configuration Settings</b> page; use that setting instead.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.unsupported"></a>cloudian.s3.unsupported</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Comma-separated list of Amazon S3 URI parameters that the HyperStore system does not support. This list applies across HTTP methods and across S3 resource types. In response to requests that include an unsupported URI parameter, the HyperStore system will return 501, Not Implemented.</p>
+                        <p>Default = notification,requestPayment,torrent,tagging</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.util.ntp.Path"></a>cloudian.util.ntp.Path</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Path to <em>ntpstat</em>. Setting this value is required only if ntpstat is not in the environment PATH.</p>
+                        <p>Default = commented out; internal default = ' '</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.util.ntp.MaximumSynchronizationDistance"></a>cloudian.util.ntp.MaximumSynchronizationDistance</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Maximum system clock skew to allow when servicing S3 requests that require the S3 Service to generate an object versionId, in milliseconds.</p>
+                        <ul>
+                            <li>If this setting is set to a positive value, a S3 Service node that is processing S3 requests that require generating a versionid will perform an ntpstat check. If the node’s system clock is skewed by more than <em>cloudian.util.ntp.MaximumSynchronizationDistance</em> milliseconds, the S3 Service rejects the S3 request with a "503 Service Unavailable" error response. The frequency of the ntpstat check can be limited by using the <em>cloudian.util.ntp.CheckIntervalMillis</em> setting.</li>
+                            <li>If this setting is set to 0, the <em>npstat</em> check is not performed when processing S3 requests that require generating a versionId.</li>
+                        </ul>
+                        <p>Default = 0</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.util.ntp.CheckIntervalMillis"></a>cloudian.util.ntp.CheckIntervalMillis</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Minimum time between <em>ntpstat</em> checks, in milliseconds.</p>
+                        <ul>
+                            <li>If this setting is set to a positive value, then when the S3 Service is processing S3 requests that require generating a versionId, an <em>ntpstat</em> check will be performed only if <em>cloudian.util.ntp.CheckIntervalMillis</em> milliseconds or more have passed since the last <em>ntpstat</em> check was performed.</li>
+                            <li>If this setting is set to 0, an <em>ntpstat</em> check is performed with every S3 request that requires generating a versionId.</li>
+                        </ul>
+                        <p>Default = 60000</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.batch.delete.maxkeys"></a>cloudian.s3.batch.delete.maxkeys</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>When HyperStore clients delete S3 objects, the HyperStore system deletes the object metadata immediately but does not delete the actual objects until the next run of the .<a href="../../Maintenance/CronJobs.htm#Object" target="_popup"><em>system/deleteObject</em> cron job</a> which runs every hour (by default). The <em>cloudian.s3.batch.delete.maxkeys</em> setting can be used to set a maximum number of objects to delete in a single run of the <em>.system/deleteObject</em> cron job.</p>
+                        <p>If you want each <em>.system/deleteObject</em> cron job run to delete all the objects that are queued for deletion, with no maximum, then set this setting to 0.</p>
+                        <p>Default = 0</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.batch.delete.delay"></a>cloudian.s3.batch.delete.delay</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>When executing the the .<a href="../../Maintenance/CronJobs.htm#Object" target="_popup"><em>system/deleteObject</em> cron job</a>, the number of milliseconds to pause in between deletes of individual objects.</p>
+                        <p>To have no delay between individual object deletes, set this setting to 0.</p>
+                        <p>Default = 0</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>S3 Client</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The settings in this section are used by an internal S3 Service client that sends requests to the HyperStore S3 Service in other regions of a <a href="../../Major Features/Service Regions/ServiceRegionsOverview.htm" target="_popup">multi-region HyperStore deployment</a>. These settings are relevant only if you have a multi-region system.</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">In the configuration file commenting in this section, the specified "defaults" are internal defaults that would be used if these settings were commented out in the file. In the documentation below, the specified "defaults" are the values that are assigned to the settings in the default version of the configuration file after install.</p>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.client.ConnectionTimeout"></a>cloudian.s3.client.ConnectionTimeout</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>When interfacing with the S3 Service in a different Cloudian HyperStore service region, the connection establishment timeout in milliseconds.</p>
+                        <p>Default = 2000</p>
+                        <p>Reloadable via JMX (S3 Service’s JMX port 19080; MBean attribute = com.gemini.cloudian.s3 → Configuring → Attributes → S3ClientConnectionTimeout)</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.client.SocketTimeout"></a>cloudian.s3.client.SocketTimeout</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>When interfacing with the S3 Service in a different Cloudian HyperStore service region, the request processing timeout in milliseconds. When a request is sent over an open connection, if a complete response is not received within this interval, the request times out and the connection is closed.</p>
+                        <p>Default = 50000</p>
+                        <p>Reloadable via JMX (S3 Service’s JMX port 19080; MBean attribute = com.gemini.cloudian.s3 → Configuring → Attributes → S3ClientSocketTimeout )</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.client.MaxErrorRetry"></a>cloudian.s3.client.MaxErrorRetry</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>When interfacing with the S3 Service in a different Cloudian HyperStore service region, the maximum number of times to retry a retryable failed request (such as when a 5xx response is received). Set to 0 if you want no retries.</p>
+                        <p>Default = 0</p>
+                        <p>Reloadable via JMX (S3 Service’s JMX port 19080; MBean attribute = com.gemini.cloudian.s3 → Configuring → Attributes → S3ClientMaxErrorRetry)</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.client.UserAgent"></a>cloudian.s3.client.UserAgent</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>When interfacing with the S3 Service in a different Cloudian HyperStore service region, the value of the first part of the HTTP User-Agent header, where the whole header is "&lt;ConfigValue&gt;, &lt;AWS SDK Version&gt; &lt;OS Version&gt; &lt;JDK Version&gt;". For example, if you set this setting to "Agent99", then the resulting User-Agent header will be "Agent99, &lt;AWS SDK Version&gt; &lt;OS Version&gt; &lt;JDK Version&gt;", with the latter three values being populated automatically by the system.</p>
+                        <p>Default = Commented out; uses internal default "Cloudian/&lt;version&gt; &lt;default-region&gt;"</p>
+                        <p>Reloadable via JMX (S3 Service’s JMX port 19080; MBean attribute = com.gemini.cloudian.s3 → Configuring → Attributes → S3ClientUserAgent)</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Reports</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.auditlog.enabled"></a>cloudian.auditlog.enabled</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Do not edit this setting.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="reports.raw.ttl"></a>reports.raw.ttl</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Time-to-live for "raw" S3 usage data in the Reports keyspace in Cassandra, in seconds. Data written to the Raw column family will be automatically deleted after this many seconds.</p>
+                        <p>Default = 86400 (one day)</p>
+                        <p>For an overview of how the HyperStore system tracks service usage by groups and users, see <MadCap:xref href="../../Major Features/Usage Reporting/UsageOverview.htm">Usage Reporting Feature Overview</MadCap:xref>.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="reports.rolluphour.ttl"></a>reports.rolluphour.ttl</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Time-to-live for hourly roll-up S3 usage data in the Reports keyspace in Cassandra, in seconds. Data written to the RollupHour column family will be automatically deleted after this many seconds.</p>
+                        <p>Default = 5616000 seconds (65 days)</p>
+                        <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">This hourly rollup data is the basis for generating billing reports. After hourly rollup data is deleted it is no longer available for generating billing reports.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="reports.rollupday.ttl"></a>reports.rollupday.ttl</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Time-to-live for daily roll-up S3 usage data in the Reports keyspace in Cassandra, in seconds. Data written to the RollupDay column family will be automatically deleted after this many seconds.</p>
+                        <p>Default = 5616000 seconds (65 days)</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="reports.rollupmonth.ttl"></a>reports.rollupmonth.ttl</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Time-to-live for monthly roll-up S3 usage data in the Reports keyspace in Cassandra, in seconds. Data written to the RollupMonth column family will be automatically deleted after this many seconds.</p>
+                        <p>Default = 15552000 (180 days)</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="reports.auditdata.ttl"></a>reports.auditdata.ttl</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Time-to-live for audit data in the Reports keyspace in Cassandra, in seconds. Data written to the AuditData column family will be automatically deleted after this many seconds.</p>
+                        <p>Default = 5616000 seconds (65 days)</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="events.acknowledged.ttl"></a>events.acknowledged.ttl</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Time-to-live for <b>acknowledged</b> system events in the Monitoring keyspace in Cassandra, in seconds. Acknowledged events will be automatically deleted after this many seconds.</p>
+                        <p>Unacknowledged events are not subject to this timer. The time-to-live countdown on an event record does not begin until an administrator acknowledges the event through the CMC’s <a href="../../Resources/Images/cmc/cluster/NodeStatus.png" target="_popup">Node Status</a> page.</p>
+                        <p>Default = 86400 (1 day)</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="monitoring.ophistory.ttl"></a>monitoring.ophistory.ttl</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Time-to-live for per-node data repair operation summaries in the Monitoring keyspace, in seconds. Repair operation summaries are generated each time a node is repaired (either by the <a href="../../Major Features/Automatic Data Repair/DataRepairOverview.htm" target="_popup">scheduled auto-repair feature</a> or when you <a href="../../Commands/hsstool/hsstoolRepair.htm" target="_popup">manually trigger a repair</a>). Each repair summary will be automatically deleted after it has been stored for monitoring.ophistory.ttl seconds.</p>
+                        <p>While repair summaries are stored, they can be retrieved on a per-node basis by using the <MadCap:xref href="../../Commands/hsstool/hsstoolOpstatus.htm" target="_popup">hsstool opstatus</MadCap:xref> command, with the "history" option. This returns the repair history of a specified node.</p>
+                        <p>Default = 7776000 (90 days)</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Usage</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The "Usage" section has settings for tuning the performance of <a href="../../Major Features/Usage Reporting/UsageValidation.htm" target="_popup">usage data repair</a> operations.</p>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="usage.repair.row.size"></a>usage.repair.row.size</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>When querying Cassandra for the object metadata associated with individual service users, the maximum number of users to retrieve per query.</p>
+                        <p>Default = 1000</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="usage.repair.column.size"></a>usage.repair.column.size</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>When querying Cassandra for the object metadata associated with individual service users, for each user the maximum number of objects for which to retrieve metadata per query.</p>
+                        <p>Default = 10000</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="usage.repair.maxdirtyusers"></a>usage.repair.maxdirtyusers</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Maximum number of "dirty" users for whom to verify (and if necessary repair) usage data during a single run of the <a href="../../Admin API/Usage Reporting/PostUsageDataRepairForActiveUsers.htm" target="_popup">POST /usage/repair/dirtyusers</a> operation. This operation is triggered every 12 hours by cron job.</p>
+                        <p>Default = 1000</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="usage.rollup.userchunk.size"></a>usage.rollup.userchunk.size</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>When performing rollups of usage data, the maximum number of users to take into memory at a time.</p>
+                        <p>Default = 1000</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="usage.rollup.usagechunk.size"></a>usage.rollup.usagechunk.size</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>When performing rollups of usage data, the maximum number of usage items to take into memory at a time.</p>
+                        <p>Default = 1000</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.usagerates.enabled"></a>cloudian.s3.usagerates.enabled</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from the <MadCap:xref href="../../CMC Interface/Cluster/Configuration Settings/ConfigurationSettingsUsage.htm#Track/Report_Usage_for_Request_Rates_and_Data_Transfer_Rates" target="_popup">Track/Report Usage for Request Rates and Data Transfer Rates</MadCap:xref> setting on the CMC <b>Configuration Settings</b> page; use that setting instead.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.s3.redis.switchms"></a>cloudian.s3.redis.switchms</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>If the S3 Service finds a Redis node to be inaccessible it will be marked as down for this many milliseconds. The S3 Service will not try to access the Redis node again (for any request) until this period has passed.</p>
+                        <p>This setting applies to reads of the Redis QoS database as well as to reads of the Redis Credentials database.</p>
+                        <p>Default = 1000 (1 second)</p>
+                        <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">If you are restarting multiple Redis nodes, do the restarts one node at a time and make sure that each node is back up for at least the <em>cloudian.s3.redis.switchms</em> interval (default 1 second) before moving on to restart the next node.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Redis DB</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>In the Redis section you can configure connection pools that the S3 Service and Admin Service will use when they send requests to the <MadCap:xref href="../../Introduction/HyperStore Services/ServicesRedis.htm" target="_popup">Redis Credentials and Redis QoS Services</MadCap:xref>. There are separate connection pools for each Redis DB type and each Redis role type.</p>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="redis.credentials.master.host"></a>redis.credentials.master.host</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from the <MadCap:xref href="CommonCsv.htm#redis_credentials_master_host" target="_popup">redis_credentials_master_host</MadCap:xref> and <MadCap:xref href="CommonCsv.htm#redis_credentials_master_port" target="_popup">redis_credentials_master_port</MadCap:xref> settings in <em>common.csv</em>.</p>
+                        <p>For instructions on moving the Redis Credentials master, see <MadCap:xref href="../../Operations/Change Node Role/MoveRedisMaster.htm">Move the Redis Credentials Master or QoS Master Role</MadCap:xref>.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="redis.credentials.read.host"></a>redis.credentials.read.host</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from region.csv: redis_credentials_read_hosts [XREF] and <em>common.csv</em>: <MadCap:xref href="CommonCsv.htm#redis_credentials_master_port" target="_popup">redis_credentials_master_port</MadCap:xref>.</p>
+                        <p>For instructions on moving or adding a Redis Credentials slave, see <MadCap:xref href="../../Operations/Change Node Role/MoveRedisCredentialsSlave.htm">Move or Add a Redis Credentials Slave</MadCap:xref>.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="redis.qos.master.host"></a>redis.qos.master.host</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from region.csv: redis_qos_master_host [XREF] and <em>common.csv</em>: <MadCap:xref href="CommonCsv.htm#redis_qos_master_port" target="_popup">redis_qos_master_port</MadCap:xref>.</p>
+                        <p>For instructions on moving the Redis QoS master, see <MadCap:xref href="../../Operations/Change Node Role/MoveRedisMaster.htm">Move the Redis Credentials Master or QoS Master Role</MadCap:xref>.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="redis.qos.readprimary.host"></a>redis.qos.readprimary.host</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from region.csv: redis_qos_readprimary_host [XREF] and <em>common.csv</em>: <MadCap:xref href="CommonCsv.htm#redis_qos_master_port" target="_popup">redis_qos_master_port</MadCap:xref>.</p>
+                        <p>For instructions on moving a Redis QoS slave, see <MadCap:xref href="../../Operations/Change Node Role/MoveRedisQosSlave.htm">Move a Redis QoS Slave</MadCap:xref>.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="redis.qos.readsecondary.host"></a>redis.qos.readsecondary.host</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from region.csv: redis_qos_readsecondary_host [XREF] and <em>common.csv</em>: <MadCap:xref href="CommonCsv.htm#redis_qos_master_port" target="_popup">redis_qos_master_port</MadCap:xref>.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Redis Monitor</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The HyperStore <MadCap:xref href="../../Introduction/HyperStore Services/ServicesRedisMon.htm" target="_popup">Redis Monitor Service</MadCap:xref> is installed automatically with the S3 Service and Admin Service. You can run the Redis Monitor in order to monitor Redis cluster health and implement automatic failover of the Redis master node role. For Redis Monitor redundancy, it runs on two of your S3 Service / Admin Service nodes, with the Monitor configured as primary on one node and as backup on the other node.</p>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="redis.monitor.clusters"></a>redis.monitor.clusters</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Name of the Redis cluster or clusters that the Redis Monitor will monitor. This will be one global Redis Credentials cluster plus one Redis QoS cluster per service region.</p>
+                        <p>Default = redis.credentials,redis.qos.&lt;region&gt;</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="redis.monitor.role"></a>redis.monitor.role</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from the <MadCap:xref href="CommonCsv.htm#redis_monitor_primary_host" target="_popup">redis_monitor_primary_host </MadCap:xref> and <MadCap:xref href="CommonCsv.htm#redis_monitor_backup_host" target="_popup">redis_monitor_backup_host</MadCap:xref> settings in <em>common.csv</em>; use those settings instead.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="redis.monitor.primary.host"></a>redis.monitor.primary.host</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from <em>common.csv</em>: <MadCap:xref href="CommonCsv.htm#redis_monitor_primary_host" target="_popup">redis_monitor_primary_host </MadCap:xref>; use that setting instead.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="redis.monitor.backup.host"></a>redis.monitor.backup.host</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from <em>common.csv</em>: <MadCap:xref href="CommonCsv.htm#redis_monitor_backup_host" target="_popup">redis_monitor_backup_host</MadCap:xref>; use that setting instead.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="redis.monitor.listener.host"></a>redis.monitor.listener.host</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from <em>common.csv</em>: <MadCap:xref href="CommonCsv.htm#redis_monitor_listener_host" target="_popup">redis_monitor_listener_host</MadCap:xref>; use that setting instead.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="redis.monitor.listener.port"></a>redis.monitor.listener.port</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from <em>common.csv</em>: <MadCap:xref href="CommonCsv.htm#redis_monitor_listener_port" target="_popup">redis_monitor_listener_port</MadCap:xref>; use that setting instead.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="redis.monitor.primary.pollInterval"></a>redis.monitor.primary.pollInterval</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>The interval at which the backup Redis Monitor instance should check on the health of the primary instance, in seconds. If the primary Redis Monitor instance is unresponsive, the backup instance takes over the monitoring duties.</p>
+                        <p>Default = 5</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="redis.credentials.cluster.hosts"></a>redis.credentials.cluster.hosts</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from <em>common.csv</em>: <MadCap:xref href="CommonCsv.htm#redis_credentials_cluster_hosts" target="_popup">redis_credentials_cluster_hosts</MadCap:xref>; use that setting instead.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="redis.credentials.cluster.pollInterval"></a>redis.credentials.cluster.pollInterval</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Interval at which the Redis Monitor application should check the health of the Redis Credentials servers, in seconds. At this interval, the Redis Monitor also checks the S3 Service / Admin Service nodes via JMX to ensure that they are configured to point to the current Redis Credentials master, and updates their configuration if necessary. </p>
+                        <p>Default = 5</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="redis.credentials.cluster.client.request.waittime"></a>redis.credentials.cluster.client.request.waittime</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Maximum time for the Redis Monitor to wait for a JMX connection attempt to a S3 Service / Admin Service node to complete, in seconds. If the connection attempt doesn’t complete (with a success or failure result) within this interval, the Redis Monitor marks the S3 Service / Admin Service node as DOWN and writes an INFO level message to<em> cloudian-redismon.log</em>. Meanwhile, the connection attempt will continue until completion, and subsequently polling of the S3 Service / Admin Service node will resume at the regular polling interval.</p>
+                        <p>The <em>redis.credentials.cluster.client.request.waittime</em> value must be smaller than the <em>redis.credentials.cluster.pollInterval</em> value.</p>
+                        <p>Default = 3</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="redis.credentials.jedispool.jmx.connectors"></a>redis.credentials.jedispool.jmx.connectors</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Comma-separated list of S3 Service, Admin Service, and HyperStore Service JMX interface addresses, in format &lt;host:port&gt;. In the event that the Redis Monitor detects a Redis Credentials master node failure and promotes a slave to become master, the Redis Monitor uses these JMX interfaces to dynamically update the Redis Credential master node identity in the configurations of the S3 Service, Admin Service, and HyperStore Service nodes.</p>
+                        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">When an S3 Service instance starts up it will check to confirm that it’s on this list, and will shut down if it’s not on this list. * This setting is controlled by multiple Puppet extdata settings used in combination.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="redis.credentials.jedispool.jmx.mbeans"></a>redis.credentials.jedispool.jmx.mbeans</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Comma-separated list of S3 Server / Admin Server MBeans to update via JMX in the event that the Redis Credentials master role is failed over to a different host.</p>
+                        <p>Default = ACCOUNT_GROUPS_M,ACCOUNT_EMAILS_M,ACCOUNT_CANONICAL_IDS_M, ACCOUNT_USERS_M,CREDENTIALS_M,BUCKETS_M,PUBLIC_URL_M,USER_COUNTS_M,TIERING_CRED_M, DISK_MAP_M,BUCKET_PP_M</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="redis.qos.cluster.hosts"></a>redis.qos.cluster.hosts</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Comma-separated list of all Redis QoS hosts in the local service region. Note that in a multi-region HyperStore deployment, each service region has its own Redis QoS cluster. In each region, all of the<em> redis.qos.*</em> configuration settings should be renamed as <em>redis.qos.&lt;regionName&gt;.*</em> (for example, <em>redis.qos.region1.cluster.hosts</em>.) This region-specific setting renaming will be implemented automatically, based on region information that you provide in your Puppet configuration manifests.</p>
+                        <p>The system automatically derives a value for this setting from Puppet extdata settings for the Redis QoS master and Redis QoS read-primary and read-secondary nodes in the <em>region.csv</em> file for the local service region.</p>
+                        <p>Default = "cloudian-node2,cloudian-node3"</p>
+                        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">If a Redis QoS master node goes down, the Redis Monitor scans through the local service region’s <em>redis.qos.cluster.hosts</em> list in order, starting from the head of the list, and makes the first available (live) Redis QoS host the new master.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="redis.qos.jedispool.jmx.connectors"></a>redis.qos.jedispool.jmx.connectors</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Comma-separated list of S3 Service, Admin Service, and HyperStore Service JMX interface addresses, in format &lt;host:port&gt;. In the event that the Redis Monitor detects a Redis QoS master node failure and promotes a slave to become master, the Redis Monitor uses these JMX interfaces to dynamically update the Redis QoS master node identity in the configurations of the S3 Service, Admin Service, and HyperStore Service nodes. This setting is controlled by multiple Puppet extdata settings used in combination.</p>
+                        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">When an S3 Service instance starts up it will check to confirm that it’s on this list, and will shut down if it’s not on this list.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="redis.qos.jedispool.jmx.mbeans"></a>redis.qos.jedispool.jmx.mbeans</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Comma-separated list of S3 Server / Admin Server MBeans to update via JMX in the event that the Redis QoS master role is failed over to a different host.</p>
+                        <p>Default = QOS_M,TOMBSTONE_MAP_M</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="redis.qos.cluster.pollInterval"></a>redis.qos.cluster.pollInterval</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Interval at which the Redis Monitor application should check the health of the Redis QoS cluster members, in seconds.</p>
+                        <p>Default = 5</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="redis.qos.cluster.client.request.waittime"></a>redis.qos.cluster.client.request.waittime</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Maximum time for the Redis Monitor to wait for a JMX connection attempt to a S3 Service / Admin Service node to complete, in seconds. If the connection attempt doesn’t complete (with a success or failure result) within this interval, the Redis Monitor marks the S3 Service / Admin Service node as DOWN and writes an INFO level message to <em>cloudian-redismon.log</em>. Meanwhile, the connection attempt will continue until completion, and subsequently polling of the S3 Service / Admin Service node will resume at the regular polling interval.</p>
+                        <p>The <em>redis.qos.cluster.client.request.waittime</em> value must be smaller than the <em>redis.qos.pollInterval</em> value.</p>
+                        <p>Default = 3</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Credentials</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="credentials.user.max"></a>credentials.user.max</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Maximum allowed number of S3 credentials per user. Each credential consists of a public key (access key) and a private key (secret key). These credentials allow a user to access the HyperStore S3 storage system.</p>
+                        <p>Inactive credentials count toward this maximum as well as active credentials. Credentials can be created, made active or inactive, and deleted, through either the CMC or the Admin API.</p>
+                        <p>To disable this limit — and allow an unlimited number of credentials per user — set to a negative number.</p>
+                        <p>Default = 5</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="keystore.pass"></a>keystore.pass</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Password for the Java keystore file <em>/opt/cloudian/conf/.keystore</em>. This keystore file stores the Admin Service’s pre-generated, self-signed, RSA-based public and private keys for SSL.</p>
+                        <p>Default = adminpass</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="secure.transact.alias"></a>secure.transact.alias</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Alias identifying the Admin Service’s certificate entry within the keystore.</p>
+                        <p>Default = secure</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="secure.transact.pass"></a>secure.transact.pass</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Password to access the certificate entry that’s identified by secure.transact.alias.</p>
+                        <p>Default = private</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="admin.auth.realm"></a>admin.auth.realm</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from <em>common.csv</em>: <MadCap:xref href="CommonCsv.htm#admin_auth_realm" target="_popup">admin_auth_realm</MadCap:xref>; use that setting instead.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="admin.auth.enabled"></a>admin.auth.enabled</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from <em>common.csv:</em> <MadCap:xref href="CommonCsv.htm#admin_auth_enabled" target="_popup">admin_auth_enabled</MadCap:xref>; use that setting instead.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="admin.user.password.length"></a>admin.user.password.length</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Maximum allowed character length for users' Cloudian Management Console login passwords. </p>
+                        <p>Default = 15</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="admin.whitelist.enabled"></a>admin.whitelist.enabled</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from <em>common.csv</em>: <MadCap:xref href="CommonCsv.htm#admin_whitelist_enabled" target="_popup">admin_whitelist_enabled</MadCap:xref>; use that setting instead.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>HyperStore Service</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The HyperStore Service section configures S3 Service behavior in its role as a client of the <a href="../../Introduction/HyperStore Services/ServicesHyperStore.htm" target="_popup">HyperStore Service</a>.</p>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="hyperstore.compression.type"></a>hyperstore.compression.type</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from the <MadCap:xref href="../../CMC Interface/Cluster/Configuration Settings/ConfigurationSettingsSystem.htm#HyperStore_Compression_Type" target="_popup">HyperStore Compression Type</MadCap:xref> setting on the CMC <b>Configuration Settings</b> page; use that setting instead.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="hyperstore.endport"></a>hyperstore.endport</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>HyperStore Service listening port to which the S3 Service will submit data operation requests.</p>
+                        <p>Default = 19090</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="hyperstore.maxthreads.read"></a>hyperstore.maxthreads.read</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Maximum number of simultaneous client threads for one S3 Service node to use on reads of the HyperStore File System.</p>
+                        <p>Default = 50</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="hyperstore.maxthreads.write"></a>hyperstore.maxthreads.write</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Maximum number of simultaneous client threads for one S3 Service node to use on writes to the HyperStore File System.</p>
+                        <p>Default = 150</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="hyperstore.maxthreads.repair"></a>hyperstore.maxthreads.repair</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Maximum number of simultaneous client threads for one S3 Service node to use on HyperStore File System data repairs automatically performed during read operations. For more information on the "repair on read" mechanism see <MadCap:xref href="../../Major Features/Automatic Data Repair/DataRepairOverview.htm" target="_popup">Automatic Data Repair Feature Overview</MadCap:xref>.</p>
+                        <p>Default = 50</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="hyperstore.size_threshold"></a>hyperstore.size_threshold</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from the <MadCap:xref href="../../CMC Interface/Cluster/Configuration Settings/ConfigurationSettingsSystem.htm#Object_Size_Threshold_for_Storing_in_OS_File_System_Rather_Than_Cassandra" target="_popup">Object Size Threshold for Storing in OS File System Rather Than Cassandra</MadCap:xref> setting on the CMC <b>Configuration Settings</b> page; use that setting instead.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="hyperstore.timeout"></a>hyperstore.timeout</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from <em>common.csv</em>: <MadCap:xref href="CommonCsv.htm#hyperstore_timeout" target="_popup">hyperstore_timeout</MadCap:xref>; use that setting instead.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="hyperstore.connection.timeout"></a>hyperstore.connection.timeout</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from <em>common.csv</em>: <MadCap:xref href="CommonCsv.htm#hyperstore_connection_timeout" target="_popup">hyperstore_connection_timeout</MadCap:xref>; use that setting instead.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="hyperstore.maxtotalconnections"></a>hyperstore.maxtotalconnections</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from the <MadCap:xref href="../../CMC Interface/Cluster/Configuration Settings/ConfigurationSettingsSystem.htm#Max_Connections_from_One_S3_Service_Node_to_All_HyperStore_Service_Node" target="_popup">Max Connections from One S3 Service Node to All HyperStore Service Nodes</MadCap:xref> setting on the CMC <b>Configuration Settings</b> page; use that setting instead.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="hyperstore.maxperrouteconnections"></a>hyperstore.maxperrouteconnections</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Takes its value from the <MadCap:xref href="../../CMC Interface/Cluster/Configuration Settings/ConfigurationSettingsSystem.htm#Max_Connections_from_One_S3_Service_Node_to_One_HyperStore_Service_Node" target="_popup">Max Connections from One S3 Service Node to One HyperStore Service Node</MadCap:xref> setting on the CMC <b>Configuration Settings</b> page; use that setting instead.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Erasure Coding</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Erasure coding is a storage space-preserving alternative to data replication as a means of protecting data within a distributed storage cluster. Most aspects of erasure coding are configured through the creation and application of <a href="../../Major Features/Storage Policies/StoragePoliciesOverview.htm" target="_popup">storage policies</a>. </p>
+                <p>There is one system configuration setting for erasure coding:</p>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="ec.read.repair.chance"></a>ec.read.repair.chance</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>A double between 0 and 1 (inclusive at both ends) specifying a probability for performing an automatic read repair operation when an erasure-coded object is read. In a read repair operation, all fragments of the erasure-coded object are checked for currency and any out-of-date fragments are updated to the newest version.</p>
+                        <p>If this setting is set to 1.0, the read repair check is performed with every read of erasure-coded objects. If it is set to 0.0, automatic read repair for erasure-coded objects is never performed. A setting of 0.2 means that read repair is implemented at a rate such that on any given read there is a 20% chance of repair being applied.</p>
+                        <p>Default = 0.2</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Process Diagnostics (Phone Home)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="phonehome.enabled"></a>phonehome.enabled</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>The HyperStore Data Collector collects and stores diagnostic data for your HyperStore system on an ongoing basis. Optionally, you can have this data automatically uploaded to an S3 URI once a day. This can be the S3 URI of Cloudian Support or an S3 URI for your own HyperStore S3 storage cluster. If you want diagnostics data uploaded to an S3 URI each day, set <em>phonehome.enabled</em> to "true" and use <em>phonehome.uri</em> to specify the URI. If you do not want diagnostics data uploaded to an S3 URI, set <em>phonehome.enabled</em> to "false".</p>
+                        <p>Default = true</p>
+                        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">When enabled, the diagnostics upload is triggered by a HyperStore cron job. The timing of the cron job is configured in <em>/etc/cloudian-&lt;version&gt;-puppet/modules/cloudians3/templates/cloudian-crontab.erb</em> on the Puppet master node. Look for the cron job that includes the string "phoneHome".</p>
+                        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">Even if you choose not to upload the daily diagnostic data to either Cloudian Support or your own S3 URI, you still will have a copy of the data. Regardless of whether the daily upload is enabled or not, the diagnostic data is stored under <em>/var/log/cloudian</em> on the node on which the HyperStore Data Collector runs. The daily diagnostic packages contain region-wide diagnostics data and are named <em>diagnostics_&lt;regionname&gt;_&lt;timestamp&gt;.csv.gz</em>. The "live" diagnostics log (which is recording the current day’s data) is named <em>diagnostics.csv</em>.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="phonehome.uri"></a>phonehome.uri</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>S3 URI to which to upload diagnostics data each day. By default this is the S3 URI for Cloudian Support, but if you prefer you can set this to an S3 URI for your own HyperStore S3 storage cluster.</p>
+                        <p>Include the HTTP or HTTPS protocol part of the URI (<em>http://</em> or <em>https://</em>).</p>
+                        <p>Default = https://s3-support.cloudian.com:443</p>
+                        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">If you set <em>phonehome.uri</em> to a URI for your own HyperStore S3 storage system (rather than Cloudian Support), and if your S3 Service is using HTTPS, then your S3 Service’s SSL certificate must be a CA-verified, trusted certificate — not a self-signed certificate. By default the phone home function cannot upload to an HTTPS URI that’s using a self-signed certficate. If you require that the upload go to an HTTPS URI that’s using a self-signed certificate, contact Cloudian Support for guidance on modifying the phone home launch script.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="phonehome.bucket"></a>phonehome.bucket</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>If you set <em>phonehome.uri</em> to your own S3 URI (rather than the Cloudian Support URI), set <em>phonehome.bucket</em> to the name of the S3 bucket that you want your diagnostic data uploaded to.</p>
+                        <p>Default = none</p>
+                        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">	If you leave <em>phonehome.uri</em> at its default (the Cloudian Support S3 URI), you do not need to configure <em>phonehome.bucket</em>, <em>phonehome.accessKey</em>, or <em>phonehome.secretKey</em>. Instead the system automatically uses the bucket name and security credentials which are built into your license file.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="phonehome.accessKey"></a>phonehome.accessKey</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>If you set <em>phonehome.uri</em> to your own S3 URI (rather than the Cloudian Support URI), set <em>phonehome.accessKey</em> to the access key for the bucket you specified for <em>phonehome.bucket</em>.</p>
+                        <p>Default = none</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="phonehome.secretKey"></a>phonehome.secretKey</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>If you set <em>phonehome.uri</em> to your own S3 URI (rather than the Cloudian Support URI), set <em>phonehome.secretKey</em> to the secret key for the bucket you specified for <em>phonehome.bucket</em>.</p>
+                        <p>Default = none</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="phonehome.proxy.host"></a>phonehome.proxy.host</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>By default the Phone Home feature sends daily system diagnostic information to Cloudian, Inc. over the internet (using HTTPS; see the <em>phonehome.uri</em> setting for the specific URI). If you want the HyperStore system to route this transmission through a forward proxy, you can use the <em>phonehome.proxy.*</em> settings to specify the proxy’s information. Use <em>phonehome.proxy.host</em> to specify the hostname or IP address of the proxy.</p>
+                        <p>Default = none</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="phonehome.proxy.port"></a>phonehome.proxy.port</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>If you want the Phone Home feature to use a forward proxy for outbound internet transmissions, use this setting to specify the proxy’s port number.</p>
+                        <p>Default = none</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="phonehome.proxy.username"></a>phonehome.proxy.username</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>If you want the Phone Home feature to use a forward proxy for outbound internet transmissions, use this setting to specify the username that HyperStore should use when connecting to the proxy (if required by the proxy).</p>
+                        <p>Default = none</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="phonehome.proxy.password"></a>phonehome.proxy.password</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>If you want the Phone Home feature to use a forward proxy for outbound internet transmissions, use this setting to specify the password that HyperStore should use when connecting to the proxy (if required by the proxy).</p>
+                        <p>Default = none</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Data Protection Policies</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.protection.policy.max"></a>cloudian.protection.policy.max</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Maximum number of bucket protection policies (storage policies) that the system will support. Policies with status "Active", "Pending", or "Disabled" count toward this system limit.</p>
+                        <p>If the policy maximum has been reached, you will not be able to create new policies until you either delete existing policies or increase the value of <em>cloudian.protection.policy.max</em>.</p>
+                        <p>Default = 25</p>
+                        <p>Reloadable via JMX (S3 Service’s JMX port 19080; MBean attribute = com.gemini.cloudian.s3 → Configuring → Attributes → MaxProtectionPolicies)</p>
+                        <p>For more information aboutstorage policies, see <MadCap:xref href="../../Major Features/Storage Policies/StoragePoliciesOverview.htm">Storage Policies Feature Overview</MadCap:xref>.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Anonymous Tiering</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian.tiering.mapfile"></a>cloudian.tiering.mapfile</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>To use the "anonymous user" feature with HyperStore auto-tiering, uncomment this setting. For complete information see <MadCap:xref href="../../Major Features/Auto-Tiering/AutoTieringSetUp.htm">Setting Up Auto-Tiering</MadCap:xref> — particularly the section on how to <MadCap:xref href="../../Major Features/Auto-Tiering/AutoTieringSetUp.htm#PrepareDestination">Prepare the System for Destination Account Access</MadCap:xref>.</p>
+                        <p>Default = commented out (becomes <em>/opt/cloudian/conf/tiering-map.txt</em> if uncommented)</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

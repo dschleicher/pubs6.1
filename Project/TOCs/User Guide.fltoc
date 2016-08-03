@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CatapultToc
+  Version="1"
+  conditions="">
+  <TocEntry
+    Title="Title"
+    StartSection="false"
+    PageNumber="1"
+    PageNumberReset="reset"
+    StartPageLayout="false"
+    PageType="title"
+    PageNumberFormat="lower-roman"
+    PageLayout="/Content/Resources/PageLayouts/FrontMatter.flpgl"
+    Link="/Content/Print Only Topics/TitlePage.htm"
+    BreakType="pageLayout"></TocEntry>
+  <TocEntry
+    Title="User Management"
+    Link="/Content/Admin API/User Management/UserManagementOverview.htm">
+    <TocEntry
+      Title="DELETE User"
+      Link="/Content/Admin API/User Management/DeleteUser.htm" />
+    <TocEntry
+      Title="DELETE User's Profile Data"
+      Link="/Content/Admin API/User Management/DeleteUsersProfileData.htm" />
+    <TocEntry
+      Title="DELETE User's S3 Credential"
+      Link="/Content/Admin API/User Management/DeleteUsersS3Credential.htm" />
+    <TocEntry
+      Title="GET User"
+      Link="/Content/Admin API/User Management/GetUser.htm" />
+    <TocEntry
+      Title="GET User List"
+      Link="/Content/Admin API/User Management/GetUserList.htm" />
+    <TocEntry
+      Title="GET User's Rating Plan"
+      Link="/Content/Admin API/User Management/GetUsersRatingPlan.htm" />
+    <TocEntry
+      Title="GET User's Rating Plan ID"
+      Link="/Content/Admin API/User Management/GetUsersRatingPlanId.htm" />
+    <TocEntry
+      Title="GET User's S3 Credential"
+      Link="/Content/Admin API/User Management/GetUsersS3Credential.htm" />
+    <TocEntry
+      Title="GET User's S3 Credentials List"
+      Link="/Content/Admin API/User Management/GetUsersS3CredentialsList.htm" />
+    <TocEntry
+      Title="GET User's S3 Credentials List (Active)"
+      Link="/Content/Admin API/User Management/GetUsersS3CredentialsListActive.htm" />
+    <TocEntry
+      Title="GET Verification of User's CMC Password"
+      Link="/Content/Admin API/User Management/GetVerificationOfUsersCmcPassword.htm" />
+    <TocEntry
+      Title="POST Updated User"
+      Link="/Content/Admin API/User Management/PostUpdatedUser.htm" />
+    <TocEntry
+      Title="POST User's CMC Password"
+      Link="/Content/Admin API/User Management/PostUsersCmcPassword.htm" />
+    <TocEntry
+      Title="POST User's Rating Plan ID"
+      Link="/Content/Admin API/User Management/PostUsersRatingPlanId.htm" />
+    <TocEntry
+      Title="POST User's S3 Credential"
+      Link="/Content/Admin API/User Management/PostUsersS3Credential.htm" />
+    <TocEntry
+      Title="POST User's S3 Credential Status"
+      Link="/Content/Admin API/User Management/PostUsersS3CredentialStatus.htm" />
+    <TocEntry
+      Title="PUT New User"
+      Link="/Content/Admin API/User Management/PutNewUser.htm" />
+    <TocEntry
+      Title="PUT User's New S3 Credential"
+      Link="/Content/Admin API/User Management/PutUsersNewS3Credential.htm" />
+    <TocEntry
+      Title="Admin API Methods for User Management"
+      Link="/Content/Admin API/User Management/UserManagementOverview.htm" />
+  </TocEntry>
+  <TocEntry
+    Title="Manage a User's Stored Objects (CMC)"
+    Link="/Content/CMC Interface/Users &amp; Groups/Manage Users/ManageUsersObjects.htm" />
+  <TocEntry
+    Title="Dashboard"
+    Link="/Content/CMC Interface/Dashboard.htm" />
+  <TocEntry
+    Title="Configuring Disk Usage Balancing"
+    Link="/Content/Major Features/Disk Usage Balancing/DiskUsageConfigure.htm" />
+  <TocEntry
+    Title="hyperstore-server.properties.erb"
+    Link="/Content/System Configuration/Configuration Files/HyperstoreServerProperties.htm" />
+  <TocEntry
+    Title="common.csv"
+    Link="/Content/System Configuration/Configuration Files/CommonCsv.htm" />
+</CatapultToc>

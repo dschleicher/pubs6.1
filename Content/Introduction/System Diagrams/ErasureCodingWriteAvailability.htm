@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="3068" MadCap:lastWidth="1007">
+    <head>
+    </head>
+    <body>
+        <p>&#160;<MadCap:keyword term="10. Availability for Erasure Coded Object Writes" /></p>
+        <h1>Availability for Erasure Coded Object Writes</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Diagram]</p>
+        <p>The scenarios in this section presume that 4+2 erasure coding (EC) is being used to protect objects in a nine node HyperStore cluster, and that only one data center is being used. When you configure storage policies for erasure coding in a single DC you can choose one of two supported consistency level (CL) requirements for S3 object data writes: LOCAL ALL or LOCAL QUORUM. You can separately configure CL requirements for S3 object metadata replica writes, choosing from ALL or QUORUM. </p>
+        <p>The diagrams that follow show S3 write availability under various cluster health scenarios and configured consistency level requirements. For illustration, it’s assumed that in each scenario we are trying to write an object for which the system has determined that object data fragments should be written to <em>node1</em>, <em>node2</em>, <em>node5</em>, <em>node6</em>, <em>node7</em>, and <em>node8</em>; and object metadata replicas should be written to <em>node2</em>, <em>node3</em>, <em>node4</em>, <em>node5</em>, and <em>node7</em>. Note that when you’re using erasure coding for object data, the system will maintain (2*m)+1 copies of object metadata, which in the case of 4+2 EC comes to (2*2)+1 = 5 object metadata replicas.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">For information about how the system selects write endpoints for each object and its metadata, see <MadCap:xref href="vNodes.htm">vNodes in Action</MadCap:xref>.<br /><br />In cases where the overall S3 write request succeeds despite the failure of one or more object fragment writes and/or one or more object metadata replica writes, the missing fragments or replicas are subsequently created through <a href="../../Major Features/Automatic Data Repair/DataRepairOverview.htm" target="_popup">hinted handoff and/or proactive repair</a> (thereby achieving "eventual consistency").</p>
+        <h2>Write Scenario: Two Object Data Endpoints Are Down</h2>
+        <p>
+            <img src="../../Resources/Images/diagrams/Single-DC-EC-Write-Two-Data-Down.png" />
+        </p>
+        <h2>Write Scenario: Two Object Metadata Endpoints Are Down</h2>
+        <p>
+            <img src="../../Resources/Images/diagrams/Single-DC-EC-Write-Two-Metadata-Down.png" />
+        </p>
+        <h2>Write Scenario: Two Object Data Endpoints and Two Object Metadata Endpoints Are Down</h2>
+        <p>
+            <img src="../../Resources/Images/diagrams/Single-DC-EC-Write-Two-Data-Two-Metadata-Down.png" />
+        </p>
+        <p><b>See Also:</b>
+        </p>
+        <ul>
+            <li>
+                <MadCap:xref href="ErasureCodingReadAvailability.htm">Erasure Coding -- Read Availability</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="ReplicationWriteAvailability.htm">Replication -- Write Availability</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="ReplicationReadAvailability.htm">Replication -- Read Availability</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

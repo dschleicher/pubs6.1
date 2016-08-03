@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="929" MadCap:lastWidth="1007">
+    <head>
+    </head>
+    <body>
+        <p>&#160;<MadCap:keyword term="04. Services Distribution -- Multi-DC, Single Region" /></p>
+        <h1>Services Distribution -- Multi-DC, Single Region</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Diagram]</p>
+        <p>Proper distribution of HyperStore service components across multiple physical nodes is handled automatically by the HyperStore installer. The diagram below shows a typical HyperStore services distribution across a six-node system that spans two data centers. The system is configured as a single service region. Things to note:</p>
+        <ul>
+            <li>The "COMMON SERVICES" (S3 Service, Admin Service, HyperStore Service, Cassandra, CMC, Puppet Agent, and Monitoring Agent) run on every node in your multi-DC system.</li>
+            <li>Each data center has its own Redis QoS slave and its own two Redis Credentials slaves, for Redis read performance optimization.</li>
+        </ul>
+        <p>
+            <img src="../../Resources/Images/diagrams/HyperStore_Physical_multi-DC.png" style="max-width: 9.50in;" />
+        </p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">By default the installer does not try to put the backup instance of a specialized service (such as Redis Monitor) in a different data center than the primary instance. If you want such a configuration, you can move services from one host to another as described in <MadCap:xref href="../../Operations/Change Node Role/ChangeNodeRoleOverview.htm">Change Node Role Assignments</MadCap:xref>. First though, check the location of specialized services within your multi-DC HyperStore system by logging into the CMC and going to the <MadCap:xref href="../../CMC Interface/Cluster/Cluster Information/ClusterInformationOverview.htm">Cluster Information</MadCap:xref> page.</p>
+        <p><b>See Also:</b>
+        </p>
+        <ul>
+            <li>
+                <MadCap:xref href="ServicesDistribution3Nodes.htm">Services Distribution -- 3 Nodes, Single DC</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="ServicesDistributionMultiRegion.htm">Services Distribution -- Multi-Region</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

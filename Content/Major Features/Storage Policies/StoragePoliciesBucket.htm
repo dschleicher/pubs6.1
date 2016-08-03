@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="509" MadCap:lastWidth="815">
+    <head>
+    </head>
+    <body>
+        <h1>Assigning a Storage Policy to a Bucket</h1>
+        <p>When users create a new bucket they can select a storage policy to apply to the data that they will store in that bucket. This can be done either through the CMC or through other S3 applications that invoke HyperStore extensions to the standard S3 API.</p>
+        <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">After a bucket is created, it cannot be assigned a different storage policy. The storage policy assigned to the bucket at bucket creation time will continue to be bucket’s storage policy for the life of the bucket.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Assigning a Storage Policy to a Bucket (CMC)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>CMC users can select a storage policy when they create a new bucket in the CMC’s <MadCap:xref href="../../CMC Interface/Buckets &amp; Objects/BucketsObjectsOverview.htm">Buckets &amp; Objects</MadCap:xref> page:</p>
+                <ul>
+                    <li>
+                        <MadCap:xref href="../../CMC Interface/Buckets &amp; Objects/Buckets/BucketAdd.htm">Add a Bucket</MadCap:xref>
+                    </li>
+                </ul>
+                <p>If a user does not explicitly select a policy when creating a new bucket, the system’s current default storage policy is automatically applied to the bucket.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Assigning a Storage Policy to a Bucket (S3 API)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>To select a storage policy for a new bucket, S3 client applications use an "x-gmt-policyid" request header when submitting a <em>PUT Bucket</em> request:</p>
+                <ul>
+                    <li>
+                        <MadCap:xref href="../../S3 API Support/OperationsOnBuckets/PutBucket.htm">PUT Bucket</MadCap:xref>
+                    </li>
+                </ul>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

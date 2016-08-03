@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="9" MadCap:lastHeight="7294" MadCap:lastWidth="942">
+    <head>
+    </head>
+    <body>
+        <h1>Installing HyperStore 6.0 Software</h1>
+        <p>This topic describes how to do a fresh installation of HyperStore software on one or more nodes, after you have completed <MadCap:xref href="Host Machine Preparation/HostMachineOverview.htm">Host Machine Preparation</MadCap:xref> and <MadCap:xref href="Networking Preparation/NetworkingOverview.htm">Networking Preparation</MadCap:xref>.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">If you are installing the appliance version of HyperStore, you can skip certain steps in this procedure  — pay attention to the notes regarding HyperStore appliance install to see which steps you can skip.</p>
+        <ol>
+            <li>Choose one of your HyperStore hosts to be the Puppet master node, from which you will manage the installation and ongoing cluster configuration.</li>
+        </ol>
+        <div class="Indent">
+            <MadCap:dropDown>
+                <MadCap:dropDownHead class="CloudianChildDropDown">
+                    <MadCap:dropDownHotspot>More detail on this step</MadCap:dropDownHotspot>
+                </MadCap:dropDownHead>
+                <MadCap:dropDownBody>
+                    <p>The Puppet master node is the node on which you will run the HyperStore install script, which uses the open source version of <a href="https://puppet.com/product/how-it-works" target="_blank">Puppet</a> to propagate initial configuration settings to the member nodes in your HyperStore cluster. This will also be the node from which you use Puppet for ongoing, centralized configuration management of your HyperStore cluster. The HyperStore system is designed to utilize Puppet for cluster configuration management, and the system is packaged and installed in a way that enables you to use Puppet from the outset, without doing any explicit set-up of Puppet. (For more information on using Puppet for ongoing cluster configuration management, see HyperStore Configuration in your Cloudian HyperStore Administrator’s Guide.) [XREF]</p>
+                    <p>HyperStore <b>does not support using a stand-alone Puppet master node</b>. The Puppet master node must be one of the nodes on which you will install and run HyperStore.</p>
+                </MadCap:dropDownBody>
+            </MadCap:dropDown>
+        </div>
+        <ol MadCap:continue="true">
+            <li>On the Puppet master node, log in as <em>root</em> and create an installation staging directory (such as <em>/home/CloudianPackages</em>). </li>
+        </ol>
+        <p class="NoteIndent" MadCap:autonum="&lt;b&gt;Note: &lt;/b&gt;">For a <b>HyperStore appliance install</b>, the installation directory has already been created for you: <em>/root/CloudianPackages</em>. You can skip this step and proceed to Step 3.</p>
+        <p class="ImportantIndent" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">The installation staging directory must be kept intact throughout the life of your HyperStore service. The Cloudian Management Console will invoke scripts in this staging directory when you use the Console to perform certain system operations.</p>
+        <ol MadCap:continue="true">
+            <li>Copy the following into the staging directory:</li>
+        </ol>
+        <div class="Indent">
+            <ul>
+                <li>HyperStore 6.0 software package (<em>CloudianHyperStore-6.0.bin</em>)</li>
+                <li>Your HyperStore license file that you have obtained from Cloudian, Inc.</li>
+            </ul>
+        </div>
+        <p class="NoteIndent" MadCap:autonum="&lt;b&gt;Note: &lt;/b&gt;">For a <b>HyperStore appliance install</b>, the HyperStore software package is already in the staging directory. Just copy your license file to the staging directory (or you can temporarily use the <em>cloudian_289001406012.lic</em> license file which is already in the staging directory — it supports 100MB storage capacity).</p>
+        <ol MadCap:continue="true">
+            <li>Change into the staging directory, then run the command below.</li>
+        </ol>
+        <div class="Indent"><pre>root# ./CloudianHyperStore-6.0.bin &lt;license-file-name&gt;</pre>
+        </div>
+        <div class="Indent">
+            <MadCap:dropDown>
+                <MadCap:dropDownHead class="CloudianChildDropDown">
+                    <MadCap:dropDownHotspot>More detail on this step</MadCap:dropDownHotspot>
+                </MadCap:dropDownHead>
+                <MadCap:dropDownBody>
+                    <p>This command extracts release binary packages, the HyperStore installation script (<em>cloudianInstall.sh</em>), and product documentation. It also creates and populates a directory for Puppet configuration files (<em>/etc/cloudian-&lt;version&gt;-puppet</em>, where <em>&lt;version&gt;</em> is the HyperStore software version).</p>
+                </MadCap:dropDownBody>
+            </MadCap:dropDown>
+        </div>
+        <ol MadCap:continue="true">
+            <li>If your hosts have just one disk per host, or if you are doing a HyperStore appliance install, skip ahead to Step 6. If your hosts have multiple disks and you are installing the software-only version of HyperStore, then in the staging directory create a file named <em>fslist.txt</em> and in the file enter one line for each of your <a href="Host Machine Preparation/Software-Only Users/FileSystemRequirements.htm" target="_popup">S3 data directory mount points</a>, with each line using the format below. </li>
+        </ol>
+        <div class="Indent"><pre xml:space="preserve">&lt;device&gt; &lt;mount-point&gt;
+</pre>
+        </div>
+        <div class="Indent">
+            <MadCap:dropDown>
+                <MadCap:dropDownHead class="CloudianChildDropDown">
+                    <MadCap:dropDownHotspot>More detail on this step</MadCap:dropDownHotspot>
+                </MadCap:dropDownHead>
+                <MadCap:dropDownBody>
+                    <p>Example of a properly formatted file:</p><pre xml:space="preserve">/dev/sdc1 /cloudian1
+/dev/sdd1 /cloudian2
+/dev/sde1 /cloudian3
+/dev/sdf1 /cloudian4
+/dev/sdg1 /cloudian5
+/dev/sdh1 /cloudian6</pre>
+                    <ul>
+                        <li>Optionally, also specify one mount point for metadata stored in Cassandra (must include the string "cassandra" in the mount point path) and one mount point for the Cassandra commit log (must include "cassandra_commit" in the mount point path). If you do not specify these Cassandra mount points in <em>fslist.txt</em>, by default the system automatically puts Cassandra data and commit log directories on the same disk on which the operating system and application files reside.</li>
+                        <li>Do not use symbolic links when specifying your mount points. The HyperStore system does not support symbolic links for data directories.</li>
+                        <li>If you are installing on multiple hosts, each host should have the same mount point scheme as is specified in your <em>fslist.txt</em> file.</li>
+                    </ul>
+                    <p class="NoteIndent" MadCap:autonum="&lt;b&gt;Note: &lt;/b&gt;">If some of your hosts have more hard drives than others, create a file <em>fslist.txt</em> that specifies the mount points for most of your hosts (the "default" set of mount points) and then also create a <em>&lt;hostname&gt;_fslist.txt</em> file for each host that has a different set of mount points than the default. For example, you could have an <em>fslist.txt</em> file that specifies the mount points that most of your hosts use, and also a <em>cloudian-node5_fslist.txt</em> file and a <em>cloudian-node6_fslist.txt</em> file that specify mount points for two non-standard nodes. Have your mount point names match as much as possible across nodes — for example some nodes may have <em>/cloudian1</em> through <em>/cloudian6</em> while other nodes have <em>/cloudian1</em> through<em> /cloudian8</em>.<br /><br />If you have a particularly heterogeneous cluster and don’t really have a standard node size, then create a <em>&lt;hostname&gt;_fslist.txt</em> file for each host.</p>
+                </MadCap:dropDownBody>
+            </MadCap:dropDown>
+        </div>
+        <ol MadCap:continue="true">
+            <li>Still in the staging directory, create a file named <em>survey.csv</em> and in it enter one line for each HyperStore host in your cluster (including the host on which you're running the install script), with each line using the format below. Region name must be lower case with no underscores, dots, dashes, or spaces. DC and rack names must have no dots, underscores, or spaces.</li>
+        </ol>
+        <div class="Indent"><pre xml:space="preserve">&lt;regionname&gt;,&lt;hostname&gt;,&lt;ip4-address&gt;,&lt;datacenter-name&gt;,&lt;rack-name&gt;[,&lt;internal-interface&gt;]</pre>
+        </div>
+        <div class="Indent">
+            <MadCap:dropDown>
+                <MadCap:dropDownHead class="CloudianChildDropDown">
+                    <MadCap:dropDownHotspot>More detail on this step</MadCap:dropDownHotspot>
+                </MadCap:dropDownHead>
+                <MadCap:dropDownBody>
+                    <ul>
+                        <li><em>&lt;region-name&gt;</em> — The HyperStore system supports having multiple service regions with each region having its own independent storage cluster and own independent S3 object inventory, and with S3 clients able to choose a storage region when they create storage buckets. Even if you will have only one region you must give it a name. For more information see <MadCap:xref href="../Major Features/Service Regions/ServiceRegionsOverview.htm" target="_popup">Service Regions Feature Overview</MadCap:xref>.</li>
+                        <li><em>&lt;hostname&gt;</em> — Hostname of a host machine on which you are installing HyperStore software. Be sure to include in your survey file one line for each node on which you are installing HyperStore. You can install to all your intended nodes at the same time, even nodes in a different data center or region.</li>
+                        <li><em>&lt;ip4-address&gt;</em> — IP (v4) address that the hostname resolves to. Do not use IPv6.</li>
+                        <li><em>&lt;datacenter-name&gt;</em> — Name of the data center in which the host machine is located. Maximum 256 characters, no dots, underscores, or spaces allowed. If there is no official name you can just create one for purposes of HyperStore configuration.</li>
+                        <li><em>&lt;rack-name&gt;</em> — Name of the server rack in which the host machine is located. Maximum 256 characters, no dots, underscores, or spaces allowed. If there is no official name you can just create one for purposes of HyperStore configuration.</li>
+                        <li><em>[&lt;internal-interface&gt;]</em> — Use this field only if you have hosts that will use a different network interface for internal cluster traffic than the rest of your hosts do. For example, if most of your hosts will use "eth1" for internal cluster traffic, but two of your hosts will use "eth2" instead, use this field to specify "eth2" for each of those two hosts. (Later in the installation procedure you will have the opportunity to specify the default internal interface that the rest of the hosts will use). If all of your hosts use the same internal network interface — for example if all hosts use "eth1" for internal network traffic — then leave this field empty for all hosts in the survey file. Note that HyperStore <b>does not support using interfaces that have a period in their name</b>, such as "bond1.1234". Underscores are supported.</li>
+                    </ul>
+                    <div class="Indent">
+                        <p>The example survey file below is for a single-node HyperStore installation:</p><pre>region1,arcturus,10.10.2.1,DC1,RAC1</pre>
+                        <p>This second example survey file is for a three-node HyperStore cluster with just one service region, one data center, and one rack:</p><pre xml:space="preserve">tokyo,cloudian-vm7,10.10.1.33,DC1,RAC1
+tokyo,cloudian-vm8,10.10.1.34,DC1,RAC1
+tokyo,cloudian-vm9,10.10.1.35,DC1,RAC1</pre>
+                        <p>This third example survey file below is for a HyperStore installation that spans two regions, with the first region comprising two data centers and the second region comprising just one data center. Two of the hosts use a different network interface for internal network traffic than all the other hosts do.</p><pre xml:space="preserve">boston,hyperstore1,10.1.0.1,DC1,RAC1
+boston,hyperstore2,10.1.0.2,DC1,RAC1
+boston,hyperstore3,10.1.0.3,DC1,RAC1
+boston,hyperstore4,10.2.0.1,DC2,RAC5
+boston,hyperstore5,10.2.0.2,DC2,RAC5
+chicago,hyperstore6,10.3.0.1,DC3,RAC2
+chicago,hyperstore7,10.3.0.2,DC3,RAC2
+chicago,hyperstore8,10.3.2.1,DC3,RAC7,eth2
+chicago,hyperstore9,10.3.2.2,DC3,RAC7,eth2</pre>
+                    </div>
+                </MadCap:dropDownBody>
+            </MadCap:dropDown>
+        </div>
+        <ol MadCap:continue="true">
+            <li>Still in the staging directory, launch the HyperStore software installer in one or the other of these two ways.</li>
+        </ol>
+        <div class="Indent"><pre xml:space="preserve"># If using your own DNS set-up to resolve HyperStore domains (as in <MadCap:xref href="Networking Preparation/DnsSetup.htm" target="_popup">DNS Set-Up</MadCap:xref>)
+
+root# ./cloudianInstall.sh -s survey.csv
+
+# To use the included dnsmasq utility to resolve HyperStore domains (not good for production)
+
+root# ./cloudianInstall.sh -s survey.csv configure-dnsmasq</pre>
+        </div>
+        <div class="Indent">
+            <MadCap:dropDown>
+                <MadCap:dropDownHead class="CloudianChildDropDown">
+                    <MadCap:dropDownHotspot>More detail on this step including additional script launch options</MadCap:dropDownHotspot>
+                </MadCap:dropDownHead>
+                <MadCap:dropDownBody>
+                    <p>Install script launch syntax:</p><pre xml:space="preserve">root# ./cloudianInstall.sh [-s &lt;survey-filename&gt;] [-c &lt;config-filename&gt;]
+[-k &lt;ssh-private-key-filename&gt;] [-l &lt;install-log-filename&gt;] [-b] [-d] [-h]
+[no-hosts] [configure-dnsmasq] [force]</pre>
+                    <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">If you use multiple options, on the command line place options that start with a "-" (which most options do) before options that do not (such as no-hosts).<br /><br />After using the installer for product installation or subsequently for system configuration tasks, exit the installer when you’re done. Do not leave it running. Certain automated system tasks invoke the installer and cannot do so if it is already running.</p>
+                    <ul>
+                        <li><em>[-s &lt;survey-filename&gt;]</em> — Name of the survey file that you created in Step 5. If you do not specify the survey filename argument, the script will prompt you for the filename during installation. If your survey file is located anywhere other than the installation staging directory, specify the full path.</li>
+                        <li><em>[-c &lt;config-filename&gt;]</em> — The first time you run <em>cloudianInstall.sh</em>, it creates a cluster configuration file <em>CloudianInstallationConfiguration.txt</em> based on your survey file input and your interactive input. If you are subsequently doing multiple installations for testing purposes, you can edit this file, rename it, and then use your customized version as input to <em>cloudianInstall.sh</em> runs by using the <em>-c &lt;config-filename&gt;</em> option (perhaps in combination with the <em>-b</em> option). If your version of the config file is located anywhere other than the installation staging directory, specify the full path.</li>
+                        <li><em>[-k &lt;ssh-private-key-filename&gt;]</em> — The Puppet master employs SSH for secure communication with the rest of your HyperStore installation nodes. Use the <em>-k &lt;ssh-private-key-filename&gt;</em> option if you want to use your own existing SSH authentication key pair rather than having the HyperStore install tool generate a key pair for you. If you want to use this option, then before running the <em>cloudianInstall.sh</em> script:<ul style="list-style-type: circle;"><li>Copy your private key into the installation staging directory (where the install script resides).</li><li>Copy your public key to each host on which you plan to install HyperStore (see standard SSH set-up documentation for guidance); or copy your public key to the installation staging directory and the install script will copy the public key to your target nodes automatically.</li></ul></li>
+                        <li><em>[-l &lt;install-log-filename&gt;]</em> — By default installation logging information is written to <em>cloudian-installation.log</em> in the staging directory. You can use this option if you’d prefer that installation logging information be written to a different file. Include the path if you want the file location to be other than in the staging directory.</li>
+                        <li><em>[-b]</em> — Run in batch mode, so that the run uses defaults throughout and requires no user interaction. This option is useful if you want to do multiple automated installations for testing purposes.</li>
+                        <li><em>[-d]</em> — Turn on debugging output.</li>
+                        <li><em>[-h]</em> — Display Help information for the tool. This option causes the tool to print a usage message and exit.</li>
+                        <li><em>[no-hosts]</em> — Use this option if you do not want the install tool to append entries for each HyperStore host on to the <em>/etc/hosts</em> file of each of the other HyperStore hosts. By default the tool appends to these files so that each host is resolvable to the other hosts by way of the <em>/etc/hosts</em> files.</li>
+                        <li><em>[configure-dnsmasq]</em> — Use this option if you want the install tool to install and configure <a href="http://www.thekelleys.org.uk/dnsmasq/doc.html" target="_blank">dnsmasq</a>, a lightweight utility that can provide domain resolution services for testing a small HyperStore system. If you use this option the installer installs <em>dnsmasq</em> and automatically configures it for resolution of HyperStore service domains. If you did not create DNS entries for HyperStore service domains as described in <MadCap:xref href="Networking Preparation/DnsSetup.htm" target="_popup">DNS Set-Up</MadCap:xref>, then you must use the <em>configure-dnsmasq</em> option in order for the system to be functional when you complete installation. Note that using <em>dnsmasq</em> is not appropriate in a production environment.</li>
+                    </ul>
+                    <p class="NoteIndent" MadCap:autonum="&lt;b&gt;Note: &lt;/b&gt;">If you do not have the installer install <em>dnsmasq</em> during HyperStore installation, and then later you decide that you do want to use <em>dnsmasq</em> for your already installed and running HyperStore system, do not use the <em>configure-dnsmasq</em> command line option when you re-launch the installer. Instead, re-launch the installer with no options and use the <MadCap:xref href="Reference/AdvancedInstallationConfig.htm">Advanced Installation Configuration Options</MadCap:xref> menu to enable <em>dnsmasq</em> for your system.</p>
+                    <ul>
+                        <li><em>[force]</em> — By default the installer performs certain prerequisite checks on each node on which you are installing HyperStore and aborts the installation if any of your nodes fails a check. By contrast, if you use the <em>force</em> option when you launch the installer, the installer will output warning messages to the terminal if one or more nodes fails a prerequsite check but the installation will continue rather than aborting. The prerequisite checks that this feature applies to are:<ul style="list-style-type: circle;"><li>CPU has minimum of 8 cores</li><li>RAM is at least 16GB</li><li>OS is Red Hat or CentOS</li><li>System Architecture is x86 64-bit</li><li>SELinux is disabled</li><li>Iptables is not running</li><li>Directory permissions are as needed</li><li>S3 service endpoint (which you will specify during the interactive install) can be connected to</li><li>Admin service endpoint (which you will specify during the interactive install) can be connected to</li></ul></li>
+                    </ul>
+                </MadCap:dropDownBody>
+            </MadCap:dropDown>
+        </div>
+        <ol MadCap:continue="true">
+            <li>From the installer menu, complete task "Install Cloudian HyperStore". During this interactive task you will need to provide information about your desired HyperStore deployment.</li>
+        </ol>
+        <div class="Indent">
+            <MadCap:dropDown>
+                <MadCap:dropDownHead class="CloudianChildDropDown">
+                    <MadCap:dropDownHotspot>More detail on this step</MadCap:dropDownHotspot>
+                </MadCap:dropDownHead>
+                <MadCap:dropDownBody>
+                    <p>When you launch the install tool it presents you with an action menu.</p>
+                    <p>
+                        <img src="../Resources/Images/Installation/MainMenu.png" />
+                    </p>
+                    <p>Select task 1, "Install Cloudian HyperStore". This executes the software installation, proceeding through these steps:</p>
+                    <ol style="list-style-type: lower-alpha;">
+                        <li><b>Set up access to cluster nodes</b>
+                        </li>
+                    </ol>
+                    <div class="Indent">
+                        <p>This action sets up SSH access from the Puppet master node to all the nodes on which you are installing HyperStore software (the Puppet agent nodes). During this action you will need to provide the root user’s password for each node. If the password for each node is the same, you will only need to supply it once.</p>
+                        <p>Also during this operation, the installer checks to make sure each node meets the minimum <MadCap:xref href="Host Machine Preparation/Software-Only Users/HardwareRequirements.htm" target="_popup">Hardware Requirements</MadCap:xref> and <MadCap:xref href="Host Machine Preparation/Software-Only Users/OsRequirements.htm" target="_popup">Operating System Requirements</MadCap:xref>. If the bare minimums (2GB RAM; 100MB HDD; RHEL or CentOS 6.x 64-bit) are not met for each node, the installer stops and displays a console message "Error! At least one of your agent hosts failed to meet the minimum requirements for installation." If you were trying to install to multiple nodes and you think some of the nodes meet the minimum requirements, review <em>cloudian-installation.log</em> (in the staging directory) to see which node did <b>not</b> meet the minimal requirements, then remove that node from your <em>survey.csv</em> file and launch <em>cloudianInstall.sh</em> again.</p>
+                        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">Beyond checking for the bare minimum requirements for installation, the installer also checks whether each node has the <b>recommended</b> resources for HyperStore basic operation (1GB HDD; 16GB RAM; 8 or more processor cores). If a node has less than this the installer displays a "Warning" message on the console but continues with the installation so that you can still perform minimum function testing of the system.</p>
+                        <p>The installer will also check to confirm that on each node, the<em> /tmp</em> directory has the required permissions: either 1777 or 777.</p>
+                    </div>
+                    <ol style="list-style-type: lower-alpha;" MadCap:continue="true">
+                        <li><b>Specify cluster configuration</b>
+                        </li>
+                    </ol>
+                    <div class="Indent">
+                        <p>As you go through this action you will be prompted for information relating to your environment, and in most cases the prompts will present you with a default value [in brackets]. To accept a default you can simply press enter at the prompt.</p>
+                        <p>Specifically, you will be prompted for the following:</p>
+                        <ul>
+                            <li>If your host machines have multiple network interfaces and you want to use a dedicated interface for HyperStore cluster internal communications, the name of that interface. For example, <em>eth1</em>. Note that HyperStore <b>does not support using interfaces that have a period in their name</b>, such as <em>bond1.1234</em>. Underscores are supported.</li>
+                        </ul>
+                        <p class="NoteIndent" MadCap:autonum="&lt;b&gt;Note: &lt;/b&gt;">	If some hosts in your HyperStore cluster use a different interface for internal network traffic (for example, if most hosts use "eth1" for internal traffic but a couple of hosts use "eth2" for internal traffic), then you should have specified the non-standard internal interface usage in your <em>survey.csv</em> file (as described earlier in this installation procedure). In that case, the network interface that you specify at this installer prompt serves as the "default" internal network interface which is used by all hosts that do not have a host-specific internal network interface configured in the <em>survey.csv</em> file.</p>
+                        <ul>
+                            <li>The "replication strategy" that you want to use for service metadata (such as usage reporting data, user account information, and system monitoring data). This defines how many replicas (instances) of service metadata are stored, to protect such data against loss or corruption. The replication strategy must be formatted as "&lt;datacenter_name&gt;:&lt;replication_#&gt;". For example, "DC1:3" means that in the data center named DC1, three instances of each service metadata object will be stored, with each instance on a different host. If you have multiple data centers this must be formatted as a comma-separated list, like "DC1:3,DC2:2" (which means that for each service metadata object, three instances of the object will be stored in DC1 and two instances of the object will be stored in DC2). The default is 3 replicas per DC.</li>
+                            <li>Your organization’s domain. For example, <em>enterprise.com</em>. From this input that you provide, the installation script will automatically derive HyperStore service endpoint values. You can accept the derived endpoint values that the script presents to you, or optionally you can enter customized endpoint values at the prompts. See <MadCap:xref href="Networking Preparation/DnsSetup.htm" target="_popup">DNS Set-Up</MadCap:xref> for details about these service endpoints and for information about setting up DNS entries to resolve the endpoints.</li>
+                        </ul>
+                    </div>
+                    <ol style="list-style-type: lower-alpha;" MadCap:continue="true">
+                        <li><b>Install packages and apply configuration to nodes</b>
+                        </li>
+                    </ol>
+                    <div class="Indent">
+                        <p>This action installs HyperStore RPMs on each node, and then runs Puppet to apply configuration settings to each node in the cluster. This may take a while.</p>
+                    </div>
+                    <ol style="list-style-type: lower-alpha;" MadCap:continue="true">
+                        <li><b>Load Cassandra schema and start services</b>
+                        </li>
+                    </ol>
+                    <div class="Indent">
+                        <p>This sets up the Cassandra data schema used by the HyperStore system, then starts all HyperStore services on all your nodes. Starting all the services may take some time. Console messages indicate the progress.</p>
+                        <p>At the conclusion of the basic install an "Install Cloudian HyperStore" sub-menu displays, with indication of the installation status. If the installation completed successfully, the "Load Schema and Start Services" menu item should show an "OK" status:</p>
+                        <p>
+                            <img src="../Resources/Images/Installation/InstallCloudianHyperStore_after-install.png" />
+                        </p>
+                        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">If needed, this sub-menu also supports options for re-attempting specific installation steps (such as installing pre-requisites or installing HyperStore packages) on specific nodes, in instances where you’ve encountered an error during installation.</p>
+                    </div>
+                </MadCap:dropDownBody>
+            </MadCap:dropDown>
+        </div>
+        <ol MadCap:continue="true">
+            <li>If you have a multi-region HyperStore system and you have specified customized S3 service endpoints and S3 static website endpoints that do not include a service region string, then you must disable the region validation element of AWS Signature Version 4 authentication. (If you have a single-region system, or you have a multi-region system and are using S3 service endpoints that include a region string, you can skip this step and proceed to confirming that your installation was successful).</li>
+        </ol>
+        <div class="Indent">
+            <MadCap:dropDown>
+                <MadCap:dropDownHead class="CloudianChildDropDown">
+                    <MadCap:dropDownHotspot>More detail on this step</MadCap:dropDownHotspot>
+                </MadCap:dropDownHead>
+                <MadCap:dropDownBody>
+                    <p>To disable the region validation element of AWS Signature Version 4 authentication:</p>
+                    <ol style="list-style-type: lower-alpha;">
+                        <li>Keeping the installer open, use a separate terminal instance on your Puppet master node to open this file in a text editor:</li>
+                    </ol>
+                    <div class="Indent"><pre>/etc/cloudian-&lt;version&gt;-puppet/modules/cloudians3/templates/mts.properties.erb</pre>
+                    </div>
+                    <ol style="list-style-type: lower-alpha;" MadCap:continue="true">
+                        <li>Find this line in the file:</li>
+                    </ol>
+                    <div class="Indent"><pre>cloudian.s3.authorizationV4.singleregioncheck=false</pre>
+                    </div>
+                    <ol style="list-style-type: lower-alpha;" MadCap:continue="true">
+                        <li>Below that found line, add this new line and then save your change and close the file:</li>
+                    </ol>
+                    <div class="Indent"><pre>cloudian.s3.authorizationV4.multiregioncheck=false</pre>
+                    </div>
+                    <ol style="list-style-type: lower-alpha;" MadCap:continue="true">
+                        <li>Return to the installer, and from the installer’s main menu select "Cluster Management". Then from the "Cluster Management" menu select "Push Configuration Settings to Cluster" and follow the prompts.</li>
+                        <li>From the "Cluster Management" menu, select "Manage Services". Then from the "Service Management" menu, restart the S3 Service.</li>
+                    </ol>
+                </MadCap:dropDownBody>
+            </MadCap:dropDown>
+        </div>
+        <p>Once your installation is completed, do the following to <b>confirm that your installation was successful and the system is working properly</b>:</p>
+        <ol>
+            <li>From the installer’s main menu, select "Cluster Management". Then from the "Cluster Management" menu select "Manage Services". From the "Service Management" menu, select "All services", then enter "status". This will return the status of each service on each node. Look over the service statuses to confirm that all your services are up and running. After doing so, exit the Service Management menu.</li>
+            <li>From the "Cluster Management" menu, select "Run Validation Tests".</li>
+        </ol>
+        <div class="Indent">
+            <p>This executes some basic automated tests to confirm that your HyperStore system is working properly. The tests include S3 operations such as creating an S3 user group, creating an S3 user, creating a storage bucket for that user, and uploading and downloading an S3 object.</p>
+            <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">For the validation tests to succeed you must have either configured your name servers with DNS entries to resolve HyperStore service domains (as described in <MadCap:xref href="Networking Preparation/DnsSetup.htm" target="_popup">DNS Set-Up</MadCap:xref>) or ran the install script with the "configure-dnsmasq" option. If you did neither of these things then HyperStore service domains will not be resolvable and the validation test will fail.</p>
+            <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">If you intend to customize the listening port assignments that HyperStore services use or to implement SSL for your S3 Service (either of which can be done though the installer’s "Advanced Configuration Options"), wait until after you run the validation tests. The validation tests presume that default ports and regular HTTP are being used and will fail if you’ve already customized the port assignments or implemented SSL for the S3 Service.</p>
+        </div>
+        <p>After the installation tool’s automated testing of the system completes, exit the installation tool. You can then further exercise your newly installed HyperStore system using the Cloudian Management Console, as described in .</p>
+        <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">After installation and verification, <b>keep the Puppet master node’s installation staging directory intact throughout the life of your HyperStore service</b>. The Cloudian Management Console (CMC) will invoke cloudianInstall.sh and other scripts in this directory in support of certain cluster operations.</p>
+    </body>
+</html>

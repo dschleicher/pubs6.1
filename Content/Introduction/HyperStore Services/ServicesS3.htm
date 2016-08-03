@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="395" MadCap:lastWidth="841">
+    <head>
+    </head>
+    <body>
+        <h1>S3 Service</h1>
+        <p>The HyperStore system provides a high-performance S3 proxy service. The S3 Service processes S3 REST requests incoming from client applications (including the Cloudian Management Console). On the back side, the S3 Service interfaces with:</p>
+        <ul>
+            <li>The HyperStore Service, Cassandra "UserData_&lt;policyid&gt;" keyspaces, and Cassandra "ECKeyspace" keyspace in order to store, retrieve, and delete users' S3 data objects.</li>
+            <li>The Cassandra "AccountInfo" keyspace to update and retrieve user account information.</li>
+            <li>The Cassandra "Reports" keyspace to update users' transaction history.</li>
+            <li>The Redis "Credentials" DB to implement user authentication, S3 bucket validation, and other functions in support of S3 request processing.</li>
+            <li>The Redis "QoS" DB to enforce group and user level quality of service restrictions.</li>
+        </ul>
+        <p>The S3 Service is built on <a href="http://www.eclipse.org/jetty/" target="_blank">Jetty</a> server technology.</p>
+    </body>
+</html>

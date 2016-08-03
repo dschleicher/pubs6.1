@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="7" MadCap:lastHeight="1486" MadCap:lastWidth="814">
+    <head>
+    </head>
+    <body>
+        <h1>GET Bucket Object versions</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[S3 API Method]</p>
+        <p>For the Amazon S3 "GET Bucket Object versions" operation, the HyperStore system supports the S3 <MadCap:xref href="../CommonRequestHeaders.htm" target="_popup">Common Request Headers</MadCap:xref> and <MadCap:xref href="../CommonResponseHeaders.htm" target="_popup">Common Response Headers</MadCap:xref> and also the operation-specific items listed below. If a parameter, header, element, or special error from the Amazon S3 specification for this operation is not listed below, the HyperStore system does not support it.</p>
+        <p>For operation usage information and for descriptions of request and response items, see <a href="http://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketGETVersion.html" target="_blank">GET Bucket Object versions</a> in the Amazon S3 REST API specification.</p>
+        <h2>Request Parameters</h2>
+        <ul>
+            <li>delimiter</li>
+            <li>encoding-type</li>
+            <li>key-marker</li>
+            <li>max-keys</li>
+            <li>prefix</li>
+            <li>version-id-marker</li>
+        </ul>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>HyperStore Extension to the S3 API</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The HyperStore system supports an optional request parameter <em>meta=true</em>. This extension works exactly as described for <MadCap:xref href="GetBucketListObjects.htm">GET Bucket (List Objects)</MadCap:xref>, except that for "GET Bucket Object Versions", in the response body the <em>metadata</em> element will be nested in the <em>Version</em> element and <em>DeleteMarker</em> element of the <em>ListVersionsResult</em> object.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <h2>Response Elements</h2>
+        <ul>
+            <li>DeleteMarker</li>
+            <li>DisplayName</li>
+            <li>Encoding-Type</li>
+            <li>ETag</li>
+            <li>ID</li>
+            <li>IsLatest</li>
+            <li>IsTruncated</li>
+            <li>Key</li>
+            <li>KeyMarker</li>
+            <li>LastModified</li>
+            <li>ListVersionsResult</li>
+            <li>MaxKeys</li>
+            <li>Name</li>
+            <li>NextKeyMarker</li>
+            <li>NextVersionIdMarker</li>
+            <li>Owner</li>
+            <li>Prefix</li>
+            <li>Size</li>
+            <li>StorageClass</li>
+            <li>Version</li>
+            <li>VersionId</li>
+            <li>VersionIdMarker</li>
+        </ul>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>HyperStore Extension to the S3 API</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The HyperStore system supports a <em>metadata</em> response element, which presents user-defined metadata. This extension works exactly as described for <MadCap:xref href="GetBucketListObjects.htm">GET Bucket (List Objects)</MadCap:xref>, except that for "GET Bucket Object Versions", in the response body the <em>metadata</em> element will be nested in the <em>Version</em> element and <em>DeleteMarker</em> element of the <em>ListVersionsResult</em> object.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

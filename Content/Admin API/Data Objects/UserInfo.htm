@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="9" MadCap:lastHeight="2397" MadCap:lastWidth="873">
+    <head>
+    </head>
+    <body>
+        <h1>UserInfo</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Admin API Object]</p>
+        <p>iThe UserInfo object is returned as the <b>response payload</b> for these Admin API operations:</p>
+        <ul>
+            <li>
+                <MadCap:xref href="../User Management/GetUser.htm">GET User</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="../User Management/GetUserList.htm">GET User List</MadCap:xref>
+            </li>
+        </ul>
+        <p>The UserInfo object is required as the <b>request payload</b> for this Admin API operation:</p>
+        <ul>
+            <li>
+                <MadCap:xref href="../User Management/PostUpdatedUser.htm">POST Updated User</MadCap:xref>
+            </li>
+        </ul>
+        <p>The UserInfo object is required as the <b>request payload</b> for this Admin API operation, and then is also returned as the <b>response payload</b>:</p>
+        <ul>
+            <li>
+                <MadCap:xref href="../User Management/PutNewUser.htm">PUT New User</MadCap:xref>
+            </li>
+        </ul>
+        <p>The UserInfo object consists of the attributes below. Each attribute description indicates whether the attribute is mandatory or optional when this object is transmitted as a request payload.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>active</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(Optional, string) Whether the user is active — "true" or "false".</p>
+                    <ul>
+                        <li>"true" indicates an active user.</li>
+                        <li>"false" indicates that the user is not an active user. Non-active users are users who are in one of these statuses:<ul style="list-style-type: circle;"><li>Inactive — These users have had their status set to inactive via the <MadCap:xref href="../User Management/PostUpdatedUser.htm">POST Updated User</MadCap:xref> method (with UserInfo object attribute "active" set to false). These users' stored S3 objects still exist, but their S3 access credentials have been deactivated and they cannot log into the CMC.</li><li>Deleted — These users have been deleted from the S3 service via the <MadCap:xref href="../User Management/DeleteUser.htm">DELETE User</MadCap:xref> method. Their S3 access credentials have been deleted, and their S3 buckets and objects have been deleted and are unrecoverable. (These users can’t be retrieved through <MadCap:xref href="../User Management/GetUser.htm">GET User</MadCap:xref> — they can only be retrieved through <MadCap:xref href="../User Management/GetUserList.htm">GET User List</MadCap:xref>.)</li><li>Deleting — These users are in the process of being deleted from the S3 service via the <MadCap:xref href="../User Management/DeleteUser.htm">DELETE User</MadCap:xref> method. The deletion process for these users has not yet completed. (These users can’t be retrieved through <MadCap:xref href="../User Management/GetUser.htm">GET User</MadCap:xref> — they can only be retrieved through <MadCap:xref href="../User Management/GetUserList.htm">GET User List</MadCap:xref>.)</li></ul></li>
+                    </ul>
+                    <p>If the "active" attribute is unspecified for a <MadCap:xref href="../User Management/PutNewUser.htm">PUT New User</MadCap:xref> operation, it defaults to "true". If the "active" attribute is unspecified for a <MadCap:xref href="../User Management/PostUpdatedUser.htm">POST Updated User</MadCap:xref> operation, the user will retain their existing status.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>address1</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(Optional, string) User’s street address line 1</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>address2</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(Optional, string) User’s street address line 2</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>canonicalUserId</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(Optional, string) Canonical user ID, globally unique within the HyperStore system. This is automatically generated by the system when a new user is created.</p>
+                    <ul>
+                        <li>For users created prior to HyperStore 3.0 (before the canonical ID feature existed), the canonicalUserId is the user’s &lt;groupId&gt;|&lt;userId&gt; combination.</li>
+                        <li>For users created in HyperStore 3.0 and later, the canonicalUserId is a system-generated, globally unique printable string. The canonicalUserId is unique per user across the system and over time, even in the case where a user with a specific &lt;groupId&gt;|&lt;userId&gt; combination is deleted from the system and then a new user is subsequently added with the same &lt;groupId&gt;|&lt;userId&gt; combination. The new user will be assigned a different canonicalUserId than the deleted user. This allows past and present users to be uniquely identified for purposes such as usage reporting.</li>
+                        <li>Client must not supply a canonicalUserId in a <MadCap:xref href="../User Management/PutNewUser.htm">PUT New User</MadCap:xref> request and does not need to supply one in a <MadCap:xref href="../User Management/PostUpdatedUser.htm">POST Updated User</MadCap:xref> request.</li>
+                    </ul>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>city</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(Optional, string) User’s city</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>country</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(Optional, string) xUser’s country</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>emailAddr</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(Optional, string) User’s email address</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>fullName</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(Optional, string) User’s full name. Maximum length 64 characters.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>groupId</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(Mandatory, string) Group ID of the group to which the user belongs.</p>
+                    <p>Note that the groupId of the system admin group is "0".</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>phone</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(Optional, string) User’s phone number</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>state</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(Optional, string) User’s state</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>userId</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(Mandatory, string) User ID.</p>
+                    <ul>
+                        <li>Only letters, numbers, dashes, and underscores are allowed.</li>
+                        <li>Length must be at least 1 character and no more than 64 characters.</li>
+                        <li>The following IDs are reserved for system use and are not available to individual users: "anonymous", "public", "null", "none", "admin", "0".</li>
+                    </ul>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>userType</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(Mandatory, string) User type. One of {"User","GroupAdmin","SystemAdmin"}.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>website</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(Optional, string) User’s website URL.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>zip</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(Optional, string) User’s zip code</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <h2>Example</h2>
+        <p>This is an example of a UserInfo object, as received in a response body.</p><pre xml:space="preserve">{"address1":"123 North South St.","address2":"","city":"Bigtown","zip":"90901","phone":
+"123-123-1234","website":"","active":"true","userType":"User","emailAddr":"cprog@enterprise.com",
+"fullName":"Cody Programian","groupId":"Dev","userId":"cprog","canonicalUserId":
+"178142f1cdcffb146f707de149a19b2b","state":"CA","country":"USA"}</pre>
+    </body>
+</html>

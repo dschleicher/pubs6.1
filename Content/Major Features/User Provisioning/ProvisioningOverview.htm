@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="976" MadCap:lastWidth="815">
+    <head>
+    </head>
+    <body>
+        <h1>User Provisioning Feature Overview</h1>
+        <p>Through the HyperStore Admin API or through the CMC, you can provision the user groups and individual users who you want to authorize to use the HyperStore S3 service. The HyperStore system can support up to millions of groups and users.</p>
+        <p>You will provision groups first, and then once one or more groups exist you can add individual users to each group. All users must belong to a group.</p>
+        <p>As a system administrator you can act on groups in a variety of ways:</p>
+        <ul>
+            <li>Each group can be assigned quality of service (QoS) limits that will enforce upper bounds on the service usage levels of the group as a whole. Each group can also be assigned default user-level QoS controls that will limit the service usage of individual users within the group. (Optionally, you can also assign per-user QoS limits that will supersede this default.)</li>
+            <li>You can generate service usage reports for groups (and also for individual users).</li>
+            <li>Each group can be assigned a default rating plan which will determine how users in that group will be charged for HyperStore service usage. (Optionally, you can also assign per-user rating plans that will supersede this default.)</li>
+            <li>You can create one or more users who have group administrator privileges. Group administrators are able to perform the following operations through the CMC:<ul style="list-style-type: circle;"><li>Create a user within the group</li><li>Edit a user’s profile</li><li>Retrieve a list of users in the group</li><li>Assign user-specific QoS limits</li><li>Provide user support by accessing a user’s data in the S3 object store</li><li>Delete a user</li><li>Generate a usage report for the group</li><li>Generate a usage report for an individual user in the group</li></ul></li>
+        </ul>
+        <p class="NoteIndent" MadCap:autonum="&lt;b&gt;Note: &lt;/b&gt;">The set of privileges that you make available to group administrators is configurable [XREF] in a granular way. Individual CMC UI functions and sub-functions can be displayed to or hidden from group administrators depending on your configuration settings.</p>
+        <p>&#160;</p>
+        <p><b>See Also:</b>
+        </p>
+        <ul>
+            <li>
+                <MadCap:xref href="ProvisioningGroups.htm">Provisioning Groups</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="ProvisioningUsers.htm">Provisioning Users</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="ProvisioningLdap.htm">Integrating with an LDAP System</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="5" MadCap:lastHeight="1811" MadCap:lastWidth="642">
+    <head>
+    </head>
+    <body>
+        <h1>View a Node's Summary Status</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[CMC Interface]</p>
+        <p>The upper part of the CMC's <a href="../../../Resources/Images/cmc/cluster/NodeStatus.png" target="_popup">Node Status</a> page provides a dashboard view of the health and performance of an individual node within your HyperStore system. A drop-down list lets you choose a node for which to display information.</p>
+        <p>
+            <img src="../../../Resources/Images/cmc/cluster/NodeStatus_general.png" class="ImgCloudian" />
+        </p>
+        <p>For the selected node, the <b>Node Status</b> page displays current information for the status and performance items described below.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">The <b>Node Status</b> page — and the status and performance information displayed on the page — automatically refreshes once each minute.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Disk Used %</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>On the node, the percentage of total data disk capacity that is currently used. In the circle icon that graphically shows disk usage percentage, the disk used portion of the circle displays in <span style="color: #32cd32;">green</span> if disk usage is less than 70%; in <span style="color: #ffd700;">yellow</span> if usage is between 70% and 89%; or in <span style="color: #ff4500;">red</span> if usage is 90% or higher.</p>
+                <p>Only disks that store HyperStore data directories (as configured by the <MadCap:xref href="../../../System Configuration/Configuration Files/CommonCsv.htm#hyperstore_data_directory" target="_popup">hyperstore_data_directory</MadCap:xref> setting in the <em>common.csv</em> file) or the Cassandra data directory (as configured by the <MadCap:xref href="../../../System Configuration/Configuration Files/CommonCsv.htm#cassandra_data_directory" target="_popup">cassandra_data_directory</MadCap:xref> setting in <em>common.csv</em>) count toward this stat. This stat does not count disks that are being used only for OS or application files, for example.</p>
+                <p>This stat calculates disk usage in a way that counts a disk’s "reserved-blocks-percentage" (the portion of the disk space that’s reserved for privileged processes) as used space. Consequently this stat may show a higher disk usage value than would the Linux <em>df</em> command, which does not count reserved space towards a disk’s used space. By default in Linux systems the configurable "reserved-blocks-percentage" for a file system is 5% of disk capacity. In a HyperStore Appliance it’s set to 0.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Disk Reads per second</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Across <b>all</b> of the node’s disks, the average disk read throughput per second during the past minute. The metric will auto-scale from B (bytes) to KB or MB or GB as appropriate.</p>
+                <p>This system stat is recalculated each minute, based on the most recent minute of data.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Disk Writes per second</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Across <b>all</b> of the node’s disks, the average disk write throughput per second during the past minute. The metric will auto-scale from B (bytes) to KB or MB or GB as appropriate.</p>
+                <p>This system stat is recalculated each minute, based on the most recent minute of data.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>CPU Utilization %</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Current CPU utilization on the node. In the icon that graphically shows disk usage percentage, the disk used portion of the icon displays in green if disk usage is less than 70%; in yellow if usage is between 70% and 89%; or in red if usage is 90% or higher.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Network Traffic</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The aggregate network interface throughput (received and transmitted) for the node during the past minute, for all types of network traffic including but not limited to S3 request traffic. For example, data transmission associated with cluster maintenance operations would would count toward these statistics. The metric will auto-scale from B (bytes) to KB or MB or GB as appropriate.</p>
+                <p>These system stats are recalculated each minute, based on the most recent minute of data.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Request Throughput</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>For just this node, the data throughput for S3 transactions during the past five minutes, expressed as MB per second. This is broken out to GET transactions and PUT transactions.</p>
+                <p>HEAD transactions are counted toward the GET stat, and POST transactions are counted toward the PUT stat.</p>
+                <p>These S3 stats are recalculated each five minutes, based on the most recent five minutes of transaction data.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Transactions/sec</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>For just this node, the number of S3 transactions processed per second during the past five minutes. This is broken out to GET transactions and PUT transactions.</p>
+                <p>HEAD transactions are counted toward the GET stat, and POST transactions are counted toward the PUT stat.</p>
+                <p>These S3 stats are recalculated each five minutes, based on the most recent five minutes of transaction data.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Average Request Latency (ms)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>For just this node, the average latency  (in milliseconds) for completing S3 transactions during the past five minutes. This is broken out to GET transactions and PUT transactions.</p>
+                <p>HEAD transactions are counted toward the GET stat, and POST transactions are counted toward the PUT stat.</p>
+                <p>These S3 stats are recalculated each five minutes, based on the most recent five minutes of transaction data.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="1816" MadCap:lastWidth="815">
+    <head>
+    </head>
+    <body>
+        <h1>Replacing a Disk</h1>
+        <p>HyperStore supports a method for <b>activating a replacement HyperStore data disk and restoring data to it</b>. This procedure applies to either of these circumstances:</p>
+        <ul>
+            <li>You are replacing a disk that is currently disabled (either by your having used the HyperStore <a href="DisableDisk.htm" target="_popup">disableDisk</a> function or by the system having <a href="../Major Features/Disk Failure Handling/DiskFailureOverview.htm" target="_popup">automatically disabled the disk in response to disk failure</a>).</li>
+            <li>You are replacing a disk that is not currently disabled. In this case, it is not necessary for you to use the  <em>disableDisk</em> function before replacing the disk. When you pull the disk HyperStore will automatically disable the associated mount point, and you can proceed to replace the disk.</li>
+        </ul>
+        <p>After you’ve pulled the bad disk and physically installed the replacement disk, HyperStore will take care of the rest when you follow the steps in this section.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">The procedure below is for HyperStore data disks only. For an OS/Cassandra drive (typically an SSD), see <MadCap:xref href="ReplaceDiskCassandra.htm">Replacing an OS/Cassandra Disk</MadCap:xref>.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">If you have a HyperStore 1500 or 3000 series appliance and you need assistance physically locating the failed drive that you’re replacing you can use the blink light feature on the CMC Node Status page.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>The Impact of Replacing a Disk</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>When you physically install a new disk and then invoke the HyperStore <em>replaceDisk</em> function, the system automatically does the following:</p>
+                <ul>
+                    <li>Creates a primary partition and an <em>ext4</em> file system for the disk.</li>
+                    <li>Establishes appropriate permissions on the mount.</li>
+                    <li>Remounts the disk (using the same mount point that the prior disk had), uncomments its entry in <em>/etc/fstab</em>, and marks the disk as available for HyperStore reads and writes.</li>
+                    <li>Moves back to the disk the same set of storage tokens (vNodes) that were automatically moved away from the prior disk when it was disabled.</li>
+                    <li>Automatically invokes a repair of the HyperStore data mount point associated with the replacement disk — for replica data and also erasure coded data if applicable. This is to recreate on the replacement disk the same object data that was on the disk that was replaced.</li>
+                </ul>
+                <p>After a disk is replaced in this way, the replacement disk has the same data set that the replaced disk had. Going forward, writes of new or updated S3 object data associated with the returned tokens will go to the replacement disk. Meanwhile object data that was written in association with the affected tokens while the disk was disabled — while the tokens were temporarily re-assigned to other disks on the host — will remain on those other disks and will be readable from those disks (utilizing HyperStore <MadCap:xref href="../Major Features/Disk Usage Balancing/DiskUsageOverview.htm#Dynamic" target="_popup">Dynamic Object Routing</MadCap:xref> technology).</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">In the case where HyperStore automatically disabled a disk and you had the system configured to use the "<a href="../CMC Interface/Cluster/Configuration Settings/ConfigurationSettingsSystem.htm" target="_popup">No Move</a>" method of disk failure handling (meaning that HyperStore does not move tokens away from a disk that it automatically disables in response to errors) you can still replace the disk using the steps below. The system will automatically recognize that there is no need to move tokens back to the disk, since they weren’t moved away from it in the first place. The system will perform all the other steps involved in activating the replacement disk, including making the file system and automatically invoking repair on the mount point.<br /><br />Note that the "No Move" method of auto-disabling a disk is not the default — by default, the system moves tokens when it automatically disables a disk.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>To Replace a Disk</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>After you’ve physically installed the replacement disk, follow these steps to activate the replacement disk and restore data to it:</p>
+                <ol>
+                    <li>Go to the CMC's <b>Advanced</b> page for node management. On that page select command type "Disk Management" and then select the "replaceDisk" command.</li>
+                </ol>
+                <div class="Indent">
+                    <p>
+                        <img src="../Resources/Images/operations/Advanced_replaceDisk.png" class="ImgCloudian" />
+                    </p>
+                </div>
+                <ol MadCap:continue="true">
+                    <li>Choose the Target Node (the node on which the disk resides), and enter the Mount Point of the replacement disk. This must be the same as the mount point of the disk that you replaced.</li>
+                    <li>Click <b>Execute</b>.</li>
+                </ol>
+                <p>The <em>replaceDisk</em> operation automatically invokes a repair on the mount point (to recreate on the new disk the same set of S3 object data that was on the disk you replaced). The duration of this repair operation will depend on how much data is involved.</p>
+                <p>While the operation is in progress, you can get status details by running the <MadCap:xref href="../Commands/hsstool/hsstoolOpstatus.htm" target="_popup">hsstool opstatus</MadCap:xref> command on the node. If there is erasure coded data on the node, look for a REPAIREC operation to complete as well as a REPAIR operation (for replica data).</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>After Replacing a Disk</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>After the <em>replaceDisk</em> operation completes, go to the CMC's <a href="../Resources/Images/cmc/cluster/NodeStatus.png" target="_popup">Node Status</a> page. In the "Disk Detail Info" section, the replacement disk should now have this green status icon (indicating that its status is OK):</p>
+                <p style="text-align: center;">
+                    <img src="../Resources/Images/cmc/cluster/Icon_disk-ok.png" />
+                </p>
+                <p>If instead the disk icon is displaying in red (indicating an "Error" status), click the <b>Clear Error History</b> button. Doing so should return the disk to OK status.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

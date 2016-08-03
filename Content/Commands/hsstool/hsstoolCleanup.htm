@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="10" MadCap:lastHeight="3610" MadCap:lastWidth="768">
+    <head>
+    </head>
+    <body>
+        <h1>hsstool cleanup</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Command]</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Introduction</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Use this <MadCap:xref href="hsstoolOverview.htm" target="_popup">hsstool </MadCap:xref> command on a node when you want to identify and delete replicated data that does not belong on the node. Broadly, <em>cleanup</em> removes two classes of "garbage" data from a target node:</p>
+                <ul>
+                    <li>Data that belongs to a token range that the target node is no longer responsible for. For example if you add a new node to a cluster, that node will be assigned certain token range responsibilities that previously belonged to the existing nodes in the cluster. After data associated with those token ranges is populated on to the new node, you use <em>cleanup</em> to remove from the other nodes the replica data that they are no longer responsible for.</li>
+                    <li>Data that should not be on the node even though the data falls within the token ranges that the node is responsible for. This can occur, for example, if an object delete request from an S3 client succeeds for some but not all of the object’s replicas — leaving a garbage replica on one of the nodes.</li>
+                </ul>
+                <p>By default <em>cleanup</em> performs both types of cleanups, but the command supports an <em>-x</em> option to perform only the first type so that you can efficiently clean the pre-existing nodes after adding a new node to a cluster.</p>
+                <p>The operational procedure during which you should use <em>cleanup</em> is:</p>
+                <ul>
+                    <li>
+                        <MadCap:xref href="../../Operations/AddNode.htm">Add a Node</MadCap:xref>
+                    </li>
+                </ul>
+                <p>You may also want to use cleanup as part of:</p>
+                <ul>
+                    <li>
+                        <MadCap:xref href="../../Operations/RestoreNode.htm">Restore a Node</MadCap:xref>
+                    </li>
+                </ul>
+                <p>Please refer to those procedures for step-by-step instructions, including the proper use of <em>cleanup</em> within the context of the procedure.</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">It’s OK for <em>cleanup</em> to be running on multiple nodes in parallel. To do so, you need to initiate the cleanups one node at a time, but you don’t need to wait for <em>cleanup</em> to complete on one node before starting it on another node.<br /><br />The <em>cleanup</em> operation will only clean objects whose Last Modified timestamp is older than the interval set by the system configuration property <em>hyperstore-server.properties: cleanup.session.delete.graceperiod</em>. By default this interval is one day. So no objects with Last Modified timestamps within the past 24 hours will be deleted by <em>cleanup</em>.<br /><br />The <em>cleanup</em> operation does not clean erasure coded data. To clean erasure coded data use the <MadCap:xref href="hsstoolCleanupec.htm">hsstool cleanupec</MadCap:xref> operation.<br /><br />The <em>cleanup</em> operation cannot clean data associated with a storage policy that has been deleted from the system. For information on how to remove such data, see <MadCap:xref href="../../CMC Interface/Cluster/Storage Policies/StoragePoliciesDelete.htm" target="_popup">Delete a Storage Policy</MadCap:xref>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Command Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>You can run the <em>hsstool cleanup</em> command through the CMC UI:</p>
+                <p>
+                    <img src="../../Resources/Images/cmc/cluster/Advanced_cleanup.png" style="max-width: 8.00in;" />
+                </p>
+                <p>Or on the command line:</p><pre xml:space="preserve">[root]# /opt/cloudian/bin/hsstool -h &lt;host&gt; cleanup [allkeyspaces|nokeyspaces] [-n]
+[-l &lt;true|false&gt;] [-b] [-x] [-d &lt;mountpoint&gt;] [-vnode &lt;token&gt;]</pre>
+                <h3>Parameters</h3>
+                <p>This command supports these parameters:</p>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>-h &lt;host&gt; (called "Target Node" in CMC UI)</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Mandatory) Target host to clean.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>allkeyspaces
+| nokeyspaces</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Optional) You have three alternatives for choosing which Cassandra metadata keyspaces to clean up, while also cleaning replicated S3 object data in the HyperStore File System (HSFS):</p>
+                        <ul>
+                            <li>Use <em>allkeyspaces</em> to clean up replicated S3 objects in the HSFS and also clean up all the Cassandra keyspaces. Cassandra cleanup will be completed first, then HSFS replica cleanup. The Cassandra keyspaces that will be cleaned are listed below (for more information see the <a href="../../Introduction/HyperStore Services/ServicesCassandra.htm" target="_popup">overview of Cassandra keyspaces for HyperStore</a>):<ul style="list-style-type: circle;"><li>UserData_&lt;storage-policy-ID&gt; keyspaces</li><li>AccountInfo keyspace</li><li>Reports keyspace</li><li>Monitoring keyspace</li><li>ECKeyspace keyspace</li></ul></li>
+                            <li>Use <em>nokeyspaces</em> to clean up only replicated objects in the HSFS, and not any Cassandra keyspaces</li>
+                            <li>If you specify neither <em>allkeyspaces</em> nor <em>nokeyspaces</em> then the default behavior is to clean up replicated objects in the HSFS and also to clean the <em>Cassandra UserData_&lt;storage-policy-ID&gt;</em> keyspaces (which store object metadata). Cassandra cleanup will be completed first, then HSFS replica cleanup.</li>
+                        </ul>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>-n</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Optional) Don’t actually delete anything. Instead, just do a dry run that identifies the replicat data that doesn’t belong to the node. If you use the <em>-n</em> option you must also:</p>
+                        <ul>
+                            <li>Use the <em>nokeyspaces</em> option. The ability to do a dry run without actually deleting data is supported only for HSFS replica data. Therefore you must select the <em>nokeyspaces</em> option or else the cleanup run will actually clean Cassandra keyspace data.</li>
+                            <li>Have cleanup object logging on. See the description of the <em>-l </em>option below.</li>
+                        </ul>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>-l &lt;true|false&gt;</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Optional) Write to a log file a list of all the objects that were identified as not belonging to the node. Defaults to true, so you only need to specify the <em>-l</em> option if you do <b>not</b> want cleanup object logging (in which case you’d specify <em>-l false</em>).</p>
+                        <p>If you use logging without using the <em>-n</em> option, then the list in the log file is a list of all objects that were deleted by the <em>cleanup</em> operation.</p>
+                        <p>If you use logging in combination with the <em>-n</em> option, then the list in the log file is a list of HSFS replica objects that will be deleted if you run <em>cleanup</em> again without the <em>-n</em> option.</p>
+                        <p>The log is named <em>cloudian-hyperstore-cleanup.log</em> and is written into the Cloudian HyperStore log directory of the target host. Activity associated with a particular instance of a <em>cleanup</em> command run is marked with a unique command number.</p>
+                        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">In the CMC UI, this option is presented simply as an "l" checkbox which is checked by default (meaning logging is enabled by default; you can uncheck it if you don’t want cleanup object logging).</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>-b</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Optional) Check to confirm that objects have a valid S3 bucket association. Delete objects that are not associated with a valid S3 bucket. In typical cleanup scenarios it’s not necessary to use this option.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>-x</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Optional) &#160;Remove only data that belongs to token ranges that the target node is not responsible for. This is the recommended option to use when you are cleaning the other nodes after adding a new node to a cluster. In this circumstance, using the <em>-x</em> option makes the cleanup more efficient and faster.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>-d &lt;mount-point&gt;</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Optional) If you use this option the cleanup is performed only for the specified HyperStore data mount point (for example <em>/cloudian1</em>). This option may be useful if you want to delete garbage data from a particular disk, in an effort to free up space on the disk.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>-vnode &lt;token&gt;</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Optional) If you use this option the cleanup is performed only for objects mapped to the specified vNode (identified by its token such as 18315119863185730105557340630830311535). This option may be useful if during a full node cleanup (or a disk-specific cleanup), the operation failed for a particular vNode. In that case you can then use the <em>-vnode &lt;token&gt;</em> option to retry cleaning just that one vNode.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Command/Response Example</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The example below shows a default run of <em>cleanup</em>, using no options. Note that the system assigns the command run a numerical identifier — #3 in this example.</p><pre xml:space="preserve">[root]# /opt/cloudian/bin/hsstool -h cloudian-node1 cleanup
+Executing cleanup. keyspaces=UserData deletedata=true logging=false
+deleteobject-without-bucketinfo=false
+Cleanup command #3 completed.</pre>
+                <p>For more detail on the operation results run <MadCap:xref href="hsstoolOpstatus.htm" target="_popup">hsstool opstatus</MadCap:xref> on the node. The results of this specific <em>cleanup</em> run (identified by command number) will remain available through <em>opstatus</em> until either <em>cleanup</em> is run again on the node or the HyperStore Service is restarted on the node.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

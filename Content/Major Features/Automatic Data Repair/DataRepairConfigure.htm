@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="609" MadCap:lastWidth="841">
+    <head>
+    </head>
+    <body>
+        <h1>Configuring Automatic Data Repair</h1>
+        <p>By default, HyperStore’s automatic data repair functions are configured in a way that’s suitable for typical HyperStore deployments. However, there are a few settings that you can modify if you wish.</p>
+        <p>Most of the important automatic data repair settings are available in the CMC's <b>Configuration Settings</b> page. In the <MadCap:xref href="../../CMC Interface/Cluster/Configuration Settings/ConfigurationSettingsSystem.htm">System Settings</MadCap:xref> panel of that page, there are settings for hinted handoff:</p>
+        <ul>
+            <li>HyperStore Max Hints Time Limit (default = 1hr)</li>
+            <li>HyperStore Max Hints Space Limit (default = 1GB)</li>
+        </ul>
+        <p>Also on the CMC’s <b>Configuration Settings</b> page, in the <MadCap:xref href="../../CMC Interface/Cluster/Configuration Settings/ConfigurationSettingsAutoRepair.htm">Auto-Repair Schedule Settings</MadCap:xref> panel, are these settings for scheduled auto-repair:</p>
+        <ul>
+            <li>Replicas Repair Interval (default = every 90 days)</li>
+            <li>EC Repair Interval (default = every 89 days)</li>
+            <li>Cassandra Repair Interval (default = every 7 days)</li>
+        </ul>
+        <p>There are also settings named as <em>hyperstore.hints.*</em> in the <em>hyperstore-properties.erb</em> configuration file on your Puppet master node. This includes <em>hyperstore.hints.poll_time</em>, which controls how frequently each HyperStore node checks to see whether it needs to replay hinted handoffs for itself and or execute proactive repair for itself. HyperStore nodes automatically make this check upon start-up, and then again at this configurable interval (default is 1 hour). This recurring check is necessary because even if a node hasn’t been down, there may be need to replay hinted handoffs for the node or execute proactive repair — for example, if network issues had made the node temporarily unreachable as other nodes were processing S3 write requests.</p>
+        <p>If you edit any <em>hyperstore.hints.*</em> settings in <em>hyperstore-properties.erb</em>, be sure to use the installer on the Puppet master to push the setting changes to your cluster and to restart the HyperStore service.</p>
+    </body>
+</html>

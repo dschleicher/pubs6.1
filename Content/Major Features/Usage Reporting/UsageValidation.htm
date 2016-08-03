@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="702" MadCap:lastWidth="1006">
+    <head>
+    </head>
+    <body>
+        <h1>Validating Usage Data for Storage Levels</h1>
+        <p>As described in the <MadCap:xref href="UsageOverview.htm">Usage Reporting Feature Overview</MadCap:xref>, each time the S3 Service processes an S3 request it updates per-user and per-group counters for Storage Bytes and Storage Objects which are maintained in the Redis QoS database. These counts are regularly written over to the Cassandra Reports keyspace, where they are post-processed for reporting and for bill generation.</p>
+        <p>Because the Redis QoS counters for Storage Bytes and Storage Objects can impact your billing of service users (if you charge users based on volume of storage used), it’s important that the counts be accurate.</p>
+        <p>Various types of errors and conditions can on occasion result in discrepancies between the Redis QoS counts and the actual stored bytes and objects owned by particular users. The HyperStore system provides mechanisms for detecting and correcting such discrepancies.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Routine Automated Validation</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Twice a day, a <a href="../../Maintenance/CronJobs.htm#Repairin" target="_popup">system cron job</a> executes the HyperStore Admin API method <a href="../../Admin API/Usage Reporting/PostUsageDataRepairForActiveUsers.htm">POST /usage/repair/dirtyusers</a>. This operation randomly selects up to a configurable maximum number [XREF] of users (1000 by default) for whom Storage Bytes and/or Storage Objects counts in Redis have changed since the last time a validation operation was run. For those users, the operation validates the Redis counters by comparing them to the information in the Cassandra "UserData" keyspace’s "CLOUDIAN_METADATA" column family, which stores metadata (including size) for every object belonging to each user of the HyperStore service. If any users' Redis counters are found to be out-of-sync with counts derived from the object metadata, the Redis counters are corrected.</p>
+                <p>In normal circumstances, this automated mechanism should suffice for maintaining the accuracy of usage data for Storage Bytes and Storage Objects.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Validation for Special Cases</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>If you have reason to question the accuracy of Storage Bytes and/or Storage Objects counts for a particular user — for example, if a user claims their usage report or their bill to be inaccurate — the Admin API supports a method for validating the counts for a specified user: <a href="../../Admin API/Usage Reporting/PostUsageDataRepairForUser.htm">POST /usage/repair/user</a>.</p>
+                <p>The Admin API also supports a method for validating Storage Bytes and Storage Object counts for a whole user group, a whole service region, or the whole system: <a href="../../Admin API/Usage Reporting/PostUsageDataRepairForGroupOrSystem.htm">POST /usage/repair</a>. Depending on how many users are in your system, this is potentially a resource-intensive operation. This operation should only be considered in unusual circumstances, such as if the Redis QoS database has been brought back online after being unavailable for some period of time.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <p>&#160;</p>
+        <p><b>See Also:</b>
+        </p>
+        <ul>
+            <li>
+                <MadCap:xref href="UsageReporting.htm">Generating a Usage Report</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

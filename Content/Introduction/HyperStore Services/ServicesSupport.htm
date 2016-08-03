@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="885" MadCap:lastWidth="841">
+    <head>
+    </head>
+    <body>
+        <h1>Supporting Services</h1>
+        <p>Services that play a supporting role for the HyperStore system include:</p>
+        <ul>
+            <li><b>Cloudian Monitoring Agent</b> — The Cloudian Monitoring Agent runs on each HyperStore node and monitors node health and performance statistics. The Agent also plays a role in the triggering of event notification emails to system administrators. System and node statistics are viewable through the CMC; and you can configure event notification rules through the CMC as well.</li>
+            <li><b>Cloudian Monitoring Data Collector</b> — The Cloudian Monitoring Data Collector runs (together with the system maintenance cron jobs) on one node in each of your service regions, and regularly collects data from the Monitoring Agents. The Monitoring Collector writes its collected node health statistics to Cassandra’s "Monitoring" keyspace. The Monitoring Data Collector is also configured (together with the cron jobs) on a backup node, and automatic failover to the backup occurs if the primary node goes offline or if <em>crond</em> goes down on the primary.</li>
+            <li><b>Puppet</b> — As part of the HyperStore software installation, the HyperStore installer installs the open source version of <a href="https://puppet.com/product/how-puppet-works" target="_blank">Puppet</a> and uses it to implement initial HyperStore system configuration. HyperStore also uses Puppet for support of ongoing configuration management. For more information see Using Puppet to Push Config File Edits to the Cluster [XREF]. Puppet agents run on every node. The Puppet Master runs on one node and is also configured on a backup node. Manual failover to the backup is supported if the primary Puppet Master instance goes down.</li>
+            <li><b>Pre-Configured <em>ntpd</em></b> — Accurate, synchronized time across the cluster is vital to HyperStore service. When you install your HyperStore cluster, the installation script automatically configures a robust NTP set-up using <em>ntpd</em>. In each service region one of your HyperStore nodes is automatically configured to act as an internal NTP server, which synchronizes with external NTP servers from the <em>pool.ntp.org</em> project. Other HyperStore hosts in your cluster are pre-configured as NTP clients and peers. For more information see NTP Set-Up. [XREF]</li>
+        </ul>
+        <div class="Indent">
+            <p>To see which of your HyperStore nodes is the internal NTP server and which external NTP servers it is synchronizing with, log into the CMC and go to the <MadCap:xref href="../../CMC Interface/Cluster/Cluster Information/ClusterInformationOverview.htm" target="_popup">Cluster Information</MadCap:xref> page.</p>
+        </div>
+        <ul>
+            <li><b>Dnsmasq</b> — <a href="http://www.thekelleys.org.uk/dnsmasq/doc.html" target="_blank">Dnsmasq</a> is a lightweight domain resolution utility. This utility is bundled with Cloudian HyperStore software. The HyperStore interactive installation wizard gives you the option to have <em>dnsmasq</em> installed and configured to resolve HyperStore service domains (specifically the S3 service domain, the S3 website endpoint domain, and the CMC domain). The <em>dnsmasq</em> utility may be helpful if you are evaluating a small HyperStore system but it is not appropriate for production use.</li>
+        </ul>
+        <p><b>See Also:</b>
+        </p>
+        <ul>
+            <li>
+                <MadCap:xref href="../System Diagrams/SpecializedServicesAvailability.htm">Specialized Services Availability</MadCap:xref> (diagram)</li>
+        </ul>
+    </body>
+</html>

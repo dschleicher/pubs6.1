@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="5" MadCap:lastHeight="732" MadCap:lastWidth="828">
+    <head>
+    </head>
+    <body>
+        <h1>Designate a Default Storage Policy</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[CMC Interface]</p>
+        <p>At all times you must have one and only one <b>default storage policy</b> defined in each of your HyperStore service regions. The default policy is the one that will be applied when users create new buckets without specifying a policy.</p>
+        <p>In your storage policy list, the current default policy is listed first, with its Region name highlighted in green. In the example below, the policy named "HSFS-1" is the default storage policy.</p>
+        <p>
+            <img src="../../../Resources/Images/cmc/cluster/StoragePolicies_default.png" class="ImgCloudian" />
+        </p>
+        <p>To be eligible for being the default storage policy, a policy must be:</p>
+        <ul>
+            <li>Active (Status = ACTIVE)</li>
+            <li>Visible to all user groups. If you’re unsure whether a particular policy is visible to all groups, click <b>View/Edit</b> for the policy, then check in the <b>Group Visibility</b> panel. If individual group names appear in this panel, that means the policy is currently configured to be visible to only those groups. You can change this by deleting all the specific groups that are displayed and saving the edited storage policy.</li>
+        </ul>
+        <p>To designate a policy as the default, click <b>Set as Default</b> for that policy. The interface will ask you to confirm that you want to take this action.</p>
+        <p>Note that changing the default storage policy has <b>no effect on which policy is used by currently existing buckets</b>. Buckets that have been using the old default storage policy will continue to do so. The impact is that when new buckets are created without specifying a storage policy, they will be assigned the new default storage policy.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">When a pre-5.2 version of HyperStore is upgraded to 5.2 or newer, the upgrade process automatically creates a storage policy named "DEFAULT_&lt;region-name&gt;". This policy is configured with the data distribution scheme (replication factor or EC "k"+"m" values) and user data read/write consistency requirements that the pre-5.2 system had been using. This "DEFAULT_&lt;region-name&gt;" will be your default storage policy until you designate some other policy as the default.</p>
+    </body>
+</html>

@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="7" MadCap:lastHeight="941" MadCap:lastWidth="802">
+    <head>
+    </head>
+    <body>
+        <h1>Retrieve a User or List of Users</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[CMC Interface]</p>
+        <p>In the CMC's <b><a href="../../../Resources/Images/cmc/users/ManageUsers_ver_sys-admin.png" target="_popup">Manage Users</a></b> page you can retrieve a single user or a filtered list of users.</p>
+        <ol>
+            <li>Select or enter your user list filtering criteria. You can filter by:</li>
+        </ol>
+        <div class="Indent">
+            <MadCap:dropDown>
+                <MadCap:dropDownHead class="CloudianChildDropDown">
+                    <MadCap:dropDownHotspot>Search for User By ID</MadCap:dropDownHotspot>
+                </MadCap:dropDownHead>
+                <MadCap:dropDownBody>
+                    <p>Specify a user ID prefix to retrieve a list of users whose IDs start with that prefix.</p>
+                    <p>Specify a complete user ID if you want to retrieve just that one user.</p>
+                    <p>This field is case-sensitive.</p>
+                    <p>Leave this field blank if you want to filter exclusively by the other criteria.</p>
+                </MadCap:dropDownBody>
+            </MadCap:dropDown>
+            <MadCap:dropDown>
+                <MadCap:dropDownHead class="CloudianChildDropDown">
+                    <MadCap:dropDownHotspot>Group Name</MadCap:dropDownHotspot>
+                </MadCap:dropDownHead>
+                <MadCap:dropDownBody>
+                    <p>This is a drop-down list of group names in the system. This includes "System Admin" which is the group to which system administrators belong.</p>
+                </MadCap:dropDownBody>
+            </MadCap:dropDown>
+            <MadCap:dropDown>
+                <MadCap:dropDownHead class="CloudianChildDropDown">
+                    <MadCap:dropDownHotspot>User Type</MadCap:dropDownHotspot>
+                </MadCap:dropDownHead>
+                <MadCap:dropDownBody>
+                    <ul>
+                        <li>User — Regular service users.</li>
+                        <li>Group Admin — Group admin users.</li>
+                        <li>All — Regular service users, group admin users, and system admin users.</li>
+                    </ul>
+                </MadCap:dropDownBody>
+            </MadCap:dropDown>
+            <MadCap:dropDown>
+                <MadCap:dropDownHead class="CloudianChildDropDown">
+                    <MadCap:dropDownHotspot>User Status</MadCap:dropDownHotspot>
+                </MadCap:dropDownHead>
+                <MadCap:dropDownBody>
+                    <ul>
+                        <li>Active — Users who are currently allowed service access.</li>
+                        <li>Inactive — Users whose service access credentials have been deactivated but who have not been deleted from the system. They may still have objects in storage.</li>
+                        <li>All — Active users and inactive users.</li>
+                    </ul>
+                </MadCap:dropDownBody>
+            </MadCap:dropDown>
+        </div>
+        <ol MadCap:continue="true">
+            <li>Click <b>Search</b>. Your filtered search results then display in the lower part of the page.</li>
+        </ol>
+        <div class="Indent">
+            <p>
+                <img src="../../../Resources/Images/cmc/users/UserActions.png" style="mc-thumbnail-max-height: 60px;mc-thumbnail-max-width: 300px;" class="ImgCloudian" />
+            </p>
+            <p>You can then take any of the following actions regarding the retrieved user(s):</p>
+            <ul>
+                <li>
+                    <MadCap:xref href="ManageUsersEdit.htm">Edit a User (CMC)</MadCap:xref>
+                </li>
+                <li>
+                    <MadCap:xref href="ManageUsersObjects.htm">Manage a User's Stored Objects (CMC)</MadCap:xref>
+                </li>
+                <li>
+                    <MadCap:xref href="ManageUsersDelete.htm">Delete a User (CMC)</MadCap:xref>
+                </li>
+            </ul>
+        </div>
+    </body>
+</html>

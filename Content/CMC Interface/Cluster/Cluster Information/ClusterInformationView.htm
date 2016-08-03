@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="5" MadCap:lastHeight="2181" MadCap:lastWidth="642">
+    <head>
+    </head>
+    <body>
+        <h1>View Cluster Information</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[CMC Interface]</p>
+        <p>The CMC's <b><a href="../../../Resources/Images/cmc/cluster/ClusterInfo.png" target="_popup">Cluster Information</a></b> page displays static information about your Cloudian HyperStore system. If you have a multi-region HyperStore deployment, a drop-down list at the top of the page lets you choose a region for which to view information.</p>
+        <p>The page shows the cluster information items below.</p>
+        <h2>Version Information</h2>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Application Version</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Your current HyperStore software version</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <h2>License Information</h2>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Expire Date</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Date on which your license expires.</p>
+                <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">The top of the console will display a warning message when your license expiration date is nearing. If your license expires, the message indicates how many grace period days you have until Cloudian, Inc. disables your HyperStore system.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Licensed Max Net Storage</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Maximum allowed system-wide storage of S3 objects (in GB or TB), not counting replication or erasure coding overhead. For example if a 1MB S3 object is replicated three times in your system, or is protected by 4+2 erasure coding, it counts as only 1MB toward this limit.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Number of Stored Bytes</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Current number of bytes of S3 objects stored in your system, not counting replication or erasure coding overhead. This is the number that counts toward your licensed storage limit.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <h2>Service Information</h2>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>CMC Admin Server Host</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Admin Service endpoint to which the CMC connects.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Cassandra Cluster Name </MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Name of your Cassandra cluster.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>S3 Endpoints</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>HTTP and HTTPS endpoints for this S3 service region.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Redis Credentials Master Host</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Host running the "master" instance of the Redis Credentials DB. If you have multiple regions, all regions use the same Redis Credentials master.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Redis Credentials Slave Host(s)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Host(s) running the "slave" instance(s) of the Redis Credentials DB. This is typically two nodes per data center. (It will be one node if you upgraded from a HyperStore version older than 6.0.)</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Redis QoS Master Host</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Host running the "master" instance of the Redis QoS DB. If you have multiple regions, each region has its own Redis QoS master.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Redis QoS Slave Host(s)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Host(s) running the "slave" instance(s) of the Redis QoS DB. This is typically one node per data center.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Redis Monitor Primary Host</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Host running the primary instance of the Redis Monitor service.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Redis Monitor Backup Host</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Host running the backup instance of the Redis Monitor service.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Admin Cronjob Primary Host</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Host running the primary instance of the HyperStore system maintenance crontab.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Admin Cronjob Backup Host</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Host with the backup instance of the HyperStore system maintenance crontab.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>External NTP Host(s)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>External NTP servers to which the HyperStore cluster’s internal NTP server connects.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Internal NTP Host</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>HyperStore node acting as internal NTP server for the cluster.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Puppet Master Host</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Host running the primary instance of the Puppet Master.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Puppet Master Backup Host</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Host with the backup instance of the Puppet Master.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Installation Staging Directory on Puppet Master</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>On the Puppet Master host, the installation staging directory path. In this directory resides the <em>cloudianInstall.sh</em> script, which you can use for certain cluster management tasks such as pushing configuration file edits out to the cluster or restarting services.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Number of Datacenters</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Number of datacenters in which you are running the HyperStore system.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Number of Hosts in Each Datacenter</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Number of HyperStore hosts in each datacenter.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <p>&#160;</p>
+        <p style="font-weight: normal;"><b>See Also:</b>
+        </p>
+        <ul>
+            <li style="font-weight: normal;">
+                <MadCap:xref href="../../../Introduction/HyperStore Services/ServicesOverview.htm">HyperStore Services</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="../../../Introduction/System Diagrams/ServicesDistribution3Nodes.htm">Services Distribution -- 3 Nodes, Single DC</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="../../../Operations/Change Node Role/ChangeNodeRoleOverview.htm">Change Node Role Assignments</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

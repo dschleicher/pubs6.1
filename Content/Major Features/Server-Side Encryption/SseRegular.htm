@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="796" MadCap:lastWidth="815">
+    <head>
+    </head>
+    <body>
+        <h1>Using Regular Server-Side Encryption (SSE)</h1>
+        <p>You can use server-side encryption with system-generated keys either through the CMC or through a different S3 client application that invokes the HyperStore implementation of the S3 API.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">To use <b>Amazon-compliant</b> server-side encryption, you must first <a href="SseAes256.htm">enable AES256</a> in your HyperStore system.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Using Regular SSE (CMC)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>In the CMC’s <b>Buckets &amp; Objects</b> page, when you are <a href="../../CMC Interface/Buckets &amp; Objects/Objects/ObjectUpload.htm">uploading a file</a>, the interface displays a "Store Encrypted" checkbox. If you select this checkbox, the HyperStore system applies server-side encryption to the uploaded file, using a system-generated encryption key.</p>
+                <p>When you subsequently download the file through the <b>Buckets &amp; Objects</b> page, the system automatically uses the same encryption key to decrypt the file.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Using Regular SSE (S3 API)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>In compliance with the Amazon S3 REST API, the HyperStore system’s S3 API supports server-side encryption with system-generated keys by the inclusion of the <em>x-amz-server-side-encryption</em> request header in any of these operations on objects:</p>
+                <ul>
+                    <li>
+                        <MadCap:xref href="../../S3 API Support/OperationsObjects/PutObject.htm">PUT Object</MadCap:xref>
+                    </li>
+                    <li>
+                        <MadCap:xref href="../../S3 API Support/OperationsObjects/InitiateMultipartUpload.htm">Initiate Multipart Upload</MadCap:xref>
+                    </li>
+                    <li>
+                        <MadCap:xref href="../../S3 API Support/OperationsObjects/UploadPart.htm">Upload Part</MadCap:xref>
+                    </li>
+                    <li>
+                        <MadCap:xref href="../../S3 API Support/OperationsObjects/PostObject.htm">POST Object</MadCap:xref>
+                    </li>
+                    <li>
+                        <MadCap:xref href="../../S3 API Support/OperationsObjects/PutObjectCopy.htm">PUT Object - Copy</MadCap:xref>
+                    </li>
+                </ul>
+                <p>HyperStore also supports the S3 API method <MadCap:xref href="../../S3 API Support/OperationsOnBuckets/PutBucketPolicy.htm">PUT Bucket policy</MadCap:xref> for setting bucket policies that mandate or forbid server-side encryption.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <p>&#160;</p>
+        <p><b>See Also:</b>
+        </p>
+        <ul>
+            <li>
+                <MadCap:xref href="SseAes256.htm">Enabling AES-256</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="SseCustomerKeys.htm">Using Server-Side Encryption with Customer-Provided Keys (SSEC)</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

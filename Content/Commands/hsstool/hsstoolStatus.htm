@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="8" MadCap:lastHeight="2308" MadCap:lastWidth="918">
+    <head>
+    </head>
+    <body>
+        <h1>hsstool status</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Command]</p>
+        <p>This <MadCap:xref href="hsstoolOverview.htm" target="_popup">hsstool </MadCap:xref> command returns status information for a storage cluster as a whole.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Command Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>You can run the <em>hsstool status</em> command through the CMC UI:</p>
+                <p>
+                    <img src="../../Resources/Images/cmc/cluster/Advanced_status.png" style="max-width: 8in;" />
+                </p>
+                <p>Or on the command line:</p><pre xml:space="preserve">[root]# /opt/cloudian/bin/hsstool [-h &lt;host&gt;] status</pre>
+                <h3>Parameters</h3>
+                <p>This command supports only this parameter:</p>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>-h &lt;host&gt; (called "Target Node" in CMC UI)</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Optional on command line; mandatory in CMC) You can use any node in the storage cluster as the target host. The  command retrieves cluster-wide information that is available via any node that belongs to the cluster. Defaults to local host if you do not supply <em>-h &lt;host&gt;</em> on the command line.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Command/Response Example and Response Description</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The <em>status</em> command example below retrieves the status of a four-node cluster that spans two data centers. Response item descriptions follow the example.</p><pre xml:space="preserve">[root]# /opt/cloudian/bin/hsstool -h cloudian-node1 status
+Datacenter: DC1
+===============
+Address         DC  Rack  Cassandra   Tokens  Cassandra-Load  Hss  State  Hyperstore-Disk      Host-ID
+105.236.130.70  DC1 RAC1    Up        32      0.3037538      Up   Normal 10.84 GB / 78.74 GB (13.77%)
+cf15305c-d978-4dac-92eb-de915aa9dd7e
+198.199.106.194 DC1 RAC1    Up        32      0.22201389     Up   Normal 12.22 GB / 78.74 GB (15.52%)
+84cdf82c-738a-442e-9e88-38c5133aeb08
+Datacenter: DC2
+===============
+Address         DC  Rack  Cassandra   Tokens  Cassandra-Load  Hss  State  Hyperstore-Disk      Host-ID
+105.236.218.176 DC2 RAC1    Up        32      0.2740603      Up   Normal 9.21 GB / 78.74 GB (11.7%)
+eb7056ae-0d66-459b-86d2-a188224fc063
+105.236.97.48   DC2 RAC1    Up        32      0.20017202     Up   Normal 9.16 GB / 78.74 GB (11.63%)
+f1a2b1a9-4c30-405c-a765-1b5b6deb5df1</pre>
+                <p>The <em>status</em> command response displays a status line for each physical node in the storage cluster. Each node’s status line consist of the following items:</p>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>Address</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>IP address of the node.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>DC</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Data center in which the node resides.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>Rack</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Rack in which the node resides.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>Cassandra</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Cassandra Service status of the node. Will be one of: "Up", "Down", "Joining" (in the process of joining the cluster), "Leaving" (in the process of leaving the cluster), or "?" (host cannot be reached).</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>Tokens</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Number of tokens (also known as vNodes) assigned to the physical node. The tokens assigned to a physical node determine which S3 objects will be stored on the node. By default each node is assigned 32 tokens. For more information on how tokens are assigned to physical nodes, see <MadCap:xref href="../../Introduction/System Diagrams/vNodes.htm">How vNodes Work</MadCap:xref>.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>Cassandra-Load</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>From among the total Cassandra load across the whole storage cluster, the portion that is stored on this node. This is expressed as a decimal value. For example, if 25% of the total Cassandra load in the cluster is stored on this node, this field displays .25.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>Hss</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>HyperStore Service status for the node. Will be one of: "Up", "Down", or "?" (physical host cannot be reached).</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>State</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>HyperStore Service state for the node. Will be one of: "Normal" or "Decommissioning".</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>HyperStore-Disk</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>The total volume of replicated S3 object data stored on the node. This includes S3 objects for which the node serves as a secondary or tertiary replica as well as S3 objects for which the node is the primary replica.</p>
+                        <p>This field also shows the total amount of disk space designated for S3 object storage on the node. The disk space is the total capacity for replica storage and erasure coded storage combined.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>EC-Disk</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>The total volume of erasure coded S3 object data stored on the node, if any. This field also shows the total amount of disk space designated for S3 object storage on the node. The disk space is the total capacity for replica storage and erasure coded storage combined.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>Host-ID</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>System-generated hexadecimal number uniquely identifying the physical node. Note that with the use of vNodes, tokens uniquely identify vNodes while Host IDs uniquely identify each physical node within the cluster. If you have occasion to use the <MadCap:xref href="hsstoolRemovenode.htm" target="_popup">hsstool removenode</MadCap:xref> operation you will need to supply the Host ID of the node that you are removing.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

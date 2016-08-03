@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="5" MadCap:lastHeight="940" MadCap:lastWidth="882">
+    <head>
+    </head>
+    <body>
+        <h1>RatingPlan</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Admin API Object]</p>
+        <p>The RatingPlan object is returned as the <b>response payload</b> for these Admin API operations:</p>
+        <ul>
+            <li>
+                <MadCap:xref href="../Rating Plans/GetRatingPlan.htm">GET Rating Plan</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="../User Management/GetUsersRatingPlan.htm">GET User's Rating Plan</MadCap:xref>
+            </li>
+        </ul>
+        <p>The RatingPlan object is required as the <b>request payload</b> for these Admin API operations:</p>
+        <ul>
+            <li>
+                <MadCap:xref href="../Rating Plans/PostUpdatedRatingPlan.htm">POST Updated Rating Plan</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="../Rating Plans/PutNewRatingPlan.htm">PUT New Rating Plan</MadCap:xref>
+            </li>
+        </ul>
+        <p>The RatingPlan object consists of the attributes below. Each attribute description indicates whether the attribute is mandatory or optional when this object is transmitted as a request payload.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>currency</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(Optional, string) An international currency code (such as "USD", "JPY", or "EUR").</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>id</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(Mandatory, string) Unique rating plan ID.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>mapRules</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(Optional, Map&lt;string, <MadCap:xref href="RuleClass.htm">RuleClass</MadCap:xref>&gt;) Map of rating rules per service dimension. The string is the service dimension acronym and is one of "SB" (storage bytes), "BI" (bytes in), "BO" (bytes out), "HG" (HTTP GETs), "HP" (HTTP PUTs), or "HD" (HTTP DELETEs). For each service dimension there is a corresponding RuleClass object that expresses the rating rules for that service dimension.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>name</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(Optional, string) Name of rating plan.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <h2>Example</h2>
+        <p>This is an example of a RatingPlan object. In this rating plan HTTP DELETEs are unbilled, and every other service dimension has either a one-tier or two-tier pricing structure, in U.S. dollars.</p><pre xml:space="preserve">{"currency":"USD","mapRules":{"HG":{"rules":[{"second":"0.02","first":"10"},{"second":"0.01",
+"first":"0"}],"ruleclassType":"HTTP_GET"},"HD":{"rules":[{"second":"0","first":"0"}],
+"ruleclassType":"HTTP_DELETE"},"BI":{"rules":[{"second":"0.20","first":"1"},{"second":"0.10",
+"first":"0"}],"ruleclassType":"BYTES_IN"},"BO":{"rules":[{"second":"0.20","first":"1"},{"second":
+"0.10","first":"0"}],"ruleclassType":"BYTES_OUT"},"HP":{"rules":[{"second":"0.02","first":"0"}],
+"ruleclassType":"HTTP_PUT"},"SB":{"rules":[{"second":"0.14","first":"1"},{"second":"0.12","first":
+"5"},{"second":"0.10","first":"0"}],"ruleclassType":"STORAGE_BYTE"}},"name":"Default Rating Plan",
+"id":"Default-RP"}</pre>
+    </body>
+</html>

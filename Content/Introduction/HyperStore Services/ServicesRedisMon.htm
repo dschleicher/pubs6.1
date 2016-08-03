@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="425" MadCap:lastWidth="841">
+    <head>
+    </head>
+    <body>
+        <h1>Redis Monitor Service</h1>
+        <p>The Redis Monitor monitors Redis Credentials and Redis QoS cluster health and implements automatic failover of the Redis master node role within each of the two Redis DBs. For redundancy, the Redis Monitor runs on two HyperStore nodes, configured as primary on one node and as backup on the other node.</p>
+        <p>If the Redis Monitor detects that a Redis master node has gone down, it promotes an available slave node to the master node role; and informs the Redis cluster’s clients (the S3 Service, Admin Service, and HyperStore Service) of the identity of the new master.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot style="font-weight: bold;">Note for multi-region systems</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>	In a multi-region HyperStore deployment, a single Redis Monitor instance will monitor multiple regional Redis QoS DBs as well as the one universal Redis Credentials DB. Each regional Redis QoS DB will have its own configured cluster membership list that the Redis Monitor will refer to if a slave needs to be promoted to master.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <p><b>See Also:</b>
+        </p>
+        <ul>
+            <li>
+                <MadCap:xref href="ServicesRedis.htm">Redis Credentials and Redis QoS Services</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="../System Diagrams/SpecializedServicesAvailability.htm">Specialized Services Availability</MadCap:xref> (diagram)</li>
+        </ul>
+    </body>
+</html>

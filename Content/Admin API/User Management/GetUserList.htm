@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="10" MadCap:lastHeight="2337" MadCap:lastWidth="891">
+    <head>
+    </head>
+    <body>
+        <h1>GET User List</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Admin API Method]</p>
+        <p>Use this Admin API method to retrieve a list of users from a specified user group. For each user the user’s full profile is returned. You can optionally filter the search by user ID prefix.</p>
+        <p>This method supports limiting the number of users who are returned for each request/response pair. It also supports use of an offset value. With the limiter and the offset, you can use multiple sequential requests in order to paginate a large result set.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Request Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Syntax</h4><pre xml:space="preserve">GET /user/list?groupId=xxx&amp;userType=xxx&amp;userStatus=xxx[&amp;prefix=xxx][&amp;limit=xxx][&amp;offset=xxx]</pre>
+                <h4>Query Parameters</h4>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>groupId</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Mandatory, string) ID of the group to which the users belong.</p>
+                            <p>Note that the ID of the system administrators' group is "0".</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>userType</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Mandatory, string) Retrieve users of this type. Options are:</p>
+                            <ul>
+                                <li>
+                                    <p><em>admin</em> —  Administrators. If the group ID is "0" this would be system admins; for any other group this would be group admins.</p>
+                                </li>
+                                <li>
+                                    <p><em>user</em> — Regular users who lack administrative privileges.</p>
+                                </li>
+                                <li>
+                                    <p><em>all</em> — Retrieve users of all types.</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>userStatus</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Mandatory, string) Retrieve only users who have this status. Options are:</p>
+                            <ul>
+                                <li>
+                                    <p><em>active</em> — Active users.</p>
+                                </li>
+                                <li>
+                                    <p><em>inactive</em> — Inactive users. These users have had their status set to inactive via the <MadCap:xref href="PostUpdatedUser.htm">POST Updated User</MadCap:xref> method (with <MadCap:xref href="../Data Objects/UserInfo.htm">UserInfo</MadCap:xref> object attribute "active" set to false). These users' stored S3 objects still exist, but their S3 access credentials have been deactivated.</p>
+                                </li>
+                                <li>
+                                    <p><em>deleted</em> — Deleted users. These users have been deleted from the S3 service via the <MadCap:xref href="DeleteUser.htm">DELETE User</MadCap:xref> method. Their S3 access credentials have been deleted, and their S3 buckets and objects have been deleted and are unrecoverable.</p>
+                                </li>
+                                <li>
+                                    <p><em>deleting</em> — These users are in the process of being deleted from the S3 service via the <MadCap:xref href="DeleteUser.htm">DELETE User</MadCap:xref> method. The deletion process for these users has not yet completed.</p>
+                                </li>
+                                <li>
+                                    <p><em>all</em> — Retrieve users of all status types.</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>prefix</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Optional, string) If specified, a user ID prefix to use for filtering. For example, if you specify "prefix=arc" then only users whose user ID starts with "arc" would be retrieved.</p>
+                            <p>Defaults to empty string (meaning that no prefix-based filtering is performed).</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>limit</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Optional, integer) For purposes of pagination, the maximum number of users to return in one response. If more than this many users meet the filtering criteria, then the actual number of users returned will be "limit plus 1". The last user returned — the "plus 1" — is an indicator that there are more matching users than could be returned in the current response (given the specified "limit" value). That user’s ID can be used as the "offset" value in a subsequent request. Note that if the offset user happens to be the last user in the entire set of matching users, the subsequent query using the offset will return no users.</p>
+                            <p>Defaults to 100.</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>offset</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Optional, string) User ID with which to start the response list of users, sorted alphanumerically. The "offset" parameter can be used for purposes of pagination within a large result set that is being retrieved via multiple requests. See the description of "limit" above for more information.</p>
+                            <p>If "offset" is not specified, the first user in the response list will be the alphanumerically first user from the entire result set.</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <h4>Request Payload</h4>
+                <p>None.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Response Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Response Status</h4>
+                <p>In addition to the <MadCap:xref href="../CommonStatusCodes.htm" target="_popup">Common Status Codes</MadCap:xref>, this method may return these codes:</p>
+                <table style="border-collapse: separate;border-top-left-radius: 0px;border-top-right-radius: 0px;border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;width: 100%;">
+                    <col style="width: 115px;">
+                    </col>
+                    <col style="width: 629px;">
+                    </col>
+                    <thead>
+                        <tr>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Status Code</th>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                            <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;">Missing required parameters : {groupId, userType, userStatus}</td>
+                        </tr>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                            <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;"> 	
+
+Invalid user type. Valid values {admin, user, all}</td>
+                        </tr>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                            <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;">Invalid user status. Valid values {active, inactive, all}</td>
+                        </tr>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                            <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;">Invalid limit</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4>Response Payload</h4>
+                <p>List&lt;<MadCap:xref href="../Data Objects/UserInfo.htm" target="_popup">UserInfo</MadCap:xref>&gt; in JSON.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Example</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>In this example, profiles for all the users in the Dev group are successfully retrieved. There are only three users in the group. The set of profiles in the response body is sorted alphanumerically by <em>userId</em> value.</p><pre xml:space="preserve"># Request -&gt;
+
+GET http://192.168.2.16:18081/user/list?groupId=Dev&amp;userType=all&amp;userStatus=active
+
+# Response -&gt;
+
+Status Code: 200 OK
+Content-Length: 988
+Content-Type: application/json
+Date: Tue, 22 Sep 2015 20:39:36 GMT
+[{"address1":"123 North South St.","address2":"","city":"Bigtown","zip":"90901","phone":
+"123-123-1234","website":"","active":"true","userType":"User","emailAddr":"cprog@enterprise.com",
+"fullName":"Cody Programian","groupId":"Dev","userId":"cprog","canonicalUserId":
+"178142f1cdcffb146f707de149a19b2b","state":"CA","country":"USA"},{"address1":"123 East West St.",
+"address2":"","city":"Smalltown","zip":"98102","phone":"321-432-5412","website":"","active":"true",
+"userType":"User","emailAddr":"jscrip@enterprise.com","fullName":"Javatna Scriptig","groupId":
+"Dev","userId":"jscrip","canonicalUserId":"72b68db2e37d99d97a668ec3ab4e51b7","state":"CA",
+"country":"USA"},{"address1":"134 Road St.","address2":"","city":"Downtown","zip":"90131","phone":
+"890-123-1324","website":"","active":"true","userType":"User","emailAddr":"kwring@enterprise.com",
+"fullName":"Kassandra Wring","groupId":"Dev","userId":"kwring","canonicalUserId":
+"f2800b6008efff78d0084ad695e33add","state":"USA","country":"USA"}]</pre>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

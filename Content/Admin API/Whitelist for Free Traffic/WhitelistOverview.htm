@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="701" MadCap:lastWidth="655">
+    <head>
+    </head>
+    <body>
+        <h1>Admin API Methods for Whitelist</h1>
+        <p>This group of Admin API methods is for managing a billing "whitelist" of source IP addresses or subnets that you want to allow to have free S3 traffic with the HyperStore storage service. For S3 requests originating from addresses on this whitelist, a special rating plan is used that applies zero charge to all the traffic-related pricing metrics (number of requests and bytes in/out). There are API methods for editing the IP address list and for retrieving the list.</p>
+        <p>Note that the billing whitelist feature does not affect the pricing of data <b>storage</b>. For data storage billing, a user’s regular assigned rating plan pricing is used, even if all of the user’s S3 requests originate from a whitelisted IP address.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">The Cloudian Management Console’s <MadCap:xref href="../../CMC Interface/Users &amp; Groups/Whitelist.htm" target="_popup">Whitelist</MadCap:xref> functionality is implemented by calling the methods in this section.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">For an overview of the HyperStore billing — including <b>how to enable the whitelist feature, which is disabled by default</b> — see <MadCap:xref href="../../Major Features/Billing/BillingOverview.htm" target="_popup">Billing Feature Overview</MadCap:xref>.</p>
+        <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">	If your S3 Servers are behind a load balancer, the load balancer must be configured to pass through request source IP addresses in order for the whitelist feature to work. Note also that when S3 requests are submitted via the Cloudian Management Console (CMC), the S3 Servers consider the CMC itself to be the source of the request. The CMC does not pass to the S3 Servers the IP addresses of CMC clients.</p>
+        <ul>
+            <li>
+                <MadCap:xref href="GetWhitelist.htm">GET Whitelist</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="GetWhitelistList.htm">GET Whitelist List</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="PostUpdatedWhitelistViaRequestObject.htm">POST Updated Whitelist Via Request Object</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="PostUpdatedWhitelistViaUriParameter.htm">POST Updated Whitelist Via URI Parameter</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="1057" MadCap:lastWidth="981">
+    <head>
+    </head>
+    <body>
+        <h1>Redis Credentials and Redis QoS Services</h1>
+        <p>The HyperStore system uses the lightweight, open source <a href="http://redis.io/" target="_popup">Redis</a> key-value data store to store a variety of data that supports HyperStore S3 service features. There are two types of Redis DBs in a HyperStore deployment:</p>
+        <ul>
+            <li>The <b>Redis Credentials DB</b> stores user credentials and additional S3 operation supporting data such as multi-part upload session information and public URL access counters.</li>
+            <li>The <b>Redis QoS DB</b> stores user-level and group-level <a href="../../Major Features/Quality of Service/QosOverview.htm" target="_popup">Quality of Service</a> settings that have been established by system administrators. The DB is also used to keep count of user requests, so that Quality of Service limits can be enforced by the system.</li>
+        </ul>
+        <p>The S3 Service, Admin Service, and HyperStore Service are the clients to these two Redis DBs. Communication is through a protocol called Redis Serialization Protocol (RESP).</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot style="font-weight: bold;">Note for multi-region systems</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>In a multi-region HyperStore deployment there will be:</p>
+                <ul>
+                    <li>Just one, universal Redis Credentials DB which serves the entire HyperStore deployment.</li>
+                    <li>A separate, independent Redis QoS DB in each service region</li>
+                </ul>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <h2>Redis Node Roles</h2>
+        <p>Each Redis DB is implemented across two or more nodes, with the nodes playing different roles. These roles are:</p>
+        <ul>
+            <li><b>master</b> — All write requests from Redis clients are implemented on the master node. There is only one master node for each Redis DB.</li>
+        </ul>
+        <div class="Indent">
+            <MadCap:dropDown>
+                <MadCap:dropDownHead class="CloudianChildDropDown">
+                    <MadCap:dropDownHotspot style="font-weight: bold;">Note for multi-region systems</MadCap:dropDownHotspot>
+                </MadCap:dropDownHead>
+                <MadCap:dropDownBody>
+                    <p>	In a multi-region HyperStore deployment, the universal Redis Credentials QB has one master node and each regional Redis QoS DB has its own master node.</p>
+                </MadCap:dropDownBody>
+            </MadCap:dropDown>
+        </div>
+        <ul>
+            <li><b>slave</b> — In each Redis DB, data from the Redis master node is asynchronously replicated on to one or more slave nodes (at least one slave node per data center). The slave nodes support doing reads for Redis clients but not writes.</li>
+        </ul>
+        <p>Among the master node and slave node(s) of the Redis QoS DB, these roles as assigned for supporting reads of the database by clients:</p>
+        <ul>
+            <li><b>readprimary</b> — Within a Redis QoS DB, the "read primary" node is the first-choice Redis QoS host for doing reads. This role should be assigned to a slave node, not the master. In a multi-datacenter deployment each datacenter should have its own Redis QoS read primary node.</li>
+            <li><b>readsecondary</b> — Within a Redis QoS DB, the "read secondary" node is the second-choice Redis QoS host for doing reads, if the "read primary" isn’t reachable. The read secondary role can be assigned to the master.</li>
+        </ul>
+        <p class="NoteIndent" MadCap:autonum="&lt;b&gt;Note: &lt;/b&gt;">The static "readprimary" and "readsecondary" roles do not apply to Redis Credentials. Instead, Redis Credentials clients when doing reads use round-robin to select from among the Redis Credentials slaves within a data center.</p>
+        <p>Redis roles are assigned to your HyperStore nodes automatically during installation. </p>
+        <p><b>See Also:</b>
+        </p>
+        <ul>
+            <li>
+                <MadCap:xref href="ServicesOverview.htm">HyperStore Services</MadCap:xref> (summary  services distribution across a cluster)</li>
+            <li>
+                <MadCap:xref href="../System Diagrams/ServicesDistribution3Nodes.htm">Services Distribution -- 3 Nodes, Single DC</MadCap:xref> (diagrams)</li>
+            <li>
+                <MadCap:xref href="../System Diagrams/ServicesInterfaces.htm">Service Interconnections</MadCap:xref> (diagram)</li>
+            <li>
+                <MadCap:xref href="ServicesRedisMon.htm">Redis Monitor Service</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

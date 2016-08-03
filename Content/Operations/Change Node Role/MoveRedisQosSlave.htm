@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="5" MadCap:lastHeight="816" MadCap:lastWidth="828">
+    <head>
+    </head>
+    <body>
+        <h1>Move a Redis QoS Slave</h1>
+        <p>The Redis QoS database uses one slave per data center. The system supports moving a slave from its current host to a host that is not currently running the Redis QoS service. (It does not support adding an additional Redis QoS slave so that there are more than one in a data center.)</p>
+        <ol>
+            <li>On the Puppet master node, launch the HyperStore installer.</li>
+        </ol>
+        <div class="Indent"><pre xml:space="preserve">[root]# cd &lt;your-installation-staging-directory&gt;
+[root]# ./cloudianInstall.sh</pre>
+        </div>
+        <ol MadCap:continue="true">
+            <li>From the installer’s main menu, select "Advanced Configuration Options". Then from the Advanced Configuration Options menu select "Change server role assignments".</li>
+            <li>From the Change Server Role Assignments menu select the option for QoS slave node.</li>
+            <li>At the prompt specify the host to which you want to move the QoS slave role.</li>
+        </ol>
+        <div class="Indent">
+            <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">	If your HyperStore system has multiple data centers, the installer will prompt you separately for each data center’s QoS slave host. If for some data centers you want to continue using the same QoS slave host (as shown in the prompt text) you can just press enter at the prompt rather than entering a host.</p>
+        </div>
+        <ol MadCap:continue="true">
+            <li>After completing the interaction for specifying the slave location, return to the Change Server Role Assignments menu and select "Review cluster configuration". Then at the prompt confirm that you want to apply the updated configuration to the Puppet master.</li>
+            <li>Go to the installer’s main menu and choose "Cluster Management" → "Push Configuration Settings to Cluster" and follow the prompts.</li>
+            <li>From the "Cluster Management" menu choose "Manage Services" and restart the following services:</li>
+        </ol>
+        <div class="Indent">
+            <ul>
+                <li>Redis QoS</li>
+                <li>Redis Monitor</li>
+            </ul>
+        </div>
+        <ol MadCap:continue="true">
+            <li>Exit the installer, then log into the CMC and go to the <a href="../../Resources/Images/cmc/cluster/NodeStatus.png" target="_popup">Node Status</a> page. Review the service status information for the node to which you moved the Redis QoS slave. Among the listed services on the node should be "Redis QoS". The absence of "(Master)" appended to the service name indicates it’s a slave instance.</li>
+        </ol>
+    </body>
+</html>

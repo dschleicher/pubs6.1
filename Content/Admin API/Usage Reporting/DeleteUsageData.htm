@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="10" MadCap:lastHeight="1702" MadCap:lastWidth="775">
+    <head>
+    </head>
+    <body>
+        <h1>DELETE Usage Data</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Admin API Method]</p>
+        <p>Use this Admin API method to delete (from Cassandra’s Reports keyspace) service usage data of a specified granularity, from a specified time period. Note that for the specified granulariy and time period, usage data for <b>all</b> groups and users will be deleted.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">In a multi-region HyperStore system, only the Admin Service in the default region supports this method. If you have a multi-region system, when you submit this method to the default region’s Admin Service the usage data deletion will automatically be applied to all your regions.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Request Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Syntax</h4><pre xml:space="preserve">DELETE /usage?granularity=xxx&amp;startTime=xxx[&amp;unitCount=xxx]</pre>
+                <h4>Query Parameters</h4>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>granularity</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Mandatory, string) Time period granularity of data to delete. Supported values are:</p>
+                            <ul>
+                                <li><em>raw</em> — Raw transactional data (not rolled up</li>
+                                <li><em>hour</em> — Hourly rollup data</li>
+                                <li><em>day</em> — Daily rollup data</li>
+                                <li><em>month</em> — Monthly rollup data</li>
+                            </ul>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>startTime</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Mandatory, string) Start time of rolled data to delete. The "startTime" format depends on the granularity of the usage data that you are deleting:</p>
+                            <ul>
+                                <li>For raw data use "startTime" format <em>yyyyMMddHHmm</em>. The delete operation will begin from the start of the minute that you specify.</li>
+                                <li>For hourly rolloup data use "startTime" format <em>yyyyMMddHH</em>. The delete operation will begin from the start of the hour that you specify.</li>
+                                <li>For daily rollup data use "startTime" format <em>yyyyMMdd</em>. The delete operation will begin from the start of the day that you specify.</li>
+                                <li>For monthly rollup data use "startTime" format <em>yyyyMM</em>. The delete operation will begin from the start of the month that you specify.</li>
+                            </ul>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>unitCount</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Optional, integer) The number of units of the specified "granularity" to delete. Supported range is [1,100].</p>
+                            <p>For example, with "granularity" = hour and "unitCount" = 24, this operation will delete 24 hours worth of hourly rollup data, starting from your specified "startTime".</p>
+                            <p>For another example, with "granularity" = month and "startTime" = 201508 and "unitCount" = 1, the system will delete monthly rollup usage data for the month of August 2015.</p>
+                            <p>Defaults to 1 unit if not specified.</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <h4>Request Payload</h4>
+                <p>None.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Response Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Response Status</h4>
+                <p>In addition to the <MadCap:xref href="../CommonStatusCodes.htm" target="_popup">Common Status Codes</MadCap:xref>, this method may return these codes:</p>
+                <table style="border-collapse: separate;border-top-left-radius: 0px;border-top-right-radius: 0px;border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;width: 100%;">
+                    <col style="width: 115px;">
+                    </col>
+                    <col style="width: 629px;">
+                    </col>
+                    <thead>
+                        <tr>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Status Code</th>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                            <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;">Missing or invalid parameters</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4>Response Payload</h4>
+                <p>None.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Example</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>In this example the daily roll-up service usage data from September 1st, 2015 is successfully deleted.</p><pre xml:space="preserve"># Request -&gt;
+
+DELETE http://192.168.2.16:18081/usage?granularity=day&amp;startTime=20150901
+
+# Response -&gt;
+
+Status Code: 200 OK
+Content-Length: 0
+Date: Wed, 30 Sep 2015 14:13:46 GMT</pre>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

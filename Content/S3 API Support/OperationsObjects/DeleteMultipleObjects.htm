@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="1098" MadCap:lastWidth="853">
+    <head>
+    </head>
+    <body>
+        <h1>Delete Multiple Objects</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[S3 API Method]</p>
+        <p>For the Amazon S3 "Delete Multiple Objects" operation, the HyperStore system supports the S3 <MadCap:xref href="../CommonRequestHeaders.htm" target="_popup">Common Request Headers</MadCap:xref> and <MadCap:xref href="../CommonResponseHeaders.htm" target="_popup">Common Response Headers</MadCap:xref> and also the operation-specific items listed below. If a parameter, header, element, or special error from the Amazon S3 specification for this operation is not listed below, the HyperStore system does not support it.</p>
+        <p>For operation usage information and for descriptions of request and response items, see <a href="http://docs.aws.amazon.com/AmazonS3/latest/API/multiobjectdeleteapi.html" target="_blank">Delete Multiple Objects</a> in the Amazon S3 REST API specification.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">	Do not attempt to delete more than 100,000 objects from a single bucket in less than an hour. Doing so will result in TombstoneOverwhelmingException errors in the Cassandra logs and an inability to successfully execute a <MadCap:xref href="../OperationsOnBuckets/GetBucketListObjects.htm">GET Bucket (List Objects)</MadCap:xref> operation on the bucket. If the system is in this error condition, you can trigger a tombstone purge as described in Dealing with Excessive Tombstone Build-Up in the Cloudian HyperStore Administrator’s Guide [XREF-TBD].</p>
+        <h2>Request Headers</h2>
+        <ul>
+            <li>Content-MD5</li>
+            <li>Content-Length</li>
+        </ul>
+        <h2>Request Elements</h2>
+        <ul>
+            <li>Delete</li>
+            <li>Quiet</li>
+            <li>Object</li>
+            <li>Key</li>
+            <li>VersionId</li>
+        </ul>
+        <h2>Response Elements</h2>
+        <ul>
+            <li>DeleteResult</li>
+            <li>Deleted</li>
+            <li>Key</li>
+            <li>VersionId</li>
+            <li>DeleteMarker</li>
+            <li>DeleteMarkerVersionId</li>
+            <li>Error</li>
+            <li>Key</li>
+            <li>VersionId</li>
+            <li>Code</li>
+            <li>Message</li>
+        </ul>
+    </body>
+</html>

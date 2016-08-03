@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="894" MadCap:lastWidth="841">
+    <head>
+    </head>
+    <body>
+        <h1>Assigning Rating Plans to Users</h1>
+        <p>When you create a new user group you can assign to the group a rating plan that by default will apply to each user in the group. Optionally you can assign a rating plan to specific users within the group, overriding the group’s default rating plan.</p>
+        <p>In a multi-region HyperStore system, you have the option of assigning groups or individual users different rating plans for activities in different regions. For example, you might charge users more for stored data in buckets that they’ve created in your North region than for stored data in buckets created in your South region.</p>
+        <p>If you do not explicitly assign a rating plan to a user, the user is automatically assigned the rating plan that’s assigned to the user’s group. If you do not explicitly assign a rating plan to a group, then the <a href="BillingCreateRatingPlans.htm#DefaultRatingPlan">system default rating plan</a> is automatically used for that group.</p>
+        <p>You can assign rating plans to users through either the CMC or the Admin API.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Assigning Rating Plans to Users (CMC)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>To use the CMC to assign a rating plan to a group, use the <MadCap:xref href="../../CMC Interface/Users &amp; Groups/Manage Groups/ManageGroupsOverview.htm">Manage Groups</MadCap:xref> page. From here you can create a new group, and while doing so assign the group a rating plan from a drop-down list of rating plans that exist in the system (the system default plan plus any plans you’ve created). From here you can also retrieve an existing group and change the group’s rating plan assignment. Whichever rating plan you associate with a group will be applied to each user in the group, except for any users to whom you explicitly assign a rating plan.</p>
+                <p>To use the CMC to assign a rating plan to an individual user, use the <MadCap:xref href="../../CMC Interface/Users &amp; Groups/Manage Users/ManageUsersOverview.htm">Manage Users</MadCap:xref> page. From here you can create a new user, and while doing so assign the user a rating plan from a drop-down list. By default the new user is assigned whichever plan is assigned to the user’s group. From the <b>Manage Users</b> page you can also retrieve an existing user and change her rating plan assignment.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Assigning Rating Plans to Users (Admin API)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>To use the HyperStore Admin API to assign a rating plan to a group, you must have first created the group (with the <a href="../../Admin API/Group Management/PutNewGroup.htm">PUT /group</a> method). Once a group exists, you can assign the group a rating plan by using the <a href="../../Admin API/Group Management/PostGroupsRatingPlanId.htm">POST /group/ratingPlanId</a> method. You could subsequently use this same API method to change a group’s rating plan assignment. The Admin API also supports a <a href="../../Admin API/Group Management/GetGroupsRatingPlanId.htm">GET /group/ratingPlanId</a> method, for retrieving a group’s current rating plan identifier.</p>
+                <p>The approach is similar if you want to assign a rating plan to an individual user. The user must have already been created (with <a href="../../Admin API/User Management/PutNewUser.htm">PUT /user</a>), and then you can use <a href="../../Admin API/User Management/PostUsersRatingPlanId.htm">POST /user/ratingPlanId</a> to assign the user a rating plan (and to subsequently update that assignment). The method <a href="../../Admin API/User Management/GetUsersRatingPlanId.htm">GET /user/ratingPlanId</a> lets you retrieve the identifier of the rating plan currently assigned to a specified user, and there’s also a <a href="../../Admin API/User Management/GetUsersRatingPlan.htm">GET /user/ratingPlan</a> method for retrieving the user’s rating plan in full.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <p>&#160;</p>
+        <p><b>See Also:</b>
+        </p>
+        <ul>
+            <li>
+                <MadCap:xref href="BillingCreateRatingPlans.htm">Creating Rating Plans for Billing</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="BillingGenerate.htm">Generating Billing Data for a User</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

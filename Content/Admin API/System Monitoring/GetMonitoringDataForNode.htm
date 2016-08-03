@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="10" MadCap:lastHeight="1545" MadCap:lastWidth="900">
+    <head>
+    </head>
+    <body>
+        <h1>GET Monitoring Data for Node</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Admin API Method]</p>
+        <p>Use this Admin API method to retrieve detailed monitoring data for a specified node. The data includes S3 transaction performance statistics for the node, disk availability and disk I/O statistics, service status for each HyperStore service running on the node, and other statistics.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Request Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Syntax</h4><pre xml:space="preserve">GET /monitor/host?nodeId=xxx[&amp;region=xxx]</pre>
+                <h4>Query Parameters</h4>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>nodeId</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Mandatory, string) Hostname of the node for which to retrieve monitoring data.</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>region</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Optional, string) Name of the service region in which the node is located. If a region is not specified in the request, the default region is assumed.</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <h4>Request Payload</h4>
+                <p>None.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Response Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Response Status</h4>
+                <p>In addition to the <MadCap:xref href="../CommonStatusCodes.htm" target="_popup">Common Status Codes</MadCap:xref>, this method may return these codes:</p>
+                <table style="border-collapse: separate;border-top-left-radius: 0px;border-top-right-radius: 0px;border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;width: 100%;">
+                    <col style="width: 115px;">
+                    </col>
+                    <col style="width: 629px;">
+                    </col>
+                    <thead>
+                        <tr>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Status Code</th>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                            <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;"> 	
+
+Missing required parameters : {nodeId}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4>Response Payload</h4>
+                <p>
+                    <MadCap:xref href="../Data Objects/MonitorNodeInfo.htm">MonitorNodeInfo</MadCap:xref> JSON object.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Example</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>In this example monitoring data for the node with hostname "hyperstore1" is successfully retrieved</p><pre xml:space="preserve">xxx# Request -&gt;
+
+GET http://192.168.2.16:18081/monitor/host?nodeId=hyperstore1
+
+# Response -&gt;
+
+Status Code: 200 OK
+Content-Length: 2543
+Content-Type: application/json
+Date: Wed, 30 Sep 2015 10:59:43 GMT
+{"s3PutThruput":{"timestamp":"1443610745462","value":"0"},"s3GetThruput":{"timestamp":
+"1443610745462","value":"0"},"s3GetLatency":{"timestamp":"1443610745462","value":"0.0"},
+"s3PutLatency":{"timestamp":"1443610745462","value":"0.0"},"s3GetTPS":{"timestamp":"1443610745462",
+"value":"0.0"},"s3PutTPS":{"timestamp":"1443610745462","value":"0.0"},"cpu":{"timestamp":
+"1443610745462","value":"0.20"},"ioRx":{"timestamp":"1443610745462","value":"12992"},"adminHeapMax":
+{"timestamp":"1443610686019","value":"543948800"},"adminHeapUsed":{"timestamp":"1443610686019",
+"value":"72029632"},"cassHeapMax":{"timestamp":"1443610686019","value":"2649751552"},"cassHeapUsed":
+{"timestamp":"1443610686019","value":"603526712"},"hyperStoreHeapMax":{"timestamp":"1443610686019",
+"value":"1087832064"},"hyperStoreHeapUsed":{"timestamp":"1443610686019","value":"149863232"},
+"s3HeapMax":{"timestamp":"1443610686019","value":"1087832064"},"s3HeapUsed":{"timestamp":
+"1443610686019","value":"142663256"},"cassCMSGCCount":{"timestamp":"1443610686019","value":"1"},
+"cassCMSGCTime":{"timestamp":"1443610686019","value":"514"},"cassCopyGCCount":{"timestamp":
+"1443610745462","value":"2"},"cassParNewGCCount":null,"diskAvailKb":{"timestamp":"1443610686019",
+"value":"61243876"},"diskTotalKb":{"timestamp":"1443610686019","value":"67049088"},"diskIORead":
+{"timestamp":"1443610745462","value":"0"},"diskIOWrite":{"timestamp":"1443610745462","value":
+"12351"},"svcCassandra":{"ipaddr":"192.168.2.16","status":["OK"],"value":"[OK]","timestamp":
+"1443610745462"},"svcRedisQos":{"ipaddr":"192.168.2.16","status":["OK"],"value":"[OK]","timestamp":
+"1443610745462"},"svcRedisCred":{"ipaddr":"192.168.2.16","status":["OK"],"value":"[OK]","timestamp":
+"1443610745462"},"svcHyperstore":{"ipaddr":"192.168.2.16","status":["OK"],"value":"[OK]",
+"timestamp":"1443610745462"},"svcS3":{"ipaddr":"192.168.2.16","status":["OK"],"value":"[OK]",
+"timestamp":"1443610745462"},"svcAdmin":{"ipaddr":"192.168.2.16","status":["OK"],"value":"[OK]",
+"timestamp":"1443610745462"},"svcRedisMon":{"ipaddr":"192.168.2.16","status":["OK"],"value":"[OK]",
+"timestamp":"1443610745462"},"disksInfo":{"timestamp":"1443610745462","disks":[{"mountPoint":"/",
+"diskAvailKb":"61243876","diskTotalKb":"67049088","deviceName":"/dev/mapper/vg0-root","storageUse":
+["CASSANDRA","HS"],"status":"OK"}]},"cassCopyGCTime":{"timestamp":"1443610745462","value":"366"},
+"cassParNewGCTime":null,"ioTx":{"timestamp":"1443610745462","value":"12977"},"status":{"ipaddr":"",
+"status":["OK"],"value":"[OK]","timestamp":"1443610745462"}}</pre>
+                <p>For more information about MonitorNodeInfo object attributes, see <MadCap:xref href="../Data Objects/MonitorNodeInfo.htm">MonitorNodeInfo</MadCap:xref>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

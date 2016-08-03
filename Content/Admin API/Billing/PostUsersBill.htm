@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="10" MadCap:lastHeight="2140" MadCap:lastWidth="873">
+    <head>
+    </head>
+    <body>
+        <h1>POST User's Bill</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Admin API Method]</p>
+        <p>Use this Admin API method to generate a user’s monthly bill. This operation returns the newly generated bill in the response object.</p>
+        <p>You can generate bills only for a month that has already completed. You cannot generate a bill for the current, in-progress month.</p>
+        <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">Billing calculation is derived from hourly rollup usage data. The retention period for hourly rollup usage data is configured by <code>mts.properties: reports.rolluphour.ttl</code>. [XREF] The default retention period is 65 days. Once this rollup data is deleted it can no longer be used to generate users' bills.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">	If your HyperStore deployment has multiple regions, and if the user for whom you are generating a bill has storage buckets in multiple regions, the user’s monthly bill will aggregate the user’s service charges from across the multiple regions. If your service uses different rating plans in different regions, those rating plans are used in calculating the user’s region-specific charges before the region-specific charges are added together to get the user’s total bill for the month.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Request Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Syntax</h4><pre xml:space="preserve">POST /billing?[userId=xxx&amp;groupId=xxx][canonicalUserId=xxx]&amp;billingPeriod=xxx</pre>
+                <h4>Query Parameters</h4>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>userId</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Optional, string) User ID for the user whose bill is being generated.</p>
+                            <p>Do not use the "userId" and "groupId" parameters for a user who has been deleted from the S3 service. For a deleted user, use the "canonicalUserId" parameter instead.</p>
+                            <p>You must <b>either</b> use "userId" together with "groupId", <b>or</b> use "canonicalUserId" by itself.</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>groupId</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Optional, string) &#160;Group ID for the user whose bill is being generated.</p>
+                            <p>You must <b>either</b> use "userId" together with "groupId", <b>or</b> use "canonicalUserId" by itself.</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>canonicalUserId</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Optional, string) System-generated canonical ID for the user whose bill is being generated. Use this parameter if you want to generate a bill for a user who has been deleted from the system. If you don’t know the user’s canonical ID, you can obtain it by using the <MadCap:xref href="../User Management/GetUserList.htm">GET User List</MadCap:xref> method (this method can retrieve user profile information — including canonical ID — for all deleted users within a specified group).</p>
+                            <p>You must <b>either</b> use "userId" together with "groupId", <b>or</b> use "canonicalUserId" by itself.</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>billingPeriod</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Mandatory, string) Specifies the year and month of bill. Format is <em>yyyyMM</em> — for example "201601" for January 2016. Note that the system uses GMT time when demarcating exactly when a month begins and ends.</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <h4>Request Payload</h4>
+                <p>None.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Response Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Response Status</h4>
+                <p>In addition to the <MadCap:xref href="../CommonStatusCodes.htm" target="_popup">Common Status Codes</MadCap:xref>, this method may return these codes:</p>
+                <table style="border-collapse: separate;border-top-left-radius: 0px;border-top-right-radius: 0px;border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;width: 100%;">
+                    <col style="width: 115px;">
+                    </col>
+                    <col style="width: 629px;">
+                    </col>
+                    <thead>
+                        <tr>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Status Code</th>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">204</td>
+                            <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;">No billing data</td>
+                        </tr>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                            <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;"> 	
+
+Invalid billing period</td>
+                        </tr>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                            <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;">Missing required parameter : {billingPeriod}</td>
+                        </tr>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                            <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;">Conflicting parameters: {canonicalUserId, groupId, userId}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4>Response Payload</h4>
+                <p>
+                    <MadCap:xref href="../Data Objects/Bill.htm">Bill</MadCap:xref> JSON object.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Example</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>In this example, a bill for a user named "test" is successfully generated. The bill is for October, 2015, and indicates that total charges incurred by that user are $10.94, based on the user’s storage volume having been at an average level of 108GBs during the month of October.</p><pre xml:space="preserve"># Request -&gt;
+
+POST http://10.10.3.26:18081/billing?userId=test&amp;groupId=test&amp;billingPeriod=201510
+
+# Response -&gt;
+
+Status Code: 200 OK
+Content-Length: 450
+Content-Type: application/json
+Date: Mon, 23 Nov 2015 13:59:49 GMT
+{"currency":"USD","total":10.94,"groupId":"test","userId":"test","canonicalUserId":
+"42d737d3d55e83217dc568c72bf93ea3","whitelistTotal":0,"notes":null,"startCal":1443657600000,
+"regionBills":[{"currency":"USD","total":10.94,"whitelistTotal":0,"whitelistItems":{},
+"items":{"SB":{"item":"SB","rules":"1, 0.14:5, 0.12:0,0.10","quantity":108.00,"subtotal":10.94}},
+"region":"region1"}],"billID":"67182a62-fd98-479e-a1e7-19588def4d95","endCal":1446335999000}</pre>
+                <p>For more information about Bill object attributes, see <MadCap:xref href="../Data Objects/Bill.htm">Bill</MadCap:xref>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

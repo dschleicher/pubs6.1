@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="7" MadCap:lastHeight="2399" MadCap:lastWidth="802">
+    <head>
+    </head>
+    <body>
+        <h1>Temporarily Disabling Scheduled Auto-Repairs</h1>
+        <p>Because auto-repair is a resource-intensive operation, it’s best not to have it running in your system at the same time as you’re performing any of these resource-intensive system operations:</p>
+        <ul>
+            <li>
+                <MadCap:xref href="../../Operations/AddNode.htm">Adding a Node</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="../../Operations/RemoveNode.htm">Removing a Node</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="../../Operations/ReplaceNode.htm">Replacing a Node</MadCap:xref>
+            </li>
+        </ul>
+        <p>Consequently, you should ensure that no schedule-based auto-repairs run anywhere in the cluster at the same time that you’re performing these operations.</p>
+        <p>To do this, you can temporarily shut down the schedule-based auto-repair feature. You can do this either through the CMC or by using <em>hsstool</em> on the command line, whichever you prefer. The instructions that follow are oriented toward the CMC but they also indicate the corresponding command line commands.</p>
+        <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">After you’re done with the system operation be sure to re-enable auto-repair as described at the end of these procedures.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">This procedure shuts down only the schedule-based auto-repair feature. It does not disable hinted handoff or proactive repair. Hinted handoff and proactive repair are narrower in scope and less resource-consumptive than full-scale auto-repair, and therefore it is not necessary to disable hinted handoff or proactive repair while performing system operations.</p>
+        <p>All CMC functions referenced in this procedure are located on the CMC page <b>Cluster → Nodes → Advanced</b>.</p>
+        <ol>
+            <li>Execute the maintenance command <em>autorepair</em> with the Disable option to temporarily disable the HyperStore auto-repair feature, for all storage types. This will prevent any new schedule-based auto-repairs from launching. The target node can be any node in the cluster; auto-repair will be disabled cluster-wide regardless of which node receives the command. Leave the "t &lt;type&gt;" option unspecified so that all auto-repair types (HSFS replica, EC, and Cassandra) are disabled.</li>
+        </ol>
+        <div class="Indent">
+            <p>
+                <img src="../../Resources/Images/operations/Autorepair_disable.png" class="ImgCloudian" />
+            </p>
+            <p>If using the command line rather than the CMC, the command is:</p><pre xml:space="preserve"># /opt/cloudian/bin/hsstool -h &lt;any_host_in_cluster&gt; repairqueue -enable false</pre>
+        </div>
+        <ol MadCap:continue="true">
+            <li>
+                <p>Execute the informational command <em>repairqueue</em> to retrieve the current status of the scheduled auto-repair queue. The target node can be any node in the cluster (cluster-wide information is returned regardless of which node you select).</p>
+            </li>
+        </ol>
+        <div class="Indent">
+            <p>
+                <img src="../../Resources/Images/operations/Repairqueue.png" class="ImgCloudian" />
+            </p>
+            <p>If using the command line rather than the CMC, the command is:</p><pre># /opt/cloudian/bin/hsstool -h &lt;any_host_in_cluster&gt; repairqueue</pre>
+        </div>
+        <ol MadCap:continue="true">
+            <li>In the <em>repairqueue</em> command response check the "last repair status" for each repair type (HSFS replica, EC, and Cassandra), for each node in the cluster, and then based on the status information take the appropriate next action:</li>
+        </ol>
+        <div class="Indent">
+            <MadCap:dropDown>
+                <MadCap:dropDownHead class="CloudianChildDropDown">
+                    <MadCap:dropDownHotspot>If no repairs have status INPROGRESS...</MadCap:dropDownHotspot>
+                </MadCap:dropDownHead>
+                <MadCap:dropDownBody>
+                    <p>Proceed with whatever system operation you want to perform.</p>
+                </MadCap:dropDownBody>
+            </MadCap:dropDown>
+            <MadCap:dropDown>
+                <MadCap:dropDownHead class="CloudianChildDropDown">
+                    <MadCap:dropDownHotspot>If the only INPROGRESS repair is a Cassandra repair...</MadCap:dropDownHotspot>
+                </MadCap:dropDownHead>
+                <MadCap:dropDownBody>
+                    <p>Wait several minutes and then again execute <em>repairqueue</em> to re-check the repair queue status. Cassandra repairs typically do not take more than a few minutes to complete.</p>
+                    <p>Once no repairs have status INPROGRESS, proceed with whatever system operation you want to perform.</p>
+                </MadCap:dropDownBody>
+            </MadCap:dropDown>
+            <MadCap:dropDown>
+                <MadCap:dropDownHead class="CloudianChildDropDown">
+                    <MadCap:dropDownHotspot>If an HSFS replica or EC repair has status INPROGRESS...</MadCap:dropDownHotspot>
+                </MadCap:dropDownHead>
+                <MadCap:dropDownBody>
+                    <p>An HSFS replica or EC repair can potentially take many hours to complete, depending on your S3 data volume. If an HSFS replica or EC auto-repair is currently running on one of the nodes in your cluster you have two options:</p>
+                    <ul>
+                        <li>Wait for the repair to complete</li>
+                        <li>Abort the repair</li>
+                    </ul>
+                    <p>Before deciding you can check the progress of the node repair to see what portion of the repair work has been completed so far. Execute the informational command <em>opstatus</em>, with the "Target Node" set to be the node on which the repair is currently running:</p>
+                    <p>
+                        <img src="../../Resources/Images/operations/Opstatus.png" class="ImgCloudian" />
+                    </p>
+                    <p>If using the command line rather than the CMC, the command is:</p><pre># /opt/cloudian/bin/hsstool -h &lt;host_being_repaired&gt; opstatus</pre>
+                    <p>The command response will show when the repair operation started and an estimated completion time.</p>
+                    <p>If you decide that you want to abort the operation, execute the maintenance command <em>repair</em> (or <em>repairec</em> if it’s an EC repair) with the "stop" check-box selected. Leave the "Options" radio button set to "default" and set the "Target Node" to be the node on which the repair is currently running:</p>
+                    <p>
+                        <img src="../../Resources/Images/operations/Repair_stop.png" class="ImgCloudian" />
+                    </p>
+                    <p>If using the command line rather than the CMC, the command is (if it’s an EC repair replace "repair" with "repairec"):</p><pre xml:space="preserve"># /opt/cloudian/bin/hsstool -h &lt;host_being_repaired&gt; repair -stop</pre>
+                    <p>After stopping the repair, you can then execute <em>repairqueue</em> again to confirm that the repair has been stopped.</p>
+                    <p>Once no repairs have status INPROGRESS, proceed with whatever system operation you want to perform.</p>
+                    <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">If you abort an in-progress auto-repair on a node, that particular auto-repair job (for example, HSFS replica repair on node-5) will be placed at the head of the auto-repair queue when you subsequently re-enable auto-repair. When the repair does execute it will perform the repair from scratch — it will not resume from where the aborted repair job left off.</p>
+                </MadCap:dropDownBody>
+            </MadCap:dropDown>
+        </div>
+        <h2>Re-Enabling the Auto-Repair Feature</h2>
+        <p>After the system operation that you’re performing is completed (such as adding a node and rebalancing data), execute the maintenance command <em>autorepair</em> to re-enable the HyperStore auto-repair feature for all storage types. The target node can be any node in the cluster. Leave the "t &lt;type&gt;" option unspecified so that all repair types (HSFS replica, EC, and Cassandra) are enabled.</p>
+        <p>
+            <img src="../../Resources/Images/operations/Autorepair_enable.png" class="ImgCloudian" />
+        </p>
+        <p>If using the command line rather than the CMC, the command is:</p><pre xml:space="preserve"># /opt/cloudian/bin/hsstool -h &lt;any_host_in_cluster&gt; repairqueue -enable true</pre>
+    </body>
+</html>

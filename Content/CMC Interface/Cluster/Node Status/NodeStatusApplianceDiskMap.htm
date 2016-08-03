@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="5" MadCap:lastHeight="758" MadCap:lastWidth="828">
+    <head>
+    </head>
+    <body>
+        <h1>Locate a Disk on a HyperStore 1500 or 3000 Appliance</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[CMC Interface]</p>
+        <p>The <b>Appliance</b> section of the CMC's <a href="../../../Resources/Images/cmc/cluster/NodeStatus.png" target="_popup">Node Status</a> page is available only if you are using an HSA1500 or FL3000 series HyperStore appliance. In the event of a disk failure (as indicated by an alert message and by the <a href="NodeStatusDisks.htm" target="_popup">Disk Detail Info</a> section of the <b>Node Status</b> page), you can open the <b>Appliance</b> panel for information and tools to help you quickly locate the failed disk within your physical HyperStore environment.</p>
+        <p>The screen image below is for the FL3000.</p>
+        <p>
+            <img src="../../../Resources/Images/cmc/cluster/NodeStatus_appliance.png" class="ImgCloudian" style="mc-thumbnail-max-height: 90px;" />
+        </p>
+        <p>For the FL3000, if the failed disk is an SSD (storing the OS) and you need assistance identifying the physical micronode on which the SSD resides, you can click the <b>Blink Node</b> button and the micronode’s ID light will blink for three minutes. If the failed disk is an HDD (storing HyperStore data) and you need assistance identifying the JBOD enclosure in which the HDD resides, click <b>Blink JBOD</b> and the JBOD enclosure’s ID light will blink for three minutes. See the diagrams for the location of the ID lights.</p>
+        <p>For the HSA1500, if you need assistance identifying the physical node on which the failed disk resides, click <b>Blink Node</b> and the node’s ID light will blink for three minutes.</p>
+        <p>For either type of appliance, the disk table in the lower portion of the display provides buttons for blinking the ID light of the particular disk that has failed. The disk table itself does not indicate disk status — you can get the failed device name from the <b>Disk Detail Info</b> section of the <b>Node Status</b> page, then locate that device within the disk table in the <b>Appliance</b> section and click that disk’s <b>Blink</b> button. The disk’s ID light will then blink for three minutes.</p>
+        <p>The disk table also indicates each disk’s serial number and slot number. In the event that the blink light is not working, you can use the slot information and the diagrams to physically locate the failed disk.</p>
+        <p>The <b>Appliance</b> section also has links to the hardware manuals for your appliance (PDF files stored on your CMC nodes).</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">To enlarge an appliance diagram in your browser, you can press &lt;Ctrl&gt;+ (and then &lt;Ctrl&gt;- to shrink the display back to regular size).</p>
+    </body>
+</html>

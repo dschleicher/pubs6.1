@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="8" MadCap:lastHeight="941" MadCap:lastWidth="603">
+    <head>
+    </head>
+    <body>
+        <h1>Auto-Tiering Settings</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[CMC Interface]</p>
+        <p>The settings in this section of the CMC’s <b><a href="../../../Resources/Images/cmc/cluster/ConfigurationSettings.png" target="_popup">Configuration Settings</a></b> page configure the HyperStore system’s auto-tiering feature. After making any edits, click <b>Save</b> at the bottom of the page to dynamically apply the configuration change to the cluster.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">For an overview of the HyperStore auto-tiering feature, see <MadCap:xref href="../../../Major Features/Auto-Tiering/AutoTieringOverview.htm" target="_popup">Auto-Tiering Feature Overview</MadCap:xref>.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="Enable_Auto_Tiering"></a>Enable Auto Tiering</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>This setting controls whether functionality for configuring buckets for auto-tiering will be enabled within the <a href="../../Buckets &amp; Objects/Buckets/Set Bucket Properties/BucketPropertiesLifecycle.htm" target="_popup">Bucket Lifecycle Rule section</a> of the CMC’s <b>Bucket Properties</b> dialog. </p>
+                <p>Note that this setting controls specifically whether auto-tiering functionality is available through the CMC. Even if you have this setting disabled, auto-tiering is still supported through <a href="../../../S3 API Support/OperationsOnBuckets/PutBucketLifecycle.htm" target="_popup">HyperStore extensions to the S3 API</a>. This API functionality is available to S3 applications that have been customized to utilize the HyperStore API extensions, even if the auto-tiering functionality is disabled in the CMC.</p>
+                <p>Default = Disabled</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot><a name="Auto_Tiering_URL"></a>Auto Tiering URL</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>When auto-tiering is enabled in the CMC, this setting specifies the Amazon S3 region endpoint to tier to. This should be the Amazon S3 region endpoint URL most suitable for your HyperStore system’s location. For example:</p>
+                <ul>
+                    <li>In northern California, http://s3-us-west-1.amazonaws.com (or https://s3-us-west-1.amazonaws.com if you prefer to use HTTPS for auto-tiering)</li>
+                    <li>In Japan, http://s3-ap-northeast-1.amazonaws.com (or https://s3-ap-northeast-1.amazonaws.com if you prefer to use HTTPS for auto-tiering)</li>
+                </ul>
+                <p>The full list of Amazon S3 region endpoints is available at this Amazon Web Services webpage: <a href="http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region" target="_blank">http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region</a>.</p>
+                <p>Once buckets have been configured for auto-tiering, you <b>cannot change the S3 endpoint</b>.</p>
+                <p>If you want outbound traffic from HyperStore to Amazon to pass through a forward proxy server, use a transparent proxy. The HyperStore system does not have settings for explicitly configuring such traffic to use a proxy.</p>
+                <p>Default = http://s3.amazonaws.com (this is for the U.S. East region)</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

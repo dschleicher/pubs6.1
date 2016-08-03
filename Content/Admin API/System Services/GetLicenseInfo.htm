@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="10" MadCap:lastHeight="890" MadCap:lastWidth="775">
+    <head>
+    </head>
+    <body>
+        <h1>GET License Info</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Admin API Method]</p>
+        <p>Use this Admin API method to retrieve information about your Cloudian HyperStore license. This includes the expiration date of your license.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Request Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Syntax</h4><pre xml:space="preserve">GET /system/license</pre>
+                <h4>Query Parameters</h4>
+                <p>None.</p>
+                <h4>Request Payload</h4>
+                <p>None.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Response Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Response Status</h4>
+                <p>This method returns only the <MadCap:xref href="../CommonStatusCodes.htm" target="_popup">Common Status Codes</MadCap:xref>, this method may return these codes.</p>
+                <h4>Response Payload</h4>
+                <p>
+                    <MadCap:xref href="../Data Objects/LicenseData.htm">LicenseData</MadCap:xref> JSON object.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Example</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>In this example license information is successfully retrieved.</p><pre xml:space="preserve"># Request -&gt;
+
+GET http://192.168.2.16:18081/system/license
+
+# Response -&gt;
+
+Status Code: 200 OK
+Content-Length: 86
+Content-Type: application/json
+Date: Wed, 23 Sep 2015 19:42:38 GMT
+{"expiration":1718311716965,"warnPeriod":30,"gracePeriod":0,"maxNetStorage":104857600}</pre>
+                <p>For more information about LicenseData object attributes, see <MadCap:xref href="../Data Objects/LicenseData.htm">LicenseData</MadCap:xref>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

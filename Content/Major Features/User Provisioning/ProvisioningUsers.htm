@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="804" MadCap:lastWidth="815">
+    <head>
+    </head>
+    <body>
+        <h1>Provisioning Users</h1>
+        <p>You can provision individual users through either the CMC or the Admin API.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">The HyperStore system does not currently support bulk provisioning of users. Users must be added one at a time.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Provisioning Users (CMC)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>In the CMC’s <MadCap:xref href="../../CMC Interface/Users &amp; Groups/Manage Users/ManageUsersOverview.htm">Manage Users</MadCap:xref> page you can perform user operations including:</p>
+                <ul>
+                    <li>
+                        <MadCap:xref href="../../CMC Interface/Users &amp; Groups/Manage Users/ManageUsersAdd.htm">Add a User</MadCap:xref> (including assigning a rating plan as you create the user)</li>
+                    <li>
+                        <MadCap:xref href="../../CMC Interface/Users &amp; Groups/SetQoS.htm">Set Quality of Service (QoS) for Users and Groups</MadCap:xref>
+                    </li>
+                    <li>
+                        <MadCap:xref href="../../CMC Interface/Users &amp; Groups/Manage Users/ManageUsersRetrieve.htm">Retrieve a User or List of Users</MadCap:xref>
+                    </li>
+                    <li>
+                        <MadCap:xref href="../../CMC Interface/Users &amp; Groups/Manage Users/ManageUsersEdit.htm">Edit a User</MadCap:xref> (including suspending a user)</li>
+                    <li>
+                        <MadCap:xref href="../../CMC Interface/Users &amp; Groups/Manage Users/ManageUsersDelete.htm">Delete a User</MadCap:xref>
+                    </li>
+                </ul>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Provisioning Users (Admin API)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Through the HyperStore Admin API you can perform user operations including:</p>
+                <ul>
+                    <li>Create a new user: <a href="../../Admin API/User Management/PutNewUser.htm">PUT /user</a></li>
+                    <li>Assign a rating plan to a user: <a href="../../Admin API/User Management/PostUsersRatingPlanId.htm">POST /user/ratingPlanId</a></li>
+                    <li>Assign QoS limits to a user: <a href="../../Admin API/Quality of Service/PostQosLimits.htm">POST /qos/limits</a></li>
+                    <li>Retrieve a list of users: <a href="../../Admin API/User Management/GetUserList.htm">GET /user/list</a></li>
+                    <li>Update a user’s profile (including suspending a user): <a href="../../Admin API/User Management/PostUpdatedUser.htm">POST /user</a></li>
+                    <li>Delete a user: <a href="../../Admin API/User Management/DeleteUser.htm">DELETE /user</a></li>
+                </ul>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <p>&#160;</p>
+        <p><b>See Also:</b>
+        </p>
+        <ul>
+            <li>
+                <MadCap:xref href="ProvisioningGroups.htm">Provisioning Groups</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="ProvisioningLdap.htm">Integrating with an LDAP System</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

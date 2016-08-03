@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="2619" MadCap:lastWidth="826">
+    <head>
+    </head>
+    <body>
+        <h1>Upgrading to HyperStore 6.0 From Version 5.2 or Later</h1>
+        <p>The instructions that follow are for <b>upgrading from HyperStore 5.2 or later to HyperStore 6.0</b>. If you are upgrading from a HyperStore version older than 5.2, please contact Cloudian Support for instructions for your particular upgrade path.</p>
+        <p>For upgrading from HyperStore 5.2 or later to HyperStore 6.0, the upgrade process is automated. Follow the instructions below to prepare for and complete the automated upgrade.</p>
+        <h2>Pre-Upgrade Steps</h2>
+        <p>Before upgrading your HyperStore system, log into the CMC for your existing system. Go to <b>Cluster → Nodes → Node Status</b> and check each node to make sure that no HyperStore services are currently down on any node. Also check for any alerts, particularly alerts triggered by application log error messages. Investigate and correct any serious issues. Make sure your cluster is in good health and running properly before you upgrade it.</p>
+        <p>Also, while still logged into the CMC go to <b>Cluster → Cluster Config → Cluster Information</b>, and check to see what host is the "Admin Cronjob Host". If this is the same as the host that is serving as your Puppet master, you must move the Cronjob service to a different host (any host that is not your Puppet master) before doing the upgrade. Among the new features in HyperStore 6.0 is a high-availability Cronjob service implementation that utilizes a primary Crontab instance and a backup instance, with automatic fail-over if the primary goes down. This 6.0 feature will not work properly if your existing Cronjob host is the same as your Puppet master host when you perform the upgrade to 6.0.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>To move your Cronjob service prior to doing the upgrade</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <ol>
+                    <li>On your Puppet master node, in the staging directory for your existing HyperStore system, launch the HyperStore installer:</li>
+                </ol>
+                <div class="Indent"><pre>[root]# /.cloudianInstall.sh</pre>
+                </div>
+                <ol MadCap:continue="true">
+                    <li>From the installer’s main menu choose "Advanced Configuration Options". Then choose "Change server role assignments", then choose to change the Cronjob host.</li>
+                    <li>Follow the prompts to specify the new host for the cron jobs (a host other than your Puppet master).</li>
+                    <li>Go to the installer’s main menu and choose "Install Cloudian HyperStore" → "Review Cluster Configuration". Answer Yes to update the Puppet master configuration.</li>
+                    <li>Go to the main menu and choose "Cluster Management" → "Push Configuration Settings to Cluster" and follow the prompts.</li>
+                </ol>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <h2>Upgrade Steps</h2>
+        <p>To perform the upgrade to HyperStore version 6.0:</p>
+        <ol>
+            <li>On your Puppet master node, create a <b>new staging directory</b>, with a different name than the directory that you used for your existing cluster. From here forward you will be working in the new staging directory.</li>
+            <li>Download the HyperStore 6.0 package. (If you need download access information see the introductory note at the top of this document). Place the package into your new staging directory.</li>
+            <li>Copy your HyperStore license file into the new staging directory. (Your current license file is located under<em> /etc/cloudian-&lt;your-current-version&gt;-puppet/modules/baselayout/files</em> and ends with suffix <em>.lic</em>. Copy this file to the new staging directory.)</li>
+            <li>In your new staging directory, run the following command to unpack the HyperStore package:</li>
+        </ol>
+        <div class="Indent"><pre>root# ./CloudianHyperStore-6.0.bin &lt;license-file-name&gt;</pre>
+        </div>
+        <ol MadCap:continue="true">
+            <li>Now you can run the automated upgrade. You have two options: non-interactive mode or interactive mode.</li>
+        </ol>
+        <div class="Indent">
+            <ul>
+                <li><b>Non-Interactive Mode</b>:</li>
+            </ul>
+            <div class="Indent">
+                <p>To execute the upgrade in non-interactive mode, in your new staging directory simply run the following command:</p><pre>[root]# ./cloudianInstall.sh upgradefrompreviousversion</pre>
+            </div>
+            <ul>
+                <li><b>Interactive Mode</b>:</li>
+            </ul>
+            <div class="Indent">
+                <p>To execute the upgrade in interactive mode, in your new staging directory run the following command:</p><pre>[root]# ./cloudianInstall.sh</pre>
+                <p>If your existing system is 5.2 or later, in the installer’s main menu option 3 will show "Upgrade from &lt;your version number&gt; to 6.0". Select option 3.</p>
+                <p>Then at the prompt, confirm that you wish to continue with the automated upgrade.</p>
+            </div>
+        </div>
+        <p>In either mode, the upgrade script will first check for differences in the configuration template files in 6.0 (stored under <em>/etc/cloudian-6.0-puppet/modules</em> as a result of your unpacking of the <em>.bin</em> file in Step 4 above) as compared to the configuration templates for your existing HyperStore system (under<em> /etc/cloudian-&lt;your-current-version&gt;-puppet/modules</em>). If there are differences between the configuration templates, the upgrade script writes the diffs to a merge conflicts file and prompts you to review the file before continuing with the upgrade.</p>
+        <p>Some of the differences are product changes and improvements in this release, which you may safely accept. Review the RELEASENOTES for a summary of product configuration changes in this release. Any differences in the merge conflicts file that are NOT listed in the RELEASENOTES are a result of configuration template customizations that you have made to your existing HyperStore system. If you proceed with the upgrade now, those customized settings will be changed to the default values shown in the merge conflicts file.</p>
+        <p>If you wish to retain your customized settings, then before proceeding with the upgrade, open a separate terminal and manually edit the configuration template files that are under<em> /etc/cloudian-6.0-puppet/modules</em>. In the 6.0 configuration templates, make the same customizations that you had used for your existing HyperStore system. After doing so you can continue with the upgrade.</p>
+        <p>After the upgrade successfully completes, proceed to Post Upgrade Steps.</p>
+        <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">If the upgrade fails and rolls back, you can get details about the failure from the cloudian-installation.log and the cloudian-upgrade.log, both of which are generated in your staging directory. The upgrade process also generates an upgrade-logNconfig*.tgz "S.O.S" tar file (which packages together multiple upgrade-related files) that you can provide to Cloudian Support in the event of upgrade problems.</p>
+        <h2>Post-Upgrade Steps</h2>
+        <p>After all HyperStore nodes have been upgraded, verify that all services are running and that the HyperStore version is now 6.0:</p>
+        <ol>
+            <li>After the automated upgraded completes, you should be taken back to the main menu of the HyperStore installer. The first post-upgrade step is to confirm that all your HyperStore services are up and running:</li>
+        </ol>
+        <div class="Indent">
+            <ol style="list-style-type: lower-alpha;">
+                <li>From the installer’s main menu select "Cluster Management".</li>
+                <li>From the Service Management sub-menu that displays select "Manage Services".</li>
+                <li>At the “Select a service to manage:” prompt, select All Services.</li>
+                <li>At the “Enter command” prompt, type <em>status</em>.</li>
+            </ol>
+            <div class="Indent">
+                <p>All services on all nodes should then indicate that they are running.</p>
+            </div>
+        </div>
+        <ol MadCap:continue="true">
+            <li>Next, confirm that the HyperStore software version is correct:</li>
+        </ol>
+        <div class="Indent">
+            <ol style="list-style-type: lower-alpha;">
+                <li>Still on the Service Management menu, at the “Select a service to manage:” prompt select the S3 Service.</li>
+                <li>At the “Enter command” prompt, type <em>version</em>.</li>
+            </ol>
+            <div class="Indent">
+                <p>On all nodes the S3 version should indicate version 6.0</p>
+            </div>
+        </div>
+        <p>You can now access the CMC again and check on your cluster:</p>
+        <ul>
+            <li>Use the functions under the <b>Cluster</b> tab to confirm the health of your cluster and individual nodes.</li>
+            <li>Under the <b>Users &amp; Groups</b> tab you can confirm that your user groups have been successfully migrated to the new version.</li>
+            <li>If you retrieve a user in the <b>Manage Users</b> page and access their data (or if you log out of the CMC and then log back in as a regular user), you will see the <b>Buckets &amp; Objects</b> page. Here you can confirm that you can successfully download or upload objects.</li>
+        </ul>
+        <p>You are now done with upgrading to HyperStore 6.0.</p>
+        <p>&#160;</p>
+    </body>
+</html>

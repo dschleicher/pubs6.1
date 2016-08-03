@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="7" MadCap:lastHeight="2078" MadCap:lastWidth="891">
+    <head>
+    </head>
+    <body>
+        <h1>MonitorSystemInfo</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Admin API Object]</p>
+        <p>The MonitorSystemInfo object is returned as the <b>response payload</b> for this Admin API operation:</p>
+        <ul>
+            <li>
+                <MadCap:xref href="../System Monitoring/GetMonitoringDataForRegion.htm">GET Monitoring Data for Region</MadCap:xref>
+            </li>
+        </ul>
+        <p>The MonitorSystemInfo object consists of the attributes below.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">Within the MonitorSystemInfo object, all statistics of type MonitorStat are formatted as <br /><em>"&lt;statName&gt;":{"timestamp":"&lt;UTCMilliseconds&gt;","value":"&lt;statValue&gt;"}</em>.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>diskAvailKb</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(MonitorStat) Across the whole service region, the total mounted disk space remaining still available for Cassandra data directory or HyperStore data directory storage. A disk’s "reserved-blocks-percentage" (the portion of the disk that’s reserved for privileged processes) does not count as available space.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>diskTotalKb</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(MonitorStat) Across the whole service region, the total size of the disks mounted for Cassandra data directories or HyperStore data directories (the HyperStore File System [HSFS] and erasure coding file system). This stat does not include other any other disks on your HyperStore hosts — such as those that are being used only for the OS or application files, for example.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>nodeStatuses</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(List&lt;<MadCap:xref href="NodeStatus.htm">NodeStatus</MadCap:xref>&gt;) List of NodeStatus objects, one for each node in the service region.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>s3GetLatency</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(MonitorStat) Across the whole service region, the average latency for completing S3 GET transactions, in milliseconds. This stat is recalculated each five minutes, based on the most recent five minutes of transaction data. HEAD transactions are counted toward this stat also.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>s3GetThruput</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(MonitorStat) Across the whole service region, the data throughput for S3 GET transactions, expressed as MB per second. This stat is recalculated each five minutes, based on the most recent five minutes of transaction data. HEAD transactions are counted toward this stat also.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>s3GetTPS</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(MonitorStat) Across the whole service region, the number of S3 GET transactions processed per second. This stat is recalculated each five minutes, based on the most recent five minutes of transaction data. HEAD transactions are counted toward this stat also.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>s3PutLatency</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(MonitorStat) Across the whole service region, the average latency for completing S3 PUT transactions, in milliseconds. This stat is recalculated each five minutes, based on the most recent five minutes of transaction data. POST transactions are counted toward this stat also.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>s3PutThruput</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(MonitorStat) Across the whole service region, the data throughput for S3 PUT transactions, expressed as MB per second. This stat is recalculated each five minutes, based on the most recent five minutes of transaction data. POST transactions are counted toward this stat also.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>s3PutTPS</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(MonitorStat) Across the whole service region, the number of S3 PUT transactions processed per second. This stat is recalculated each five minutes, based on the most recent five minutes of transaction data. POST transactions are counted toward this stat also.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>status</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(ServiceStatus) High-level service status for the system as a whole. Formatted as {"ipaddr":"&lt;empty&gt;","status":[&lt;one of "OK" or "SVC_DOWN"&gt;],"value": "&lt;sameAsStatus&gt;","timestamp":"&lt;UTCMilliseconds&gt;"}.</p>
+                    <p>The "ipaddr" value will be empty or null.</p>
+                    <p>The "status" will be formatted as a list but with just one member string. Status string meanings are:</p>
+                    <ul>
+                        <li>"OK" — All HyperStore services are up and running on all nodes in the service region.</li>
+                        <li>"SVC_DOWN" — A HyperStore service (Admin, Cassandra, HyperStore, Redis QoS, Redis Credentials, Redis Monitor, or S3) is down on one or more nodes in the service region.</li>
+                    </ul>
+                    <p>The "value" attribute will be identical to the "status" attribute, except formatted as a string rather than as a list. For example:</p><pre>"status":["SVC_DOWN"],"value":"[SVC_DOWN]"</pre>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <h2>Example</h2>
+        <p>This is an example of a MonitorSystemInfo object. As shown by the "nodeStatuses" attribute, this example is for a single-node system.</p><pre xml:space="preserve">{"s3PutThruput":{"timestamp":"1443611105930","value":"0"},"s3GetThruput":{"timestamp":
+"1443611105930","value":"0"},"s3GetLatency":{"timestamp":"1443611105930","value":"0.0"},
+"s3PutLatency":{"timestamp":"1443611105930","value":"0.0"},"nodeStatuses":[{"hostname":
+"hyperstore1","ipaddr":null,"status":["LOG_WARN"],"value":"[LOG_WARN]","timestamp":
+"1443611105930"}],"s3GetTPS":{"timestamp":"1443611105930","value":"0.0"},"s3PutTPS":{"timestamp":
+"1443611105930","value":"0.0"},"diskAvailKb":{"timestamp":"1443610986440","value":"61243096"},
+"diskTotalKb":{"timestamp":"1443610986440","value":"67049088"},"status":{"ipaddr":"","status":
+["OK"],"value":"[OK]","timestamp":"1443611105930"}}</pre>
+        <p>This is a second example of a MonitorSystemInfo object, this time for a six-node system.</p><pre xml:space="preserve">{"s3GetTPS":{"timestamp":"1449150002497","value":"0.0"},"diskAvailKb":{"timestamp":"1449149882244",
+"value":"273768661444"},"diskTotalKb":{"timestamp":"1449149882244","value":"273904968704"},
+"s3PutTPS":{"timestamp":"1449150002497","value":"0.0"},"s3PutThruput":{"timestamp":"1449150002497",
+"value":"3"},"s3GetThruput":{"timestamp":"1449150002497","value":"0"},"s3GetLatency":{"timestamp":
+"1449150002497","value":"0.0"},"s3PutLatency":{"timestamp":"1449150002497","value":"0.0"},
+"nodeStatuses":[{"hostname":"appliance4","ipaddr":null,"status":["LOG_WARN"],"value":"[LOG_WARN]",
+"timestamp":"1449150002497"},{"hostname":"appliance2","ipaddr":null,"status":["LOG_WARN"],"value":
+"[LOG_WARN]","timestamp":"1449150002497"},{"hostname":"appliance3","ipaddr":null,"status":
+["SVC_DOWN","LOG_WARN"],"value":"[SVC_DOWN, LOG_WARN]","timestamp":"1449150002497"},{"hostname":
+"appliance6","ipaddr":null,"status":["LOG_WARN"],"value":"[LOG_WARN]","timestamp":"1449150002497"},
+{"hostname":"appliance5","ipaddr":null,"status":["LOG_WARN"],"value":"[LOG_WARN]","timestamp":
+"1449150002497"},{"hostname":"appliance1","ipaddr":null,"status":["LOG_WARN"],"value":"[LOG_WARN]",
+"timestamp":"1449150002497"}],"status":{"ipaddr":"","status":["SVC_DOWN"],"value":"[SVC_DOWN]",
+"timestamp":"1449150002497"}}</pre>
+    </body>
+</html>

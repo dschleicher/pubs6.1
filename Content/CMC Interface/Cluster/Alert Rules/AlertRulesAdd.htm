@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="2842" MadCap:lastWidth="629">
+    <head>
+    </head>
+    <body>
+        <h1>Add an Alert Rule</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[CMC Interface]</p>
+        <p>In the <b><a href="../../../Resources/Images/cmc/cluster/AlertRules.png" target="_popup">Alert Rules</a></b> page you can configure rules that trigger the generation of alerts.</p>
+        <ol>
+            <li>From the drop-down list, select an alert type.</li>
+        </ol>
+        <div class="Indent">
+            <p>
+                <img src="../../../Resources/Images/cmc/cluster/AlertRules_create.png" class="ImgCloudian" />
+            </p>
+        </div>
+        <ol MadCap:continue="true">
+            <li>Configure a rule for that alert type. The options vary according to the alert type. For detail see the alert type descriptions below this procedure.</li>
+        </ol>
+        <div class="Indent">
+            <p>If you want the rule implementation to include sending an email notification to the default system administrator email address(es), leave the "Use Default" option checked. If you want to customize the target email addresses for this particular rule, uncheck the "Use Default" option and enter the address(es) in the text field (for multiple addresses, use comma separation). If you do not want email notification for this rule, uncheck the "Use Default" option and leave the text field empty.</p>
+            <p>If you want the rule implementation to include sending an SNMP trap to your SNMP management system, select the "Send SNMP Trap" checkbox.</p>
+            <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">To support sending SNMP traps you must first configure trap destination settings in the <MadCap:xref href="../Configuration Settings/ConfigurationSettingsSNMP.htm" target="_popup">SNMP Trap Destination Settings</MadCap:xref> section of the CMC’s <b>Configuration Settings</b> page.<br /><br />In the traps that HyperStore generates and sends to your specified destination, the OID is enterprises.16458.4.1.1.1. The trap payload also indicates the specific HyperStore host on which the trap-triggering event occurred.</p>
+        </div>
+        <ol MadCap:continue="true">
+            <li>Click <b>Add</b>.</li>
+        </ol>
+        <div class="Indent">
+            <p>Your new alert rule then displays in the <b>Rules</b> section of the page.</p>
+        </div>
+        <h2>Supported Alert Types</h2>
+        <p>HyperStore supports the following types of configurable alerts:</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Alerts based on transactions per second (TPS), throughput, or latency</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>These alert types:</p>
+                <ul>
+                    <li>Can all be configured for rules based on exceeding (or falling below) a specified threshold value. For example, you could configure a rule whereby an alert is generated if the latency for S3 GET operations is greater than 2000 milliseconds.</li>
+                    <li>Are all based on traffic for individual HyperStore nodes. For example, if you set an alert rule for "Number of GET transactions per second &gt; 20", then alerts will be triggered if the number of S3 GET transactions per second exceeds 20 on any one HyperStore node.</li>
+                </ul>
+                <p>The S3 traffic alert types are all based on averages that are recalculated every five minutes, based on the most recent five minutes of transaction data. For example, an alert rule for "Latency for S3 GET operations &gt; 500 milliseconds" would get triggered if one of the five-minute average GET latency statistics exceeded 500 milliseconds.</p>
+                <p>The "network throughput" alerts are based on averages that are recalculated every minute, based on the most recent minute of data.</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">Network throughput statistics are based on <b>all</b> data moving into or out of a node — not just S3 request data. For example, data transmission associated with cluster maintenance operations would count toward these statistics.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Alerts based on disk space or CPU utilization</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>These alert types:</p>
+                <ul>
+                    <li>Can be configured for rules based on exceeding (or falling below) a specified threshold value. For example, you could configure a rule that triggers an alert if the CPU utilization on a node exceeds 80%; or a rule that triggers an alert if the disk space remaining available on any individual disk on a node falls below 20% of the disk’s capacity.</li>
+                    <li>Are based on snapshots taken every minute. In the CPU utilization example, if one of the snapshots shows CPU utilization in excess of 80%, an alert is triggered.</li>
+                    <li>Are based on readings from individual HyperStore nodes. In the CPU utilization example, if the 80% CPU utilization threshold is exceeded on any one node, an alert is triggered.</li>
+                </ul>
+                <p>For the disk space event type, only disks configured for storage of Cassandra data directories or HyperStore data directories are checked.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Disk error</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>With this alert rule, an alert is triggered whenever an "HSDISKERROR" message appears in the HyperStore Service application log (<em>cloudian-hyperstore.log</em>).</p>
+                <p>Note that such an alert does not necessarily indicate that the disk has been automatically disabled. This is because the alert is triggered by the appearance of a single "HSDISKERROR" message in the HyperStore Service application log, whereas the automatic disabling action is triggered only if such messages appear at a rate exceeding a configurable threshold.</p>
+                <p>For more information on automated disk failure management see <MadCap:xref href="../../../Major Features/Disk Failure Handling/DiskFailureOverview.htm" target="_popup">Disk Failure Handling Feature Overview</MadCap:xref>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Repair completion status</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>With this alert rule, an alert is triggered whenever any type of data repair operation finishes its run. This includes auto-repairs of replica, erasure coded, or Cassandra data, as well as any repairs that you execute yourself using <em>hsstool repair</em> or <em>hsstool repairec</em>. There are separate alert types for REPAIR (S3 object replica repair), CASSANDRA:REPAIR (Cassandra metadata replica repair), and EC:REPAIR (erasure coded data repair).</p>
+                <p>The alert is triggered when the operation finishes and will indicate the operation’s finishing status: COMPLETED, FAILED, or TERMINATED.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Services status</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>These alert types are based on status changes for the services that comprise the HyperStore system. The supported options are:</p>
+                <ul>
+                    <li><em>Service Down</em> — The service has gone down on a node on which it’s supposed to be running. (Not supported for Cron or Phone Home)</li>
+                    <li><em>Service Restore</em>d — After being down, the service has started up again. (Not supported for Cron or Phone Home)</li>
+                    <li><em>Error</em> — An ERROR level message has been written to the service’s application log. (Not supported for Redis QoS, Redis Credentials, or Redis Monitor)</li>
+                    <li><em>Warning</em> — A WARN or ERROR level message has been written to the service’s application log. (Not supported for Redis Monitor.)</li>
+                </ul>
+                <p>If you wish you can create multiple alert rules for a particular service. For example, for the S3 Service you can create a rule that triggers alerts if the service goes down; a rule that triggers alerts when the service is restored after being down; and a rule that triggers alerts when ERROR level messages appear in the service’s application log. In each case you can decide whether the alert triggers an email notification or only appears in the CMC’s <MadCap:xref href="../Node Status/NodeStatusOverview.htm" target="_popup">Node Status</MadCap:xref> page and <MadCap:xref href="../../Alerts/AlertsOverview.htm" target="_popup">Alerts</MadCap:xref> page.</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">Application logging for the Admin, Cassandra, HyperStore, and S3 services is based on the Java log4j class. These services do not use the log4j FATAL log level, so the most serious log messages that these services may generate are:<br /><br />ERROR = Designates error events that might still allow the application to continue running.<br />WARN = Designates potentially harmful situations.<br /><br />ERROR is a more severe message level than WARN. If you set a notification rule for ERROR level messages you will be notified only for ERROR messages. If you set an alert rule for WARN messages you will be notified of WARN messages <b>as well as</b> ERROR messages.<br /><br />In Redis, the most severe log message level is Warning (indicated by a pound sign ["#"] at the start of the message in the Redis application log). The Warning log level in Redis is for "very important or critical" messages. Redis also generates this level of message when the Redis service is started or stopped. Redis does not have an Error log level.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <p>For more detail on how alerts are implemented by the system see <MadCap:xref href="AlertRulesImplementation.htm">How HyperStore Implements Alerts</MadCap:xref>.</p>
+    </body>
+</html>

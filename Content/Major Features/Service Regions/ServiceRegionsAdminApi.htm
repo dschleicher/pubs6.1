@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="414" MadCap:lastWidth="841">
+    <head>
+    </head>
+    <body>
+        <h1>Using the Admin API in a Multi-Region System</h1>
+        <p>If your HyperStore system has multiple regions, then:</p>
+        <ul>
+            <li>For some Admin API calls you can optionally use a "region" URI parameter to indicate that you want the operation applied to a particular region. For example, the syntax for retrieving a user’s rating plan is:</li>
+        </ul>
+        <div class="Indent"><pre>GET /user/ratingPlan?userId=xxx&amp;groupId=xxx[&amp;region=xxx] HTTP/1.1</pre>
+            <p>For such API calls, if you do not specify a region then the <a href="ServiceRegionsOverview.htm#DefaultRegion" target="_popup">default region</a> is presumed.</p>
+        </div>
+        <ul>
+            <li>Certain Admin API calls are only supported by the Admin Service in the default region. If you submit these calls to the Admin Service in a non-default region, you will receive a 403:Forbidden response.</li>
+        </ul>
+        <p>&#160;</p>
+        <p><b>See Also:</b>
+        </p>
+        <ul>
+            <li>The Admin API section of the Cloudian HyperStore documentation</li>
+        </ul>
+    </body>
+</html>

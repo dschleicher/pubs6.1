@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="697" MadCap:lastWidth="841">
+    <head>
+    </head>
+    <body>
+        <h1>Enabling QoS Enforcement</h1>
+        <p>By default, the HyperStore system’s QoS functionality is <b>disabled</b>. Before enabling the functionality, think first about whether you want to implement QoS controls based just on storage quotas, or if you also want to apply QoS controls for request rates (HTTP requests and upload/download bytes). This choice impacts that configuration changes that you will make. In general, for optimal system performance you should enable only the QoS functionality that you actually intend to apply to service users.</p>
+        <p>Note that enabling in QoS functionality as described below, you are merely "turning on" the S3 Service mechanisms that enforce whatever QoS restrictions you establish for users and groups. The creation of specific QoS restrictions is a separate administrative task as described in <MadCap:xref href="QosUsers.htm">Setting QoS Limits for Users</MadCap:xref> and <MadCap:xref href="QosGroups.htm">Setting QoS Limits for Groups</MadCap:xref>.</p>
+        <p>To enable HyperStore QoS enforcement, in the CMC go to <b>Cluster → Cluster Config → Configuration Settings</b>, and open the <b>Quality of Service</b> panel. Then:</p>
+        <ul>
+            <li>To enable enforcement of <b>storage quotas only</b> (number of bytes and/or number of objects), set just the "QoS Limits" setting to "enabled".</li>
+            <li>To enable enforcement of <b>storage quotas and also traffic rates</b> (number of HTTP requests per minute, or bytes uploaded or downloaded per minute), set both the "QoS Limits" setting and the "QoS Rate Limits" setting to "enabled".</li>
+        </ul>
+        <p>After you <b>Save</b>, your configuration changes are applied to the system dynamically — no service restart is required.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">Enforcing QoS for traffic rates but not for stored bytes and objects is not supported at the system configuration level. If you want to use QoS in this way, set both "QoS Limits" and "QoS Rate Limits" to enabled, then when you’re configuring QoS limits for groups and users set the stored bytes and objects controls to unlimited and the rate controls to your desired levels.</p>
+        <p>&#160;</p>
+        <p><b>See Also:</b>
+        </p>
+        <ul>
+            <li>
+                <MadCap:xref href="QosUsers.htm">Setting QoS Limits for Users</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="QosGroups.htm">Setting QoS Limits for Groups</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

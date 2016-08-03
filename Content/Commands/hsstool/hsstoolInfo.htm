@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="2129" MadCap:lastWidth="768">
+    <head>
+    </head>
+    <body>
+        <h1>hsstool info</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Command]</p>
+        <p>This <MadCap:xref href="hsstoolOverview.htm" target="_popup">hsstool </MadCap:xref> command returns vNode information and data load information for a specified physical node within a storage cluster. The return includes a list of virtual nodes assigned to the physical node.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Command Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>You can run the <em>hsstool info</em> command through the CMC UI:</p>
+                <p>
+                    <img src="../../Resources/Images/cmc/cluster/Advanced_info.png" style="max-width: 8in;" />
+                </p>
+                <p>Or on the command line:</p><pre xml:space="preserve">[root]# /opt/cloudian/bin/hsstool [-h &lt;host&gt;] info</pre>
+                <h3>Parameters</h3>
+                <p>This command supports only this parameter:</p>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>-h &lt;host&gt; (called "Target Node" in CMC UI)</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Optional on command line; mandatory in CMC) Target host for which to retrieve token and load information. Defaults to local host if you do not supply <em>-h &lt;host&gt;</em> on the command line.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Command/Response Example and Response Description</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The example below shows an excerpt from a response to the <em>info</em> command. The command returns information about a specific node, "cloudian-node1". The node’s token (vNode) list is sorted in ascending order. Response item descriptions follow the example.</p><pre xml:space="preserve">[root]# /opt/cloudian/bin/hsstool -h cloudian-node1 info
+Cloudian            : 5.1
+Cloudian REPLICAS Load  : 95.87 MB / 78.74 GB (0.12%)
+Cloudian EC Load    : 436.19 KB / 78.74 GB (0%)
+Uptime (seconds)    : 230681
+Token               : 18315119863185730105557340630830311535
+Token               : 21637484670727122681279388562251225465
+Token               : 23572420191725176386844252744138398599
+Token               : 25984083804572739863688602357781003456
+Token               : 32049925251885239737462386844023262134
+Token               : 34776961444994655981702644433932691872
+Token               : 39011904510130716900391258282509705889
+...
+...
+Token               : 141833557733030600282377220263378688424
+Cassandra           : 2.0.11
+Cassandra Load      : 1.9 MB
+Data Center         : DC1
+Rack                : RAC1</pre>
+                <p>The <em>info</em> command response consists of the following items:</p>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>Cloudian</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Cloudian HyperStore software version installed on the node.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>Cloudian REPLICAS Load</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>The total volume of replicated S3 object data stored in the HyperScale File System on the node. This includes S3 objects for which the node serves as a secondary or tertiary replica as well as S3 objects for which the node is the primary replica.</p>
+                        <p>This field also shows the total amount of disk space designated for S3 object storage on the node. The disk space is the total capacity for replica storage and erasure coded storage combined.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>Cloudian EC Load</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>The volume of erasure coded S3 object data stored on the node. This field also shows the total amount of disk space designated for S3 object storage on the node. The disk space is the total capacity for replica storage and erasure coded storage combined.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>Uptime (seconds)</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>The number of seconds that the HyperStore Service has been running since its last start.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>Token</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>A list of storage tokens assigned to the node. These tokens, randomly generated from an integer token space ranging 0 to 2 127 -1, determine which S3 objects will be stored on the node. The multiple tokens assigned to each physical host are also known as "virtual nodes" or vNodes. By default each physical storage node is assigned 32 tokens. For more information on vNodes and S3 object allocation within the storage cluster, see <MadCap:xref href="../../Introduction/System Diagrams/vNodes.htm">How vNodes Work</MadCap:xref>.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>Cassandra</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Cassandra software version installed on the node.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>Cassandra Load</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Cassandra storage load on the node. There will be some Cassandra load even if all S3 objects are stored in the HyperStore File System or the erasure coding file system. For example, Cassandra is used for storage of object metadata and service usage data, among other things.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>Data Center</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Data center in which the node resides.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>Rack</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Rack in which the node resides.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

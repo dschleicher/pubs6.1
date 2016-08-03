@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="893" MadCap:lastWidth="841">
+    <head>
+    </head>
+    <body>
+        <h1>Move the Internal NTP Server or Specify External NTP Servers</h1>
+        <p>When you install your HyperStore cluster, for each of your service regions the installation script automatically configures one of your HyperStore nodes to act as an internal NTP server for the cluster. This internal NTP server synchronizes with public NTP servers from the <em>pool.ntp.org</em> project. By default the set of external servers is:</p>
+        <ul>
+            <li>0.centos.pool.ntp.org</li>
+            <li>1.centos.pool.ntp.org</li>
+            <li>2.centos.pool.ntp.org</li>
+            <li>3.centos.pool.ntp.org</li>
+        </ul>
+        <p>As described below, the system supports moving the internal NTP Server role to a different HyperStore host, or specifying different external servers with which the external server should synchonize.</p>
+        <ol>
+            <li>On the Puppet master node, launch the HyperStore installer.</li>
+        </ol><pre xml:space="preserve">[root]# cd &lt;your-installation-staging-directory&gt;
+[root]# ./cloudianInstall.sh</pre>
+        <ol MadCap:continue="true">
+            <li>From the installer’s main menu, select "Advanced Configuration Options". Then from the Advanced Configuration Options menu select "Change server role assignments".</li>
+            <li>From the Change Server Role Assignments menu select "NTP Server Configuration".</li>
+            <li>At the first prompt specify the HyperStore host that you want to act as the internal NTP server. If you want to keep the same host just press Enter rather than specifying a different host.</li>
+            <li>At the next prompt specify the external NTP servers with which you want the internal NTP server to synchronize, as a quote-enclosed comma-separated list. If you want to keep the same external servers that the system is currently using, just press Enter rather than specifying a different server list.</li>
+            <li>After completing the interaction for specifying NTP Server Configuration, return to the Change Server Role Assignments menu and select "Review cluster configuration". Then at the prompt confirm that you want to apply the updated configuration to the Puppet master.</li>
+            <li>Go to the installer’s main menu and choose "Cluster Management" → "Push Configuration Settings to Cluster" and follow the prompts. When Puppet pushes the current configuration settings to the cluster it will also automatically restart<em> ntpd</em> on the affected nodes. You do not need to manually restart <em>ntpd</em>.</li>
+            <li>Exit the installer, then log into the CMC and go to the <a href="../../Resources/Images/cmc/cluster/ClusterInfo.png" target="_popup">Cluster Information</a> page. Review the service information section to confirm that your internal NTP host and external NTP hosts are what you want them to be.</li>
+        </ol>
+    </body>
+</html>

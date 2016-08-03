@@ -1,0 +1,975 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="8" MadCap:lastHeight="15613" MadCap:lastWidth="789">
+    <head>
+    </head>
+    <body>
+        <h1>common.csv</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Configuration File]</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">The HyperStore system’s interactive installation script <em>cloudianInstall.sh</em> writes to this file. All common.csv settings that <b>require</b> environment-specific customization are automatically pre-configured by the install script, based on information that you provided during the installation process. It is not mandatory to make manual edits to this file, but the file does include settings that you may wish to fine tune for your particular circumstances and preferences.</p>
+        <p>The <em>common.csv</em> file is the main Puppet extdata file. It configures basic settings for all the major HyperStore components. On the Puppet master the path to the file is:</p><pre>/etc/cloudian-&lt;version&gt;-puppet/manifests/extdata/common.csv</pre>
+        <p>The settings in <em>common.csv</em> are grouped according to which HyperStore component they configure. The documentation that follows describes the settings in each section of <em>common.csv</em>, in the order in which they appear in the file.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>GENERAL Section</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="release_version"></a>release_version</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Current HyperStore release version.</p>
+                        <p>Default = 6.0</p>
+                        <p>Do not edit.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian_license_file_name"></a>cloudian_license_file_name</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Name of your Cloudian license file.</p>
+                        <p>Default = Set during installation based on operator input.</p>
+                        <p>Do not edit manually. To apply an updated license file, use the CMC’s Update License function (<b>Cluster → Cluster Config → Cluster Information → Update License</b>). That function will automatically update this configuration setting as appropriate and dynamically apply the change to your live system. No service restart is necessary.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="default_region"></a>default_region</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>The default service region for your S3 service. Must be one of the regions listed for the regions setting. In a multi-region HyperStore system, the default region plays several roles in the context of S3 storage bucket LocationConstraint functionality. For example:</p>
+                        <ul>
+                            <li>For PUT Bucket requests that lack a CreateBucketConfiguration element in the request body, the bucket will be created in the default region.</li>
+                            <li>For PUT Bucket requests that do include a CreateBucketConfiguration element (with LocationConstraint attribute), the PUT requests typically resolve to the default region, and S3 Service nodes in the default region then initiate the process of creating the bucket in the requested region.</li>
+                        </ul>
+                        <p>If your HyperStore system has only one service region, make that region the default region.</p>
+                        <p>Default = Set during installation based on operator input.</p>
+                        <p>Do not change this setting after your system is installed and running. If for some reason you need to change which region is your default region, please consult with Cloudian Support.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="regions"></a>regions</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Comma-separated list of service regions [XREF] within your HyperStore system. Region names must be lower case with no dots, dashes, underscores, or spaces. Even if you have only one region, you must give it a name and specify it here.</p>
+                        <p>Default = Set during installation based on operator input.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="javahome"></a>javahome</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Home directory of Java on your HyperStore nodes.</p>
+                        <p>Default = /usr/java/latest</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="java_minimum_stack_size"></a>java_minimum_stack_size</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Memory stack size to use for the HyperStore system’s Java-based services (Cassandra, S3 Service, HyperStore Service, Admin Service)</p>
+                        <p>Default = 256k</p>
+                        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">Optionally you can override this stack size value on a per-server-type basis by adding any of the following settings to <em>common.csv</em> and assigning them a value:<br /><br /><em>cassanda_stack_size</em><br /><em>cloudian_s3_stack_size</em><br /><em>cloudian_hss_stack_size</em><br /><em>cloudian_admin_stack_size</em></p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="installation_root_directory"></a>installation_root_directory</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Directory in which HyperStore service packages will be physically installed.</p>
+                        <p>Default = /opt/cloudian-packages</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="run_root_directory"></a>run_root_directory</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Root directory in which HyperStore services will be run. Links will be created from this directory to the physical installation directory.</p>
+                        <p>Default = /opt</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="pid_root_directory"></a>pid_root_directory</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Root directory in which HyperStore service PID (process ID) files will be stored. A<em> /cloudian</em> sub-directory will be created under this root directory, and the PID files will be stored in that sub-directory.</p>
+                        <p>Default = /var/run</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="service_starts_on_boot"></a>service_starts_on_boot</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Whether to have HyperStore services start on host reboot, true or false.</p>
+                        <p>Default = true</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian_log_directory"></a>cloudian_log_directory</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Directory into which to write application logs for the S3 Service, Admin Service, HyperStore Service, Redis Monitor, Cloudian performance monitoring Agent, and Cloudian performance monitoring Data Collector.</p>
+                        <p>Default = /var/log/cloudian</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cleanup_directories_byage*_"></a>cleanup_directories_byage*_ </MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>These settings are used by the HyperStore installation script. Do not edit.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>HyperStore SERVICE Section</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="hyperstore_data_directory"></a>hyperstore_data_directory</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>A quote-enclosed, comma-separated list of mount points to use for S3 object storage.</p>
+                        <p>In a production environment, use dedicated disks for S3 object storage. Do not use the same disks that are storing the cassandra_commit_log_directory [XREF] and cassandra_data_directory [XREF]. For more information about HyperStore disk and mount point requirements, see File System [XREF].</p>
+                        <p>The system will automatically assign virtual nodes (vNodes) to each of your S3 data mount points, in a manner that allocates an approximately equal <b>total token range</b> to each mount point. For more information about HyperStore vNodes see HyperStore vNodes [XREF]. Note that the HyperStore system allocates an approximately equal total token range to each S3 data mount point even if the mount points are associated with disks of different sizes.</p>
+                        <p>Do not change the <em>hyperstore_data_directory</em> setting once your cluster is operational.</p>
+                        <p>Do not use symbolic links when specifying your mount points for the <em>hyperstore_data_directory</em> setting. The HyperStore system does not support symbolic links for these directories.</p>
+                        <p>Example of a multiple mount point configuration = "/cloudian1,/cloudian2,/cloudian3,/cloudian4"</p>
+                        <p>Default = Set during installation based on operator input, if host has multiple disks. For hosts with only one disk, default is /var/lib/cloudian</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="hyperstore_listen_ip"></a>hyperstore_listen_ip</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>The IP interface on which each HyperStore Service node listens for data operations requests from clients. This parameter must be set to a public IP address, not to "localhost"; and this setting must match the cassandra_listen_address [XREF] setting.</p>
+                        <p><b>Specify this as an IP address alias</b>. Puppet will use the alias to determine the actual IP address for each node.</p>
+                        <p>Options are %{::ipaddress}, %{::ipaddress_eth#}, %{::ipaddress_lo}, or %{::ipaddress_bind#}</p>
+                        <p>Default = %{::ipaddress}</p>
+                        <p>To apply change, after Puppet propagation restart HyperStore Service</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="hyperstore_timeout"></a>hyperstore_timeout</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>For the S3 Service’s connections to the HyperStore Service, the transaction completion timeout (session timeout) in milliseconds.</p>
+                        <p>Default = 10000</p>
+                        <p>To apply change, after Puppet propagation restart S3 Service</p>
+                        <p>For a diagram showing the place of this timeout within the S3 request processing flow, see here [XREF].</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="hyperstore_connection_timeout"></a>hyperstore_connection_timeout</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>For the S3 Service’s connections to the HyperStore Service, the connection establishment timeout in milliseconds.</p>
+                        <p>Default = 10000</p>
+                        <p>To apply change, after Puppet propagation restart S3 Service</p>
+                        <p>For a diagram showing the place of this timeout within the S3 request processing flow, see here [XREF].</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>S3/ADMIN SERVICES Section</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian_s3_port"></a>cloudian_s3_port</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Port on which individual S3 Service nodes listen for S3 requests over regular HTTP. In a typical deployment incoming S3 requests would pass first through a load balancer and then on to the individual S3 Service nodes.</p>
+                        <p>Default = 80</p>
+                        <p>To apply change, after Puppet propagation restart S3 Service</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="ld_cloudian_s3_port"></a>ld_cloudian_s3_port</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Port on which the load balancer in front of your S3 Service nodes listens for incoming S3 requests over regular HTTP.</p>
+                        <p>This is also the HTTP port number that is used when a user requests that a "public URL" [XREF] be generated for one of her stored S3 objects.</p>
+                        <p>If you do not use a load balancer, this should be set to the same value as <em>cloudian_s3_port</em>.</p>
+                        <p>Default = 80</p>
+                        <p>To apply change, after Puppet propagation restart S3 Service and CMC</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="ld_cloudian_s3_ssl_port_"></a>
+ld_cloudian_s3_ssl_port </MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Port on which the load balancer in front of your S3 Service nodes listens for S3 requests over HTTPS.</p>
+                        <p>This is also the HTTPS port number that is used when a user requests that an SSL-secured "public URL" [XREF] be generated for one of her stored S3 objects.</p>
+                        <p>If you do not use a load balancer, this should be set to the same value as <em>port</em> in <em>s3sslconfigs.csv</em>.</p>
+                        <p>Default = 443</p>
+                        <p>To apply change, after Puppet propagation restart S3 Service and CMC</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian_s3_admin_port"></a>cloudian_s3_admin_port</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Port on which individual Admin Service nodes listen for Admin Service requests over regular HTTP.</p>
+                        <p>Default = 18081</p>
+                        <p>To apply change, after Puppet propagation restart S3 Service</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="ld_cloudian_s3_admin_port"></a>ld_cloudian_s3_admin_port</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Port on which the load balancer in front of your Admin Service nodes listens for Admin Service requests over regular HTTP.</p>
+                        <p>If you do not use a load balancer, this should be set to the same value as <em>cloudian_s3_admin_port</em>.</p>
+                        <p>Default = 18081</p>
+                        <p>To apply change, after Puppet propagation restart CMC</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian_s3admin_min_threads"></a>cloudian_s3admin_min_threads</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Minimum number of threads to keep in each Admin Service node’s HTTP request processing thread pool.</p>
+                        <p>The Admin Service uses a thread pool to process incoming HTTP requests from clients. An initial pool of threads is created at server initialization time, and additional threads may be added if needed to process queued jobs. Idle threads are terminated if not used within a thread timeout period — unless the number of threads in the pool is down to <em>cloudian_s3admin_min_threads</em>. If only this many threads are in the pool, then threads are kept open even if they’ve been idle for longer than the thread timeout.</p>
+                        <p>Default = 10</p>
+                        <p>To apply change, after Puppet propagation restart S3 Service</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian_s3admin_max_threads"></a>cloudian_s3admin_max_threads</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Maximum number of threads to allow in the Admin Service’s HTTP request processing thread pool. If there are fewer than this many threads in the pool, new threads may be created as needed in order to handle queued HTTP request processing jobs. If the maximum thread pool size is reached, no more threads will be created — instead, queued HTTP request processing jobs must wait for an existing thread to become free.</p>
+                        <p>Default = 50</p>
+                        <p>To apply change, after Puppet propagation restart S3 Service</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian_s3admin_max_idletime"></a>cloudian_s3admin_max_idletime</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>When the Admin Service processes HTTP requests from clients, the maximum allowed connection idle time in milliseconds. If this much idle time passes before a new request is received on an open connection with a client, or if this much idle time passes during the reading of headers and content for a request, or if this much idle time passes during the writing of headers and content of a response, the connection is closed.</p>
+                        <p>Default = 60000</p>
+                        <p>To apply change, after Puppet propagation restart S3 Service</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian_s3admin_lowres_maxidletime"></a>cloudian_s3admin_lowres_maxidletime</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Special, "low resource" maximum idle time to apply to Admin Service HTTP connections when the number of simultaneous connections to an Admin Service node exceeds <em>cloudian_s3admin_lowres_maxconnections</em>. Configured in milliseconds. With this setting, you can have the Admin Service be less tolerant of connection idle time during times of high concurrent usage. (For general idle timer behavior, see the description of <em>cloudian_s3admin_max_idletime</em> above.)</p>
+                        <p>Default = 5000</p>
+                        <p>To apply change, after Puppet propagation restart S3 Service</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian_s3admin_lowres_maxconnections"></a>cloudian_s3admin_lowres_maxconnections</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>If the number of simultaneous HTTP connections to an Admin Service node exceeds this value, the special idle timer configured by <em>cloudian_s3admin_lowres_maxidletime</em> is applied to that node rather than the usual <em>cloudian_s3admin_max_idletime</em>.</p>
+                        <p>Default = 1000</p>
+                        <p>To apply change, after Puppet propagation restart S3 Service</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian_s3_min_threads"></a>cloudian_s3_min_threads</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Minimum number of threads to keep in each S3 Service node’s HTTP request processing thread pool.</p>
+                        <p>The S3 Service uses a thread pool to process incoming HTTP requests from clients. An initial pool of threads is created at server initialization time, and additional threads may be added if needed to process queued jobs. Idle threads are terminated if not used within a thread timeout period — unless the number of threads in the pool is down to <em>cloudian_s3_min_threads</em>. If only this many threads are in the pool, then threads are kept open even if they’ve been idle for longer than the thread timeout.</p>
+                        <p>Default = 150</p>
+                        <p>To apply change, after Puppet propagation restart S3 Service</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian_s3_max_threads"></a>cloudian_s3_max_threads</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Maximum number of threads to allow in the S3 Service’s HTTP request processing thread pool. If there are fewer than this many threads in the pool, new threads may be created as needed in order to handle queued HTTP request processing jobs. If the maximum thread pool size is reached, no more threads will be created — instead, queued HTTP request processing jobs must wait for an existing thread to become free.</p>
+                        <p>Default = 300</p>
+                        <p>To apply change, after Puppet propagation restart S3 Service</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian_s3_max_idletime"></a>cloudian_s3_max_idletime</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>When the S3 Service processes HTTP requests from clients, the maximum allowed connection idle time in milliseconds. If this much idle time passes before a new request is received on an open connection with a client, or if this much idle time passes during the reading of headers and content for a request, or if this much idle time passes during the writing of headers and content of a response, the connection is closed.</p>
+                        <p>Default = 60000</p>
+                        <p>To apply change, after Puppet propagation restart S3 Service</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian_s3_lowres_maxidletime"></a>cloudian_s3_lowres_maxidletime</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Special, <em>low resource</em>  maximum idle timer to apply to S3 Service HTTP connections when the number of simultaneous connections to an S3 Service node exceeds <em>cloudian_s3_lowres_maxconnections</em>. Configured in milliseconds.</p>
+                        <p>Default = 5000</p>
+                        <p>To apply change, after Puppet propagation restart S3 Service</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian_s3_lowres_maxconnections"></a>cloudian_s3_lowres_maxconnections</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>If the number of simultaneous HTTP connections to an S3 Service node exceeds this value, the special idle timer configured by <em>cloudian_s3_lowres_maxidletime</em> is applied to that node.</p>
+                        <p>Default = 2000</p>
+                        <p>To apply change, after Puppet propagation restart S3 Service</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian_s3_ssl_enabled"></a>cloudian_s3_ssl_enabled</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Whether to enable HTTPS for the S3 Service, true or false.</p>
+                        <p>Default = false</p>
+                        <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;"> 	Rather than hand-editing this setting, the recommended method for configuring the S3 Service to support HTTPS is to use the HyperStore installer’s Advanced Configuration Options. When you do so, the installer will automatically update the <em>cloudian_s3_ssl_enabled</em>  setting (and also the <em>s3sslconfigs.csv</em> file) in the background. For complete instructions on setting up SSL for your S3 Service, including how to use the installer’s Advanced Configuration Options for SSL/HTTPS, see SSL for S3 Service  [XREF].</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian_s3_heap_limit"></a>cloudian_s3_heap_limit </MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Maximum heap size limit for the S3 Service application. The JAVA_OPTS -Xmx value passed to the JVM will be the <b>lower</b> of this value and the percent-of-system-RAM value set by<em> cloudian_s3_max_heap_percent</em>.</p>
+                        <p>Default = 8g</p>
+                        <p>To apply change, after Puppet propagation restart S3 Service</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian_s3_max_heap_percent"></a>cloudian_s3_max_heap_percent</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Maximum heap size for the S3 Service application, as a percentage of host system RAM. The JAVA_OPTS -Xmx value passed to the JVM will be the <b>lower</b> of this value and the limiting value set by <em>cloudian_s3_heap_limit</em>.</p>
+                        <p>Default = 10</p>
+                        <p>To apply change, after Puppet propagation restart S3 Service</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian_hss_heap_limit"></a>cloudian_hss_heap_limit</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Maximum heap size limit for the HyperStore Service application. The JAVA_OPTS -Xmx value passed to the JVM will be the <b>lower</b> of this value and the percent-of-system-RAM value set by <em>cloudian_hss_max_heap_percent</em>.</p>
+                        <p>Default = 8g</p>
+                        <p>To apply change, after Puppet propagation restart HyperStore Service</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian_hss_max_heap_percent"></a>cloudian_hss_max_heap_percent</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Maximum heap size for the HyperStore Service application, as a percentage of host system RAM. The JAVA_OPTS -Xmx value passed to the JVM will be the <b>lower</b> of this value and the limiting value set by <em>cloudian_hss_heap_limit</em>.</p>
+                        <p>Default = 10</p>
+                        <p>To apply change, after Puppet propagation restart HyperStore Service</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian_admin_heap_limit"></a>cloudian_admin_heap_limit</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Maximum heap size limit for the Admin Service application. The JAVA_OPTS -Xmx value passed to the JVM will be the <b>lower</b> of this value and the percent-of-system-RAM value set by <em>cloudian_admin_max_heap_percent</em>.</p>
+                        <p>Default = 8g</p>
+                        <p>To apply change, after Puppet propagation restart S3 Service</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian_admin_max_heap_percent"></a>cloudian_admin_max_heap_percent</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Maximum heap size for the Admin Service application, as a percentage of host system RAM. The JAVA_OPTS -Xmx value passed to the JVM will be the <b>lower</b> of this value and the limiting value set by <em>cloudian_admin_heap_limit</em>.</p>
+                        <p>Default = 5</p>
+                        <p>To apply change, after Puppet propagation restart S3 Service</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian_s3_init_heap_percent"></a>cloudian_s3_init_heap_percent</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Initial heap size (JAVA_OPTS -Xms value) for the S3 Service application, as a percentage of the -Xmx value.</p>
+                        <p>Default = 30</p>
+                        <p>To apply change, after Puppet propagation restart S3 Service</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian_hss_init_heap_percent"></a>cloudian_hss_init_heap_percent</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Initial heap size (JAVA_OPTS -Xms value) for the HyperStore Service application, as a percentage of the -Xmx value.</p>
+                        <p>Default = 30</p>
+                        <p>To apply change, after Puppet propagation restart HyperStore Service</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian_admin_init_heap_percent"></a>cloudian_admin_init_heap_percent</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Initial heap size (JAVA_OPTS -Xms value) for the Admin Service application, as a percentage of the -Xmx value.</p>
+                        <p>Default = 30</p>
+                        <p>To apply change, after Puppet propagation restart S3 Service</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian_s3_new_heap_percent"></a>cloudian_s3_new_heap_percent</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>New heap size (JAVA_OPTS -Xmn value) for the S3 Service application, as a percentage of the -Xmx value. This is the heap size specifically for "young generation" objects.</p>
+                        <p>Default = 25</p>
+                        <p>To apply change, after Puppet propagation restart S3 Service</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian_hss_new_heap_percent"></a>cloudian_hss_new_heap_percent</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>New heap size (JAVA_OPTS -Xmn value) for the HyperStore Service application, as a percentage of the -Xmx value. This is the heap size specifically for "young generation" objects.</p>
+                        <p>Default = 25</p>
+                        <p>To apply change, after Puppet propagation restart HyperStore Service</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cloudian_admin_new_heap_percent"></a>cloudian_admin_new_heap_percent</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>New heap size (JAVA_OPTS -Xmn value) for the Admin Service application, as a percentage of the -Xmx value. This is the heap size specifically for "young generation" objects.</p>
+                        <p>Default = 25</p>
+                        <p>To apply change, after Puppet propagation restart S3 Service</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandras_per_s3node"></a>cassandras_per_s3node</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Maximum number of Cassandra nodes to which an individual S3 Service node may keep simultaneous live connections.</p>
+                        <p>Default = 9</p>
+                        <p>To apply change, after Puppet propagation restart S3 Service</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="admin_auth_user"></a>admin_auth_user</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Default username that you will supply in HTTP requests to the Admin Service for purposes of HTTP Basic Authentication. Relevant only if <em>admin_auth_enabled</em> is set to <em>true</em>.</p>
+                        <p>Default = sysadmin</p>
+                        <p>To apply change, after Puppet propagation restart S3 Service and CMC</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="admin_auth_pass"></a>admin_auth_pass</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Default password that you will supply in HTTP requests to the Admin Service for purposes of HTTP Basic Authentication. Specify as a comma-separated pair of "&lt;Jetty_obfuscated_password&gt;,&lt;cleartext_version_of_password&gt;". For information about creating a Jetty-obfuscated password, see the description of the admin_realm.properties file [XREF].</p>
+                        <p>Relevant only if <em>admin_auth_enabled</em> is set to<em> true</em>.</p>
+                        <p>Default = "1uvg1x1n1tv91tvt1x0z1uuq,public"</p>
+                        <p>To apply change, after Puppet propagation restart S3 Service and CMC</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="admin_auth_realm"></a>admin_auth_realm</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Realm name used by the Admin Service for purposes of HTTP Basic Authentication. Relevant only if <em>admin_auth_enabled</em> is set to <em>true</em>.</p>
+                        <p>Default = CloudianAdmin</p>
+                        <p>To apply change, after Puppet propagation restart S3 Service and CMC</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="admin_auth_enabled"></a>admin_auth_enabled</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Whether to have the Admin Service use HTTP Basic Authentication and require clients to supply a username and password when making a request. Set to true to enable HTTP Basic Authentication or false to disable it.</p>
+                        <p>Default = false</p>
+                        <p>To apply change, after Puppet propagation restart S3 Service</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>REDIS Section</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="redis_credentials_master_host"></a>redis_credentials_master_host</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>The master node within the Redis Credentials database cluster. There must be only one Redis Credentials master node across your entire global HyperStore S3 service, even if you have multiple datacenters and/or multiple regions. The master Redis Credentials node must be one of the nodes from your <em>redis_credentials_cluster_hosts</em> list.</p>
+                        <p>Default = Set during installation based on operator input</p>
+                        <p>For instructions on moving the Redis Credentials master, see Move the Redis Credentials or QoS Master Role to One of the Slaves [XREF].</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="redis_credentials_master_port"></a>redis_credentials_master_port</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Port on which the Redis Credentials master node listens for data storage requests from clients. The Redis Credentials slave nodes will listen on this port as well.</p>
+                        <p>Default = 6379</p>
+                        <p>To apply change, after Puppet propagation restart Redis Credentials, S3 Service, and HyperStore Service</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="redis_credentials_cluster_hosts"></a>redis_credentials_cluster_hosts</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Comma-separated list of all Redis Credentials database hosts in your <b>entire HyperStore system</b> (all Redis Credentials hosts across all datacenters and all service regions). Include the listening port also, so each host is specified as &lt;host&gt;:&lt;port&gt;. You only need to customize the hostname values; you can leave the port values at the default value, 6379.</p>
+                        <p>Default = Set during installation based on operator input</p>
+                        <p>For instructions on moving or adding a Redis Credentials slave, see Move or Add a Redis Credentials Slave [XREF].</p>
+                        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">	If the master node from the Redis Credentials cluster goes down, the Redis Monitor scans the list of Redis Credentials nodes configured by <em>redis_credentials_cluster_hosts</em>, starting at the beginning of the list, and promotes the first available (live) slave node to the master role.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="redis_qos_master_port"></a>redis_qos_master_port</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Port on which the Redis QoS master node listens for data storage requests from clients. The Redis QoS slave nodes will listen on this port as well.</p>
+                        <p>Default = 6380</p>
+                        <p>To apply change, after Puppet propagation restart Redis QoS, S3 Service, and HyperStore Service</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="redis_monitor_listener_port"></a>redis_monitor_listener_port</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Port on which the Redis Monitor can be queried for information about the Redis cluster state, via the Redis Monitor CLI.</p>
+                        <p>Default = 9078</p>
+                        <p>To apply change, after Puppet propagation restart Redis Monitor Service</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="redis_lib_directory"></a>redis_lib_directory</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Directory in which to store Redis data files.</p>
+                        <p>Default = /var/lib/redis</p>
+                        <p>If you want to change this for a HyperStore system that’s already in operation, consult with Cloudian Support.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="redis_log_directory"></a>redis_log_directory</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Directory in which to store Redis log files.</p>
+                        <p>Default = /var/log/redis</p>
+                        <p>To apply change, after Puppet propagation restart Redis Credentials and Redis QoS</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>REDISMON Section</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="redis_monitor_primary_host"></a>redis_monitor_primary_host </MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>The host on which the primary Redis Monitor [XREF] instance is running.</p>
+                        <p>If the host has multiple network interfaces, you must specify the IP address of the interface that you want to use for this role, rather than a hostname. Specify an actual IP address, not an IP address alias.</p>
+                        <p>Default = Set during installation based on operator input</p>
+                        <p>For instructions on changing the Redis Monitor host, see Move the Redis Monitor Primary or the Redis Monitor Backup [XREF].</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="redis_monitor_backup_host"></a>redis_monitor_backup_host</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>The host on which the backup Redis Monitor is running.</p>
+                        <p>If the host has multiple network interfaces, you must specify the IP address of the interface that you want to use for this role, rather than a hostname. Specify an actual IP address, not an IP address alias.</p>
+                        <p>Default = Set during installation based on operator input</p>
+                        <p>For instructions on changing the Redis Monitor host, see Move the Redis Monitor Primary or the Redis Monitor Backup [XREF].</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="redis_monitor_listener_host"></a>redis_monitor_listener_host</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>The IP interface on which the Redis Monitor listens for requests from Redis Monitor CLI clients. <b>Specify this as an IP address alias</b>. Puppet will use the alias to determine the actual IP address for each node.</p>
+                        <p>Options are %{::ipaddress}, %{::ipaddress_eth#}, %{::ipaddress_lo}, or %{::ipaddress_bind#}</p>
+                        <p>Default = %{::ipaddress}</p>
+                        <p>To apply change, after Puppet propagation restart Redis Monitor Service</p>
+                        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">If the host has multiple network interfaces, you must specify the IP address alias for the interface that you want to use for this role (for example, %{::ipaddress_eth1}). Specify an IP address alias, not an actual IP address.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>CASSANDRA Section</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra_max_heap_size"></a>cassandra_max_heap_size</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Max Heap size setting (memory allocation) for the Cassandra application. If this setting is assigned a value in <em>common.csv</em>, this value will be used for <em>MAX_HEAP_SIZE</em> in <em>cassandra-env.sh</em>. By default the <em>cassandra_max_heap_size</em> setting in <em>common.csv</em> is commented out and not used. Instead, the default behavior for Cloudian HyperStore is for <em>MAX_HEAP_SIZE</em> in <em>cassandra-env.sh</em> to be automatically set based on the host’s RAM size, and for <em>HEAP_NEWSIZE</em> in <em>cassandra-env.sh</em> to be set to one-half of <em>MAX_HEAP_SIZE</em>.</p>
+                        <p>If you uncomment this setting and assign it a value you must also uncomment and set <em>cassandra_heap_newsize</em>.</p>
+                        <p>Default = commented out and unused</p>
+                        <p>To apply change, after Puppet propagation restart Cassandra Service</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra_heap_newsize"></a>cassandra_heap_newsize</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>New Heap size setting for the Cassandra application. This is the heap size specifically for "young generation" objects. If this is set, the value will be used for <em>HEAP_NEWSIZE</em> in <em>cassandra-env.sh</em>.</p>
+                        <p>If you uncomment this setting and assign it a value, Cloudian, Inc. recommends setting it to one-half of <em>cassandra_max_heap_size</em>.</p>
+                        <p>Default = commented out and unused</p>
+                        <p>To apply change, after Puppet propagation restart Cassandra Service</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra_enable_gc_logging"></a>cassandra_enable_gc_logging</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Enable Java garbage collection (GC) logging for Cassandra. The log is written to <em>/var/log/cassandra/gc.log</em>.</p>
+                        <p>Default = true</p>
+                        <p>To apply change, after Puppet propagation restart Cassandra Service</p>
+                        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"> 	GC logging is also enabled for the S3 Service, Admin Service, and HyperStore Service. These GC logs are under <em>/var/log/cloudian</em> and are named <em>s3-gc.log</em>, <em>admin-gc.log</em>, and<em> hss-gc.log</em>, respectively.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra_heapdump_on_oomemerr"></a>cassandra_heapdump_on_oomemerr</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Whether to enable Java heap dump on a Cassandra application out-of-memory error. Set to "false" to disable heap dumps on out-of-memory errors. This removes the JVM_OPTS -XX:+HeapDumpOnOutOfMemoryError option from <em>cassandra-env.sh</em>.</p>
+                        <p>Default = false</p>
+                        <p>To apply change, after Puppet propagation restart Cassandra Service</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra_lib_directory"></a>cassandra_lib_directory</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Directory in which to store Cassandra application state data.</p>
+                        <p>Default = /var/lib/cassandra</p>
+                        <p>If you want to change this for a HyperStore system that’s already in operation, consult with Cloudian Support.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra_log_directory"></a>cassandra_log_directory</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Directory in which to store Cassandra application log files.</p>
+                        <p>Default = /var/log/cassandra</p>
+                        <p>To apply change, after Puppet propagation restart Cassandra Service</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra_saved_cache_directory"></a>cassandra_saved_cache_directory</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Directory in which to store the Cassandra saved_caches file.</p>
+                        <p>Default = /var/lib/cassandra</p>
+                        <p>If you want to change this for a HyperStore system that’s already in operation, consult with Cloudian Support.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra_commit_log_directory"></a>cassandra_commit_log_directory</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Directory in which to store the Cassandra commitlog file.</p>
+                        <p>Default = Set during installation based on operator input, if host has multiple disks. For hosts with only one disk, default is /var/lib/cassandra_commit</p>
+                        <p>If you want to change this for a HyperStore system that’s already in operation, consult with Cloudian Support.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra_data_directory"></a>cassandra_data_directory</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Directory in which to store Cassandra data files. By default, Cassandra is used only for storing S3 object metadata and service-supporting data such as account information, usage data, and system monitoring data.</p>
+                        <p>Specify only one directory, not multiple directories.</p>
+                        <p>Default = Set during installation based on operator input, if host has multiple disks. For hosts with only one disk, default is /var/lib/cassandra/data</p>
+                        <p>If you want to change this for a HyperStore system that’s already in operation, consult with Cloudian Support.</p>
+                        <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">The Cassandra data directory should <b>not</b> be mounted on a shared file system such as NFS.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra_port"></a>cassandra_port</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Port on which Cassandra listens for data operations requests from clients.</p>
+                        <p>Default = 9160</p>
+                        <p>To apply change, after Puppet propagation restart Cassandra Service</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra_listen_address"></a>cassandra_listen_address</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>For each Cassandra node, the IP interface on which the node will listen for cluster management communications from other Cassandra nodes in the cluster. <b>Specify this as an IP address alias</b>. Puppet will use the alias to determine the actual IP address for each node.</p>
+                        <p>Options are %{::ipaddress}, %{::ipaddress_eth#}, %{::ipaddress_lo}, or %{::ipaddress_bind#}</p>
+                        <p>Default = %{::ipaddress}</p>
+                        <p>To apply change, after Puppet propagation restart Cassandra Service</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra_rpc_address"></a>cassandra_rpc_address</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>For each Cassandra node, the IP interface on which the node will listen for data operations requests from clients, via Thrift RPC. <b>Specify this as an IP address alias</b>. Puppet will use the alias to determine the actual IP address for each node.</p>
+                        <p>Options are %{::ipaddress}, %{::ipaddress_eth#}, %{::ipaddress_lo}, or %{::ipaddress_bind#}</p>
+                        <p>If desired, this can be the same IP address alias as used for<em> cassandra_listen_address</em>.</p>
+                        <p>Default = %{::ipaddress}</p>
+                        <p>If you want to change this for a HyperStore system that’s already in operation, consult with Cloudian Support.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra_default_node_datacenter"></a>cassandra_default_node_datacenter</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>This instance of this setting is not used. Instead, the instance of cassandra_default_node_datacenter in region.csv [XREF] is used.</p>
+                        <p>Default = commented out</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cassandra_num_tokens"></a>cassandra_num_tokens</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>The number of storage ring tokens to assign to each host machine. Each token on the host machine constitutes a "virtual node" (vNode) within the storage token ring that encompasses all of the hosts on which you are running Cassandra and the HyperStore Service. This token ring is used to determine the hosts on which to store and replicate each S3 object, based on a consistent hashing scheme. The Cassandra, HSFS replication, and erasure coding storage layers all utilize the same token ring. For more information on HyperStore vNodes, see HyperStore vNodes [XREF].</p>
+                        <p>Maximum allowed value is 256.</p>
+                        <p>During installation (using the <em>cloudianInstall.sh</em> script), the value of this configuration property is automatically set to 8 X the number of HyperStore data mount points [XREF] on the host, but no less than 32 and no more than 256. For example:</p>
+                        <ul>
+                            <li>1 mount point → 32 tokens assigned to host</li>
+                            <li>2 mount points → 32 tokens assigned to host</li>
+                            <li>3 mount points → 32 tokens assigned to host</li>
+                            <li>4 mount points → 32 tokens assigned to host</li>
+                            <li>5 mount points → 40 tokens assigned to host</li>
+                            <li>6 mount points → 48 tokens assigned to host</li>
+                            <li>10 mount points → 80 tokens assigned to host</li>
+                            <li>32 mount points → 256 tokens assigned to host</li>
+                            <li>33 mount points → 256 tokens assigned to host</li>
+                            <li>40 mount points → 256 tokens assigned to host</li>
+                        </ul>
+                        <p>The virtual nodes assigned to a host will be allocated across the host’s HyperStore mount points in a manner that gives each mount point an approximately equal <b>total token range</b>. So, while the total number of vNodes allocated to a host will be 8 X the number of mount points (within the bounds stated above), there will not necessarily be 8 vNodes assigned to each mount point. For example some mount points may have 7 vNodes while others have 9, depending on the token range sizes associated with the individual vNodes. What will be approximately equal is the aggregate token range size allocated to each mount point.</p>
+                        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">Each individual vNode is associated with a token range of a particular size — that is, the numerical range (the delta) between that vNode’s token number and the next-lower token number from among all the tokens in the cluster. The variance in the token range size associated with individual vNodes comes from the fact that Cassandra randomly generates tokens, within an integer token space ranging from 0 to 2127-1.</p>
+                        <p>Default = Set during installation based on operator input regarding the number of mount points.</p>
+                        <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">Do not edit this setting manually. Do not change it before the installation or after your cluster is in operation.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>CMC Section</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="admin_whitelist_enabled"></a>admin_whitelist_enabled</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Whether to enable the billing "whitelist" feature that allows favorable billing terms for a specified list of source IP addresses or subnets. If this feature is enabled, whitelist management functionality displays in the CMC. This functionality is available only to HyperStore system administrators, not to group admins or regular users.</p>
+                        <p>Default = true</p>
+                        <p>To apply change, after Puppet propagation restart S3 Service and CMC</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cmc_log_directory"></a>cmc_log_directory</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Directory in which to store CMC application logs.</p>
+                        <p>Default = /var/log/cloudian</p>
+                        <p>To apply change, after Puppet propagation restart CMC</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cmc_admin_host_ip"></a>cmc_admin_host_ip</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Fully qualified domain name for the Admin Service. The CMC connects to this service.</p>
+                        <p>If you have multiple service regions for your HyperStore system, this FQDN must be the one for the Admin Service in your default service region.</p>
+                        <p>Default = Set during installation based on operator input.</p>
+                        <p>To apply change, after Puppet propagation restart CMC.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cmc_cloudian_admin_user"></a>cmc_cloudian_admin_user</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>For the CMC, the login user name of the default system admin user. The system admin will use this user name to log into the CMC.</p>
+                        <p>Default = admin</p>
+                        <p>This cannot be changed through configuration.</p>
+                        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">The default password for the default CMC system admin user is "public". You can change this password when you are logged into the CMC as the default admin user. Hold your cursor over the user name that displays in the upper right of the screen (by default, "Admin"), then select the <b>Security Credentials</b> option and change the password.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cmc_domain"></a>cmc_domain</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Fully qualified domain name for the CMC. This FQDN must be resolvable for CMC clients.</p>
+                        <p>Default = Set during installation based on operator input.</p>
+                        <p>To change this, use the HyperStore installer’s Advanced Installation Configuration Options [XREF].</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cmc_web_secure"></a>cmc_web_secure</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Whether the CMC should require HTTPS for all client connections, true or false.</p>
+                        <p>Set this property to "true" to require HTTPS. In this mode of operation, requests incoming to the CMC’s regular HTTP port will be redirected to the CMC’s HTTPS port.</p>
+                        <p>Set this property to "false" to allow clients to connect through regular HTTP. In this mode of operation, requests incoming to the CMC’s HTTPS port will be redirected to the CMC’s regular HTTP port.</p>
+                        <p>Default = true</p>
+                        <p>To apply change, after Puppet propagation restart CMC.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cmc_http_port"></a>cmc_http_port</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Port on which the CMC listens for regular HTTP requests.</p>
+                        <p>Default = 8888</p>
+                        <p>To apply change, after Puppet propagation restart CMC.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cmc_https_port"></a>cmc_https_port</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Port on which the CMC listens for HTTPS requests.</p>
+                        <p>Default = 8443</p>
+                        <p>To apply change, after Puppet propagation restart CMC.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cmc_admin_secure_port"></a>cmc_admin_secure_port</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Port on which the Admin Service listens for HTTPS requests. The CMC submits subscriber payment information requests to this secure port, if you use the payment information feature.</p>
+                        <p>Default = 19443</p>
+                        <p>To apply change, after Puppet propagation restart CMC.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cmc_admin_secure_ssl"></a>cmc_admin_secure_ssl</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Set to "true" to require that the Admin Service’s certificate be CA validated.</p>
+                        <p>Set to "false" to allow the Admin Service’s certificate to be self-signed.</p>
+                        <p>Default = false</p>
+                        <p>To apply change, after Puppet propagation restart CMC.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="cmc_application_name"></a>cmc_application_name</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Name of the CMC web application, to be displayed in the URL path for the application. By default, the CMC’s URL paths are in the form</p>
+                        <p><em>https://&lt;host&gt;:&lt;port&gt;/Cloudian/&lt;page&gt;.htm</em>.</p>
+                        <p>Default = Cloudian</p>
+                        <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">In the current release the CMC application name cannot be customized. It must be left at "Cloudian".</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>DNSMASQ Section</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="dnsmasq_network_interface"></a>dnsmasq_network_interface</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Network interface used by the Dnsmasq [XREF], a lightweight domain utility that you can optionally have installed during HyperStore system installation.</p>
+                        <p>Default = eth0</p>
+                        <p>To apply change, after Puppet propagation restart Dnsmasq.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot><a name="dnsmasq_cmc_domain_ip"></a>dnsmasq_cmc_domain_ip</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>IP address of CMC service. This setting is used for configuration of Dnsmasq.</p>
+                        <p>Default = %{::ipaddress}</p>
+                        <p>To apply change, after Puppet propagation restart Dnsmasq.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

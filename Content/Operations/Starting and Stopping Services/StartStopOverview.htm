@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="373" MadCap:lastWidth="841">
+    <head>
+    </head>
+    <body>
+        <h1>Starting and Stopping Services</h1>
+        <p>You have two options for starting, restarting, and stopping Cloudian HyperStore services:</p>
+        <ul>
+            <li>
+                <MadCap:xref href="StartStopCluster.htm">Start or Stop a Service on All Nodes</MadCap:xref> (using the HyperStore installer)</li>
+            <li>
+                <MadCap:xref href="StartStopNode.htm">Start or Stop a Service on One Node</MadCap:xref> (using an <em>init.d</em> script)</li>
+        </ul>
+        <p><b>By default all of the HyperStore services on a host are configured to automatically start when the host is booted up</b> (the configuration setting is common.csv: service_starts_on_boot, which defaults to "true" [XREF]). This includes <em>dnsmasq</em> if it was included in your HyperStore software installation.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><em>ntpd</em> is configured to automatically start on host boot-up. However, it’s recommended that after booting a HyperStore host, you verify that <em>ntpd</em> is running (which you can do with the <em>ntpq -p</em> command — if <em>ntpd</em> is running this command will return a list of connected time servers).</p>
+    </body>
+</html>

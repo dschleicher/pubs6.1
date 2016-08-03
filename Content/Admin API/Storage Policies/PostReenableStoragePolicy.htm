@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="10" MadCap:lastHeight="1261" MadCap:lastWidth="837">
+    <head>
+    </head>
+    <body>
+        <h1>POST (Re-Enable) Storage Policy</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Admin API Method]</p>
+        <p>Use this Admin API method to re-enable a storage policy that you had previously disabled (with the <MadCap:xref href="DeleteDisableStoragePolicy.htm">DELETE (Disable) Storage Policy</MadCap:xref> method). When you re-enable a storage policy, the policy once again becomes available for service users to assign to newly created buckets.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Request Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Syntax</h4><pre xml:space="preserve">POST /bppolicy/enable?policyId=xxx</pre>
+                <h4>Query Parameters</h4>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>policyId</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Mandatory, string) System-generated unique identifier of the policy that is being re-enabled. Note that this is not the policy name (which is set by the administrator who created the policy) but rather the unique policy ID that the system generated upon policy creation.</p>
+                            <p>If you’re not sure what the policy’s policyId is you can retrieve it by using the <MadCap:xref href="GetStoragePolicyList.htm">GET Storage Policy List</MadCap:xref> method. That method returns a list of existing policies and their attributes, including each policy’s policyId.</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <h4>Request Payload</h4>
+                <p>None.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Response Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Response Status</h4>
+                <p>In addition to the <MadCap:xref href="../CommonStatusCodes.htm" target="_popup">Common Status Codes</MadCap:xref>, this method may return these codes:</p>
+                <table style="border-collapse: separate;border-top-left-radius: 0px;border-top-right-radius: 0px;border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;width: 100%;">
+                    <col style="width: 115px;">
+                    </col>
+                    <col style="width: 629px;">
+                    </col>
+                    <thead>
+                        <tr>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Status Code</th>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                            <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;">Missing policyId</td>
+                        </tr>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">403</td>
+                            <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;"> 	
+
+Can’t update non DISABLED policy</td>
+                        </tr>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">404</td>
+                            <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;">Policy does not exist</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4>Response Payload</h4>
+                <p>Updated <MadCap:xref href="../Data Objects/BucketProtectionPolicy.htm">BucketProtectionPolicy</MadCap:xref> JSON object, with the "status" attribute set back to "ACTIVE".</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Example</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>In this example a storage policy that had previously been disabled is successfully re-enabled. Note that in the request body the status of the policy is "DISABLED", whereas in the response body the status has been updated to "ACTIVE".</p><pre xml:space="preserve"># Request -&gt;
+
+POST http://10.50.10.16:18081/bppolicy/enable?policyId=38a302c3a67d548a4734755915973eb6
+
+# Response -&gt;
+
+Status Code: 200 OK
+Content-Length: 437
+Content-Type: application/json
+Date: Fri, 27 Nov 2015 13:38:28 GMT
+{"status":"ACTIVE","replicationScheme":{"DC1":"1"},"systemDefault":false,"groups":[],
+"policyId":"38a302c3a67d548a4734755915973eb6","policyName":"TestPolicy","ecscheme":null,
+"defaultProtectionScheme":"HSFS","consistencyLevel":{"read":["QUORUM"],"write":["QUORUM"],
+"writeNew":["QUORUM"],"metadataR":["QUORUM"],"metadataW":["QUORUM"],"readEC":["EACH_QUORUM"],
+"writeEC":["LOCAL_QUORUM"]},"policyDescription":"Test Policy","region":"region1"}</pre>
+                <p>For more information about BucketProtectionPolicy object attributes, see <MadCap:xref href="../Data Objects/BucketProtectionPolicy.htm">BucketProtectionPolicy</MadCap:xref>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

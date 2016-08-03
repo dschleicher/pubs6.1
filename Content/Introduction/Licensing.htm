@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="792" MadCap:lastWidth="841">
+    <head>
+    </head>
+    <body>
+        <h1>Licensing and Auditing</h1>
+        <p>A valid Cloudian software license is required to run HyperStore software. Evaluation licenses are available as well as production licenses. Before using HyperStore software, you must obtain a license from <em>support@cloudian.com </em>or from your Cloudian sales representative.</p>
+        <h2>License Expiration</h2>
+        <p>When you reach the <b>warning period</b> preceding your license expiration, then in the Cloudian Management Console (CMC), the top of the console displays a warning that the expiration date is approaching.</p>
+        <p>When you reach your license <b>expiration date</b> you enter a grace period, per the terms of your contract. During the grace period:</p>
+        <ul>
+            <li>In the CMC, the top of the console screen displays a warning indicating that your license has expired.</li>
+            <li>Every S3 response returned by the S3 Server includes an expiry HTTP response header (name: <em>x-gemini-license</em>; value: <em>Expired: &lt;expiry_time&gt;</em>)</li>
+        </ul>
+        <p>When you reach the <b>end of your grace period</b> after the license expiration date:</p>
+        <ul>
+            <li>No service is available for end users. All incoming S3 requests receive a "503 Service Unavailable" error response. The response also includes the expiry header described above.</li>
+            <li>You can still log into the CMC to perform system administration functions (including applying an updated license), but you will not be able to access users' stored S3 objects.</li>
+        </ul>
+        <h2>License Updating</h2>
+        <p>You may need to update your license periodically, depending on the specific terms of your Cloudian license agreement. Updating your license requires obtaining a new license file from Cloudian and applying that file on all of your HyperStore nodes.</p>
+        <p>You can use the CMC to dynamically apply a new license file to your HyperStore system. In the CMC, go to the <b>Cluster Information</b> page to install a new license file.</p>
+        <h2>Auditing</h2>
+        <p>If you have a production license for HyperStore software, the system will regularly transmit auditing data to Cloudian, Inc., using the system’s "Phone Home" functionality (also known as "Smart Support").</p>
+    </body>
+</html>

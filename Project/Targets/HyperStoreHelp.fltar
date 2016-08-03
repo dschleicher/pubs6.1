@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CatapultTarget
+  Version="2"
+  Comment="HTML5 Output"
+  Type="WebHelp2"
+  Destinations=""
+  GlossaryTermConversion="all"
+  DefaultUrl="/Content/Introduction/Welcome.htm"
+  MasterToc="/Project/TOCs/OnlineOutput.fltoc"
+  ConditionTagExpression="include[General.Online] exclude[General.PDF] "
+  InsertMOTW="true"
+  EnableSitemap="false"
+  IncludeStopWords="true"
+  GenerateWebSafeImages="true"
+  WebSafeFileExtension="png"
+  MasterPage="/Content/Resources/MasterPages/MasterPage.flmsp"
+  Skin="/Project/Skins/HTML5 - Tripane.flskn"
+  OutputFile="HyperStoreHelp.htm"
+  ResultsPerPage="5">
+  <Destinations>
+    <Destination
+      Link="/Project/Destinations/Github.fldes" />
+  </Destinations>
+  <Variables>
+    <Variable
+      Name="General/VersionNumber">6.1</Variable>
+  </Variables>
+</CatapultTarget>

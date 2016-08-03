@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="7" MadCap:lastHeight="893" MadCap:lastWidth="814">
+    <head>
+    </head>
+    <body>
+        <h1>BillItem</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Admin API Object]</p>
+        <p>A list of BillItem objects is nested within the <MadCap:xref href="RegionBill.htm">RegionBill</MadCap:xref> object.</p>
+        <p>The BillItem object consists of the following attributes:</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>item</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(string) Usage type being billed for. Types are "SB" (storage bytes), "BI" (bytes in), "BO" (bytes out), "HG" (HTTP GETs), "HP" (HTTP PUTs), "HD" (HTTP DELETEs).</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>quantity</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(number) Usage quantity during billing period. Usage quantity metrics depend on the usage type:</p>
+                    <ul>
+                        <li>For storage bytes (SB), the metric is GB-Month (average number of GBs of data stored for the billing month). This is calculated by summing the month’s hourly readings of stored bytes, converting to GB, then dividing by the number of hours in the month.</li>
+                        <li>For data transfer bytes in (BI) or out (BO), the metric is number of bytes.</li>
+                        <li>For HTTP GETs (HG), PUTs (HP), or DELETEs (HD), the metric is number of multiples of 10,000 requests. For example, if usage type is HG and quantity is 7.50, that means 75,000 HTTP GET requests.</li>
+                    </ul>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>rules</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(string) Specification of billing rules for this usage type (from the user’s assigned rating plan).</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>subtotal</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(&#160;number) Total billing charge for the particular usage type specified by the "item" attribute. This will be in units of the currency specified by the "currency" attribute of the <MadCap:xref href="RegionBill.htm">RegionBill</MadCap:xref> object that contains this BillItem object. It’s labelled as "subtotal" because it will be added together with subtotals for other usage types (from other BillItem object instances within the RegionBill object, if any) to compute the "total" attribute for the encompassing RegionBill instance.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <h2>Example</h2>
+        <p>This is an example of a BillItem object. The usage type is storage bytes, and the usage quantity during the billing period was 108 GB-months (that is, the user’s storage bytes volume average 108GBs over the course of the month). The "rules" attribute indicates that the user’s rating plan is such that the first 1 GB-month is charged at $0.14, the next 5 GB-months is charged at $0.12, and any GB-months above that are charged at $0.10. Applying this rule to the user’s 108 GB-months for the billing period, a charge of $10.94 is due for storage byte volume used.</p><pre xml:space="preserve">{"item":"SB","rules":"1, 0.14:5, 0.12:0,0.10","quantity":108.00,"subtotal":10.94}</pre>
+    </body>
+</html>

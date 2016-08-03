@@ -1,0 +1,414 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="7" MadCap:lastHeight="4100" MadCap:lastWidth="900">
+    <head>
+    </head>
+    <body>
+        <h1>MonitorNodeInfo</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Admin API Object]</p>
+        <p>The MonitorNodeInfo object is returned as the <b>response payload</b> for this Admin API operation:</p>
+        <ul>
+            <li>
+                <MadCap:xref href="../System Monitoring/GetMonitoringDataForNode.htm">GET Monitoring Data for Node</MadCap:xref>
+            </li>
+        </ul>
+        <p>The MonitorNodeInfo object consists of the attributes below.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">Within the MonitorNodeInfo object, all statistics of type MonitorStat are formatted as <br /><em>"&lt;statName&gt;":{"timestamp":"&lt;UTCMilliseconds&gt;","value":"&lt;statValue&gt;"}</em>.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>adminHeapMax</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(MonitorStat) The maximum JVM heap size allocated to the Admin Service.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>adminHeapUsed</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(MonitorStat) The Admin Service’s current JVM heap memory usage on the node.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>cassCMSGCCount</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(MonitorStat) The number of concurrent mark-sweep (CMS) garbage collections executed since the last start-up of the Cassandra service on this node. This collection type targets old-generation objects.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>cassCMSGCTime</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(MonitorStat) The aggregate time (in milliseconds) spent on executing CMC garbage collections since the last start-up of the Cassandra service on this node.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>cassCopyGCCount</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(MonitorStat) The number of Copy garbage collections executed since the last start-up of the Cassandra service on this node.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>cassCopyGCTime</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(MonitorStat) The aggregate time (in milliseconds) spent on executing Copy garbage collections since the last start-up of the Cassandra service on this node.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>cassHeapMax</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(MonitorStat) The maximum JVM heap size allocated to the Cassandra Service.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>cassHeapUsed</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(MonitorStat) The Cassandra Service’s current JVM heap memory usage on the node.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>cassParNewGCCount</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(MonitorStat) The number of parallel new-generation (ParNew) garbage collections executed since the last start-up of the Cassandra service on this node.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>cassParNewGCTime</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(MonitorStat) The aggregate time (in milliseconds) spent on executing ParNew garbage collections since the last start-up of the Cassandra service on this node.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>cpu</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(MonitorStat) Current CPU utilization on the node.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>diskAvailKb</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(MonitorStat) On the node, the total mounted disk space remaining still available for Cassandra data directory or HyperStore data directory storage. A disk’s "reserved-blocks-percentage" (the portion of the disk that’s reserved for privileged processes) does not count as available space.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>disksInfo</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(DiskMonitorStat) Current information about the disks on the node. Formatted as {"timestamp":"&lt;UTCMilliseconds&gt;","disks":List&lt;<MadCap:xref href="DiskInfo.htm">DiskInfo</MadCap:xref>&gt;}.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>diskIORead</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(MonitorStat) Across all the node’s disks that are being used for Cassandra and HyperStore data directories, the average disk read throughput in bytes per second. This stat is recalculated each minute, based on the most recent minute of data.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>diskIOWrite</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(MonitorStat) Across all the node’s disks that are being used for Cassandra and HyperStore data directories, the average disk write throughput in bytes per second. This stat is recalculated each minute, based on the most recent minute of data.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>diskTotalKb</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(MonitorStat) On the node, the total size of the disks mounted for Cassandra data directories or HyperStore data directories (the HyperStore File System [HSFS] and erasure coding file system). This stat does not include other any other disks on your HyperStore hosts — such as those that are being used only for the OS or application files, for example.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>ioRx</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(MonitorStat) The aggregate network bytes per second received by the node, for all types of network traffic including but not limited to S3 request traffic. This stat is recalculated each minute, based on the most recent minute of data.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>ioTx</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(MonitorStat) &#160;The aggregate network bytes per second transmitted by the node, for all types of network traffic including but not limited to S3 request traffic. This stat is recalculated each minute, based on the most recent minute of data.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>hyperStoreHeapMax</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(MonitorStat) The maximum JVM heap size allocated to the HyperStore Service.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>hyperStoreHeapUsed</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(MonitorStat) The HyperStore Service’s current JVM heap memory usage on the node.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>s3GetLatency</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(MonitorStat) On the node, the average latency for completing S3 GET transactions, in milliseconds. This stat is recalculated each five minutes, based on the most recent five minutes of transaction data. HEAD transactions are counted toward this stat also.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>s3GetThruput</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(MonitorStat) On the node, the data throughput for S3 GET transactions, expressed as MB per second. This stat is recalculated each five minutes, based on the most recent five minutes of transaction data. HEAD transactions are counted toward this stat also.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>s3GetTPS</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(MonitorStat) On the node, the number of S3 GET transactions processed per second. This stat is recalculated each five minutes, based on the most recent five minutes of transaction data. HEAD transactions are counted toward this stat also.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>s3HeapMax</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(MonitorStat) The maximum JVM heap size allocated to the S3 Service.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>s3HeapUsed</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(MonitorStat) The S3 Service’s current JVM heap memory usage on the node.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>s3PutLatency</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(MonitorStat) On the node, the average latency for completing S3 PUT transactions, in milliseconds. This stat is recalculated each five minutes, based on the most recent five minutes of transaction data. POST transactions are counted toward this stat also.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>s3PutThruput</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(MonitorStat) On the node, the data throughput for S3 PUT transactions, expressed as MB per second. This stat is recalculated each five minutes, based on the most recent five minutes of transaction data. POST transactions are counted toward this stat also.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>s3PutTPS</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(MonitorStat) On the node, the number of S3 PUT transactions processed per second. This stat is recalculated each five minutes, based on the most recent five minutes of transaction data. POST transactions are counted toward this stat also.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>status</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(ServiceStatus) xStatus of the node. Formatted as {"ipaddr":"&lt;empty&gt;", "status":[&lt;list of one or more of "OK","SVC_DOWN","LOG_WARN", or "LOG_ERR"&gt;],"value":"&lt;sameAsStatus&gt;", "timestamp":"&lt;UTCMilliseconds&gt;"}.</p>
+                    <p>The "ipaddr" value will be empty or null here; an IP address is specified only in the service-specific status attributes (such as "svcCassandra") described toward the bottom of this table.</p>
+                    <p>Possible values within the "status" list are:</p>
+                    <ul>
+                        <li>"OK" — All HyperStore services are up and running on the node, and the node has no unacknowledged events.</li>
+                        <li>"SVC_DOWN" — One or more HyperStore services (Admin, Cassandra, HyperStore, Redis QoS, Redis Credentials, Redis Monitor, or S3) is down on the node</li>
+                        <li>"LOG_WARN" — There are unacknowledged warnings in an application log on the node (such as the S3 Service application log or the Cassandra application log).</li>
+                        <li>"LOG_ERR" — There are unacknowledged errors in an application service log.</li>
+                    </ul>
+                    <p>The "value" attribute will be identical to the "status" attribute, except formatted as a single string rather than a list of strings. For example:</p><pre>"status":["SVC_DOWN","LOG_WARN"],"value":"[SVC_DOWN, LOG_WARN]"</pre>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>svcAdmin</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(ServiceStatus) Admin service status.  Formatted as {"ipaddr":"&lt;nodeIPAdress&gt;","status":[&lt;list of one or more of "OK","SVC_DOWN", "LOG_WARN", or "LOG_ERR"&gt;],"value":"&lt;statusValueFormattedAsString&gt;","timestamp":"&lt;UTCMilliseconds&gt;"}. The other service status attributes that follow below  (svcCassandra and so on) are formatted in the same way.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>svcCassandra</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(ServiceStatus) Cassandra service status.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>svcHyperstore</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(ServiceStatus) HyperStore service status.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>svcRedisCred</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(ServiceStatus) Redis Credentials service status.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>svcRedisMon</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(ServiceStatus) Redis Monitor service status.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>svcRedisQos</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(ServiceStatus) Redis QoS service status.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>svcS3</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(ServiceStatus) S3 service status.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <h2>Example</h2>
+        <p>This is an example of a MonitorNodeInfo object. As shown by the "disksInfo" attribute, this node has only one disk.</p><pre xml:space="preserve">{"s3PutThruput":{"timestamp":"1443610745462","value":"0"},"s3GetThruput":{"timestamp":
+"1443610745462","value":"0"},"s3GetLatency":{"timestamp":"1443610745462","value":"0.0"},
+"s3PutLatency":{"timestamp":"1443610745462","value":"0.0"},"s3GetTPS":{"timestamp":"1443610745462",
+"value":"0.0"},"s3PutTPS":{"timestamp":"1443610745462","value":"0.0"},"cpu":{"timestamp":
+"1443610745462","value":"0.20"},"ioRx":{"timestamp":"1443610745462","value":"12992"},"adminHeapMax":
+{"timestamp":"1443610686019","value":"543948800"},"adminHeapUsed":{"timestamp":"1443610686019",
+"value":"72029632"},"cassHeapMax":{"timestamp":"1443610686019","value":"2649751552"},"cassHeapUsed":
+{"timestamp":"1443610686019","value":"603526712"},"hyperStoreHeapMax":{"timestamp":"1443610686019",
+"value":"1087832064"},"hyperStoreHeapUsed":{"timestamp":"1443610686019","value":"149863232"},
+"s3HeapMax":{"timestamp":"1443610686019","value":"1087832064"},"s3HeapUsed":{"timestamp":
+"1443610686019","value":"142663256"},"cassCMSGCCount":{"timestamp":"1443610686019","value":"1"},
+"cassCMSGCTime":{"timestamp":"1443610686019","value":"514"},"cassCopyGCCount":{"timestamp":
+"1443610745462","value":"2"},"cassParNewGCCount":null,"diskAvailKb":{"timestamp":"1443610686019",
+"value":"61243876"},"diskTotalKb":{"timestamp":"1443610686019","value":"67049088"},"diskIORead":
+{"timestamp":"1443610745462","value":"0"},"diskIOWrite":{"timestamp":"1443610745462","value":
+"12351"},"svcCassandra":{"ipaddr":"192.168.2.16","status":["OK"],"value":"[OK]","timestamp":
+"1443610745462"},"svcRedisQos":{"ipaddr":"192.168.2.16","status":["OK"],"value":"[OK]","timestamp":
+"1443610745462"},"svcRedisCred":{"ipaddr":"192.168.2.16","status":["OK"],"value":"[OK]","timestamp":
+"1443610745462"},"svcHyperstore":{"ipaddr":"192.168.2.16","status":["OK"],"value":"[OK]",
+"timestamp":"1443610745462"},"svcS3":{"ipaddr":"192.168.2.16","status":["OK"],"value":"[OK]",
+"timestamp":"1443610745462"},"svcAdmin":{"ipaddr":"192.168.2.16","status":["OK"],"value":"[OK]",
+"timestamp":"1443610745462"},"svcRedisMon":{"ipaddr":"192.168.2.16","status":["OK"],"value":"[OK]",
+"timestamp":"1443610745462"},"disksInfo":{"timestamp":"1443610745462","disks":[{"mountPoint":"/",
+"diskAvailKb":"61243876","diskTotalKb":"67049088","deviceName":"/dev/mapper/vg0-root","storageUse":
+["CASSANDRA","HS"],"status":"OK"}]},"cassCopyGCTime":{"timestamp":"1443610745462","value":"366"},
+"cassParNewGCTime":null,"ioTx":{"timestamp":"1443610745462","value":"12977"},"status":{"ipaddr":"",
+"status":["OK"],"value":"[OK]","timestamp":"1443610745462"}}</pre>
+    </body>
+</html>

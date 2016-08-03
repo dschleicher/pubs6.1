@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="10" MadCap:lastHeight="1902" MadCap:lastWidth="837">
+    <head>
+    </head>
+    <body>
+        <h1>POST Usage Data Rollup</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Admin API Method]</p>
+        <p>Use this method to trigger the generation of "rollup" (aggregated) service usage data from more granular data. Hourly rollup data is derived from "raw" transactional data. Daily rollup data and monthly rollup data are derived from hourly rollup data.</p>
+        <p>This method does not return the rolled up service usage data in the response, it only generates the rollup data and stores it in the system. To retrieve service usage data use <MadCap:xref href="GetUsageData.htm">GET Usage Data</MadCap:xref>.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">The <em>POST Usage Data Rollup</em> operation is triggered regularly by HyperStore <MadCap:xref href="../../Maintenance/CronJobs.htm#Usage" target="_popup">Usage Data Processing</MadCap:xref> cron jobs. The cron job to create hourly rollup data runs each hour; the cron job to create daily rollup data runs once per day; and the cron job to create monthly rollup data runs once per month.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">The rollup operations act only on usage data in the local service region. In a multi-region system, the rollup operations must be run locally in each region. Consequently, system cron jobs that trigger these operations are configured in each region.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Request Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Syntax</h4><pre xml:space="preserve">POST /usage/rollup?granularity=xxx&amp;startTime=xxx&amp;unitCount=xxx</pre>
+                <h4>Query Parameters</h4>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>granularity</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Mandatory, string) Time period granularity of data to generate. Supported values are:</p>
+                            <ul>
+                                <li><em>hour</em> — Hourly rollup data.</li>
+                                <li><em>day</em>  — Daily rollup data.</li>
+                                <li><em>month</em>  — Monthly rollup data.</li>
+                            </ul>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>startTime</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Mandatory, string) Start time (GMT) of data to rollup.</p>
+                            <ul>
+                                <li>For hourly rollup data use format <em>yyyyMMddHH</em> to specify the time at which to start the rollup.</li>
+                                <li>For daily rollup data use format <em>yyyyMMdd</em> to specify the first day to include in the rollup.</li>
+                                <li>For monthly rollup data use format <em>yyyyMM</em> to specify specify the first month to include in the rollup.</li>
+                            </ul>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>unitCount</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Mandatory, integer) &#160;The number of units of your chosen "granularity" for which to do the rollup (i.e., the number of hours, days, or months for which to generate rollup data). Must be positive integer.</p>
+                            <p>For example, if "granularity" = hour and "unitCount" = 3, then an hourly rollup will be performed for each of the three hours that follow your designated "startTime".</p>
+                            <p>Using a high "unitCount" value can cause <code>POST /usage/rollup</code> to be a time-consuming operation. As an alternative, if for example you want hourly rollups for a large number of hours, you can run a separate<code> POST /usage/rollup</code> call for each hourly rollup, sequentially, with "unitCount" = 1 and the appropriate "startTime" for each hourly rollup.</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <h4>Request Payload</h4>
+                <p>None.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Response Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Response Status</h4>
+                <p>In addition to the <MadCap:xref href="../CommonStatusCodes.htm" target="_popup">Common Status Codes</MadCap:xref>, this method may return these codes:</p>
+                <table style="border-collapse: separate;border-top-left-radius: 0px;border-top-right-radius: 0px;border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;width: 100%;">
+                    <col style="width: 115px;">
+                    </col>
+                    <col style="width: 629px;">
+                    </col>
+                    <thead>
+                        <tr>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Status Code</th>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                            <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;">Missing or invalid parameters</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4>Response Payload</h4>
+                <p>None.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Example</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>In this example an hourly roll-up of service usage data is successfully triggered. The operation rolls up raw data for a one hour period starting at midnight on September 28, 2015.</p><pre xml:space="preserve"># Request -&gt;
+
+POST http://192.168.2.16:18081/usage/rollup?granularity=hour&amp;startTime=2015092800&amp;unitCount=1
+
+# Response -&gt;
+
+Status Code: 200 OK
+Content-Length: 0
+Date: Wed, 30 Sep 2015 14:25:59 GMT</pre>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

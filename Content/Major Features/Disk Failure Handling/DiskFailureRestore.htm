@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="449" MadCap:lastWidth="841">
+    <head>
+    </head>
+    <body>
+        <h1>Bringing a Disk Online</h1>
+        <p>If a disk has been automatically disabled by HyperStore in response to disk failure, you have two options for restoring service on that drive:</p>
+        <ul>
+            <li><b>Re-enable the same disk</b>. You might choose this option if, for example, you know that some cause other than a faulty disk resulted in the drive errors and the automatic disabling of the disk.</li>
+        </ul>
+        <div class="Indent">
+            <p>HyperStore provides a highly automated method for bringing the same disk back online. For instructions see <MadCap:xref href="../../Operations/ReenableDisk.htm">Re-Enabling a Disk</MadCap:xref>.</p>
+        </div>
+        <ul>
+            <li><b>Replace the disk</b>. You would choose this option if you have reason to believe that the disk is bad.</li>
+        </ul>
+        <div class="Indent">
+            <p>HyperStore provides a highly automated method for replacing a disk and restoring data to the new disk. For instructions see <MadCap:xref href="../../Operations/ReplaceDisk.htm">Replacing a Disk</MadCap:xref>.</p>
+        </div>
+        <p>With either of these methods, <b>any tokens that were migrated away from the disabled disk will be automatically migrated back to it (or its replacement)</b>. Object data that was written in association with the affected tokens while the disk was disabled — while the tokens were temporarily re-assigned to other disks on the host — will remain on those other disks and will be readable from those disks (utilizing HyperStore <MadCap:xref href="../Disk Usage Balancing/DiskUsageOverview.htm#Dynamic" target="_popup">Dynamic Object Routing</MadCap:xref>).</p>
+    </body>
+</html>

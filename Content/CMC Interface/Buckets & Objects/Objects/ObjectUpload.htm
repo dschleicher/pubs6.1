@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="1194" MadCap:lastWidth="831">
+    <head>
+    </head>
+    <body>
+        <h1>Upload a File</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[CMC Interface]</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">If you haven’t yet done so, you must <MadCap:xref href="../Buckets/BucketAdd.htm">Add a Bucket</MadCap:xref> before you can upload any files.</p>
+        <ol>
+            <li>In the CMC's <b>Objects</b> interface click <b>Upload File</b>. The <b>Upload Files</b> interface displays.</li>
+        </ol>
+        <div class="Indent">
+            <p>
+                <img src="../../../Resources/Images/cmc/buckets/UploadFiles.png" class="ImgCloudian" />
+            </p>
+        </div>
+        <ol MadCap:continue="true">
+            <li>Click <b>Add Files</b>, then use the browse window that opens to browse to the file(s) on your computer. You can select multiple files from within the same directory on your computer by using &lt;Ctrl&gt;-click or &lt;Shift&gt;-click. After you’ve selected the files and clicked <b>Open</b> in the browse window, the list of selected files displays in the <b>Upload Files</b> interface.</li>
+        </ol>
+        <div class="Indent">
+            <p>
+                <img src="../../../Resources/Images/cmc/buckets/UploadFiles_files-selected.png" class="ImgCloudian" />
+            </p>
+            <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">By default the maximum sized object that you can upload through the CMC interface is 5GB.<br /><br />The maximum allowed S3 object name length — that is, the maximium length of the folder path plus file name, combined — is 1024 characters. For additional naming restrictions see <MadCap:xref href="ObjectNameRestrictions.htm" target="_popup">Object Naming Restrictions</MadCap:xref>. These additional restrictions pertain to unusual characters or character combinations and so are of no concern if you are using simple alphanumeric file names.</p>
+        </div>
+        <ol MadCap:continue="true">
+            <li>If you want the Cloudian HyperStore system to encrypt the file(s) in storage, click the "Store encrypted" checkbox. The file(s) will be encrypted using a system-generated encryption key. If an encrypted file is subsequently downloaded, the system will automatically decrypt the file before transmitting it to the requesting client application.</li>
+            <li>To upload all the files click <b>Start Upload</b> at the top of the <b>Upload Files</b> interface. (Or if you want to upload files one-by-one, click <b>Start</b> to the right of individual file names). When all files have uploaded, a success message appears.</li>
+        </ol>
+        <div class="Indent">
+            <p>
+                <img src="../../../Resources/Images/cmc/buckets/UploadFiles_completed.png" class="ImgCloudian" />
+            </p>
+        </div>
+        <p>If you want to continue uploading more files, click <b>Clear Finished</b> to clear the <b>Upload Files</b> interface, then click <b>Add Files</b> to add more files to upload. If you’re done uploading files, click the "X" in the upper right of the <b>Upload Files</b> interface to close it.</p>
+        <p>If you upload a very large object you can monitor its upload progress by watching the progress bar beside the file name.</p>
+        <p>
+            <img src="../../../Resources/Images/cmc/buckets/UploadFiles_in-progress.png" class="ImgCloudian" />
+        </p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">With an especially large object the progress may first show as an orange bar (while uploading the object from your client device to the CMC server) and then as a green bar (while uploading the object from the CMC server to the S3 storage system).</p>
+        <p>Files that you have successfully uploaded appear in the <b>Objects</b> interface. If you chose to encrypt a file, a padlock icon displays to the left of the file name.</p>
+    </body>
+</html>

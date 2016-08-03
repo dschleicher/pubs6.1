@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="933" MadCap:lastWidth="815">
+    <head>
+    </head>
+    <body>
+        <h1>Using Server-Side Encryption with Customer-Provided Keys (SSEC)</h1>
+        <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">Before using SSE-C you must first:<br /><br /><a href="SseAes256.htm">Enable AES-256</a> in your HyperStore system. Like Amazon S3, HyperStore’s implementation of SSE-C requires AES256 encryption.<br /><br />Set up SSL/HTTPS for your S3 Service [XREF]. Like Amazon S3, HyperStore’s implementation of SSE-C requires that the relevant S3 API requests be transmitted over HTTPS rather than regular HTTP.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Using SSE-C (CMC)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The CMC does not currently support uploading or downloading objects with user-provided encryption keys.</p>
+                <p>If you use a third party S3 client application to upload objects to the HyperStore system using SSE-C, and then subsequently view your bucket contents through the CMC, the objects that you uploaded with SSE-C will appear in the list of bucket contents. However, you will not be able to download those objects through the CMC.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Using SSE-C (S3 API)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>In compliance with the Amazon S3 REST API, the HyperStore system’s S3 API supports server-side encryption with user-provided keys by the inclusion of the <em>x-amz-server-side-encryption-customer-*</em> request headers in any of these operations on objects:</p>
+                <ul>
+                    <li>
+                        <MadCap:xref href="../../S3 API Support/OperationsObjects/PutObject.htm">PUT Object</MadCap:xref>
+                    </li>
+                    <li>
+                        <MadCap:xref href="../../S3 API Support/OperationsObjects/InitiateMultipartUpload.htm">Initiate Multipart Upload</MadCap:xref>
+                    </li>
+                    <li>
+                        <MadCap:xref href="../../S3 API Support/OperationsObjects/UploadPart.htm">Upload Part</MadCap:xref>
+                    </li>
+                    <li>
+                        <MadCap:xref href="../../S3 API Support/OperationsObjects/PostObject.htm">POST Object</MadCap:xref>
+                    </li>
+                    <li>
+                        <MadCap:xref href="../../S3 API Support/OperationsObjects/PutObjectCopy.htm">PUT Object - Copy</MadCap:xref> (supporting also the<em> x-amz-copy-source-server-side-encryption-customer-*</em> request headers)</li>
+                    <li>
+                        <MadCap:xref href="../../S3 API Support/OperationsObjects/GetObject.htm">GET Object</MadCap:xref>
+                    </li>
+                    <li>
+                        <MadCap:xref href="../../S3 API Support/OperationsObjects/HeadObject.htm">HEAD Object</MadCap:xref>
+                    </li>
+                </ul>
+                <p>For the full list of supported <em>x-amz-server-side-encryption-customer-*</em> request headers for each of these operations, follow the links above.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <p>&#160;</p>
+        <p><b>See Also:</b>
+        </p>
+        <ul>
+            <li>
+                <MadCap:xref href="SseAes256.htm">Enabling AES-256</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="SseRegular.htm">Using Regular Server-Side Encryption (SSE)</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="5" MadCap:lastHeight="847" MadCap:lastWidth="873">
+    <head>
+    </head>
+    <body>
+        <h1>Using HTTP Basic Authentication for Admin API Access</h1>
+        <p>You can <b>optionally</b> configure the Admin Service to require HTTP Basic Authentication from clients. HTTP Basic Authentication is not required and by default it is not enabled.</p>
+        <p>To enable HTTP Basic Authentication for the Admin Service:</p>
+        <ol>
+            <li>Create a Jetty-obfuscated password. Use the Jetty password tool that’s included in your HyperStore package. For example, generating a Jetty-obfuscation of the password "test1234":</li>
+        </ol>
+        <div class="Indent"><pre xml:space="preserve">$ cd /opt/cloudian/lib
+$ java -cp jetty-util-9.2.3.v20140905.jar org.eclipse.jetty.util.security.Password test1234
+test1234
+OBF:1mf31j8x1lts1ltu1lq41lq61j651mbj
+MD5:16d7a4fca7442dda3ad93c9a726597e4</pre>
+            <p>Make a note of the OBF version of your password; you will use it in the next step.</p>
+        </div>
+        <ol MadCap:continue="true">
+            <li>On your Puppet master node, make these changes to the system configuration file common.csv:</li>
+        </ol>
+        <div class="Indent">
+            <ul>
+                <li><em>admin_auth_user</em> → Set to the username you want to use for HTTP Basic Authentication.</li>
+                <li><em>admin_auth_pass</em> → Set to quote-enclosed comma-separated pair: "&lt;Jetty_OBF_obfuscated_password&gt;, &lt;cleartext_version_of_password&gt;". For example, "1uvg1x1n1tv91tvt1x0z1uuq,public"</li>
+                <li><em>admin_auth_enabled</em> → Set to true.</li>
+            </ul>
+            <p class="NoteIndent" MadCap:autonum="&lt;b&gt;Note: &lt;/b&gt;">You can leave <em>admin_auth_realm</em> at its default of "CloudianAdmin"</p>
+        </div>
+        <ol MadCap:continue="true">
+            <li>Still on the Puppet master node, in the <em>&lt;regionname&gt;_region.csv</em> file for the service region that you’re working in, update the setting below to include the Basic Auth username and the cleartext version of the password. (The Admin Service endpoint will have already been automatically populated during HyperStore installation. The Auth user and password fields will be empty.)</li>
+        </ol>
+        <div class="Indent"><pre xml:space="preserve">admin_service_info,"&lt;admin-service-endpoint&gt;:18081,&lt;admin_auth_user&gt;,&lt;admin_auth_cleartext_pass&gt;,
+CloudianAdmin"</pre>
+        </div>
+        <ol MadCap:continue="true">
+            <li>Trigger a Puppet sync-up (launch the installer, then "Cluster Management" → "Push Configuration Settings to Cluster"). Or if you’ve got Puppet master and agent daemons running it will sync automatically every 10 minutes.</li>
+            <li>Restart your S3 Service (installer: "Cluster Management" → "Manage Services"; then select S3 Service, then enter restart). This automatically also restarts the Admin Service.</li>
+            <li>From the same sub-menu, restart your CMC service. The CMC needs to be restarted so that it can update its configuration settings and start using Basic Auth to communicate with the Admin Service.</li>
+        </ol>
+    </body>
+</html>

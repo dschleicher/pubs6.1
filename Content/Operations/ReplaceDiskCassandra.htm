@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="328" MadCap:lastWidth="841">
+    <head>
+    </head>
+    <body>
+        <h1>Replacing an OS/Cassandra Disk or SSD</h1>
+        <p>Cloudian, Inc. recommends using RAID mirroring of the Cassandra and OS drives (and HyperStore Appliance machines are configured in this way). If a single drive fails, the other mirrored drive will continue to serve I/O. The recommended procedure for replacing a failed drive is:</p>
+        <ol>
+            <li>Remove the failed drive and replace it with a new drive of equal or greater capacity.</li>
+            <li>Create a partition, format an <em>ext4</em> file system, and mount it using the <b>same mount point as was used for the drive you’re replacing</b>.</li>
+            <li>Use <em>mdadm</em> commands to add the new drive to your RAID set-up.</li>
+        </ol>
+        <p>The new drive should then automatically sync up with the drive with which it is mirrored.</p>
+    </body>
+</html>

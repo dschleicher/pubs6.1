@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="8" MadCap:lastHeight="816" MadCap:lastWidth="789">
+    <head>
+    </head>
+    <body>
+        <h1>HyperStore Admin API</h1>
+        <p>Cloudian HyperStore provides a RESTful HTTP API through which you can provision users and groups, manage rating plans and quality of service (QoS) controls, and perform other administrative tasks. This Admin API is supported by the HyperStore Admin Service, which runs on the same nodes as your HyperStore S3 Service. By default the HTTP listening port for the Admin API is 18081.</p>
+        <p>The Cloudian Management Console (CMC) accesses the Admin API to implement its provisioning and reporting functions. You also have the option of accessing the Admin API directly, using a command line tool such as cURL or a REST client application of your own creation.</p>
+        <p>HyperStore Admin API response payloads are JSON encoded. For POST or PUT requests that require a request payload, the request payloads must be JSON encoded as well.</p>
+        <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">The HyperStore Admin API is not designed to be directly exposed to end users of the Cloudian HyperStore storage service. It is intended for HyperStore system operators to use from within an internal network. Do not directly expose the Admin Service to an external network.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Admin API Behavior in Multi-Region Systems</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>If your HyperStore system has multiple service regions, then:</p>
+                <ul>
+                    <li>For the Admin Service in the <b>default service region</b>, all of the Admin API operations in this document are supported.</li>
+                    <li>For the Admin Service in <b>regions other than the default region</b>, only the following sub-set of Admin API operations is allowed:<ul style="list-style-type: circle;"><li><MadCap:xref href="Usage Reporting/PostUsageDataForActiveUsers.htm">POST Usage Data for Active Users</MadCap:xref></li><li><MadCap:xref href="Usage Reporting/PostUsageDataForAllUsers.htm">POST Usage Data for All Users</MadCap:xref></li><li><MadCap:xref href="Usage Reporting/PostUsageDataRollup.htm">POST Usage Data Rollup</MadCap:xref></li><li><MadCap:xref href="Usage Reporting/PostUsageDataRepairForActiveUsers.htm">POST Usage Data Repair for Active Users</MadCap:xref></li><li><MadCap:xref href="System Services/GetSystemVersion.htm">GET System Version</MadCap:xref></li></ul></li>
+                </ul>
+                <p>If in a non-default region you send your local Admin Service a request for an operation other than those listed above, you will receive a 403:Forbidden response.</p>
+                <p>If your HyperStore S3 service has only one service region, then your Admin Service supports <b>all</b> of the Admin API operations.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="1609" MadCap:lastWidth="853">
+    <head>
+    </head>
+    <body>
+        <h1>File System Requirements</h1>
+        <p>In host machines with multiple hard drives:</p>
+        <ul>
+            <li>HyperStore service <b>metadata</b> (stored in Cassandra and Redis) can be written to the same hard drive that the OS is on. It’s advisable to use RAID-1 mirroring on the OS and metadata drive — thus dedicating a total of two drives to the OS and metadata.</li>
+            <li>All other available hard drives should be formatted with <em>ext4</em> file systems, which will be used for <b>S3 object data</b>. RAID is not necessary on the S3 object data drives.</li>
+        </ul>
+        <p>For example, on a machine with 12 HDDs, mirror the OS on two of the HDDs. Format each of the other 10 HDDs with <em>ext4</em> file systems and configure the mount points as <em>/cloudian1</em>, <em>/cloudian2</em>, <em>/cloudian3</em> and so on.</p>
+        <p>If you are installing HyperStore on hosts with multiple drives, then during installation you will need to provide a list of drive devices and corresponding mount points for S3 object storage, formatted like this:</p><pre xml:space="preserve">/dev/sdc1 /cloudian1
+/dev/sdd1 /cloudian2
+/dev/sde1 /cloudian3
+...
+...</pre>
+        <p>Save this file system list to a text file and name it <em>fslist.txt</em>. You will use this text file as input to the HyperStore software installation script. For more on this file see <MadCap:xref href="../../InstallingHyperStoreSoftware.htm">Installing HyperStore Software</MadCap:xref>, specifically the detail for Step 5.</p>
+        <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">
+            <br />* Use direct attached storage for your mount points, <b>not</b> a shared network file system.<br /><br />* <b>ext4</b> is the only file system that Cloudian HyperStore supports. XFS is currently unsupported. If you need to run Cloudian HyperStore on XFS then please contact Cloudian Support.<br /><br />* HyperStore does not support "VirtIO" disks.</p>
+        <h2>Reducing Reserved Space to 0% for HyperStore Data Disks</h2>
+        <p>By default Linux systems reserve 5% of file system space for root user and system services. On modern large-capacity disks this can be a waste of a considerable amount of storage space. Cloudian, Inc. recommends that you set the reserved space to 0% for each drive on which you will store HyperStore data (S3 object data).</p>
+        <p>For each HyperStore data drive do the following.</p><pre xml:space="preserve">Check current “Reserved block count”:
+
+root# tune2fs -l &lt;device&gt;
+
+
+Set Reserved block count to 0%:
+
+root# tune2fs -m 0 &lt;device&gt;
+
+
+For example:
+
+root# tune2fs -m 0 /dev/sdc1</pre>
+        <h2>Mount Point Naming</h2>
+        <p>If you are installing HyperStore on multiple hosts that each have multiple disk drives, use the same mount point naming scheme on each of your hosts. If all your hosts have the same number of disks, then they should all have the identical set of mount points for HyperStore. For example, if each host has 10 disks for S3 object storage, then on all your hosts you could name the mount points <em>/cloudian1</em>,<em> /cloudian2</em>, <em>/cloudian3</em>, and so on up through <em>/cloudian10</em>.</p>
+        <p>If in your installation cluster some hosts have more disks than others, use as much overlap in mount point naming as possible. For example, suppose that most of your hosts have 10 disks for storing S3 object data while one host has 12 disks. In this scenario, all of the hosts can have mount points <em>/cloudian1</em>, <em>/cloudian2</em>, <em>/cloudian3</em>, and so on up through <em>/cloudian10</em>, while the one larger host has those same mount points plus also <em>/cloudian11</em> and <em>/cloudian12</em>.</p>
+        <h2>Option for Putting Cassandra Data on Dedicated Disks</h2>
+        <p>Regarding Cassandra data, another supported configuration — for a host with many drives — is to put your Cassandra data directory and Cassandra commit log directories each on dedicated disks, rather than on the OS disk. In this case you would have:</p>
+        <ul>
+            <li>OS drive (with Redis also).</li>
+            <li>Cassandra data directory drive (mount point path <b>must</b> include the string <em>/cassandra</em>)</li>
+            <li>Cassandra commit log directory drive (mount point path <b>must</b> include the string <em>/cassandra_commit</em>)</li>
+            <li>Multiple drives for S3 object data (with mount points for example <em>/cloudian1</em>, <em>/cloudian2</em>, <em>/cloudian3</em> and so on).</li>
+        </ul>
+        <p>In this configuration, where Cassandra data is on a different disk than the OS, it’s advisable to use RAID-1 for the OS disk. It’s not necessary to use RAID for a dedicated Cassandra disk.</p>
+    </body>
+</html>

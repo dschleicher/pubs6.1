@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="964" MadCap:lastWidth="912">
+    <head>
+    </head>
+    <body>
+        <p>&#160;<MadCap:keyword term="05. Services Distribution -- Multi-Region" /></p>
+        <h1>Services Distribution -- Multi-Region</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Diagram]</p>
+        <p>Proper distribution of HyperStore service components across multiple physical nodes is handled automatically by the HyperStore installer. This diagram shows a six-node system that spans two data centers, and this time the system is configured as two different service regions. Things to note:</p>
+        <ul>
+            <li>The "COMMON SERVICES" (S3 Service, Admin Service, HyperStore Service, Cassandra, CMC, Puppet Agent, and Monitoring Agent) run on every node in your multi-region system.</li>
+            <li>The whole multi-region system is served by a single active Puppet master and a single Redis Credentials master.</li>
+            <li>Each region has its own Redis QoS master, its own Cronjob host, and its own internal NTP server.</li>
+        </ul>
+        <p>
+            <img src="../../Resources/Images/diagrams/HyperStore_Physical_multi-region.png" style="max-width: 9.50in;" />
+        </p>
+        <p><b>See Also:</b>
+        </p>
+        <ul>
+            <li>
+                <MadCap:xref href="ServicesDistribution3Nodes.htm">Services Distribution -- 3 Nodes, Single DC</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="ServicesDistributionMultiDC.htm">Services Distribution -- Multi-DC, Single Region</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

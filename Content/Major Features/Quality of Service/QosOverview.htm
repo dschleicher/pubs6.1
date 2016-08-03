@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="1410" MadCap:lastWidth="815">
+    <head>
+    </head>
+    <body>
+        <h1>Quality of Service (QoS) Feature Overview</h1>
+        <p>The Cloudian HyperStore system supports user-level and group-level Quality of Service (QoS) settings:</p>
+        <ul>
+            <li><b>User QoS settings</b> place upper limits on service usage by individual users.</li>
+            <li><b>Group QoS settings</b> place upper limits on aggregate service usage by entire user groups.</li>
+        </ul>
+        <p>The HyperStore system enforces QoS settings by rejecting S3 requests that would result in a user (or a user’s group) exceeding the allowed service usage level.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Service Usage Types Subject to QoS Controls</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Several types of service usage metrics can be configured for QoS controls:</p>
+                <ul>
+                    <li>Storage quota, by number of KBs.</li>
+                    <li>Storage quota, by number of objects.</li>
+                    <li>Peak HTTP request rate, in requests per minute. The user is not allowed more than this many requests in a 60 second interval.</li>
+                    <li>Peak data upload rate, in KBs per minute.</li>
+                    <li>Peak data download rate, in KBs per minute.</li>
+                </ul>
+                <p>When configuring QoS controls, you have the option of limiting some of the usage types above while leaving others unrestricted. For example, you could limit per-user and/or per-group storage volume (by KBs), while placing no restrictions on number of stored objects. Similarly, you could cap data upload rate while placing no cap on data download rate.</p>
+                <p>When the system rejects a user request because of a storage quota, it returns an HTTP 403 reponse to the client application. When the system rejects a user request due to rate controls, it returns an HTTP 503 response to the client application.</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">The <b>storage overhead associated with replication or erasure coding does not count</b> toward a user’s storage quota. For example, a 1MB object that is protected by 3X replication or by 4+2 erasure coding counts as only 1MB toward the storage quota.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>QoS Assignment Granularity</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The system also provides you the flexibility to assign different QoS settings to different users and groups. In the case of user QoS settings, the system provides you three levels of granularity:</p>
+                <ul>
+                    <li>For the system as a whole, you can configure a <b>system default for user QoS settings</b>, applicable to all users of your S3 service.</li>
+                    <li>For particular groups, you can configure a <b>group-specific default for user QoS settings</b>. If you do, then for users in that group, the group-specific user QoS defaults will override the system-wide user QoS defaults.</li>
+                    <li>For particular users, you can configure <b>user-specific QoS settings</b>. If you do, these settings will override any group-wide or system-wide defaults.</li>
+                </ul>
+                <p>For group QoS settings you have two levels of granularity:</p>
+                <ul>
+                    <li>For the system as a whole, you can configure a <b>system default for group QoS settings</b>, applicable to all groups in your S3 service.</li>
+                    <li>For particular groups, you can configure <b>group-specific group QoS settings</b>. If you do, these settings will override the system-wide defaults.</li>
+                </ul>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot style="font-weight: bold;">Note for multi-region systems</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>If your HyperStore service has multiple service regions, the system also provides you the ability to configure different QoS settings for different regions. For example, you might configure default user QoS settings that allow users 20GB of storage in your "North" service region and 30GB in your "South" service region.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <p>&#160;</p>
+        <p><b>See Also:</b>
+        </p>
+        <ul>
+            <li>
+                <MadCap:xref href="QosEnable.htm">Enabling QoS Enforcement</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="QosUsers.htm">Setting QoS Limits for Users</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="QosGroups.htm">Setting QoS Limits for Groups</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

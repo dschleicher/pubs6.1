@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="10" MadCap:lastHeight="998" MadCap:lastWidth="577">
+    <head>
+    </head>
+    <body>
+        <h1>POST Storage Policy Deletion Processing</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Admin API Method]</p>
+        <p>Use this Admin API method to process any pending storage policy deletion jobs.</p>
+        <p>System operators can initiate the deletion of an unused storage policy (a storage policy that is not assigned to any buckets) through the <MadCap:xref href="../Storage Policies/DeleteStoragePolicy.htm">DELETE Storage Policy</MadCap:xref> method, or through the CMC. This operator action makes the policy immediately unavailable to service users. However, the full process of deleting the storage policy from the system is not completed until the method described below is run.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">This method is invoked once a day by a HyperStore <MadCap:xref href="../../Maintenance/CronJobs.htm#Storage" target="_popup">Storage Policy Deletion Processing</MadCap:xref> cron job. It runs only in your default service region.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Request Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Syntax</h4><pre xml:space="preserve">POST /system/processProtectionPolicy</pre>
+                <h4>Query Parameters</h4>
+                <p>None.</p>
+                <h4>Request Payload</h4>
+                <p>None.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Response Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Response Status</h4>
+                <p>This method returns only the <MadCap:xref href="../CommonStatusCodes.htm" target="_popup">Common Status Codes.</MadCap:xref></p>
+                <h4>Response Payload</h4>
+                <p>None.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Example</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>In this example any pending storage policy deletion jobs are successfully completed.</p><pre xml:space="preserve"># Request -&gt;
+
+POST http://10.50.10.16:18081/system/processProtectionPolicy
+
+# Response -&gt;
+
+Status Code: 200 OK
+Content-Length: 0
+Date: Sun, 03 Jan 2016 13:01:38 GMT</pre>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

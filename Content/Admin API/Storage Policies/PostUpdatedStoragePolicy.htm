@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="10" MadCap:lastHeight="1408" MadCap:lastWidth="882">
+    <head>
+    </head>
+    <body>
+        <h1>POST Updated Storage Policy</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Admin API Method]</p>
+        <p>Use this Admin API method to revise an existing storage policy. Only the following policy attributes are allowed to be revised:</p>
+        <ul>
+            <li>Policy name and description</li>
+            <li>Read/write consistency levels required by the policy</li>
+            <li>Groups for which the policy is available</li>
+            <li>Whether the policy is the default policy for the region</li>
+        </ul>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">You cannot use this method to re-enable a policy that has been disabled. For information on re-enabling a disabled policy, see the <MadCap:xref href="PostReenableStoragePolicy.htm">POST (Re-Enable) Storage Policy</MadCap:xref> method.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Request Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Syntax</h4><pre xml:space="preserve">POST /bppolicy</pre>
+                <h4>Query Parameters</h4>
+                <p>None.</p>
+                <h4>Request Payload</h4>
+                <p>Revised <MadCap:xref href="../Data Objects/BucketProtectionPolicy.htm">BucketProtectionPolicy</MadCap:xref> JSON object.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Response Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Response Status</h4>
+                <p>In addition to the <MadCap:xref href="../CommonStatusCodes.htm" target="_popup">Common Status Codes</MadCap:xref>, this method may return these codes:</p>
+                <table style="border-collapse: separate;border-top-left-radius: 0px;border-top-right-radius: 0px;border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;width: 100%;">
+                    <col style="width: 115px;">
+                    </col>
+                    <col style="width: 629px;">
+                    </col>
+                    <thead>
+                        <tr>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Status Code</th>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                            <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;">Missing policyId</td>
+                        </tr>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">403</td>
+                            <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;"> 	
+
+Can’t update PENDING policy</td>
+                        </tr>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">404</td>
+                            <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;">Policy does not exist</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4>Response Payload</h4>
+                <p>Updated <MadCap:xref href="../Data Objects/BucketProtectionPolicy.htm">BucketProtectionPolicy</MadCap:xref> JSON object.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Example</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>In this example a storage policy is successfully updated.</p><pre xml:space="preserve"># Request -&gt;
+
+POST http://10.50.200.201:18081/bppolicy
+Content-Type: application/json
+{"policyName":"ec-policy","policyDescription":"2+1 Erasure Coding","consistencyLevel":{"read":
+["LOCAL_QUORUM"],"write":["ALL"],"writeNew":["ALL"],"metadataR":["QUORUM"],"metadataW":["QUORUM"],
+"readEC":["LOCAL_QUORUM"],"writeEC":["ALL"]},"ecscheme":{"k":2,"m":1,"dc":["DC1"],"type":"DC"},
+"defaultProtectionScheme":"EC","status":"PENDING","replicationScheme":null,"systemDefault":false,
+"groups":["Dev","QA"],"policyId":"7728de8082a69757c510cc70339a7ad8","region":"region1"}
+
+# Response -&gt;
+
+Status Code: 200 OK
+Content-Length: 470
+Content-Type: application/json
+Date: Mon, 05 Oct 2015 14:50:50 GMT
+{"policyName":"ec-policy","policyDescription":"2+1 Erasure Coding","consistencyLevel":{"read":
+["LOCAL_QUORUM"],"write":["ALL"],"writeNew":["ALL"],"metadataR":["QUORUM"],"metadataW":["QUORUM"],
+"readEC":["LOCAL_QUORUM"],"writeEC":["ALL"]},"ecscheme":{"k":2,"m":1,"dc":["DC1"],"type":"DC"},
+"defaultProtectionScheme":"EC","status":"ACTIVE","replicationScheme":null,"systemDefault":false,
+"groups":["QA","Dev"],"policyId":"7728de8082a69757c510cc70339a7ad8","region":"region1"}</pre>
+                <p>For more information about BucketProtectionPolicy object attributes, see <MadCap:xref href="../Data Objects/BucketProtectionPolicy.htm">BucketProtectionPolicy</MadCap:xref>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

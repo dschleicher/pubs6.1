@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="5" MadCap:lastHeight="1767" MadCap:lastWidth="659">
+    <head>
+    </head>
+    <body>
+        <h1>Getting Started with a Newly Installed HyperStore System</h1>
+        <p>Once a newly installed HyperStore system is up and running, you can use the Cloudian Management Console (CMC) to experiment with the service and test its functionality. Follow these steps:</p>
+        <ol>
+            <li>
+                <p>Point a browser to <em>http://&lt;CMC_host_IP_address&gt;:8888/Cloudian</em></p>
+            </li>
+        </ol>
+        <div class="Indent">
+            <p>Since the CMC runs on all of your HyperStore nodes by default, you can use any node's IP address.</p>
+        </div>
+        <ol MadCap:continue="true">
+            <li>
+                <p>The connection will automatically switch over to SSL and you will get a certificate warning. Follow the prompts to add an exception for the certificate and accept it. You should then see the CMC’s login screen.</p>
+            </li>
+        </ol>
+        <div class="Indent">
+            <p>
+                <img src="../Resources/Images/cmc/Login.png" style="mc-thumbnail-max-height: 60px;" class="ImgCloudian" />
+            </p>
+        </div>
+        <ol MadCap:continue="true">
+            <li>Log in with the system administrator user ID <em>admin</em> and default password <em>public</em>.</li>
+        </ol>
+        <ol MadCap:continue="true">
+            <li>In the upper right corner of the CMC UI, hold your cursor over your user ID ("admin"). From the drop-down menu that displays, select <b>Security Credentials</b> to open the <b>Sign-In Credentials</b> interface. For security, change the system administrator password.</li>
+        </ol>
+        <div class="Indent">
+            <p>
+                <img src="../Resources/Images/cmc/my-account/Credentials_ver_sys-admin.png" style="mc-thumbnail-max-height: 60px;" class="ImgCloudian" />
+            </p>
+        </div>
+        <ol MadCap:continue="true">
+            <li>Select the <b>Cluster</b> tab, then <b>Storage Policies</b>, then <b>Create Storage Policy</b>. This opens the <b>Create New Policy</b> interface. Create a default storage policy for your system. A storage policy is a method of storing and protecting S3 object data and object metadata. Leave the "Group Visibility" unspecified so that this policy is visible to all groups. (At a later time you can edit this policy; create additional policies; and assign a different policy to be the system default policy if you wish).</li>
+        </ol>
+        <div class="Indent">
+            <p>
+                <img src="../Resources/Images/cmc/cluster/StoragePolicies_create.png" style="mc-thumbnail-max-height: 90px;" class="ImgCloudian" />
+            </p>
+        </div>
+        <div class="Indent">
+            <MadCap:dropDown>
+                <MadCap:dropDownHead class="CloudianChildDropDown">
+                    <MadCap:dropDownHotspot>More detail on this step</MadCap:dropDownHotspot>
+                </MadCap:dropDownHead>
+                <MadCap:dropDownBody>
+                    <p>For detail about the available options when you configure a new storage policy see <MadCap:xref href="../CMC Interface/Cluster/Storage Policies/StoragePoliciesAdd.htm" target="_popup">Add a Storage Policy</MadCap:xref>.</p>
+                </MadCap:dropDownBody>
+            </MadCap:dropDown>
+        </div>
+        <ol MadCap:continue="true">
+            <li>Create a regular S3 service user account that will enable you to test the system’s S3 object storage services.</li>
+        </ol>
+        <div class="Indent">
+            <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">The system administrator role cannot have its own S3 storage service account.</p>
+            <ol style="list-style-type: lower-alpha;">
+                <li>Select <b>Users &amp; Groups → Manage Groups → New Group</b> to open the <b>Add New Group</b> interface. Create a new user group.</li>
+            </ol>
+            <div class="Indent">
+                <p>
+                    <img src="../Resources/Images/cmc/users/AddNewGroup.png" style="mc-thumbnail-max-height: 60px;" class="ImgCloudian" />
+                </p>
+            </div>
+            <ol style="list-style-type: lower-alpha;" MadCap:continue="true">
+                <li>Select <b>Users &amp; Groups → Manage Users → New User</b> to open the <b>Add New User</b> interface. Create a new regular user, assigned to the user group that you created in the previous step. Make a note of the group name, user ID, and the password that you assign to the user so that you will be able to log in as that user.</li>
+            </ol>
+            <div class="Indent">
+                <p>
+                    <img src="../Resources/Images/cmc/users/AddNewUser_ver_sys-admin.png" style="mc-thumbnail-max-height: 60px;" class="ImgCloudian" />
+                </p>
+            </div>
+        </div>
+        <ol MadCap:continue="true">
+            <li>Log out of the CMC, and then log back in as the new user that you created. The CMC now displays only the functions that are available to regular service users, including the <b>Buckets &amp; Objects</b> interface.</li>
+        </ol>
+        <div class="Indent">
+            <p>
+                <img src="../Resources/Images/cmc/buckets/BucketList_empty.png" style="mc-thumbnail-max-height: 60px;" class="ImgCloudian" />
+            </p>
+        </div>
+        <ol MadCap:continue="true">
+            <li>Experiment with the CMC <b>Buckets &amp; Objects</b> interface. For example:</li>
+        </ol>
+        <div class="Indent">
+            <ol style="list-style-type: lower-alpha;">
+                <li>Add a new storage bucket by entering a bucket name and clicking <b>Create</b>. (You must create a bucket before you can upload any objects.)</li>
+                <li>Use the <b>Objects</b> tab to create a folder in the bucket by entering a folder name and clicking <b>Create Folder</b>.</li>
+            </ol>
+            <div class="Indent">
+                <p>
+                    <img src="../Resources/Images/cmc/buckets/Objects.png" style="mc-thumbnail-max-height: 60px;" class="ImgCloudian" />
+                </p>
+            </div>
+            <ol style="list-style-type: lower-alpha;">
+                <li>Open the folder then upload a file into it by using the <b>Upload File</b> function.</li>
+                <li>Verify that the uploaded file appears in the folder contents list, then verify that you can download the file by clicking on the file name.</li>
+            </ol>
+        </div>
+    </body>
+</html>

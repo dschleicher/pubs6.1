@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="7" MadCap:lastHeight="974" MadCap:lastWidth="814">
+    <head>
+    </head>
+    <body>
+        <h1>GroupInfo</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Admin API Object]</p>
+        <p>The GroupInfo object is returned as the <b>response payload</b> for these Admin API operations:</p>
+        <ul>
+            <li>
+                <MadCap:xref href="../Group Management/GetGroup.htm">GET Group</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="../Group Management/GetGroupList.htm">GET Group List</MadCap:xref>
+            </li>
+        </ul>
+        <p>The GroupInfo object is required as the <b>request payload</b> for these Admin API operations:</p>
+        <ul>
+            <li>
+                <MadCap:xref href="../Group Management/PostUpdatedGroup.htm">POST Updated Group</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="../Group Management/PutNewGroup.htm">PUT New Group</MadCap:xref>
+            </li>
+        </ul>
+        <p>The GroupInfo object consists of the attributes below. Each attribute description indicates whether the attribute is mandatory or optional when this object is transmitted as a request payload.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>active</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(Optional, string) Whether group is enabled ("true") or disabled ("false"). The users associated with a disabled group will be unable to access HyperStore data storage or to log in to the Cloudian Management Console. On a PUT of a new group, the "active" attribute defaults to "true" if not explicitly set. If not specified in a POST update of an existing group, the group retains its existing active or inactive status.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>groupId</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(Mandatory, string) Group ID. Only letters, numbers, dashes, and underscores are allowed. Length must be at least 1 character and no more than 64 characters. The groupId "0" is reserved for the system admin group.</p>
+                    <p>Note that the Cloudian Management Console (CMC) field "Group Name" maps to the "groupId" attribute in the Admin API.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>groupName</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(Optional, string) Group name. Maximum length 64 characters.</p>
+                    <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">The CMC field "Group Description" maps to the "groupName" attribute in the Admin API.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>ldapGroup</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(Optional, string) If you are using HyperStore’s LDAP Authentication feature, use this attribute to specify the exact "ou" (Organization Unit) value that is used for this group from your LDAP system. The "ldapGroup" attribute does not have the character restrictions that the "groupId" attribute has.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <h2>Example</h2>
+        <p>This is an example of a GroupInfo object.</p><pre xml:space="preserve">{"active":"true","groupName":"Development","groupId":"Dev"}</pre>
+    </body>
+</html>

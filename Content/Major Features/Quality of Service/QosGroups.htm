@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="644" MadCap:lastWidth="841">
+    <head>
+    </head>
+    <body>
+        <h1>Setting QoS Limits for Groups</h1>
+        <p>As with user QoS settings, you can set group QoS settings through either the CMC or the Admin API. Group QoS settings limit the <b>aggregate activity</b> of all users in a group.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Setting QoS Limits for Groups (CMC)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>First you should decide whether you want to set default QoS limits for all groups in your HyperStore system. If so, you can do this by going to the CMC’s <b>Manage Groups</b> page and clicking <b>Group QoS Default</b> to open the <b>Group QoS Limits: Defaults</b> panel. Here you can configure default group QoS limits for your whole system.</p>
+                <p>Next, you can set group QoS limits for a specific group. If you do so, these limits will override any system defaults for qroup QoS. To do this, first retrieve the group in the <b>Manage Groups</b> page. Then click <b>Group QoS</b> for the group. This opens the <b>Group QoS Limits: Overrides</b> panel, where you can configure group QoS limits for that specific group.</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">For details about working with the CMC’s QoS configuration panels see <MadCap:xref href="../../CMC Interface/Users &amp; Groups/SetQoS.htm">Set Quality of Service (QoS) for Users and Groups</MadCap:xref>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Setting QoS Limits for Groups (Admin API)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>To establish group QoS settings through the Admin API, you use the same method that you do for user QoS settings: <a href="../../Admin API/Quality of Service/PostQosLimits.htm">POST /qos/limits</a>. URI parameters enable you to specify that you’re creating system defaults for group QoS settings, or settings for a particular group.</p>
+                <p>The <a href="../../Admin API/Quality of Service/GetQosLimits.htm">GET /qos/limits</a> and <a href="../../Admin API/Quality of Service/DeleteQosLimits.htm">DELETE /qos/limits</a> methods can be used to retrieve or delete group QoS settings.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <p>&#160;</p>
+        <p><b>See Also:</b>
+        </p>
+        <ul>
+            <li>
+                <MadCap:xref href="QosUsers.htm">Setting QoS Limits for Users</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

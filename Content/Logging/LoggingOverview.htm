@@ -1,0 +1,283 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="8" MadCap:lastHeight="5946" MadCap:lastWidth="873">
+    <head>
+    </head>
+    <body>
+        <h1>HyperStore Logging</h1>
+        <p>The major HyperStore services each generate their own application log. The S3 Service and HyperStore Service, in addition to generating application logs, also generate transaction request logs.</p>
+        <p>The log summaries below indicate each log's default logging level, default rotation behavior, log entry format, and where to modify the log's configuration.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">Unless otherwise indicated, all these logs are by default in the directory <em style="font-weight: bold;">/var/log/cloudian</em>. </p>
+        <h2>Admin Service Logs</h2>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Admin Service application log (<em>cloudian-admin.log</em>)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Level: INFO</p>
+                <p>Rotation: Rotated if reaches 10MB, or else daily; max 100 files kept</p>
+                <p>Format:</p><pre>Date(ISO8601) PriorityLevel [ThreadId] ClassName:MethodName(Line#) MESSAGE</pre>
+                <p>Configuration: In the Puppet template file <em>/etc/cloudian-&lt;version&gt;-puppet/modules/cloudians3/templates/log4j-admin.xml.erb</em>, this log is configurable in the block that starts with <em>&lt;RollingRandomAccessFile name="ADMINAPP"</em>.For setting descriptions see <MadCap:xref href="LoggingSettings.htm" target="_popup">Log Configuration Settings</MadCap:xref>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Admin Service request log (<em>cloudian-admin-request-info.log</em>)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Level: not applicable</p>
+                <p>Rotation: Rotated if reaches 100MB, or else daily; max 180 files kept</p>
+                <p>Format:</p><pre>yyyy/MM/dd HH:mm:ss|ClientIpAddress|HttpMethod|Uri|QueryParams|DurationMsec|HttpStatus</pre>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">Query parameters are not logged for requests that involve user credentials.</p>
+                <p>Example:</p><pre>2016/02/19 17:15:18|10.10.2.220|POST|/usage/repair/user|groupId:test,userId:djones|7|400</pre>
+                <p>Configuration: In the Puppet template file <em>/etc/cloudian-&lt;version&gt;-puppet/modules/cloudians3/templates/log4j-admin.xml.erb</em>, this log is configurable in the block that starts with <em>&lt;RollingRandomAccessFile name="ADMINREQ"</em>. For setting descriptions see <MadCap:xref href="LoggingSettings.htm" target="_popup">Log Configuration Settings</MadCap:xref>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <h2>Cassandra Log</h2>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Cassandra application log (<em>var/log/cassandra/system.log</em>)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Level: INFO</p>
+                <p>Rotation: Rotated if reaches 20MB; max 20 files kept</p>
+                <p>Format:</p><pre>PriorityLevel [ThreadId] Date(ISO8601) CallerFile ("line" Line#) MESSAGE</pre>
+                <p>Example:</p><pre xml:space="preserve">INFO [FlushWriter:3] 2011-11-10 21:09:59,487 Memtable.java (line 237) Writing Memtable-Migrations
+@445036697(12771/15963 serialized/live bytes, 1 ops)</pre>
+                <p>Configuration: <em>/etc/cloudian-&lt;version&gt;-puppet/modules/cassandra/templates/logback.xml.erb</em>. For setting descriptions see these online resources: </p>
+                <ul>
+                    <li>
+                        <p>DataStax Cassandra documentation:</p>
+                        <ul style="list-style-type: circle;">
+                            <li>
+                                <p><a href="https://docs.datastax.com/en/cassandra/2.1/cassandra/configuration/configLoggingLevels_r.html" target="_blank">Configuring Logging</a>
+                                </p>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <p>Logback documentation:</p>
+                        <ul style="list-style-type: circle;">
+                            <li>
+                                <p><a href="http://logback.qos.ch/manual/appenders.html#FixedWindowRollingPolicy" target="_blank">FixedWindowRollingPolicy</a>
+                                </p>
+                            </li>
+                            <li>
+                                <p><a href="http://logback.qos.ch/manual/appenders.html#SizeBasedTriggeringPolicy" target="_blank">SizeBasedTriggeringPolicy</a>
+                                </p>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <h2>CMC Log</h2>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>CMC application log (<em>cloudian-ui.log</em>)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Level: INFO</p>
+                <p>Rotation: Rotated if reaches 10MB, or else daily; max 100 files kept</p>
+                <p>Format:</p><pre>Date(ISO8601) PriorityLevel [ThreadId] ClassName:MethodName(Line#) MESSAGE</pre>
+                <p>Configuration: In the Puppet template file <em>/etc/cloudian-&lt;version&gt;-puppet/modules/cmc/templates/log4j.xml.erb</em>, this log is configurable in the block that starts with <em>&lt;appender name="DATE-TIME-ROLL"</em>. For setting descriptions see <MadCap:xref href="LoggingSettings.htm" target="_popup">Log Configuration Settings</MadCap:xref>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <h2>HyperStore Service Logs</h2>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>HyperStore Service application log (<em>cloudian-hyperstore.log</em>)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Level: INFO</p>
+                <p>Rotation: Rotated if reaches 10MB, or else daily; max 100 files kept</p>
+                <p>Format:</p><pre>Date(ISO8601) PriorityLevel [S3RequestID] [ThreadId] ClassName:MethodName(Line#) MESSAGE</pre>
+                <p>Configuration: In the Puppet template file <em>/etc/cloudian-&lt;version&gt;-puppet/modules/cloudians3/templates/log4j-hyperstore.xml.erb</em>, this log is configurable in the block that starts with <em>&lt;RollingRandomAccessFile name="APP"</em>. For setting descriptions see <MadCap:xref href="LoggingSettings.htm" target="_popup">Log Configuration Settings</MadCap:xref>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>HyperStore Service request log (<em>cloudian-hyperstore-request-info.log</em>)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Level: not applicable</p>
+                <p>Rotation: &#160;Rotated if reaches 100MB, or else daily; max 180 files kept</p>
+                <p>Format:</p><pre xml:space="preserve">yyyy/MM/dd HH:mm:ss|IpAddressOfClientS3Server|S3RequestId|HttpStatus|HttpOperation|OriginalUri|
+HyperStoreFilePath|ContentLength|DurationMsec|Etag</pre>
+                <p>Example:</p><pre xml:space="preserve">2015/04/28 19:49:10|10.50.108.101|a4fc1a40-6f4e-1a1e-9ed7-525400bd7d45|200|PUT|
+/file/CloudianTest1%2Fbuser1%2F514kbtes|
+/var/lib/hyperstore/data/CloudianTest1/094/096/139827614597660836126517104434974735070.
+1377744550569|514|0|b527f5b822ce8f10df512ff386b2d723</pre>
+                <ul>
+                    <li>The IpAddressOfClientS3Server is the IP address of the S3 Server node that submits the request to the HyperStore Service.</li>
+                    <li>The HttpOperation is the HyperStore Service HTTP API operation that the S3 Service invokes and will be a simple operation like "PUT" or "GET".</li>
+                    <li>The OriginalUri field shows the group ID, bucket name, and object name from the originating S3 API request, in URI-encoded form ("CloudianTest1", "buser1", and "514kbtes", respectively, in the example above).</li>
+                    <li>The Etag field will be "0" for operations other than PUT.</li>
+                </ul>
+                <p>Configuration: In the Puppet template file <em>/etc/cloudian-&lt;version&gt;-puppet/modules/cloudians3/templates/log4j-hyperstore.xml.erb</em>, this log is configurable in the block that starts with <em>&lt;RollingRandomAccessFile name="REQ"</em>. For setting descriptions see <MadCap:xref href="LoggingSettings.htm" target="_popup">Log Configuration Settings</MadCap:xref>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>HyperStore Service repair log (<em>cloudian-hyperstore-repair.log</em>)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Level: INFO</p>
+                <p>Rotation: Rotated if reaches 10MB, or else daily; max 100 files kept</p>
+                <p>Configuration: In the Puppet template file <em>/etc/cloudian-&lt;version&gt;-puppet/modules/cloudians3/templates/log4j-hyperstore.xml.erb</em>, this log is configurable in the block that starts with <em>&lt;RollingRandomAccessFile name="REPAIR"</em>. For setting descriptions see <MadCap:xref href="LoggingSettings.htm" target="_popup">Log Configuration Settings</MadCap:xref>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>HyperStore Service cleanup log (<em>cloudian-hyperstore-cleanup.log</em>)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Level: INFO</p>
+                <p>Rotation: Rotated if reaches 10MB, or else daily; max 100 files kept</p>
+                <p>Configuration: In the Puppet template file <em>/etc/cloudian-&lt;version&gt;-puppet/modules/cloudians3/templates/log4j-hyperstore.xml.erb</em>, this log is configurable in the block that starts with <em>&lt;RollingRandomAccessFile name="CLEANUP"</em>. For setting descriptions see <MadCap:xref href="LoggingSettings.htm" target="_popup">Log Configuration Settings</MadCap:xref>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>HyperStore Service hinted handoff log (<em>cloudian-hyperstore-hints.log</em>)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Level: INFO</p>
+                <p>Rotation: Rotated if reaches 10MB, or else daily; max 100 files kept</p>
+                <p>Configuration: In the Puppet template file <em>/etc/cloudian-&lt;version&gt;-puppet/modules/xxx</em>, this log is configurable in the block that starts with <em>&lt;RollingRandomAccessFile name="HSSHINTS"</em>. For setting descriptions see <MadCap:xref href="LoggingSettings.htm" target="_popup">Log Configuration Settings</MadCap:xref>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <h2>Monitoring Service Logs</h2>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Monitoring Agent application log (<em>cloudian-agent.log</em>)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Level: WARN</p>
+                <p>Rotation: Rotated if reaches 10MB, or else daily; max 100 files kept</p>
+                <p>Format:</p><pre>Date(ISO8601) PriorityLevel [ThreadId] ClassName:MethodName(Line#) MESSAGE</pre>
+                <p>Configuration: In the Puppet template file <em>/etc/cloudian-&lt;version&gt;-puppet/modules/cloudianagent/templates/log4j-agent.xml.erb</em>, this log is configurable in the block that starts with <em>&lt;appender name="DATE-TIME-ROLL"</em>. For setting descriptions see <MadCap:xref href="LoggingSettings.htm" target="_popup">Log Configuration Settings</MadCap:xref>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Monitoring Data Collector application log (<em>cloudian-datacollector.log</em>)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Level: WARN</p>
+                <p>Rotation: Rotated if reaches 10MB, or else daily; max 100 files kept</p>
+                <p>Format:</p><pre>Date(ISO8601) PriorityLevel [ThreadId] ClassName:MethodName(Line#) MESSAGE</pre>
+                <p>Configuration: In the Puppet template file <em>/etc/cloudian-&lt;version&gt;-puppet/modules/cloudians3/templates/log4j-datacollector.xml.erb</em>, this log is configurable in the block that starts with <em>&lt;RollingRandomAccessFile name="APP"</em>. For setting descriptions see <MadCap:xref href="LoggingSettings.htm" target="_popup">Log Configuration Settings</MadCap:xref>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <h2>Phone Home (Smart Support) Log</h2>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Phone Home application log (<em>cloudian-phonehome.log</em>)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Level: WARN</p>
+                <p>Rotation: Rotated if reaches 10MB, or else daily; max 100 files kept</p>
+                <p>Configuration: In the Puppet template file <em>/etc/cloudian-&lt;version&gt;-puppet/modules/cloudians3/templates/log4j-phonehome.xml.erb</em>, this log is configurable in the block that starts with <em>&lt;RollingRandomAccessFile name="APP"</em>. For setting descriptions see <MadCap:xref href="LoggingSettings.htm" target="_popup">Log Configuration Settings</MadCap:xref>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <h2>Redis and Redis Monitor Logs</h2>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Redis Credentials application log (<em>/var/log/redis/redis-credentials.log</em>)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Level: NOTICE</p>
+                <p>Rotation: Not rotated by default. You can set up by using <a href="http://linux.die.net/man/8/logrotate" target="_blank">logrotate</a>.</p>
+                <p>Format:</p><pre>[PID] dd MMM hh:mm:ss -|* MESSAGE</pre>
+                <p>Example:</p><pre xml:space="preserve">[28294] 10 Nov 21:10:01 - Accepted 127.0.0.1:56187
+[28294] 10 Nov 21:10:01 * Background append only file rewriting started by pid 28661</pre>
+                <p>Configuration: Redis Credentials application logging is configured in the main Redis configuration file. The file name depends on the Redis node type -- master or slave. These templates are on the Puppet master node, under <em>/etc/cloudian-&lt;version&gt;-puppet/modules/redis/templates/</em>:</p>
+                <ul>
+                    <li>Redis Credentials master node: <em>redis-credentials.conf.erb</em></li>
+                    <li>Redis Credentials slave node: <em>redis-credentials-slave.conf.erb</em></li>
+                </ul>
+                <p>The only configurable logging settings are the log file name and the logging level. See the commenting in the configuration file for more detail.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Redis QoS application log (<em>/var/log/redis/redis-qos.log</em>)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Level: NOTICE</p>
+                <p>Rotation: Not rotated by default. You can set up by using <a href="http://linux.die.net/man/8/logrotate" target="_blank">logrotate</a>.</p>
+                <p>Format:</p><pre>[PID] dd MMM hh:mm:ss -|* MESSAGE</pre>
+                <p>Example:</p><pre xml:space="preserve">[28294] 10 Nov 21:10:01 - Accepted 127.0.0.1:56187
+[28294] 10 Nov 21:10:01 * Background append only file rewriting started by pid 28661</pre>
+                <p>Configuration: Redis QoS application logging is configured in the main Redis configuration file. The file name depends on the Redis node type -- master or slave. These templates are on the Puppet master node, under <em>/etc/cloudian-&lt;version&gt;-puppet/modules/redis/templates/</em>:</p>
+                <ul>
+                    <li>Redis QoS master node: <em>redis-qos.conf.erb</em></li>
+                    <li>Redis QoS slave node: <em>redis-qos-slave.conf.erb</em></li>
+                </ul>
+                <p>The only configurable logging settings are the log file name and the logging level. See the commenting in the configuration file for more detail.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Redis Monitor application log (<em>cloudian-redismon.log</em>)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Level: INFO</p>
+                <p>Rotation: Rotated if reaches 10MB, or else daily; max 100 files kept</p>
+                <p>Format:</p><pre>Date(ISO8601) PriorityLevel [ThreadId] ClassName:MethodName(Line#) MESSAGE</pre>
+                <p>Configuration: In the Puppet template file <em>/etc/cloudian-&lt;version&gt;-puppet/modules/cloudians3/templates/log4j-redismon.xml.erb</em>, this log is configurable in the block that starts with <em>&lt;RollingRandomAccessFile name="APP"</em>. For setting descriptions see <MadCap:xref href="LoggingSettings.htm" target="_popup">Log Configuration Settings</MadCap:xref>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <h2>S3 Service Logs</h2>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>S3 Service application log
+
+(<em>cloudian-s3.log</em>)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Level: INFO</p>
+                <p>Rotation: &#160;Rotated if reaches 10MB, or else daily; max 100 files kept</p>
+                <p>Format:</p><pre>Date(ISO8601) PriorityLevel [S3RequestID] [ThreadId] ClassName:MethodName(Line#) MESSAGE</pre>
+                <p>Example:</p><pre xml:space="preserve">2013-07-18 14:32:05,702 DEBUG [7E2050A0EFF111E2] [qtp694473366-33] S3RegionHandler:handle(184)
+Requested bucket com.gemini.cloudian.s3.Bucket@660f2c80[bucketName=bbucket,
+canonicalUserId=7b83496e4080890ba2b452aab2d74cd9,userId=biguser,tenantId=CloudianXXXX,
+createTime=1373409572447,version=&lt;null&gt;,region=region1,isLocalRegion=true,
+loggingBucketName=&lt;null&gt;,loggingPrefix=&lt;null&gt;,virtual=&lt;null&gt;,useNewSchema=true]</pre>
+                <p>Configuration: In the Puppet template file <em>/etc/cloudian-&lt;version&gt;-puppet/modules/cloudians3/templates/log4j-s3.xml.erb</em>, this log is configurable in the block that starts with <em>&lt;RollingRandomAccessFile name="S3APP"</em>. For setting descriptions see <MadCap:xref href="LoggingSettings.htm" target="_popup">Log Configuration Settings</MadCap:xref>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>S3 Service request log
+(<em>cloudian-request-info.log</em>)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Level: not applicable</p>
+                <p>Rotation: Rotated if reaches 100MB, or else daily; max 180 files kept</p>
+                <p>Format:</p><pre xml:space="preserve">yyyy/MM/dd HH:mm:ss|ClientIpAddress|BucketOwnerUserID|Operation|BucketName|
+ContentAccessorUserId|RequestHeaderSize|RequestBodySize|ResponseHeaderSize|ResponseBodySize|
+TotalRequestResponseSize|DurationMsec|UrlEncodedObjectName|HttpStatus|S3RequestID|Etag|ErrorCode</pre>
+                <p>Example:</p><pre xml:space="preserve">2015/03/18 14:32:05|10.10.2.27|balaji|putObject|bbucket|biguser|309|100|81|0|490|647|hoge|
+200|e6642881-f049-11e4-84e8-525400bd7d45|432d68bd7363b796899d2e0619f9800b|0</pre>
+                <ul>
+                    <li>If you use a load balancer in front of your S3 Service nodes, you should configure your S3 Service to support the HTTP X-Forwarded-For header. This will enable the S3 request log to record the true originating IPaddress of S3 requests, rather than the load balancer IP address. By default the S3 Service does not support the X-Forwarded-For header. You can enable support for this header using the system configuration file s3.xml.erb.</li>
+                    <li>The Etag field is the Etag value from the reponse, if applicable to the request type. For information about Etag see for example <a href="http://docs.aws.amazon.com/AmazonS3/latest/API/RESTCommonResponseHeaders.html" target="_blank">Common Response Headers</a> from the Amazon S3 REST API spec. This field’s value will be 0 for request/response types that do not use an Etag value.</li>
+                    <li>The ErrorCode field is the Error Code in the response body, applicable only for potentially long-running requests like PUT Object. If there is no Error Code in the response body this field’s value will be 0. For possible Error Code values see <a href="http://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html" target="_blank">Error Responses</a> from the Amazon S3 REST API spec.</li>
+                </ul>
+                <p>Configuration: In the Puppet template file <em>/etc/cloudian-&lt;version&gt;-puppet/modules/cloudians3/templates/log4j-s3.xml.erb</em>, this log is configurable in the block that starts with <em>&lt;RollingRandomAccessFile name="S3REQ"</em>. For setting descriptions see <MadCap:xref href="LoggingSettings.htm" target="_popup">Log Configuration Settings</MadCap:xref>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>S3 Service hinted handoff log
+(<em>cloudian-hints.log</em>)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Level: INFO</p>
+                <p>Rotation: Rotated if reaches 10MB, or else daily; max 100 files kept</p>
+                <p>Configuration: In the Puppet template file <em>/etc/cloudian-&lt;version&gt;-puppet/modules/cloudians3/templates/log4j-s3.xml.erb</em>, this log is configurable in the block that starts with <em>&lt;RollingRandomAccessFile name="HINTS"</em>. For setting descriptions see <MadCap:xref href="LoggingSettings.htm" target="_popup">Log Configuration Settings</MadCap:xref>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

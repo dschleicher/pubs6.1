@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="7" MadCap:lastHeight="1051" MadCap:lastWidth="814">
+    <head>
+    </head>
+    <body>
+        <h1>Pair</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Admin API Object]</p>
+        <p>A list of Pair objects is nested within the <MadCap:xref href="RuleClass.htm">RuleClass</MadCap:xref> object.</p>
+        <p>The Pair object consists of the following attributes:</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>first</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(string) Rating tier size, as a number of units. In the first Pair within a list of Pair objects, the "first" attribute specifies the N in the rating rule "The first N units are to be priced at X per unit". (The specific units follow from the service usage type; see "Service Usage Units" after the example below). In the next Pair object in the list, the "first" attribute specifies the N in "The next N units are to be priced at X per unit"; and so on. For your final tier — for pricing additional units above and beyond the already defined tiers — use "0" as the value for the "first" attribute. For an example see the description of "second" below.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>second</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(string) For the rating tier specified by the "first" attribute, the rate per unit. The rate is specified as an integer or decimal. (The currency is as specified in the parent RatingPlan object.) For example, suppose the currency is set as dollars in the RatingPlan object, and you want the first 10 units to be charged at $2 per unit, the next 10 units to be priced at $2.50 per unit, and any additional units to be charged at $3 per unit. Your first Pair would be {"first":"10","second":"2.00"}, your next Pair would be {"first":"10","second":"2.50"}, and your final pair would be {"first":"0","second":"3.00"}.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <h2>Example</h2>
+        <p>This is an example of a list of Pair objects. It indicates that the first 10 units are to be charged at .02, and all additional units are to be charged at .01.</p><pre xml:space="preserve">[{"second":"0.02","first":"10"},{"second":"0.01","first":"0"}]</pre>
+        <h2>Service Usage Units</h2>
+        <p>In a Pair object, the "first" attribute indicates a number of units constituting a pricing tier, and the "second" attribute indicates the price per unit within that pricing tier. What constitutes a unit depends onf the service usage type that the rating rule is being applied to. For illustration suppose that in the examples below, the currency (as specified in the parent RatingPlan object) is dollars.</p>
+        <ul>
+            <li>For <b>storage bytes (SB), the unit is GB-month</b> — the average number of GBs of data stored for the month (which is calculated by summing the month’s hourly readings of stored bytes, converting to GB, then dividing by the number of hours in the month). So if in a "Pair" object the "first" attribute is set to "5" and the "second" attribute is set to "2", this means that within this pricing tier which spans 5 GB-month, the charge is $2 per GB-month.</li>
+            <li>For <b>data transfer bytes in or out (BI or BO)</b>, the unit is number of GBs. So if in a "Pair" object the "first" attribute is set to "5" and the "second" attribute is set to "2", this means that within this pricing tier which spans 5 GBs, the charge is $2 per GB.</li>
+            <li>For <b>HTTP GETs, PUTs, or DELETEs (HG, HP, or HD)</b>, the unit is blocks of 10,000 requests. So if in a "Pair" object the "first" attribute is set to "5" and the "second" attribute is set to "2", this means that within this pricing tier which spans 50,000 requests, the charge is $2 per 10,000 requests.</li>
+        </ul>
+    </body>
+</html>

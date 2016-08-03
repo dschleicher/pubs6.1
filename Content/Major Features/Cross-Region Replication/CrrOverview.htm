@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="1064" MadCap:lastWidth="841">
+    <head>
+    </head>
+    <body>
+        <h1>Cross-Region Replication Feature Overview</h1>
+        <p>Like Amazon S3, HyperStore supports cross-region replication. A bucket owner can configure a bucket so that any newly uploaded objects (objects uploaded <b>after</b> this feature is enabled on the bucket) are automatically replicated to a chosen destination bucket in a different service region. This feature enables a bucket owner to enhance the protection of data by having it stored in two geographically dispersed service regions. The feature is also useful in cases where a bucket owner wants to have the same set of data stored in two different regions in order to minimize read latency for users in those regions.</p>
+        <p>Along with allowing replication from a source bucket to a destination bucket in a different service region in the same HyperStore system, HyperStore also supports replicating from a HyperStore source bucket to a destination bucket in an external S3 system such as Amazon S3.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">HyperStore also supports replicating to a destination bucket that’s in the same HyperStore service region as the source bucket. Note however that replicating from a source bucket to another bucket in the same region will not provide the geographical dispersion of data copies that replicating across regions does.</p>
+        <p>Object metadata — including any access permissions assigned to an object — is replicated to the destination bucket as well as the object data itself.</p>
+        <p>As with Amazon S3, HyperStore’s implementation of the cross-region replication feature does <b>not</b> replicate:</p>
+        <ul>
+            <li>Objects that were already in the source bucket before the bucket was configured for cross-region replication.</li>
+            <li>Objects that are encrypted with user-managed encryption keys. (By contrast, objects encrypted with system-managed keys are replicated.)</li>
+            <li>Object deletions. If an object is deleted from the source bucket, the replicated instance of the object in the destination bucket is not deleted.</li>
+            <li>Objects that are themselves replicas from other source buckets. If you configure "bucket1" to replicate to "bucket2", and you also configure "bucket2" to replicate to "bucket3", then only objects that are directly uploaded into "bucket2" by users are replicated to "bucket3" — <b>not</b> objects that the system has replicated from "bucket1" into "bucket2".</li>
+        </ul>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Cross-Region Replication Impact on Usage Tracking</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>If a user configures cross-region replication and consequently objects are replicated from a source bucket in one HyperStore region to a destination bucket in a different HyperStore region, the replica data in the destination region will count toward the user’s Stored Bytes count in that region. For instance a 100MB object that gets replicated in this way would count as 100MB toward the user’s Stored Bytes count in the source region and also as 100MB toward the user’s Stored Bytes count in the destination region, for a total of 200MB across the system.</p>
+                <p>Also, to enable cross-region replication the source bucket and destination bucket must both have "versioning" enabled. Once versioning is enabled, when objects are modified by users the system continues to store the older version(s) of the object as well as storing the new version. In a cross-region replication context, this means that over time multiple versions of an object may come to be stored in both the source bucket and the destination bucket. This results in higher Stored Bytes counts for the user than would be the case if versioning were not enabled.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <p>&#160;</p>
+        <p><b>See Also:</b>
+        </p>
+        <ul>
+            <li>
+                <MadCap:xref href="CrrSetUp.htm">Setting Up Cross-Region Replication</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

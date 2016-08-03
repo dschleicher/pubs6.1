@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="8" MadCap:lastHeight="2489" MadCap:lastWidth="789">
+    <head>
+    </head>
+    <body>
+        <h1>Removing a Node</h1>
+        <p>This procedure is for permanently removing a node from your cluster so that the data storage responsibilities of that node are redistributed to the remaining nodes in the cluster, in an approximately balanced manner. </p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Before You Begin</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Before you remove a node from your HyperStore cluster, take these actions to prepare:</p>
+                <ul>
+                    <li><b>Consider the storage policies that are being used in your HyperStore cluster</b> and make sure that removing a node will not leave the system unable to support particular policies. For example, if 4+2 erasure coding is being used in your system, do not reduce your cluster size to fewer than 6 nodes. If you are at all uncertain about what storage policies are being used in the cluster, use the CMC's <a href="../Resources/Images/cmc/cluster/StoragePolicies.png" target="_popup">Storage Policies</a> page to review the policies.  If removing a node would leave your system unable to support storage policies that are already in use, then you must add a new node to the cluster <b>before</b> removing the node that you want to remove. For instructions see <MadCap:xref href="AddNode.htm">Adding a Node</MadCap:xref>.</li>
+                    <li>Using the CMC's <a href="../Resources/Images/cmc/cluster/ClusterInfo.png" target="_popup">Cluster Information</a> page, <b>check to see whether the node that you want to remove is hosting any of these specialized services</b>:<ul style="list-style-type: circle;"><li>Redis Credentials master or slave</li><li>Redis QoS master or slave</li><li>Redis Monitor primary or backup</li><li>Cronjobs primary or backup</li><li>Puppet Master primary or backup</li><li>Local NTP server</li></ul></li>
+                </ul>
+                <div class="Indent">
+                    <div class="Indent">
+                        <p>If you want to remove a node that is currently hosting such services, you must first <b>move the service(s)</b> from the node that you want to remove to a different node in your cluster. For instructions see <MadCap:xref href="ChangeNodeRoles.htm">Changing Node Role Assignments</MadCap:xref>.</p>
+                    </div>
+                </div>
+                <ul>
+                    <li>Because removing a node from your cluster requires potentially large-scale data transfers within the system, before you remove a node you should temporarily <b>shut down down the scheduled auto-repair feature</b>, so that there are not auto-repairs running at the same time as the node removal process. For instructions see <MadCap:xref href="../Major Features/Automatic Data Repair/DataRepairDisable.htm" target="_popup">Temporarily Disabling Scheduled Auto-Repairs</MadCap:xref>.</li>
+                </ul>
+                <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">Do not remove multiple nodes simultaneously. If you want to remove multiple nodes remove one node at a time, from start to finish for each node.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>To Remove a Node</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>You can remove a node either through the CMC or by using <em>hsstool</em> on the command line, whichever you prefer. The instructions that follow are oriented toward the CMC but they also indicate the corresponding command line commands.</p>
+                <p>In the CMC page <b>Cluster → Nodes → Advanced</b>, do the following:</p>
+                <ol>
+                    <li>From the Info command type group, execute the <em>hsstool status</em> command against any live node in the cluster to determine whether the node you want to remove is live (Cassandra status = "Up") or "dead" (Cassandra status = "Down"). For example, if we want to remove node <em>cloudian-node1</em>, we would send the <em>hsstool status</em> command to a different node such as <em>cloudian-node5</em> which we know to be live.</li>
+                </ol>
+                <div class="Indent">
+                    <p>
+                        <img src="../Resources/Images/operations/Status_cloudian-node5.png" class="ImgCloudian" />
+                    </p>
+                    <p>If using the command line rather than the CMC, the command is:</p><pre>[root]# /opt/cloudian/bin/hsstool -h &lt;any-live-host&gt; status</pre>
+                    <p>The <em>status</em> command returns status for all nodes in the cluster. If the status results indicate that the node you want to remove is <b>dead</b>, copy the node’s "Host ID" from the status results — you will need to paste it into a text field during the next step. (If the node is live, there’s no need to copy anything — just proceed to the next step.)</p>
+                    <p style="text-align: center;">
+                        <img src="../Resources/Images/operations/Status_hostId.png" class="ImgCloudian" style="mc-thumbnail-max-height: 40px;" />
+                    </p>
+                </div>
+                <ol MadCap:continue="true">
+                    <li>Remove the node from the Cassandra/HyperStore storage ring and rebalance the data in the cluster. The procedure to follow depends on whether the node is live or dead:</li>
+                </ol>
+                <div class="Indent">
+                    <MadCap:dropDown>
+                        <MadCap:dropDownHead class="CloudianChildDropDown">
+                            <MadCap:dropDownHotspot>If the node to remove is live...</MadCap:dropDownHotspot>
+                        </MadCap:dropDownHead>
+                        <MadCap:dropDownBody>
+                            <p>From the Maintenance command type group, execute <em>hsstool decommission</em> on the node to be removed.</p>
+                            <p>
+                                <img src="../Resources/Images/operations/Decommission.png" class="ImgCloudian" />
+                            </p>
+                            <p>If using the command line rather than the CMC, the command is:</p><pre>[root]# /opt/cloudian/bin/hsstool -h &lt;host-to-remove&gt; decommission</pre>
+                        </MadCap:dropDownBody>
+                    </MadCap:dropDown>
+                    <MadCap:dropDown>
+                        <MadCap:dropDownHead class="CloudianChildDropDown">
+                            <MadCap:dropDownHotspot>If the node to remove is dead...</MadCap:dropDownHotspot>
+                        </MadCap:dropDownHead>
+                        <MadCap:dropDownBody>
+                            <p>From the Maintenance command type group, send an <em>hsstool removenode</em> command to <b>one of your remaining live nodes</b>, specifying the dead node by its Host ID.</p>
+                            <p>
+                                <img src="../Resources/Images/operations/Removenode.png" class="ImgCloudian" />
+                            </p>
+                            <p>If using the command line rather than the CMC, the command is:</p><pre>[root]# /opt/cloudian/bin/hsstool -h &lt;any-live-host&gt; removenode &lt;hostid-of-dead-node&gt;</pre>
+                        </MadCap:dropDownBody>
+                    </MadCap:dropDown>
+                </div>
+                <ol MadCap:continue="true">
+                    <li>From the command type group Add/Uninstall Node, execute the <em>Uninstall Node</em> operation on the node to remove. This removes the node from HyperStore configuration, monitoring, and management systems.</li>
+                </ol>
+                <div class="Indent">
+                    <p>
+                        <img src="../Resources/Images/operations/Uninstall.png" class="ImgCloudian" />
+                    </p>
+                </div>
+                <p>The <em>Uninstall Node</em> operation can only be done through the CMC; there is no<em> hsstool</em> command line equivalent. After you execute this function the node will no longer display in system monitoring and management interfaces of the CMC. Also as part of this function, HyperStore services are stopped on the node (if they are running) and HyperStore packages are removed from the node. S3 object data is not removed from the node.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>After Removing a Node</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>After completing the node removal procedure:</p>
+                <ul>
+                    <li>Go to the CMC's <a href="../Resources/Images/cmc/cluster/NodeStatus.png" target="_popup">Node Status</a> page and <b>confirm that the removed node no longer appears</b> in the "Host" drop-down list.</li>
+                    <li><b>Next</b> go to the CMC's <b>Advanced</b> node management page and from the Maintenance command type group execute <em>hsstool autorepair</em> to <b>re-enable the HyperStore auto-repair feature</b> for the cluster. Submit the command to any one of the remaining nodes in your cluster. Leave the "t &lt;type&gt;" option unspecified so that all repair types are enabled.</li>
+                </ul>
+                <div class="Indent">
+                    <p>
+                        <img src="../Resources/Images/operations/Autorepair_enable_cloudian-node5.png" class="ImgCloudian" />
+                    </p>
+                    <p>If using the command line rather than the CMC, the command is:</p><pre>[root]# /opt/cloudian/bin/hsstool -h &lt;any-host&gt; repairqueue -enable true</pre>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="10" MadCap:lastHeight="2569" MadCap:lastWidth="837">
+    <head>
+    </head>
+    <body>
+        <h1>POST Object's Public URL Permissions</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Admin API Method]</p>
+        <p>Use this method to generate public URL permissions for an object that’s stored in the HyperStore system. You can also use this method to update existing public URL permissions on an object. See the Note in the "Request Payload" section below for the distinction between creating a new public URL and updating an existing one.</p>
+        <p>The public URL for an object will have the following format:</p><pre xml:space="preserve">http[s]://&lt;bucketName&gt;.&lt;S3Domain&gt;/&lt;objectName&gt;?AWSAccesKeyId=&lt;accessKeyOfObjectOwner&gt;
+&amp;Expires=&lt;expiryTime&gt;&amp;Signature=&lt;SignatureString&gt;&amp;x-amz-pt=&lt;&gt;</pre>
+        <p>This format follows the AWS specification for signed URLs.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">This method is supported only if the object is owned by the same user who owns the bucket in which the object is stored.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">You cannot set public URL permissions on an object that the system has encrypted with a user-provided encryption key. By contrast, public URL permissions are supported for objects that the system has encrypted with a system-generated encryption key, which is the more typical encryption method.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">The generated public URL will include the name of the bucket in which the object is stored. If the bucket name includes underscores the public URL may not be DNS-resolvable.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Request Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Syntax</h4><pre xml:space="preserve">POST /permissions/publicUrl?userId=xxx&amp;groupId=xxx&amp;bucketName=xxx&amp;objectName=xxx</pre>
+                <h4>Query Parameters</h4>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>userId</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Mandatory, string) User ID for user who owns the object for which a public URL is being generated.</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>groupId</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Mandatory, string) Group ID for user who owns the object.</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>bucketName</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Mandatory, bucketname) S3 bucket that contains the object. Note that the bucket’s owner must be the same as the object owner or the request will be rejected with a 400 error response.</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>objectName</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Mandatory, string) Name of the object for which a public URL is being generated.</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <h4>Request Payload</h4>
+                <p>
+                    <MadCap:xref href="../Data Objects/PublicUrlAccess.htm">PublicUrlAccess</MadCap:xref> JSON object.</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">The PublicUrlAccess object includes a "url" attribute. If a "url" attribute value is specified in the request, the request is processed as an update to an existing public URL (for example, an update of the maximum allowed downloads limit for the specified, already existing public URL). If no "url" attribute value is specified in the request, the request is processed as a request to generate a new public URL. There are not separate calls for generating a new URL and modifying the usage parameters of an existing URL — the POST call is used in both cases.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Response Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Response Status</h4>
+                <p>In addition to the <MadCap:xref href="../CommonStatusCodes.htm" target="_popup">Common Status Codes</MadCap:xref>, this method may return these codes:</p>
+                <table style="border-collapse: separate;border-top-left-radius: 0px;border-top-right-radius: 0px;border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;width: 100%;">
+                    <col style="width: 115px;">
+                    </col>
+                    <col style="width: 629px;">
+                    </col>
+                    <thead>
+                        <tr>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Status Code</th>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                            <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;">Missing required parameter : {userId, groupId, bucketName, objectName}</td>
+                        </tr>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                            <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;"> 	
+
+User does not exist</td>
+                        </tr>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                            <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;">Invalid JSON object</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4>Response Payload</h4>
+                <p>None.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Example</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>In this first example new public URL permissions are created for a stored object named "HyperStore-S3-Compliance-Guide.html". Note that no URL is included in the request object — the system will generate the URL.</p><pre xml:space="preserve"># Request -&gt;
+
+POST http://10.10.2.91:18081/permissions/publicUrl?userId=PubsUser1&amp;groupId=Pubs&amp;
+bucketName=pubs.bucket.1&amp;objectName=HyperStore-S3-Compliance-Guide.html
+
+Content-Type: application/json
+
+{"expiryTime":"1444306080000","allowRead":true,"maxDownloadNum":10000,"secure":true}
+
+# Response -&gt;
+
+Status Code: 200 OK
+Content-Length: 0
+Date: Fri, 16 Oct 2015 14:12:57 GMT</pre>
+                <p>The POST method above, which triggers the creation of public URL permissions on a stored object, does not return the public URL in the response body. To retrieve the newly created URL you must use the <MadCap:xref href="GetObjectsPublicUrlPermissions.htm">GET Object's Public URL Permissions</MadCap:xref> method:</p><pre xml:space="preserve"># Request -&gt;
+
+GET http://10.10.2.91:18081/permissions/publicUrl?userId=PubsUser1&amp;groupId=Pubs&amp;
+bucketName=pubs.bucket.1&amp;objectName=HyperStore-S3-Compliance-Guide.html
+
+# Response -&gt;
+
+Status Code: 200 OK
+Content-Length: 344
+Content-Type: application/json
+Date: Fri, 16 Oct 2015 14:18:15 GMT
+{"expiryTime":"1444306080000","allowRead":true,"currentDownloads":0,"maxDownloadNum":10000,
+"secure":true,"url":"https://pubs.bucket.1.s3-region1.mycloudianhyperstore.com/HyperStore-S3-
+Compliance-Guide.html?AWSAccessKeyId=35a39816c26d3e930a70&amp;Expires=1444306080&amp;
+Signature=Qp3s3YZg7w%2FNcdbJhSEq%2F1Idb5s%3D&amp;x-amz-pt=MDAyNjgxMjMxNDQ1MDA0Nzc3MDUy"}</pre>
+                <p>In this next example, <b>existing</b> public URL permissions for a different stored object are <b>modified</b>. Note that the existing URL is included in the request object. The max download number is increased from its original value.</p><pre xml:space="preserve"># Request -&gt;
+
+POST http://10.10.2.91:18081/permissions/publicUrl?userId=PubsUser1&amp;groupId=Pubs&amp;
+bucketName=pubs.bucket.1&amp;objectName=HyperStore-Software-Install-Guide.html
+
+Content-Type: application/json
+
+{"expiryTime":"1445005200000","allowRead":true,"maxDownloadNum":50000,"secure":true,
+"url":"https://pubs.bucket.1.s3-region1.mycloudianhyperstore.com/HyperStore-Software-
+Install-Guide.html?AWSAccessKeyId=35a39816c26d3e930a70&amp;Expires=1445005200&amp;Signature=
+D5dzQ84CIGQvaMQT2hQGF2%2BM0bg%3D&amp;x-amz-pt=MDAyNjgxMjMxNDQ1MDAxNjgwNDIx"}
+
+# Response -&gt;
+
+Status Code: 200 OK
+Content-Length: 0
+Date: Fri, 16 Oct 2015 13:34:11 GMT</pre>
+                <p>For more information about PublicUrlAccess object attributes, see <MadCap:xref href="../Data Objects/PublicUrlAccess.htm">PublicUrlAccess</MadCap:xref>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="853" MadCap:lastWidth="841">
+    <head>
+    </head>
+    <body>
+        <h1>Setting Usage Data Retention Periods</h1>
+        <p>Data retention periods are separately configurable for usage data in the Raw, RollupHour, RollupDay, and RollupMonth column families. After data has been stored for its configured retention period (also know as "time-to-live" or TTL), it’s deleted from the system.</p>
+        <p>The relevant settings are all in the configuration template <em>mts.properties.erb</em>:</p>
+        <ul>
+            <li>reports.raw.ttl (default = 86400 seconds [1 day]) [XREF -- here and the others]</li>
+            <li>reports.rolluphour.ttl (default = 5616000 seconds [65 days])</li>
+        </ul>
+        <p class="ImportantIndent" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">The HyperStore system calculates monthly bills for service users by aggregating <b>hourly</b> roll-up data. Once hourly data is deleted, you will not be able to generate bills for the service period covered by that data. So be sure to have <em>reports.rolluphour.ttl </em>set to a value that you’re comfortable with.</p>
+        <ul>
+            <li>reports.rollupday.ttl (default = 5616000 seconds [65 days])</li>
+            <li>reports.rollupmonth.ttl (default = 15552000 seconds [180 days])</li>
+        </ul>
+        <p>If you want to change the value of any of these settings, do the following:</p>
+        <ol>
+            <li>On your Puppet master node, open the following configuration template in a text editor:</li>
+        </ol>
+        <div class="Indent"><pre>/etc/cloudian-&lt;version&gt;-puppet/modules/cloudians3/templates/mts.properties.erb</pre>
+        </div>
+        <ol MadCap:continue="true">
+            <li>Make your desired edits to the usage data retention settings and save your changes.</li>
+            <li>Still on your Puppet master node, launch the HyperStore installer:</li>
+        </ol>
+        <div class="Indent"><pre xml:space="preserve">[root]# &lt;your-installation-staging-directory&gt;/cloudianInstall.sh</pre>
+        </div>
+        <ol MadCap:continue="true">
+            <li>Select "Cluster Management" and then from the sub-menu that displays select "Push Configuration Settings to Cluster". This propagates your configuration file change to all of your HyperStore nodes.</li>
+            <li>From the Cluster Management sub-menu select "Manage Services", then restart your S3 Service. This applies your configuration change.</li>
+        </ol>
+        <p>&#160;</p>
+        <p><b>See Also:</b>
+        </p>
+        <ul>
+            <li>
+                <MadCap:xref href="UsageReporting.htm">Generating a Usage Report</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

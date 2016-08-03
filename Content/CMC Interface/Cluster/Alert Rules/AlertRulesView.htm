@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="665" MadCap:lastWidth="841">
+    <head>
+    </head>
+    <body>
+        <h1>View Pre-Configured Alert Rules</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[CMC Interface]</p>
+        <p>The HyperStore system comes with a set of pre-configured alert rules. The pre-configured alert rules are listed in the <b>Rules</b> section of the <b><a href="../../../Resources/Images/cmc/cluster/AlertRules.png" target="_popup">Alert Rules</a></b> page. These pre-configured rules trigger node alerts if any of the following occur on a HyperStore node:</p>
+        <ul>
+            <li>CPU utilization on a node exceeds 90%</li>
+            <li>Disk read/write error detected</li>
+            <li>Aggregate available disk space on a node falls below 10% of capacity (only disks used for Cassandra or HyperStore data directories are counted)</li>
+            <li>Available space on an individual disk falls below 15% of capacity</li>
+            <li>A data repair operation has completed.</li>
+            <li>A service goes down on a node on which the service is supposed to be running.</li>
+            <li>An ERROR level message has been written to a service log.</li>
+        </ul>
+        <p>For the "service down" events, pre-configured alert rules are in place for each of the major services (Admin, Cassandra, HyperStore, Redis Credentials, Redis QoS, Redis Monitor, and S3). For the "ERROR in log" events, preconfigured rules are in place for all services except for the Redis Monitor.</p>
+        <p>If any of the system events covered by these pre-configured rules occur, an email is sent to your <a href="../Configuration Settings/ConfigurationSettingsSMTP.htm" target="_popup">default system administrator email address(es)</a> and an event entry displays in the <MadCap:xref href="../Node Status/NodeStatusOverview.htm" target="_popup">Node Status</MadCap:xref> page and also in the <MadCap:xref href="../../Alerts/AlertsOverview.htm" target="_popup">Alerts</MadCap:xref> page.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">	For more information about alerts, see <MadCap:xref href="AlertRulesImplementation.htm">How HyperStore Implements Alerts</MadCap:xref>.</p>
+        <p>Optionally you can <a href="AlertRulesEdit.htm">edit</a> any of these pre-configured alert rules, or <a href="AlertRulesDisable.htm">disable</a> them, or <a href="AlertRulesDelete.htm">delete</a> them.</p>
+    </body>
+</html>

@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="729" MadCap:lastWidth="841">
+    <head>
+    </head>
+    <body>
+        <h1>Configuring Disk Failure Handling</h1>
+        <p>Several aspects of the HyperStore automated disk failure handling feature are configurable.</p>
+        <p>In the CMC page <b>Cluster → Cluster Config → Configuration Settings</b>, in the <MadCap:xref href="../../CMC Interface/Cluster/Configuration Settings/ConfigurationSettingsSystem.htm" target="_popup">System Settings</MadCap:xref> section, you can choose a "HyperStore Disk Failure Action". This is the automated action for the system to take in the event of a detected disk failure, and the options are "Disable Disk and Move Its Tokens" or "Disable Disk But Don’t Move Tokens", as described in the feature overview above. The default is "Disable Disk and Move Its Tokens". If you change this setting in the <b>Configuration Settings</b> page, your change is dynamically applied to the cluster — no service restart is necessary.</p>
+        <p>Additional settings are available in <em>hyperstore-server.properties.erb</em> on your Puppet master node. These include settings for establishing an error rate threshold for disk-related errors in the HyperStore Service application log (which if exceeded for a given disk will result in the automatic triggering of the Disk Failure Action):</p>
+        <ul>
+            <li>
+                <MadCap:xref href="../../System Configuration/Configuration Files/HyperstoreServerProperties.htm#disk.fail.error.count.threshold" target="_popup">disk.fail.error.count.threshold</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="../../System Configuration/Configuration Files/HyperstoreServerProperties.htm#disk.fail.error.time.threshold" target="_popup">disk.fail.error.time.threshold</MadCap:xref>
+            </li>
+        </ul>
+        <p>By default the threshold is 10 errors in the space of 5 minutes, for a particular disk.</p>
+        <p>Also in <em>hyperstore-server.properties.erb</em> is this setting for the interval at which to conduct the proactive disk drive audit:</p>
+        <ul>
+            <li>
+                <MadCap:xref href="../../System Configuration/Configuration Files/HyperstoreServerProperties.htm#disk.audit.interval" target="_popup">disk.audit.interval</MadCap:xref>
+            </li>
+        </ul>
+        <p>By default the proactive audit occurs hourly.</p>
+        <p>After editing any of these <em>hyperstore-server.properties.erb</em> settings, do the following to apply your change to the cluster:</p>
+        <ol>
+            <li>Launch the HyperStore installer:</li>
+        </ol>
+        <div class="Indent"><pre>root# &lt;installation-staging-directory&gt;/cloudianInstall.sh</pre>
+        </div>
+        <ol MadCap:continue="true">
+            <li>From the installer’s main menu, select "Cluster Management". Then from the "Cluster Management" menu select "Push Configuration Settings to Cluster" and follow the prompts.</li>
+            <li>From the "Cluster Management" menu, select "Manage Services". Then from the "Service Management" menu, restart the HyperStore Service.</li>
+        </ol>
+    </body>
+</html>

@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="8" MadCap:lastHeight="2422" MadCap:lastWidth="620">
+    <head>
+    </head>
+    <body>
+        <h1>Creating Rating Plans for Billing</h1>
+        <p>The HyperStore system supports the creation of billing rating plans in which charges can be specified for each of several different service activity types. The system supports rating plans that charge:</p>
+        <ul>
+            <li>Per GB of data in storage (based on a calculated average storage volume for the billing period)</li>
+            <li>Per GB of data uploaded</li>
+            <li>Per GB of data downloaded</li>
+            <li>Per 10,000 HTTP GET or HEAD requests</li>
+            <li>Per 10,000 HTTP PUT or POST requests</li>
+            <li>Per 10,000 HTTP DELETE requests</li>
+        </ul>
+        <p>A user’s bill can then be calculated by applying the user’s assigned rating plan to the user’s activity levels for each of these activity types, and adding together the charges for each activity type to get a total charge for the billing period.</p>
+        <p>You can create multiple, named rating plans, each of which applies different charges to the various service activity types. Once you’ve created rating plans, those plans are then available for you to <a href="BillingAssignRatingPlans.htm">assign to users</a>.</p>
+        <p>For example, you can create higher-priced and lower-priced rating plans and then assign different plans to different users based on the users' quality of service terms.</p>
+        <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">	If you want to bill for data upload or download volume, or for HTTP request volume, you must enable the "Track/Report Usage for Request Rates and Data Transfer Rates" setting in the CMC’s Configuration Settings page, Usage Tracking section. By default this setting is disabled and the system does not maintain per-user HTTP request counts and data transfer byte counts.</p>
+        <p>You can create rating plans either through the CMC or through the HyperStore Admin API. The system also comes equipped with an editable default rating plan.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Creating Rating Plans for Billing (CMC)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>To create rating plans through the CMC, use the <MadCap:xref href="../../CMC Interface/Users &amp; Groups/Rating Plan/RatingPlanOverview.htm">Rating Plan</MadCap:xref> page. For each plan you create, you can select a currency and then specify the charges to apply per each of the chargeable service activity types (per GB of stored data, per GB of data uploaded, and so on). For each rating plan, the interface supports the creation of single-tier or multi-tier pricing schemes for each chargeable activity.</p>
+                <p>The <b>Rating Plan</b> page also supports viewing and editing existing plans, including the <a href="../../CMC Interface/Users &amp; Groups/Rating Plan/RatingPlanDefault.htm" target="_popup">default rating plan</a> that comes with the HyperStore system.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Creating Rating Plans for Billing (Admin API)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>To create a rating plan through the Admin API, use the <a href="../../Admin API/Rating Plans/PutNewRatingPlan.htm">PUT /ratingPlan</a> method.</p>
+                <p>The Admin API also supports:</p>
+                <ul>
+                    <li>Retrieving a list of existing rating plans: <a href="../../Admin API/Rating Plans/GetRatingPlanList.htm">GET /ratingPlan/list</a></li>
+                    <li>Retrieving a rating plan: <a href="../../Admin API/Rating Plans/GetRatingPlan.htm">GET /ratingPlan</a></li>
+                    <li>Editing a rating plan: <a href="../../Admin API/Rating Plans/PostUpdatedRatingPlan.htm">POST /ratingPlan</a></li>
+                    <li>Deleting a rating plan: <a href="../../Admin API/Rating Plans/DeleteRatingPlan.htm">DELETE /ratingPlan</a></li>
+                </ul>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot><a name="Example"></a>Example of a Rating Plan Applied to Calculate a User’s Monthly Bill</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>This example walks through a hypothetical rating plan and how it would apply to a user’s service usage for a month.</p>
+                <h3>Storage Charges</h3>
+                <ul>
+                    <li>Types: One type only. The average number of GBs of data stored for the month.</li>
+                    <li>Example:<ul style="list-style-type: circle;"><li>Unit: Dollars per GB-months.</li><li>Pricing: From 0-1 TB at $0.14 per GB-month, 1-10 TB at $0.12 per GB-month, 10+ TB at $0.10 per GB-month.</li><li>Usage: Store 0.1 TB for first 10 days of month, then 20 TB for remaining 21 days of month.</li><li>Sum up usage over month: 0.1TB X 240 hours + 20TB X 504 hours = 10,104 TB-hours.</li><li>Convert to GB-months: 10,104 TB-hours X (1024 GB/TB) X (1 month/744 hours) = 13,906.58 GB-months</li><li>Apply tiered pricing: ($0.14 X 1 X 1024GB) + ($0.12 X 9 X 1024GB) + ($0.10 X 3666.58GB) = $1615.94.</li></ul></li>
+                </ul>
+                <h3>Data Transfer Charges</h3>
+                <ul>
+                    <li>Types: 2 types. Data Transfer IN and Data Transfer OUT.<ul style="list-style-type: circle;"><li>Each type (IN, OUT) has own cost.</li></ul></li>
+                    <li>Example:<ul style="list-style-type: circle;"><li>Unit: Dollars per GB.</li><li>Pricing: IN: 0GB+ at $0.10. OUT: 0-10GB at $0.20, 10GB+ at $0.10</li><li>Usage: Transfer-IN 300GB, Transfer-OUT 100GB.</li><li>(300 X $0.10) + (10 X $0.20 + 90 X $0.10) = $41.00.</li></ul></li>
+                </ul>
+                <h3>Request Charges</h3>
+                <ul>
+                    <li>Types: 3 types of requests are HTTP PUT/POST, HTTP GET/HEAD, and HTTP DELETE.<ul style="list-style-type: circle;"><li>Each request type has own cost.</li></ul></li>
+                    <li>Example:<ul style="list-style-type: circle;"><li>Unit: Dollars per 10,000 requests.</li><li>Pricing: PUT/POST: $0.20 per 10,000 requests, GET/HEAD: $0.01 per 10,000 requests, DELETE: $0.00 per 10,000 requests.</li><li>Usage: For the month, 25,000 PUTs/POSTs, 300,000 GETs/HEADs, 1000 DELETEs.</li><li>($0.20 X 25,000 / 10,000) + ($0.01 X 300,000 / 10,000) + ($0.00 X 1000 / 10,000) = $0.53.</li></ul></li>
+                </ul>
+                <h3>Total Bill for Month</h3>
+                <ul>
+                    <li>Storage charges: $1615.94</li>
+                    <li>Data transfer charges: $41.00</li>
+                    <li>Requests charges: $0.53</li>
+                    <li>TOTAL: $1657.47</li>
+                </ul>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <p>&#160;</p>
+        <p><b>See Also:</b>
+        </p>
+        <ul>
+            <li>
+                <MadCap:xref href="BillingAssignRatingPlans.htm">Assigning Rating Plans to Users</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="5" MadCap:lastHeight="1010" MadCap:lastWidth="828">
+    <head>
+    </head>
+    <body>
+        <h1>Start or Stop a Service on All Nodes</h1>
+        <p>The interactive tool that you used to install the HyperStore system — <em>cloudianInstall.sh</em> — can also be used to manage HyperStore services. The tool enables you to start, restart, or start one or more services <b>on all nodes at once</b>.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">The installation tool does not support managing a service on just one node within a multi-node cluster (for example, restarting the S3 Service on just one node within a cluster). To start, restart, or stop one or more services on just a single node, use the <a href="StartStopNode.htm">initialization scripts</a> rather than the installation tool.</p>
+        <ol>
+            <li>On your <b>Puppet master node</b>, go to the staging directory in which the HyperStore install tool resides. This is the directory in which you unpacked the HyperStore release package and initiated the software installation.</li>
+        </ol>
+        <div class="Indent"><pre xml:space="preserve">[root]# cd &lt;your-installation-staging-directory&gt;</pre>
+        </div>
+        <ol MadCap:continue="true">
+            <li>Launch the install tool:</li>
+        </ol>
+        <div class="Indent"><pre xml:space="preserve">[root]# ./cloudianInstall.sh</pre>
+            <p>This displays the top-level menu of options.</p>
+            <p>
+                <img src="../../Resources/Images/installation/MainMenu.png" class="ImgCloudian" />
+            </p>
+        </div>
+        <ol MadCap:continue="true">
+            <li>Choose "Cluster Management", then from the sub-menu that displays choose "Manage Services". This displays the "Service Management" sub-menu:</li>
+        </ol>
+        <div class="Indent">
+            <p>
+                <img src="../../Resources/Images/installation/ServiceManagement.png" class="ImgCloudian" />
+            </p>
+        </div>
+        <div class="Indent">
+            <ol style="list-style-type: lower-alpha;">
+                <li>At the prompt, choose a service number from the menu. To manage all services choose option (0).</li>
+                <li>At the prompt that appears after you make your service selection, choose a service command: start, stop, status, restart, or version.</li>
+            </ol>
+            <p>The service command you choose will be applied to all nodes on which the service resides. For example, if you choose Cassandra and then "start", this will start Cassandra on all nodes on which it is installed. Likewise if you choose S3 and then "status", this will return the status of the S3 Service on each node on which it is installed. And if you choose "All services" and then "stop", this will stop all services on all nodes.</p>
+        </div>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">The "version" option is supported only for the S3 Service.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">From the "Service Management" menu all you can do for the Puppet service is check its status. To stop or start the Puppet daemons, from the installer’s main menu choose "Advanced Options". From the advanced sub-menu that displays you can stop or start the Puppet daemons.</p>
+    </body>
+</html>

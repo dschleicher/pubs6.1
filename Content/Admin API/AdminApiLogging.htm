@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="2" MadCap:lastHeight="849" MadCap:lastWidth="878">
+    <head>
+    </head>
+    <body>
+        <h1>Admin API Logging</h1>
+        <p>Admin API transactions are logged in the Admin Service application log, for which the default location is <code>/var/log/cloudian/cloudian-admin.log</code>. API transactions are logged at log level INFO. As with all Admin Service application log entries, the format for API transaction entries is:</p><pre>Date(ISO8601) PriorityLevel [ThreadId] ClassName:MethodName(Line#) MESSAGE</pre>
+        <p>In the following example, first a request to retrieve the current list of user groups in the system is successfully processed. Then a request is received which is asking to retrieve a specific group that doesn’t actually exist in the system (perhaps the requestor made a typo in the group ID). That request results in a 204 HTTP error response from the system. Note that each API transaction is identified by an integer within the MESSAGE element — "7" for the first transaction in the example and "8" for the second transaction.</p><pre xml:space="preserve">2016-01-02 09:45:07,841  INFO [qtp21028611-57] LoggingFilter:log(153) 7 * Server has received
+a request on thread qtp21028611-57
+7 &gt; GET http://192.168.2.16:18081/group/list
+7 &gt; Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+7 &gt; Accept-Encoding: gzip, deflate
+7 &gt; Accept-Language: null
+7 &gt; Connection: keep-alive
+7 &gt; DNT: 1
+7 &gt; Host: 192.168.2.16:18081
+7 &gt; User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0
+
+2016-01-02 09:45:08,607  INFO [qtp21028611-57] LoggingFilter:log(153) 7 * Server responded with
+a response on thread qtp21028611-57
+7 &lt; 200
+7 &lt; Content-Type: application/json
+2016-01-02 09:48:17,596  INFO [qtp21028611-59] LoggingFilter:log(153) 8 * Server has received
+a request on thread qtp21028611-59
+8 &gt; GET http://192.168.2.16:18081/group?groupId=SalesGroup
+8 &gt; Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+8 &gt; Accept-Encoding: gzip, deflate
+8 &gt; Accept-Language: null
+8 &gt; Connection: keep-alive
+8 &gt; DNT: 1
+8 &gt; Host: 192.168.2.16:18081
+8 &gt; User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0
+
+2016-01-02 09:48:17,621  INFO [qtp21028611-59] GroupResource:getGroup(88) Group Id not
+found:SalesGroup
+
+2016-01-02 09:48:17,623  INFO [qtp21028611-59] LoggingFilter:log(153) 8 * Server responded with
+a response on thread qtp21028611-59
+8 &lt; 204</pre>
+    </body>
+</html>

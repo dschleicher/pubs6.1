@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="1284" MadCap:lastWidth="815">
+    <head>
+    </head>
+    <body>
+        <h1>Disabling a Disk</h1>
+        <p>HyperStore supports a method for <b>temporarily disabling a HyperStore data disk drive</b> so that you can perform planned maintenance such as a firmware upgrade.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">If you are <b>replacing</b> a disk, follow the instructions for <MadCap:xref href="ReplaceDisk.htm">Replacing a Disk</MadCap:xref> rather than the instructions below.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>The Impact of Disabling a Disk</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>When you invoke the HyperStore <i>disableDisk</i> function, the system automatically does the following:</p>
+                <ul>
+                    <li>Unmounts the file system that’s mounted to the disk, comments out its entry in <em>/etc/fstab</em>, and marks the disk as unavailable for HyperStore reads and writes.</li>
+                    <li>Moves the disk’s assigned storage tokens (vNodes) to the remaining HyperStore data disks on the same host, in a way that’s approximately balanced across those disks. This is a temporary migration of tokens which will be reversed when you later re-enable the disk.</li>
+                </ul>
+                <p>When a disk is disabled in this way, <b>writes of new or updated</b> S3 object data that would have gone to the disabled disk will go to the other disks on the host instead. Meanwhile <b>existing</b> S3 object replicas and erasure coded fragments on the disabled disk will be unreadable on the host. Whether the system as a whole can still provide S3 clients with read access to the affected S3 objects depends on the storage policies with which the objects are associated, and on the availability of other replicas or erasure coded fragments within the cluster.</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">The system will not allow you to disable a disk if it’s the only disk on the host machine.</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">HyperStore’s feature for <a href="../Major Features/Disk Failure Handling/DiskFailureOverview.htm" target="_popup">automatically disabling a disk in response to disk failure</a> supports a configurable option for not moving any tokens as part of the disabling action. This "No Move" option is not supported for an operator-initiated disabling of a disk. When you disable a disk following the instructions below, tokens will be moved.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>To Disable a Disk</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <ol>
+                    <li>Go to the CMC's <b>Advanced</b> page for node management. On that page select command type "Disk Management" and then select the "disableDisk" command.</li>
+                </ol>
+                <div class="Indent">
+                    <p>
+                        <img src="../Resources/Images/operations/Advanced_disableDisk.png" class="ImgCloudian" />
+                    </p>
+                </div>
+                <ol MadCap:continue="true">
+                    <li>Choose the Target Node (the node on which the disk resides), and enter the Mount Point of the disk that you want to disable (for example <em>/cloudian6</em>).</li>
+                    <li>Click <b>Execute</b>.</li>
+                </ol>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>After Disabling a Disk</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>After the <em>disableDisk</em> operation completes, go to the CMC's <a href="../Resources/Images/cmc/cluster/NodeStatus.png" target="_popup">Node Status</a> page. In the "Disk Detail Info" section, the device that you disabled should now have this grayed-out status icon (indicating that it’s disabled and its tokens have been migrated to other disks on the same host):</p>
+                <p style="text-align: center;">
+                    <img src="../Resources/Images/cmc/cluster/Icon_disk-disabled.png" />
+                </p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">Because HyperStore uses <MadCap:xref href="../Major Features/Disk Usage Balancing/DiskUsageOverview.htm#Dynamic" target="_popup">Dynamic Object Routing</MadCap:xref> to implement the token migrations, you <b>do not need to run a repair operation</b> after you disable a disk.</p>
+                <p>Later, after completing your maintenance work on the disk, follow the instructions for <MadCap:xref href="ReenableDisk.htm">Re-Enabling a Disk</MadCap:xref>. When you  re-enable the disk, the tokens that had been moved away from the disk will be moved back to it.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

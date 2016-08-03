@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="297" MadCap:lastWidth="841">
+    <head>
+    </head>
+    <body>
+        <h1>Responding to a Cassandra Drive Nearing Capacity</h1>
+        <p>If a Cassandra data drive (a disk or SSD storing the Cassandra database) is nearing capacity, the first two things to try are:</p>
+        <ul>
+            <li>Use <MadCap:xref href="../Commands/hsstool/hsstoolCleanup.htm" target="_popup">hsstool cleanup</MadCap:xref> on the host node, using the <em>allkeyspaces</em> option. This will clear any Cassandra data that is no longer supposed to be on the node.</li>
+            <li>Selectively delete Cassandra data. To do this, consult with Cloudian Support.</li>
+        </ul>
+        <p>If these measures do not free up sufficient space, the solution is to increase system capacity by adding one or more new nodes. For the procedure see <MadCap:xref href="AddNode.htm">Adding a Node</MadCap:xref>. When you add a node, a portion of the Cassandra data on your existing nodes is copied to the new node and then deleted from the existing nodes — thereby freeing up space on the existing nodes.</p>
+    </body>
+</html>

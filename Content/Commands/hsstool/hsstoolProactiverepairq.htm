@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="1784" MadCap:lastWidth="768">
+    <head>
+    </head>
+    <body>
+        <h1>hsstool proactiverepairq</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Command]</p>
+        <p>This <MadCap:xref href="hsstoolOverview.htm" target="_popup">hsstool </MadCap:xref> command returns information about nodes that are in need of automated proactive repair. This includes nodes for which automated proactive repair is in progress as well as nodes for which automated proactive repair will begin shortly.</p>
+        <p>Proactive repair is triggered automatically every hour (by default configuration [XREF]), if needed on a given node. No operator action is required.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">The <em>proactiverepairq</em> command shows what <b>remains to be done</b> in terms of proactive repair on each node. To see what <b>has been done</b> by an in-progress or recently completed proactive repair on a given node, use the <MadCap:xref href="hsstoolOpstatus.htm">hsstool opstatus</MadCap:xref> command on that node.<br /><br />Despite the command name "proactiverepairq", proactive repairs are not ordered into a cluster-wide, sequential queue. Rather, each node performs proactive repair each hour (if needed) and it may be that proactive repairs are being performed on multiple nodes in parallel. This is OK since proactive repairs are limited in scope.<br /><br />For more information about the HyperStore proactive repair feature see <MadCap:xref href="../../Major Features/Automatic Data Repair/DataRepairOverview.htm" target="_popup">Automatic Data Repair Feature Overview</MadCap:xref>.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Command Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>You can run the <em>hsstool proactiverepairq</em> command through the CMC UI:</p>
+                <p>
+                    <img src="../../Resources/Images/cmc/cluster/Advanced_proactiverepairq.png" style="max-width: 8in;" />
+                </p>
+                <p>Or on the command line:</p><pre xml:space="preserve">[root]# /opt/cloudian/bin/hsstool [-h &lt;host&gt;] proactiverepairq</pre>
+                <h3>Parameters</h3>
+                <p>This command supports only this parameter:</p>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>-h &lt;host&gt; (called "Target Node" in CMC UI)</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Optional on command line; mandatory in CMC) You can use any node in the storage cluster as the target host. The command retrieves cluster-wide information that is available via any node that belongs to the cluster. Defaults to local host if you do not supply <em>-h &lt;host&gt;</em> on the command line.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Command/Response Example and Response Description</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The <em>proactiverepairq</em> command example below shows that one node in the cluster is in need of proactive repair, and that the needed repair involves eight object replicas totalling about 1.6 MBs. This proactive repair occurs automatically; no operator action is required. The repair is either already underway or will be triggered at the next interval (default is hourly). Response item descriptions follow the example.</p><pre xml:space="preserve">[root]# /opt/cloudian/bin/hsstool -h cloudian-node1 proactiverepairq
+Number of nodes to repair: 1
+10.20.2.123:  REPLICAS[count = 8 bytes = 1602141] EC[count = 0 bytes = 0]</pre>
+                <p>The <em>proactiverepairq</em> command results display the following items:</p>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>Number of nodes to repair: &lt;#&gt;</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>Number of nodes that are in need of proactive repair.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>&lt;IP Address&gt;</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>IP address of a node that is in need of proactive repair. The results will show one line for each node that needs proactive repair, with each such line starting with the node’s IP address.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>REPLICAS[count = &lt;#&gt; bytes = &lt;#&gt;]</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>For the node identified by &lt;IP Address&gt;, the number of object replicas that need to be written to the node by proactive repair, and the total aggregate size of those replicas in bytes. If the proactive repair is in progress, these numbers indicate how much is left to do.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>EC[count = &lt;#&gt; bytes = &lt;#&gt;]</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>For the node identified by &lt;IP Address&gt;, the number of erasure coded object fragments that need to be written to the node by proactive repair, and the total aggregate size of those fragments in bytes. If the proactive repair is in progress, these numbers indicate how much is left to do.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

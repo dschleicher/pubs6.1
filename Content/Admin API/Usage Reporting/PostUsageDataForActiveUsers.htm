@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="10" MadCap:lastHeight="1107" MadCap:lastWidth="577">
+    <head>
+    </head>
+    <body>
+        <h1>POST Usage Data for Active Users</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Admin API Method]</p>
+        <p>The HyperStore system’s Redis QoS database maintains per-user and per-group counters for stored bytes and number of stored objects, based on transaction data that it receives from the S3 Service. Use this Admin API method to write these per-user and per-group stored bytes and stored object counts to the "Raw" column family in the Cassandra "Reports" keyspace. Other API methods can be subsequently used to roll up this "Raw" data for use in reporting and billing.</p>
+        <p>This method is applied only to users and groups that have uploaded or deleted objects since the last time this API method was executed.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">This operation is triggered every 5 minutes by a HyperStore <MadCap:xref href="../../Maintenance/CronJobs.htm#Usage" target="_popup">Usage Data Processing</MadCap:xref> cron job. The operation acts only on usage data in the local service region. In a multi-region system, the operation must be run locally in each region. Consequently, system cron jobs that trigger this operation are configured in each region.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Request Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Syntax</h4><pre xml:space="preserve">POST /usage/storage</pre>
+                <h4>Query Parameters</h4>
+                <p>None.</p>
+                <h4>Request Payload</h4>
+                <p>None.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Response Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Response Status</h4>
+                <p>This method returns only the <MadCap:xref href="../CommonStatusCodes.htm" target="_popup">Common Status Codes.</MadCap:xref></p>
+                <h4>Response Payload</h4>
+                <p>None.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Example</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>In this example active users' service usage data from the Redis QoS database is successfully written to Cassandra where it will be available for further processing.</p><pre xml:space="preserve"># Request -&gt;
+
+POST http://192.168.2.16:18081/usage/storage
+
+Response -&gt;
+Status Code: 200 OK
+Content-Length: 0
+Date: Wed, 30 Sep 2015 13:55:19 GMT</pre>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

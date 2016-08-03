@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="10" MadCap:lastHeight="1274" MadCap:lastWidth="873">
+    <head>
+    </head>
+    <body>
+        <h1>PUT New Notification Rule</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Admin API Method]</p>
+        <p>Use this Admin API method to create a new rule for having the system notify system administrators about a specified system event. The rule details, in the JSON-encoded request body, indicate the system event that will trigger a notification and how the system should implement the notification.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">The HyperStore system comes with a sizable number of pre-created notification rules. To see the existing set of rules use the <MadCap:xref href="GetNotificationRules.htm">GET Notification Rules</MadCap:xref> method; or alternatively, log into the CMC and go to <b>Cluster → Alert Rules</b>. Note that in the CMC&#160;the term "alert" is used rather than "notification"; in the context of HyperStore these two terms mean the same thing.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Request Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Syntax</h4><pre xml:space="preserve">PUT /monitor/notificationrule</pre>
+                <h4>Query Parameters</h4>
+                <p>None.</p>
+                <h4>Request Payload</h4>
+                <p>
+                    <MadCap:xref href="../Data Objects/NotificationRule.htm">NotificationRule</MadCap:xref> JSON object.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Response Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Response Status</h4>
+                <p>In addition to the <MadCap:xref href="../CommonStatusCodes.htm" target="_popup">Common Status Codes</MadCap:xref>, this method may return these codes:</p>
+                <table style="border-collapse: separate;border-top-left-radius: 0px;border-top-right-radius: 0px;border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;width: 100%;">
+                    <col style="width: 115px;">
+                    </col>
+                    <col style="width: 629px;">
+                    </col>
+                    <thead>
+                        <tr>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Status Code</th>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                            <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;">Invalid JSON object</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4>Response Payload</h4>
+                <p>None.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Example</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>In this example a new notification rule is successfully created. Note that in the PUT request body the "ruleId" attribute must be set to empty (""). Upon rule creation the system will automatically generate a ruleId. If you want to know what ruleId the system generated for the new rule, use the <MadCap:xref href="GetNotificationRules.htm">GET Notification Rules</MadCap:xref> method.</p>
+                <p>Note also that in this sample request body the "region" attribute is set to empty. Consequently, the new rule will be created in the default service region. If you want the rule to be created in a specific region other than the default region, use the "region" attribute to specify the region.</p><pre xml:space="preserve"># Request -&gt;
+
+PUT http://10.50.10.16:18081/monitor/notificationrule
+
+Content-Type: application/json
+
+{"email":"default","statId":"s3GetLatency","condition":"&gt;","conditionVal":"150","snmpTrap":false,
+"ruleId":"","enabled":true,"region":""}
+
+# Response -&gt;
+
+Status Code: 200 OK
+Content-Length: 0
+Date: Fri, 04 Dec 2015 11:55:52 GMT</pre>
+                <p>For more information about NotificationRule object attributes, see <MadCap:xref href="../Data Objects/NotificationRule.htm">NotificationRule</MadCap:xref>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

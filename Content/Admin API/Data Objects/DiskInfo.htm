@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="7" MadCap:lastHeight="976" MadCap:lastWidth="738">
+    <head>
+    </head>
+    <body>
+        <h1>DiskInfo</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Admin API Object]</p>
+        <p>A list of DiskInfo objects — one for each disk on the node — is nested within the <MadCap:xref href="MonitorNodeInfo.htm">MonitorNodeInfo</MadCap:xref> object.</p>
+        <p>The DiskInfo object consists of the following attributes:</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>deviceName</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(string) Disk drive device name.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>diskAvailKb</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(string) Total remaining free space on the disk in number of KBs. In calculating this value, a disk’s "reserved-blocks-percentage" (the portion of the disk space that’s reserved for privileged processes) is considered to be used space. By default in Linux systems the configurable "reserved-blocks-percentage" for a file system is 5% of disk capacity.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>diskTotalKb</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(string) Total capacity of the disk in number of KBs.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>mountPoint</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(string) File system mount point for the disk.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>status</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(EDiskStatus) Disk status string. One of "OK", "ERROR", "DISABLED", or "DISABLEDNOMOVE".</p>
+                    <p>For description of these disk statuses, see <MadCap:xref href="../../CMC Interface/Cluster/Node Status/NodeStatusDisks.htm" target="_popup">View a Node's Disk Status</MadCap:xref>.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>storageUse</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(EStorageType) List of storage type strings, indicating what type of data is being stored on the disk. One or more of:</p>
+                    <ul>
+                        <li>"CASSANDRA" — System metadata and S3 object metadata in Cassandra.</li>
+                        <li>"HS" — Replicated S3 object data.</li>
+                        <li>"EC" — Erasure coded S3 object data.</li>
+                        <li>"NOTAVAIL" — Storage usage information cannot be retrieved.</li>
+                    </ul>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <h2>Example</h2>
+        <p>This is an example of a DiskInfo object. The example is an excerpt from within a parent <MadCap:xref href="MonitorNodeInfo.htm">MonitorNodeInfo</MadCap:xref> object. It indicates status information for a single disk on the node.</p><pre xml:space="preserve">{"mountPoint":"/","diskAvailKb":"61243876","diskTotalKb":"67049088",
+"deviceName":"/dev/mapper/vg0-root","storageUse":["CASSANDRA","HS"],"status":"OK"}</pre>
+    </body>
+</html>

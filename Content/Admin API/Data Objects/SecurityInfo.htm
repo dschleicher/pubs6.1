@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="7" MadCap:lastHeight="727" MadCap:lastWidth="814">
+    <head>
+    </head>
+    <body>
+        <h1>SecurityInfo</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Admin API Object]</p>
+        <p>The SecurityInfo object is returned as the <b>response payload</b> for these Admin API operations:</p>
+        <ul>
+            <li>
+                <MadCap:xref href="../User Management/GetUsersS3Credential.htm">GET User's S3 Credential</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="../User Management/GetUsersS3CredentialsList.htm">GET User's S3 Credentials List</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="../User Management/GetUsersS3CredentialsListActive.htm">GET User's S3 Credentials List (Active)</MadCap:xref>
+            </li>
+        </ul>
+        <p>The SecurityInfo object consists of the following attributes:</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>accessKey</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(string) User’s access key for the HyperStore S3 service.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>active</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(boolean) Whether the credential is active, <em>true</em> or <em>false</em>.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>createDate</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(string) Creation timestamp for the credential in UTC milliseconds.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>expireDate</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(string) Credential expiration date. Currently always null.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>secretKey</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <div class="Indent">
+                    <p>(string) User’s secret key for the HyperStore S3 service.</p>
+                </div>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <h2>Example</h2>
+        <p>This is an example of a SecurityInfo object.</p><pre xml:space="preserve">{"active":true,"secretKey":"JitieOhfVdQ1sQ88yeGQyyLBSQr+aZbU0WreSs12","accessKey":
+"0dfb7d248e850f8cbc3e","createDate":1440698072025,"expireDate":null}</pre>
+    </body>
+</html>

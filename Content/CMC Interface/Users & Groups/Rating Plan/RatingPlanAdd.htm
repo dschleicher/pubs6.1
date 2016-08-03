@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="5" MadCap:lastHeight="1760" MadCap:lastWidth="659">
+    <head>
+    </head>
+    <body>
+        <h1>Add a Rating Plan</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[CMC Interface]</p>
+        <p>Rating plans specify pricing for various types and levels of user activity, to facilitate billing. Through the CMC's <a href="../../../Resources/Images/cmc/users/RatingPlans.png" target="_popup">Rating Plans</a> page you can create and configure new rating plans.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">HyperStore includes a pre-configured <a href="RatingPlanDefault.htm#DefaultRatingPlan" target="_popup">default rating plan</a> named "Default-RP". If you wish you can <a href="RatingPlanEdit.htm">edit the contents</a> of that plan. There is also a pre-configured plan named "Whitelist-RP" which supports the HyperStore <a href="../Whitelist.htm" target="_popup">whitelist feature</a>.</p>
+        <p>To create a new rating plan:</p>
+        <ol>
+            <li>In the <b>Rating Plans</b> page click <b>Add Rating Plan</b>. This opens the <b>Add Rating Plan</b> panel.</li>
+        </ol>
+        <div class="Indent">
+            <p>
+                <img src="../../../Resources/Images/cmc/users/AddRatingPlan.png" style="mc-thumbnail-max-height: 60px;" class="ImgCloudian" />
+            </p>
+        </div>
+        <ol MadCap:continue="true">
+            <li>Assign the plan a unique ID, and optionally a Name.</li>
+            <li>From the Currency drop-down list, choose the currency units on which the plan’s pricing structure will be based (for example, USD for U.S. dollars).</li>
+        </ol>
+        <ol MadCap:continue="true">
+            <li>Specify the billing rates that will constitute the rating plan. You can specify billing rates per:</li>
+        </ol>
+        <div class="Indent">
+            <ul>
+                <li>Average GBs of data in storage during the calendar month for which the bill is calculated ("Storage-Size Rates")</li>
+                <li>GBs of data uploaded to the system. ("Data-Transfer-IN Rates")</li>
+                <li>GBs of data downloaded from the system. ("Data-Transfer-OUT Rates")</li>
+                <li>10,000 HTTP GET or HEAD requests. ("HTTP[S] GET/HEAD Rates")</li>
+                <li>10,000 HTTP PUT or POST requests. ("HTTP[S] PUT/POST Rates")</li>
+                <li>10,000 HTTP DELETE requests. ("HTTP[S] DELETE Rates")</li>
+            </ul>
+            <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">If you want to bill for data upload or download volume, or for HTTP request volume, you must enable the <MadCap:xref href="../../Cluster/Configuration Settings/ConfigurationSettingsUsage.htm#Track/Report_Usage_for_Request_Rates_and_Data_Transfer_Rates" target="_popup">Track/Report Usage for Request Rates and Data Transfer Rates</MadCap:xref> setting on the CMC’s <b>Configuration Settings</b> page. By default this setting is disabled and the system does not maintain per-user HTTP request counts and data transfer byte counts.</p>
+            <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">	For an example of these rates applied to a user’s bill, see <MadCap:xref href="../../../Major Features/Billing/BillingCreateRatingPlans.htm#Example" target="_popup">Example of a Rating Plan Applied to Calculate a User’s Monthly Bill.</MadCap:xref></p>
+            <p>For each rated activity you can establish either a single-tier or multi-tier pricing structure, based on activity level.</p>
+            <p>With <b>single-tier pricing</b>, the per-unit rate charged for the activity is not impacted by the activity level; whether the activity level is low or high, the per-unit charge remains the same. The initial display for each rated activity accommodates single-tier pricing.</p>
+            <p>For example, in the screen below, for Storage-Size Rates, a single-tier pricing structure can be established by simply specifying a Rate Per GB Per Month. In this example, the rate is $2 per GB-month. That same per GB-month rate applies whether a user stores, for instance, 10 GB-month ($20 charge) or 100 GB-month ($200 charge).</p>
+            <p>
+                <img src="../../../Resources/Images/cmc/users/AddRatingPlan_single-tier.png" style="mc-thumbnail-max-height: 60px;" class="ImgCloudian" />
+            </p>
+            <p>To create a <b>multi-tier pricing</b> structure for a rated activity, first click on the activity type (for example, "Data-Transfer-IN Rates"). Then click <b>Add</b> once for each additional pricing tier that you want to specify, beyond a single tier. For example, in the screen below, <b>Add</b> has been clicked twice to enable a three tier pricing structure for Data-Transfer-IN Rates. In this example, the first five GB of data uploaded during the billing period are priced at $2 per GB; the next five GB are priced at $2.50 per GB; and any uploads beyond that level (above the 10 GBs encompassed by the first two tiers) are priced at $3 per GB.</p>
+            <p>
+                <img src="../../../Resources/Images/cmc/users/AddRatingPlan_multi-tier.png" style="mc-thumbnail-max-height: 60px;" class="ImgCloudian" />
+            </p>
+            <p>Note that the numbers that you enter in the "Rate Per" column signify units of the currency that you chose in the upper part of the <b>Add Rating Plan</b> panel. You can use decimals if you want; for example, if your currency is dollars, you can enter ".1" in the "Rate Per" column to indicate a charge of 10 cents (.1 dollars) per unit of activity.</p>
+            <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">For HTTP request rates, the pricing is based on blocks of 10,000 requests. So for example, if you want the first 50,000 requests to be charged at a certain price per block of 10,000, then in the "Number of 10,000 Requests" field for that tier, <b>enter 5 — not 50,000</b>.</p>
+        </div>
+        <ol MadCap:continue="true">
+            <li>
+                <p>When you’re done creating the new rating plan, click <b>Save</b> at the bottom of the <b>Add Rating Plan</b> panel. The plan will then appear in the <b>Rating Plans</b> list.</p>
+            </li>
+        </ol>
+    </body>
+</html>

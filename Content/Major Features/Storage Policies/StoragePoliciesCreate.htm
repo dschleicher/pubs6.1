@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="1046" MadCap:lastWidth="815">
+    <head>
+    </head>
+    <body>
+        <h1>Creating and Managing Storage Policies</h1>
+        <p>You can create and manage storage policies through either the CMC or the Admin API.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">The system supports a configurable maximum number of storage policies (mts.properties: cloudian.protection.policy.max, default = 25). If this many policies already exist, you cannot create new policies until you either delete unused policies or increase the configurable maximum.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Creating and Managing Storage Policies (CMC)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>In the CMC you can do everything you need to do in regard to creating and managing storage policies in one location: the <MadCap:xref href="../../CMC Interface/Cluster/Storage Policies/StoragePoliciesOverview.htm">Storage Policies</MadCap:xref> page. In that page you can:</p>
+                <ul>
+                    <li>
+                        <MadCap:xref href="../../CMC Interface/Cluster/Storage Policies/StoragePoliciesAdd.htm">Add a Storage Policy</MadCap:xref>
+                    </li>
+                    <li>
+                        <MadCap:xref href="../../CMC Interface/Cluster/Storage Policies/StoragePoliciesEdit.htm">Edit a Storage Policy</MadCap:xref>
+                    </li>
+                    <li>
+                        <MadCap:xref href="../../CMC Interface/Cluster/Storage Policies/StoragePoliciesDefault.htm">Designate a Default Storage Policy</MadCap:xref>
+                    </li>
+                    <li>
+                        <MadCap:xref href="../../CMC Interface/Cluster/Storage Policies/StoragePoliciesDisable.htm">Disable a Storage Policy</MadCap:xref>
+                    </li>
+                    <li>
+                        <MadCap:xref href="../../CMC Interface/Cluster/Storage Policies/StoragePoliciesDelete.htm">Delete a Storage Policy</MadCap:xref>
+                    </li>
+                </ul>
+                <p>At all times you must have one and only one <b>default storage policy</b> defined in in each of your HyperStore service regions. The default policy is the one that will be applied when users create new buckets without specifying a policy.</p>
+                <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">When a pre-5.2 version of HyperStore is upgraded to 5.2 or later, the upgrade process automatically creates a storage policy named "DEFAULT_&lt;region-name&gt;". This policy is configured with the data distribution scheme (replication factor or EC "k"+"m" values) and user data read/write consistency requirements that the pre-5.2 system had been using. This "DEFAULT_&lt;region-name&gt;" will be your default storage policy until you designate some other policy as the default. You can disable this policy (after designating a different default policy) so that it cannot be used for newly created buckets, but you cannot delete this policy.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Creating and Managing Storage Policies (Admin API)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The Admin API supports several calls for creating and managing storage policies:</p>
+                <ul>
+                    <li>Create a storage policy: <a href="../../Admin API/Storage Policies/PutNewStoragePolicy.htm">PUT /bppolicy</a></li>
+                    <li>Edit a storage policy: <a href="../../Admin API/Storage Policies/PostUpdatedStoragePolicy.htm">POST /bppolicy</a></li>
+                    <li>Retrieve a list of storage policies: <a href="../../Admin API/Storage Policies/GetStoragePolicyList.htm">GET /bppolicy/listpolicy</a></li>
+                    <li>Retrieve a storage policy: <a href="../../Admin API/Storage Policies/GetStoragePolicy.htm">GET /bppolicy</a></li>
+                    <li>Disable a storage policy: <a href="../../Admin API/Storage Policies/DeleteDisableStoragePolicy.htm">DELETE /bpppolicy/disable</a></li>
+                    <li>Re-enable a disabled storage policy: <a href="../../Admin API/Storage Policies/PostReenableStoragePolicy.htm">PUT /bppolicy/enable</a></li>
+                    <li>Delete a storage policy: <a href="../../Admin API/Storage Policies/DeleteStoragePolicy.htm">DELETE /bpppolicy</a></li>
+                </ul>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">The "bp" in these calls stands for bucket protection. "Bucket protection policy" is another term for storage policy.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

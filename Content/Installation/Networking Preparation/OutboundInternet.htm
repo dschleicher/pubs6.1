@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="609" MadCap:lastWidth="853">
+    <head>
+    </head>
+    <body>
+        <h1>Outbound Internet Access</h1>
+        <p>The HyperStore installation process does not require outbound internet access. However, the following HyperStore features do access the internet once the system is in operation. If you use forward proxying in your environment, after HyperStore installation you may want to set up forward proxying to support these HyperStore features:</p>
+        <ul>
+            <li><b>Phone Home</b> — The Phone Home feature (also known as "Smart Support") securely transmits HyperStore daily diagnostic information to Cloudian Support over the internet. HyperStore supports configuring this feature to use an explicit forward proxy for its outbound internet access (after installation, the relevant settings are <em>mts.properties.erb: phonehome.proxy.*</em>).</li>
+            <li><b>Auto-Tiering</b> — In support of HyperStore’s auto-tiering feature — for automatically transferring locally stored objects to Amazon S3 on a pre-defined schedule — the S3 Service running on each of your HyperStore nodes requires outbound internet access (if you want to use the auto-tiering feature). This feature doesn’t support configuring an explicit forward proxy, but you can use transparent proxying if you wish.</li>
+            <li><b>Pre-Configured ntpd</b> — Accurate, synchronized time across the cluster is vital to HyperStore service. Two of your HyperStore nodes are automatically configured to act as local NTP servers (with one configured as the primary and the other as the secondary). All the other HyperStore nodes are automatically configured as clients to the two local NTP servers. The two nodes that act as local NTP servers are configured to connect to external NTP servers — the default public servers from the <em>pool.ntp.org</em> project. In order to connect to the public NTP servers at <em>pool.ntp.org</em>, the two local NTP servers must be allowed outbound internet access. This feature doesn’t support configuring an explicit forward proxy, but you can use transparent proxying if you wish.</li>
+        </ul>
+        <p class="Indent">To see which of your HyperStore nodes are running as the primary and secondary local NTP servers, after HyperStore installation log into the CMC and go to<b> Cluster → Cluster Config → Cluster Information</b>.</p>
+    </body>
+</html>

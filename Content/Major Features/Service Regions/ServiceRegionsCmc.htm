@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="772" MadCap:lastWidth="815">
+    <head>
+    </head>
+    <body>
+        <h1>Using the CMC to Manage a Multi-Region System</h1>
+        <p>Through the CMC you can monitor and manage an entire multi-region HyperStore system. If your HyperStore deployment is set up as a multi-region system, that will be reflected in these aspects of the CMC interface:</p>
+        <ul>
+            <li><b>User Provisioning and Administration</b>
+                <ul style="list-style-type: circle;">
+                    <li>When you <MadCap:xref href="../../CMC Interface/Users &amp; Groups/Manage Users/ManageUsersAdd.htm">Add a User</MadCap:xref>, you will assign the user a rating plan (for billing purposes) for each region. You can assign the same rating plan in each region, or different rating plans in each region. The same is true when you <MadCap:xref href="../../CMC Interface/Users &amp; Groups/Manage Groups/ManageGroupsAdd.htm">Add a Group</MadCap:xref>: when you set a group-level rating plan (which serves as the default rating plan for users within the group), you choose a rating plan for each region.</li>
+                    <li>When you <MadCap:xref href="../../CMC Interface/Users &amp; Groups/SetQoS.htm">Set Quality of Service (QoS) for Users and Groups</MadCap:xref>, you will assign a different set of limits for each region. As described in <MadCap:xref href="ServiceRegionsOverview.htm#Multi-Re">Multi-Region System Architecture</MadCap:xref>, QoS limits are applied on a per-region basis.</li>
+                </ul>
+            </li>
+            <li><b>S3 Data Storage and Access</b>
+                <ul style="list-style-type: circle;">
+                    <li>When service users <MadCap:xref href="../../CMC Interface/Buckets &amp; Objects/Buckets/BucketAdd.htm">Add a Bucket</MadCap:xref>, they can choose which region to create the bucket in.</li>
+                </ul>
+            </li>
+            <li><b>Usage Reporting and Billing</b>
+                <ul style="list-style-type: circle;">
+                    <li>When you <MadCap:xref href="../../CMC Interface/Analytics/Usage By Users &amp; Groups/UsageCreateReport.htm">Create a Usage Report</MadCap:xref> for a user, a user group, or the system, you can choose the region for which to report usage. You can also generate reports that includes usage from all regions.</li>
+                </ul>
+                <ul style="list-style-type: circle;">
+                    <li>When you generate an <MadCap:xref href="../../CMC Interface/Users &amp; Groups/AccountActivity.htm">Account Activity</MadCap:xref> statement for billing a user, you generate a separate bill for each region.</li>
+                </ul>
+            </li>
+            <li><b>HyperStore System Monitoring</b>
+                <ul style="list-style-type: circle;">
+                    <li>When you check on <MadCap:xref href="../../CMC Interface/Cluster/Data Centers/DataCentersOverview.htm">Data Centers</MadCap:xref> status, you choose which region you want to check on. Status information is available for every region.</li>
+                    <li>When you check individual <MadCap:xref href="../../CMC Interface/Cluster/Node Status/NodeStatusOverview.htm">Node Status</MadCap:xref>, you start by selecting a region, and then select a node within that region.</li>
+                </ul>
+            </li>
+            <li><b>HyperStore System Management</b>
+                <ul style="list-style-type: circle;">
+                    <li>When you <a href="../../CMC Interface/Cluster/Advanced/AdvancedOverview.htm">perform management operations on individual nodes</a> (such as cleanup or repair), you start by selecting a region, then select a node, then select the operation to perform.</li>
+                    <li>When you are <MadCap:xref href="../../Operations/AddNode.htm">Adding a Node</MadCap:xref> to the system, you specify the region in which to add it.</li>
+                </ul>
+            </li>
+        </ul>
+    </body>
+</html>

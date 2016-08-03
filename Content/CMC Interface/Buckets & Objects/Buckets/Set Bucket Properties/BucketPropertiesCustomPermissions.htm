@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="5" MadCap:lastHeight="1108" MadCap:lastWidth="818">
+    <head>
+    </head>
+    <body>
+        <h1>Set Custom S3 Permissions on a Bucket</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[CMC Interface]</p>
+        <p>To choose who you want to be able to access your bucket using S3 protocol applications, and which specific permissions you want to give them, select the <b>Bucket Permissions</b> tab of the CMC's bucket properties interface. (This is the tab that displays by default.)</p>
+        <p>
+            <img src="../../../../Resources/Images/cmc/buckets/BucketProperties_permissions.png" class="ImgCloudian" />
+        </p>
+        <ol>
+            <li>Select the S3 permissions to grant to the <b>public at large</b> (the "Public" row). Supported permission types are:</li>
+        </ol>
+        <div class="Indent">
+            <MadCap:dropDown>
+                <MadCap:dropDownHead class="CloudianChildDropDown">
+                    <MadCap:dropDownHotspot>Readable</MadCap:dropDownHotspot>
+                </MadCap:dropDownHead>
+                <MadCap:dropDownBody>
+                    <p>Grantee can view a list of the bucket’s contents. This enables only a list view; it does not enable opening or downloading of individual files. (To allow read permissions on individual files, see <MadCap:xref href="../../Objects/Set Object Properties/ObjectPropertiesOverview.htm">Set File Properties</MadCap:xref>.)</p>
+                </MadCap:dropDownBody>
+            </MadCap:dropDown>
+            <MadCap:dropDown>
+                <MadCap:dropDownHead class="CloudianChildDropDown">
+                    <MadCap:dropDownHotspot>Writable</MadCap:dropDownHotspot>
+                </MadCap:dropDownHead>
+                <MadCap:dropDownBody>
+                    <p>Grantee can upload objects to the bucket, replace existing objects in the bucket, and delete objects from the bucket.</p>
+                </MadCap:dropDownBody>
+            </MadCap:dropDown>
+            <MadCap:dropDown>
+                <MadCap:dropDownHead class="CloudianChildDropDown">
+                    <MadCap:dropDownHotspot>ACP Readable</MadCap:dropDownHotspot>
+                </MadCap:dropDownHead>
+                <MadCap:dropDownBody>
+                    <p>Grantee can view the current permission settings for the bucket.</p>
+                </MadCap:dropDownBody>
+            </MadCap:dropDown>
+            <MadCap:dropDown>
+                <MadCap:dropDownHead class="CloudianChildDropDown">
+                    <MadCap:dropDownHotspot>ACP Writable</MadCap:dropDownHotspot>
+                </MadCap:dropDownHead>
+                <MadCap:dropDownBody>
+                    <p>Grantee can change the permission settings for the bucket.</p>
+                </MadCap:dropDownBody>
+            </MadCap:dropDown>
+        </div>
+        <ol MadCap:continue="true">
+            <li>Select the S3 permissions to grant to <b>all users of the Cloudian HyperStore service</b> (the "Cloudian User" row). The supported permission types are the same as described in Step 1.</li>
+            <li>If you want the HyperStore system to be able to store the bucket’s server access logs in the bucket, give the "Log Delivery" user Writable permission.</li>
+            <li>If you want to grant S3 permissions to <b>specific users of the Cloudian HyperStore service</b>:</li>
+        </ol>
+        <div class="Indent">
+            <ol style="list-style-type: lower-alpha;">
+                <li>Click <b>Add New</b>. A new grantee row will display. </li>
+                <li>Specify the grantee by &lt;groupID&gt;|&lt;userID&gt;, with the vertical bar separator between groupID and userID. For example, "sales|kurihara123". (Do not include the quote marks.) </li>
+            </ol>
+            <p class="NoteIndent" MadCap:autonum="&lt;b&gt;Note: &lt;/b&gt;">The CMC does not validate the user IDs that you enter. If you enter a user ID that does not belong to an active Cloudian HyperStore user, your action will have no effect. <br /><br />If you want to grant permissions to <b>all members of a particular Cloudian HyperStore user group</b>, specify the grantee as &lt;groudID&gt;|. For example "sales|". (Do not include the quote marks.) </p>
+            <ol style="list-style-type: lower-alpha;" MadCap:continue="true">
+                <li>Select the S3 permissions to give the grantee. The supported permission types are the same as described in Step 1.</li>
+            </ol>
+        </div>
+        <ol MadCap:continue="true">
+            <li>Click <b>Save</b>.</li>
+        </ol>
+        <p>If you add a specific Cloudian HyperStore user as a grantee, and then later want to remove that grantee, click the <b>Delete</b> button for that grantee, then click <b>Save</b>. </p>
+    </body>
+</html>

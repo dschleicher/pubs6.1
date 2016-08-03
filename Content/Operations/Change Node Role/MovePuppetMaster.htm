@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="1424" MadCap:lastWidth="1107">
+    <head>
+    </head>
+    <body>
+        <h1>Move the Puppet Master Primary or Backup Role</h1>
+        <p>When you install your HyperStore system, you choose the node that you want to serve as the Puppet Master for cluster configuration management, and you run the installer on that node. The installer configures that node to be the primary Puppet Master, and also configures a second node to be the Puppet Master backup. Any edits that you make to configuration templates on the Puppet Master primary are automatically sync’d to the Puppet Master backup. If the primary goes down, you can <b>manually</b> fail over the active Puppet Master role to the backup host.</p>
+        <p>There are two different operations that you can perform in regard to the Puppet Master role:</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Move the Puppet Master Backup</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>In this scenario your primary Puppet Master is fine, and you’re simply looking to relocate the Puppet Master backup role to a different host than it is currently on.</p>
+                <ol>
+                    <li>On the Puppet Master primary host, launch the HyperStore installer.</li>
+                </ol>
+                <div class="Indent"><pre xml:space="preserve">[root]# cd &lt;your-installation-staging-directory&gt;
+[root]# ./cloudianInstall.sh</pre>
+                </div>
+                <ol MadCap:continue="true">
+                    <li>From the installer’s main menu, select "Advanced Configuration Options". Then from the Advanced Configuration Options menu select "Change server role assignments".</li>
+                    <li>From the Change Server Role Assignments menu select "Installer/Config Manager backup node".</li>
+                    <li>At the prompt specify the host to which you want to move the Puppet Master backup role.</li>
+                    <li>After completing the interaction for specifying the Puppet Master backup host, return to the Change Server Role Assignments menu and select "Review cluster configuration". Then at the prompt confirm that you want to apply the updated configuration to the Puppet master.</li>
+                    <li>Go to the installer’s main menu and choose "Cluster Management" → "Push Configuration Settings to Cluster" and follow the prompts.</li>
+                    <li>Exit the installer, then log into the CMC and go to the <a href="../../Resources/Images/cmc/cluster/ClusterInfo.png" target="_popup">Cluster Information</a> page. Review the service information section to confirm that your Puppet Master primary and backup hosts are what you want them to be.</li>
+                </ol>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Manually Fail Over the Puppet Master Role from the Primary to the Backup</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>In this scenario there is a problem with your primary Puppet Master, and you want the backup Puppet Master to become active.</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">For this procedure you log into the current Puppet Master <b>backup</b> host and implement the whole procedure from that host.</p>
+                <ol>
+                    <li>On the Puppet Master backup host, launch the HyperStore installer.</li>
+                </ol>
+                <div class="Indent"><pre xml:space="preserve">[root]# cd &lt;your-installation-staging-directory&gt;
+[root]# ./cloudianInstall.sh</pre>
+                </div>
+                <ol MadCap:continue="true">
+                    <li>From the installer’s main menu, select "Advanced Configuration Options". Then from the Advanced Configuration Options menu select "Start or stop Puppet daemon".</li>
+                    <li>At the prompt specify that you want to stop Puppet. This stops any Puppet daemons that are currently running in your cluster.</li>
+                    <li>After the installer indicates that Puppet has been stopped, return to the Advanced Configuration Options menu and select "Remove existing Puppet SSL certificates". This will remove existing Puppet SSL certificates, with no further prompts.</li>
+                    <li>Return to the Advanced Configuration Options menu and select "Change server role assignments".</li>
+                    <li>From the Change Server Role Assignments menu select "Installer/Config Manager backup node".</li>
+                    <li>At the prompt specify the host to which you want to move the Puppet Master (config manager) backup role. (You need a new backup because you are converting the original backup into the primary).</li>
+                    <li>After completing the interaction for specifying the Puppet Master backup host, return to the Change Server Role Assignments menu and select "Review cluster configuration". Then at the prompt confirm that you want to apply the updated configuration to the Puppet master.</li>
+                    <li>Go to the installer’s main menu and choose "Cluster Management" → "Push Configuration Settings to Cluster" and follow the prompts.</li>
+                    <li>Optionally, if you want to leave the Puppet daemons running, from the installer’s main menu select "Advanced Configuration Options". Then from the Advanced Configuration Options menu select "Start or stop Puppet daemon", and choose to start the daemons.</li>
+                    <li>Exit the installer, then log into the CMC and go to the <a href="../../Resources/Images/cmc/cluster/ClusterInfo.png" target="_popup">Cluster Information</a> page. Review the service information section to confirm that your Puppet Master primary and backup hosts are what you want them to be. The former backup (from which you implemented the above procedure) should now be the primary and the new backup should be as you specified during the procedure.</li>
+                </ol>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">If the Puppet Master primary is now on the same host as the Crontab Primary role you should <a href="MoveCrontab.htm">move the Crontab Primary role</a> to a different host. If the Crontab Primary and the running Puppet Master are on the same host and that host goes down, automated fail-over from the Crontab Primary to the Crontab Backup will not work.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

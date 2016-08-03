@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="8" MadCap:lastHeight="2086" MadCap:lastWidth="882">
+    <head>
+    </head>
+    <body>
+        <h1>hsstool hintsstatus</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Command]</p>
+        <p>This <MadCap:xref href="hsstoolOverview.htm" target="_popup">hsstool </MadCap:xref> command returns the status of "hints" currently stored in the system, in connection with the HyperStore hinted hand-off feature. This feature is an automated mechanism for handling missed writes of object replica data when a node is briefly unavailable. For more detail on the hinted hand-off feature see <MadCap:xref href="../../Major Features/Automatic Data Repair/DataRepairOverview.htm" target="_popup">Automatic Data Repair Feature Overview</MadCap:xref>.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Command Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>You can run the <em>hsstool hintsstatus</em> command through the CMC UI:</p>
+                <p>
+                    <img src="../../Resources/Images/cmc/cluster/Advanced_hintsstatus.png" style="max-width: 8in;" />
+                </p>
+                <p>Or on the command line:</p><pre xml:space="preserve">[root]# /opt/cloudian/bin/hsstool [-h &lt;host&gt;] hintsstatus</pre>
+                <h3>Parameters</h3>
+                <p>This command supports only this parameter:</p>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>-h &lt;host&gt; (called "Target Node" in CMC UI)</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>(Optional on command line; mandatory in CMC) You can use any node in the storage cluster as the target host. The  command retrieves cluster-wide information that is available via any node that belongs to the cluster. Defaults to local host if you do not supply <em>-h &lt;host&gt;</em> on the command line.</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Command/Response Example and Response Description</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The first <em>hintsstatus</em> command example below shows that there are currently no hints in the system.</p><pre xml:space="preserve">[root]# /opt/cloudian/bin/hsstool -h cloudian-node1 hintsstatus
+Hints per node : 0</pre>
+                <p>The second <em>hintsstatus</em> command example below is from a system in which there are currently two hints queued for processing. The hints are stored on node <em>h164.geminimobile.com</em> and the node that was down when these writes came into the system is <em>10.10.1.165</em>. The values "24350751" and "24350752" are timestamps indicating that during those minutes hints were stored (timestamp is from the end of the minute and format is Unix time in minutes). Response item descriptions follow the example.</p><pre xml:space="preserve">[root]#/opt/cloudian/bin/hsstool -h 10.10.1.165 hintsstatus
+Hints per node
+h164.geminimobile.com 2
+
+Hints Column family :
+Down node                S3 node                 value
+10.10.1.165     FIRST_HINT_REPLICA              1461045088488
+10.10.1.165     NO_MORE_HINTS_EC                1461044435740
+10.10.1.165     NO_MORE_HINTS_REPLICA           1461045243460
+10.10.1.165     h164.geminimobile.com           24350751,24350752
+10.10.1.165:h164.geminimobile.com:24350751       1
+column = 00019f7c-df67-c634-8171-5254005fb66d,
+hint = bucket1/AA2:/var/lib/cloudian/hints/18114003876376849549521524190091482582/group1/135/243/
+18114003876376849549521524190091482582.1461045088488:25:ed33de4e0d4a341176ea0d36ee138650:2016-04-
+18T22:51:28.488-07:00:false:f9eac7f061de1f9e0a796d6a8917ccf1:1461045088488
+10.10.1.165:h164.geminimobile.com:24350752       1
+column = 00019f85-1cd3-cb8c-8171-5254005fb66d,
+hint = bucket1/AA3:/var/lib/cloudian/hints/116116785922809790061936095411411257103/group1/135/243/
+116116785922809790061936095411411257103.1461045123905:25:c30ea3056529f5f7fd4205f5e120483d:2016-04-
+18T22:52:03.905-07:00:false:f9eac7f061de1f9e0a796d6a8917ccf1:1461045123905</pre>
+                <p>The <em>hintsstatus</em> command results display the following items:</p>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>Hints per node</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>This indicates how many hints are currently stored on each S3 node, awaiting processing when a downed target node comes back online. If no hints are currently stored in the system the <em>hintsstatus</em> response indicates "Hints per node: 0".</p>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>Hints detail</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <p>If there are hints in the system, the <em>hintsstatus</em> response includes metadata about those hints. This information includes:</p>
+                        <ul>
+                            <li>"FIRST_HINT_REPLICA" — For the identified Down Node, this is the time (Unix time in milliseconds) when the first hint was stored for the downed node, by any S3 coordinator node.</li>
+                            <li>"NO_MORE_HINTS_REPLICA" — For the identified Down Node, this is the time beyond which no additional hints will be stored for the downed node (due to configurable time or space restrictions on hinted hand-off). Missed writes from beyond this time are processed by proactive repair rather than hinted hand-off. This field will not display if this limit has not yet been reached.</li>
+                            <li>"NO_MORE_HINTS_EC" — For the identified Down Node, this is the time when erasure coded object data bound for the downed node was first received by an S3 coordinator node. Since hinted handoff does not process erasure coded data, this missed write and any writes missed subsequent to this time will be processed by proactive repair rather than hinted hand-off. This field will not display if there have not been any erasure coded data write attempts to the downed node.</li>
+                            <li>Hint location — This is information about the location of the hints on the S3 coordinator node on which they are stored.</li>
+                        </ul>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

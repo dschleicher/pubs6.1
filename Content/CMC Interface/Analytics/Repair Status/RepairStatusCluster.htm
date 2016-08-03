@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="774" MadCap:lastWidth="826">
+    <head>
+    </head>
+    <body>
+        <h1>View Repair Status for Cluster</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[CMC Interface]</p>
+        <p>
+            <img src="../../../Resources/Images/cmc/analytics/RepairStatus.png" class="ImgCloudian" />
+        </p>
+        <p>The upper section of the CMC's <b>Repair Status</b> page shows aggregate data repair status for your cluster as a whole. The information displays in three panels:</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Proactive Rebuild</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>This panel is activated if proactive repair is in progress on any node in your cluster. It indicates the number of objects that still need to be repaired (an "object" in this context can be either an object replica or an erasure coded object fragment). It also indicates the total size of those objects in bytes. If proactive repair is running on multiple nodes simultaneously, the objects count and bytes count will be aggregate numbers for the cluster as a whole. The "Running Rebuild" field indicates the number of nodes that are currently running proactive repair.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Data Rebalancing</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>This panel is activated if any of the following operations is in progress on any node:</p>
+                <ul>
+                    <li>An operator-initiated <em>repair</em> or <em>repairec</em> operation (such as when you add a new node to the cluster).</li>
+                    <li>An operator-initiated <em>decommission</em> or <em>removenode</em> operation (when you remove a node from the cluster).</li>
+                </ul>
+                <p>The panel shows how many objects have been rebalanced so far, and the size of those objects in bytes. It also shows the completion percentage for the rebalancing operation, on the node on which it is being run.</p>
+                <p>In typical circumstances where best practices are being followed, data rebalancing will only be run on one target node at a time — for example, only one node at a time should be added to the cluster.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Data Integrity Check</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>This panel is activated if a <em>repair</em> or <em>repairec</em> operation using the "computedigest" option is in progress on any node in your cluster. It indicates the number of objects that have been scanned and (from among the scanned objects) the number of objects that needed and received repair. It also shows the completion percentage for the operation, on the node on which it is being run.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <p>If a panel is grayed-out, that indicates that no repair of that type is currently underway in the cluster.</p>
+    </body>
+</html>

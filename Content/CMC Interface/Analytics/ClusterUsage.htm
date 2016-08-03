@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="5" MadCap:lastHeight="1014" MadCap:lastWidth="642">
+    <head>
+    </head>
+    <body>
+        <h1>Cluster Usage</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[CMC Interface]</p>
+        <p>
+            <img src="../../Resources/Images/cmc/analytics/ClusterUsage.png" style="mc-thumbnail-max-height: 90px;" class="ImgCloudian" />
+        </p>
+        <p>Path: <b>Analytics → Cluster Usage</b></p>
+        <p>Supported tasks:</p>
+        <ul>
+            <li>View recent cluster usage</li>
+        </ul>
+        <p>In the CMC's <b>Cluster Usage</b> page you can view cluster usage graphs that cover the past 30 days of activity. The time period is not editable.</p>
+        <p>The following graphs are displayed:</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Capacity consumption over time TB</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>This graph shows the used disk capacity across the whole service region, over the past 30 days.</p>
+                <p>Only disks that store HyperStore data directories (as configured by the <MadCap:xref href="../../System Configuration/Configuration Files/CommonCsv.htm#hyperstore_data_directory" target="_popup">hyperstore_data_directory</MadCap:xref> setting in the <em> common.csv</em> file) or the Cassandra data directory (as configured by the<MadCap:xref href="../../System Configuration/Configuration Files/CommonCsv.htm#cassandra_data_directory" target="_popup"> cassandra_data_directory</MadCap:xref> setting in the <em>common.csv</em> file) count toward this statistic. This stat does not count disks that are being used only for OS or application files, for example.</p>
+                <p>This stat calculates disk usage in a way that counts a disk’s "reserved-blocks-percentage" (the portion of the disk space that’s reserved for privileged processes) as used space. By default in Linux systems the configurable "reserved-blocks-percentage" for a file system is 5% of disk capacity. In a HyperStore Appliance it’s set to 0.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Object transactions/sec (GET&#160;&amp;&#160;PUT)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>This graph shows the number of S3 transactions processed per second across the whole service region, over the past 30 days. The graph shows the PUT transaction activity in blue and the GET transaction activity in green. To highlight one or the other trend line, hold your cursor over the "PUT" or "GET" label off to the right of the graph.</p>
+                <p>HEAD transactions are counted toward the GET stat, and POST transactions are counted toward the PUT stat.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHotspot>Throughput MB/sec (GET &amp; PUT)</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>The data throughput for S3 transactions, expressed as MB per second (or KB or GB per second if appropriate to the activity level), across the whole service region. The graph shows the PUT transaction activity in blue and the GET transaction activity in green. To highlight one or the other trend line, hold your cursor over the "PUT" or "GET" label off to the right of the graph.</p>
+                <p>HEAD transactions are counted toward the GET stat, and POST transactions are counted toward the PUT stat.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

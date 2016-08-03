@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="730" MadCap:lastWidth="853">
+    <head>
+    </head>
+    <body>
+        <h1>PUT Bucket logging</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[S3 API Method]</p>
+        <p>For the Amazon S3 "PUT Bucket logging" operation, the HyperStore system supports the S3 <MadCap:xref href="../CommonRequestHeaders.htm" target="_popup">Common Request Headers</MadCap:xref> and <MadCap:xref href="../CommonResponseHeaders.htm" target="_popup">Common Response Headers</MadCap:xref> and also the operation-specific items listed below. If a parameter, header, element, or special error from the Amazon S3 specification for this operation is not listed below, the HyperStore system does not support it.</p>
+        <p>For operation usage information and for descriptions of request and response items, see <a href="http://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTlogging.html" target="_blank">PUT Bucket logging</a> in the Amazon S3 REST API specification.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">If you are supporting bucket logging in your service, and if you use a load balancer in front of your S3 Service nodes, you should configure your S3 Service to support the HTTP X-Forwarded-For header. This will enable bucket logs to record the true originating IP address of S3 requests, rather than the load balancer IP address. By default the S3 Service does not support the X-Forwarded-For header. You can enable support for this header using the system configuration file <code>s3.xml.erb</code>. See s3.xml.erb in the Cloudian HyperStore Administrator’s Guide [XREF-TBD].</p>
+        <h2>Request Elements</h2>
+        <ul>
+            <li>BucketLoggingStatus</li>
+            <li>EmailAddress</li>
+            <li>Grant</li>
+            <li>Grantee</li>
+            <li>LoggingEnabled</li>
+            <li>Permission</li>
+            <li>TargetBucket</li>
+            <li>TargetGrants</li>
+            <li>TargetPrefix</li>
+        </ul>
+    </body>
+</html>

@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="1535" MadCap:lastWidth="853">
+    <head>
+    </head>
+    <body>
+        <h1>Initiate Multipart Upload</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[S3 API Method]</p>
+        <p>For the Amazon S3 "Initiate Multipart Upload" operation, the HyperStore system supports the S3 <MadCap:xref href="../CommonRequestHeaders.htm" target="_popup">Common Request Headers</MadCap:xref> and <MadCap:xref href="../CommonResponseHeaders.htm" target="_popup">Common Response Headers</MadCap:xref> and also the operation-specific items listed below. If a parameter, header, element, or special error from the Amazon S3 specification for this operation is not listed below, the HyperStore system does not support it.</p>
+        <p>For operation usage information and for descriptions of request and response items, see <a href="http://docs.aws.amazon.com/AmazonS3/latest/API/mpUploadInitiate.html" target="_blank">Initiate Multipart Upload</a> in the Amazon S3 REST API specification.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">HyperStore has been tested for multipart uploads of objects up to 50GB in total size (number of parts X size-per-part = up to 50GB).</p>
+        <h2>Request Headers</h2>
+        <ul>
+            <li>Cache-Control</li>
+            <li>Content-Disposition</li>
+            <li>Content-Encoding</li>
+            <li>Content-Type</li>
+            <li>Expires</li>
+            <li>x-amz-meta-</li>
+            <li>x-amz-storage-class</li>
+            <li>x-amz-website-redirect-location</li>
+            <li>x-amz-acl</li>
+            <li>x-amz-grant-read</li>
+            <li>x-amz-grant-write</li>
+            <li>x-amz-grant-read-acp</li>
+            <li>x-amz-grant-write-acp</li>
+            <li>x-amz-grant-full-control</li>
+            <li>x-amz-server-side-encryption</li>
+        </ul>
+        <p class="NoteIndent" MadCap:autonum="&lt;b&gt;Note: &lt;/b&gt;">The presence of the <em>x-amz-server-side-encryption</em> header triggers server-side encryption, but the HyperStore S3 Service disregards the <b>value</b> of this header (for example, "AES256"). Instead it uses the encryption algorithm specified by the system setting <code>mts.properties: cloudian.s3.serverside.encryption.keylength</code>. By default, AES256 is not enabled in the HyperStore system and AES128 is used. While AES128 may be acceptable for testing purposes, to be compliant with Amazon S3 you <b>must</b> first enable AES256 in the HyperStore system. For instructions see Enabling AES-256 [XREF-TBD]</p>
+        <ul>
+            <li>x-amz-server-side-encryption-customer-algorithm</li>
+        </ul>
+        <p class="NoteIndent" MadCap:autonum="&lt;b&gt;Note: &lt;/b&gt;">To use the SSE-C feature you <b>must</b> first enable AES256 in the HyperStore system. By default it is not enabled. For instructions see Enabling AES-256. [XREF-TBD]</p>
+        <ul>
+            <li>x-amz-server-side-encryption-customer-key</li>
+            <li>x-amz-server-side-encryption-customer-key-MD5</li>
+        </ul>
+        <h2>Response Headers</h2>
+        <ul>
+            <li>x-amz-server-side-encryption</li>
+            <li>x-amz-server-side-encryption-customer-algorithm</li>
+            <li>x-amz-server-side-encryption-customer-key-MD5</li>
+        </ul>
+        <h2>Response Elements</h2>
+        <ul>
+            <li>InitiateMultipartUploadResult</li>
+            <li>Bucket</li>
+            <li>Key</li>
+            <li>UploadId</li>
+        </ul>
+    </body>
+</html>

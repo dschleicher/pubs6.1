@@ -1,0 +1,250 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="10" MadCap:lastHeight="3518" MadCap:lastWidth="918">
+    <head>
+    </head>
+    <body>
+        <h1>GET Usage Data</h1>
+        <p class="TopicTag" MadCap:conditions="General.Online">[Admin API Method]</p>
+        <p>Use this Admin API method to retrieve S3 service usage data for a HyperStore user or for a user group.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">In a multi-region HyperStore system, only the Admin Service in the default region supports this method. To retrieve usage data from non-default regions, submit the request to the default region’s Admin Service and use the "region" query parameter to specify the region for which you want to retrieve usage data.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Request Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Syntax</h4><pre xml:space="preserve">GET /usage?[id=xxx|canonicalUserId=xxx]&amp;operation=xxx&amp;startTime=xxx&amp;endTime=xxx&amp;granularity=xxx
+&amp;reversed=xxx[&amp;limit=xxx][&amp;pageSize=xxx][&amp;offset=xxx][&amp;region=xxx][&amp;regionOffset=xxx]</pre>
+                <h4>Query Parameters</h4>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>id</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Optional, string) Identifier or the user or group for which to retrieve usage data, format</p>
+                            <p>"&lt;groupId&gt;|&lt;userId&gt;" (for example "Dev|dstone"). To retrieve usage data for a whole group rather than a single user, use "&lt;groupId&gt;|*".</p>
+                            <p>Do not use the "id" parameter for users who have been deleted from the system. For deleted users, use the "canonicalUserId" parameter described below.</p>
+                            <p>You must use <b>either</b> "id" <b>or</b> "canonicalUserId". Do not use both together.</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>canonicalUserId</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Optional, string) System-generated canonical ID for the user. Use this parameter if you want to retrieve usage data for a user who has been deleted from the system. If you don’t know the user’s canonical ID, you can obtain it by using the <MadCap:xref href="../User Management/GetUserList.htm">GET User List</MadCap:xref> method (this method can retrieve user profile information — including canonical ID — for all deleted users within a specified group).</p>
+                            <p>You must use <b>either</b> "id" <b>or</b> "canonicalUserId". Do not use both together.</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>operation</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Mandatory, string) Type of service usage data to retrieve. Supported values are:</p>
+                            <ul>
+                                <li><em>SB</em> — Number of stored bytes</li>
+                                <li><em>SO</em> — Number of stored objects</li>
+                                <li><em>HG</em> — Number of S3 HTTP GET requests (includes HEADs also). The returned usage data also includes information about bytes downloaded.</li>
+                                <li><em>HP</em> — Number of S3 HTTP PUT requests (includes POSTs also). The returned usage data also includes information about bytes uploaded.</li>
+                                <li><em>HD</em> — Number of S3 HTTP DELETE requests</li>
+                            </ul>
+                            <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">Usage tracking and reporting for HG, HP, and HD is disabled by default system configuration. To enable tracking and reporting for these operation types, log in to the CMC, go to <b>Cluster → Cluster Config → Configuration Settings</b>, and set "Track/Report Usage for Request Rates and Data Transfer Rates" to "enabled". Once you do, then tracking of those usage types will begin from that point forward (you cannot access retroactive data from time periods prior to when you enabled tracking for those usage types.)</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>startTime</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Mandatory, string) Start time (in GMT) of the interval for which to retrieve usage data. Format is <em>yyyyMMddHHmm</em>.</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>endTime</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Mandatory, string) End time (in GMT) of the interval for which to retrieve usage data. Format is <em>yyyyMMddHHmm</em>.</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>granularity</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Mandatory, string) &#160;Time period granularity of the usage data to retrieve. Supported values are:</p>
+                            <ul>
+                                <li><em>raw</em> — Raw transactional data (not rolled up).</li>
+                                <li><em>hour</em> — Hourly rollup data.</li>
+                                <li><em>day</em> — Daily rollup data.</li>
+                                <li><em>month</em> — Monthly rollup data.</li>
+                            </ul>
+                            <p>For example, if your "startTime" and "endTime" span one day, and your "granularity" is "hour", then the result set will break usage data down by hour, for each of the 24 hours of the day.</p>
+                            <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">For granularity "raw", the interval between "startTime" and "endTime" must not exceed 24 hours. If the interval is larger than this, a 400 Bad Request response will be returned.</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>reversed</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Mandatory, boolean) If this is set to "false", the retrieved usage data results will be listed in chronological order. If this is set to "true", results will be listed in reverse chronological order.</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>limit</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Optional, integer) Maximum number of results to return — that is, the maximum number of &lt;<MadCap:xref href="../Data Objects/UsageData.htm">UsageData</MadCap:xref>&gt; objects to return in the response body — if pagination is not used (if no "pageSize" value is specified).</p>
+                            <p>Defaults to 100000 if not specified.</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>pageSize</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Optional, integer) For pagination, the maximum number of results to return per request. If a "pageSize" is specified, this supersedes the "limit" value.</p>
+                            <p>Defaults to 0 if not specified.</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>offset</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Optional, integer) If you use the "pageSize" parameter in support of paginating a large result set, in the response the system will return one additional result beyond your specified "pageSize" value (for example, if you specify "pageSize=25", the system will return 26 results). From the extra result (listed last in the response body), use the result’s timestamp as the "offset" parameter value in your next request. That result will then be the first of the results returned for that request.</p>
+                            <p>For each request you submit, the last of the returned results will be an extra result from which you can use the timestamp as the "offset" value for the next request. If there is no extra result in the response, that indicates that the result set has been exhausted.</p>
+                            <p>Defaults to 0 if not specified.</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>region</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Optional, string) Region for which to retrieve usage data. To retrieve usage data for all regions, specify the string "ALL". When retrieving data for all regions, the data set is ordered alphanumerically by region name. If no "region" value is specifed, the default region is assumed.</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <MadCap:dropDown>
+                    <MadCap:dropDownHead class="CloudianChildDropDown">
+                        <MadCap:dropDownHotspot>regionOffset</MadCap:dropDownHotspot>
+                    </MadCap:dropDownHead>
+                    <MadCap:dropDownBody>
+                        <div class="Indent">
+                            <p>(Optional, string) If you use a "region" value of "ALL", use the "regionOffset" parameter to specify the region name of your local region. This helps with pagination of the result set.</p>
+                        </div>
+                    </MadCap:dropDownBody>
+                </MadCap:dropDown>
+                <h4>Request Payload</h4>
+                <p>None.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Response Format</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <h4>Response Status</h4>
+                <p>In addition to the <MadCap:xref href="../CommonStatusCodes.htm" target="_popup">Common Status Codes</MadCap:xref>, this method may return these codes:</p>
+                <table style="border-collapse: separate;border-top-left-radius: 0px;border-top-right-radius: 0px;border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;width: 100%;">
+                    <col style="width: 115px;">
+                    </col>
+                    <col style="width: 629px;">
+                    </col>
+                    <thead>
+                        <tr>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Status Code</th>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                            <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;">Missing or invalid parameters</td>
+                        </tr>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                            <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;"> 	
+
+Invalid parameter: region = {region}</td>
+                        </tr>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                            <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;">Invalid parameter: regionOffset = {region}</td>
+                        </tr>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                            <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;">Conflicting parameters: {canonicalUserId, id}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4>Response Payload</h4>
+                <p>List&lt;<MadCap:xref href="../Data Objects/UsageData.htm">UsageData</MadCap:xref>&gt; in JSON.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Example</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>In this example, storage utilization data (average number of stored bytes) is successfully retrieved for user "t1u0". The response consists of daily roll-up data for a one week period.</p><pre xml:space="preserve"># Request -&gt;
+
+GET http://10.10.2.110:18081/usage?id=t1|t1u0&amp;operation=SB&amp;startTime=201509280000
+&amp;endTime=201510040000&amp;granularity=day&amp;reversed=false
+
+# Response -&gt;
+
+Status Code: 200 OK
+Content-Length: 1982
+Content-Type: application/json
+Date: Mon, 05 Oct 2015 11:08:56 GMT
+[{"operation":"SB","averageValue":"400741","timestamp":"1443398400000","maxValue":"400741",
+"whitelistAverageValue":"0","whitelistMaxValue":"0","whitelistCount":"0","whitelistValue":"0",
+"value":"9617784","region":"region1","count":"24","uri":"","groupId":"t1","userId":"t1u0","ip":""},
+{"operation":"SB","averageValue":"400741","timestamp":"1443484800000","maxValue":"400741",
+"whitelistAverageValue":"0","whitelistMaxValue":"0","whitelistCount":"0","whitelistValue":"0",
+"value":"9617784","region":"region1","count":"24","uri":"","groupId":"t1","userId":"t1u0","ip":""},
+{"operation":"SB","averageValue":"400741","timestamp":"1443571200000","maxValue":"400741",
+"whitelistAverageValue":"0","whitelistMaxValue":"0","whitelistCount":"0","whitelistValue":"0",
+"value":"9617784","region":"region1","count":"24","uri":"","groupId":"t1","userId":"t1u0","ip":""},
+{"operation":"SB","averageValue":"400741","timestamp":"1443657600000","maxValue":"400741",
+"whitelistAverageValue":"0","whitelistMaxValue":"0","whitelistCount":"0","whitelistValue":"0",
+"value":"9617784","region":"region1","count":"24","uri":"","groupId":"t1","userId":"t1u0","ip":""},
+{"operation":"SB","averageValue":"400741","timestamp":"1443744000000","maxValue":"400741",
+"whitelistAverageValue":"0","whitelistMaxValue":"0","whitelistCount":"0","whitelistValue":"0","value":
+"9617784","region":"region1","count":"24","uri":"","groupId":"t1","userId":"t1u0","ip":""},
+{"operation":"SB","averageValue":"400741","timestamp":"1443830400000","maxValue":"400741",
+"whitelistAverageValue":"0","whitelistMaxValue":"0","whitelistCount":"0","whitelistValue":"0",
+"value":"9617784","region":"region1","count":"24","uri":"","groupId":"t1","userId":"t1u0","ip":""},
+{"operation":"SB","averageValue":"400741","timestamp":"1443916800000","maxValue":"400741",
+"whitelistAverageValue":"0","whitelistMaxValue":"0","whitelistCount":"0","whitelistValue":"0",
+"value":"9617784","region":"region1","count":"24","uri":"","groupId":"t1","userId":"t1u0","ip":""}]</pre>
+                <p>For more information about UsageData object attributes, see <MadCap:xref href="../Data Objects/UsageData.htm">UsageData</MadCap:xref>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+    </body>
+</html>

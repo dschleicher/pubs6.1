@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="1036" MadCap:lastWidth="815">
+    <head>
+    </head>
+    <body>
+        <h1>Object Metadata Feature Overview</h1>
+        <p>Like Amazon S3, Cloudian HyperStore allows for rich metadata to be associated with each stored object. The system allows for user-defined object metadata as well as system-defined object metadata.</p>
+        <p>The HyperStore system supports the Amazon S3 API methods that enable client applications to set user-defined object metadata as an object is being stored, as well as the S3 API methods that facilitate the subsequent retrieval of a specified object’s metadata — with or without the object itself. Additionally, the HyperStore system extends the Amazon S3 API by allowing client applications to retrieve the user-defined metadata associated with all of the objects in a specified bucket.</p>
+        <p>In regard to storage policy, Cloudian HyperStore provides system operators the option to configure different consistency requirements for replicated object metadata than for the replicated S3 object data itself.</p>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>System-Defined and User-Defined Object Metadata</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>In Cloudian HyperStore, object metadata is stored in Cassandra. For each object, Cloudian HyperStore maintains a variety of <b>system-defined</b> object metadata including (but not limited to) the following:</p>
+                <ul>
+                    <li>Creation time</li>
+                    <li>Last modified time</li>
+                    <li>Last accessed time</li>
+                    <li>Size</li>
+                    <li>ACL information</li>
+                    <li>Version, if applicable</li>
+                    <li>Public URL, if applicable</li>
+                    <li>Compression type, if applicable</li>
+                    <li>Encryption key, if applicable</li>
+                    <li>Auto-tiering state, if applicable</li>
+                </ul>
+                <p>By default, objects do not have <b>user-defined</b> metadata associated with them, but the HyperStore storage schema supports storing user-defined object metadata together with system-defined object metadata. S3 client applications can specify user-defined metadata when objects are put into HyperStore storage, as described in <MadCap:xref href="ObjectMetadataCreate.htm">Creating Object Metadata</MadCap:xref>.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot>Object Metadata and Auto-Tiering</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>When the HyperStore system <a href="../Auto-Tiering/AutoTieringOverview.htm">auto-tiers</a> objects that have user-defined metadata associated with them, the metadata is passed to Amazon S3 along with the object data. The metadata also remains stored in Cassandra, in the manner described in the preceding section.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <p>&#160;</p>
+        <p><b>See Also:</b>
+        </p>
+        <ul>
+            <li>
+                <MadCap:xref href="ObjectMetadataCreate.htm">Creating User-Defined Object Metadata</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="ObjectMetadataRetrieve.htm">Retrieving Object Metadata</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="ObjectMetadataStoragePolicies.htm">Setting Storage Policies for Object Metadata</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

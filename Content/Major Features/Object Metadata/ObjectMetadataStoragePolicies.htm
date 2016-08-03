@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="703" MadCap:lastWidth="841">
+    <head>
+    </head>
+    <body>
+        <h1>Setting Storage Policies for Object Metadata</h1>
+        <p>S3 object metadata is subject to the same configurable replication factor as S3 object data. This replication factor determines how many replicas of each S3 object will be maintained in each of your data centers. The system will also maintain this same number of replicas of the metadata for each object. For example, if you configure a storage policy so that each S3 object is replicated (in the HyperStore File System) on three nodes in DC1 and two nodes in DC2, then each object’s metadata will also be replicated (in Cassandra) on three nodes in DC1 and two nodes in DC2.</p>
+        <p>However, S3 object metadata has its own configurable consistency requirements separate from the consistency requirements configuration for S3 object data. When an S3 client uploads an object to the HyperStore system, the object’s metadata is replicated in Cassandra and the object itself is replicated in the HyperStore File System, in accordance with your configured replication factor. Consistency requirements determine the degree of replication that must be completed before returning a success response to the client.</p>
+        <p>The HyperStore system provides you the option of requiring strong consistency for replicated S3 object metadata — which is small, writes quickly, and supports important cluster maintenance operations such as repair and cleanup — while allowing eventual consistency for replicated S3 object data. This functionality — called <b>federated geo replication</b> —  is particularly valuable in a multi- data center context where latency is a consideration as replicas are being written across the multiple data centers.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">In the case of an erasure coding storage policy — where objects are encoded into "k" + "m" number of fragments — the system will maintain (2*m)+1 replicas of each object’s metadata. Because metadata is so small, it’s not suitable for erasure coding. Therefore, even within storage policies that protect object data by erasure coding, the object metadata (in Cassandra) is protected by replication. For example, with a 4+2 EC configuration, the system maintains (2*2)+1 = 5 copies of each object’s metadata, with each copy on a different node. With QUORUM as the consistency level requirement for metadata, the system can then satisfy read requests even if 2 metadata replicas are currently unavailable, just as it can satisfy read requests even if 2 of the 6 erasure coded fragments are currently unavailable.</p>
+        <p>&#160;</p>
+        <p><b>See Also:</b>
+        </p>
+        <ul>
+            <li>
+                <MadCap:xref href="../Storage Policies/StoragePoliciesOverview.htm">Storage Policies Feature Overview</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

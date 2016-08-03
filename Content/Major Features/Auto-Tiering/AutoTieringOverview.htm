@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="2361" MadCap:lastWidth="629">
+    <head>
+    </head>
+    <body>
+        <h1>Auto-Tiering Feature Overview</h1>
+        <p>The HyperStore system supports an "auto-tiering" feature whereby objects can be automatically moved from local HyperStore storage to a different S3-compliant storage system on a defined schedule. For example, you can auto-tier objects from your local HyperStore system to the Amazon S3 cloud storage system. You can also auto-tier to Amazon Glacier.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">If you are interested in auto-tiering to a destination system other than the Amazon cloud, consult with your Cloudian representative to ensure that the destination system has a sufficient degree of S3 compliance. The documentation that follows will refer to Amazon as the presumed destination system, but bear in mind that it could also be a different S3-compliant system.<br /><br />HyperStore can also support auto-tiering from one HyperStore region to another. That use case is not covered in this documentation. For more information on that use case, consult with your Cloudian representative.</p>
+        <p>Auto-tiering is configurable on a per-bucket basis. A bucket owner activating auto-tiering on a bucket can specify:</p>
+        <ul>
+            <li>Whether all objects in the bucket are subject to auto-tiering, or only objects for which the full object name starts with a particular prefix (such as prefix "Meetings/2016/").</li>
+            <li>The tiering schedule, which can be specified using one of three methods:<ul style="list-style-type: circle;"><li>Move objects X number of days after they’re created</li><li>Move objects if they go X number of days without being accessed</li><li>Move objects on a fixed date — such as December 31, 2017</li></ul></li>
+        </ul>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot><a name="Destinat"></a>Destination Accounts and Buckets</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>Auto-tiering to Amazon requires that there be an Amazon Web Services (AWS) account that the HyperStore system can access. There are three options for AWS account access:</p>
+                <ul>
+                    <li>Bucket owners can supply their own AWS account credentials, on a per-bucket basis. In this way each bucket owner tiers to his or her own AWS account.</li>
+                    <li>Your organization can supply the HyperStore system with the access credentials for your default corporate AWS account, and HyperStore buckets configured for auto-tiering can tier to this one destination account.</li>
+                    <li>You can set up the HyperStore system so that auto-tiering goes to one or more specific AWS buckets that your organization owns and that have been configured for public read/write access. In this way the HyperStore access to the destination bucket is "anonymous", with no need to supply access credentials.</li>
+                </ul>
+                <p>If you (or individual bucket owners) supply AWS credentials to the HyperStore system, the system encrypts the credentials and stores them in the Redis Credentials database, where they can be accessed by the system in order to implement auto-tiering operations.</p>
+                <p>When AWS account credentials are used for auto-tiering, for each auto-tiering-enabled local HyperStore bucket the HyperStore system creates a corresponding bucket in Amazon S3. The Amazon S3 destination bucket is created under the AWS account for which credentials have been supplied. The destination bucket is assigned a name in this format:</p>
+                <div class="Indent">
+                    <p><em>&lt;origin-bucket-name-truncated-to-34-characters&gt;.&lt;random-string&gt;</em>
+                    </p>
+                </div>
+                <p>The HyperStore system appends a 28-character random string to the origin bucket name to ensure that the resulting destination bucket name is unique within Amazon S3. If the origin bucket name exceeds 34 characters it will be truncated to 34 characters to form the first segment of the destination bucket name.</p>
+                <p>After creating the tiering destination bucket, the HyperStore system auto-tiers objects into it from the local bucket, in accord with the local bucket’s configured auto-tiering schedule. After objects have been auto-tiered to Amazon they can be accessed directly through standard Amazon S3 interfaces (such as the Amazon S3 Console), by persons having the applicable AWS credentials. Auto-tiered objects can also be accessed indirectly through the local HyperStore system interfaces. Tiered object access is described in more detail in <MadCap:xref href="AutoTieringObjectAccess.htm">Accessing Auto-Tiered Objects</MadCap:xref>.</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">As the HyperStore system auto-tiers objects from local storage to the tiering destination, it records the names of those objects in the S3 Service application log (<em>cloudian-s3.log</em>).</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">In the case of auto-tiering to Amazon Glacier, the HyperStore system creates a bucket in Amazon S3 and configures that remote bucket for immediate transitioning to Glacier. Objects are auto-tiered from HyperStore to Amazon S3, where they are immediately subject to Amazon’s automated mechanism for transitioning objects to Glacier.</p>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <MadCap:dropDown>
+            <MadCap:dropDownHead class="CloudianParentDropDown">
+                <MadCap:dropDownHotspot><a name="TieringUsage"></a>How Auto-Tiering Impacts Usage Tracking and Billing</MadCap:dropDownHotspot>
+            </MadCap:dropDownHead>
+            <MadCap:dropDownBody>
+                <p>When an object is auto-tiered to Amazon the size of the tiered object is subtracted from the bucket owner’s HyperStore <a href="../Usage Reporting/UsageOverview.htm">usage count</a> for Storage Bytes. At the same time, a reference to the auto-tiered object is created and the size of this reference — 8KB, regardless of the transitioned object size — is added to the Storage Bytes count. Meanwhile, auto-tiering does not impact the Storage Objects count. An object counts toward the number of Storage Objects total regardless of whether or not it is auto-tiered.</p>
+                <p>For example, if a 1MB object has been auto-tiered to Amazon then that object would count as:</p>
+                <ul>
+                    <li>8KB toward the bucket owner’s HyperStore count for Storage Bytes.</li>
+                    <li>1 toward the bucket owner’s HyperStore count for Storage Objects.</li>
+                </ul>
+                <p>If an auto-tiered object is temporarily restored to HyperStore storage, then while the object is restored the object’s size is added back to the Storage Bytes count and the 8KB for the reference is subtracted from the count. After the restore interval ends and the restored object instance is automatically deleted, the object size is once again subtracted from Storage Bytes and the 8KB for the reference is added back. For more on temporary restoration of tiered objects see <MadCap:xref href="AutoTieringObjectAccess.htm">Accessing Auto-Tiered Objects</MadCap:xref>.</p>
+                <p>Auto-tiering to Amazon does not impact usage counts for Bytes-IN or Bytes-OUT.</p>
+                <p>The impact of auto-tiering on <b>usage reporting and billing</b> is as follows:</p>
+                <ul>
+                    <li>Local HyperStore usage reporting for Storage Bytes and Storage Objects will reflect the usage count impacts described above.</li>
+                    <li>You cannot view Amazon usage data through HyperStore interfaces. Instead, owners and authorized users of the Amazon accounts that are being auto-tiered into can view Amazon usage reports through the usual Amazon interfaces. Usage reports for Amazon accounts that are HyperStore auto-tiering destinations will reflect the storage of the auto-tiered data as well as any other data that account users have stored to the accounts.</li>
+                    <li>Amazon account usage will be billed by Amazon, per account owners' Amazon service agreements.</li>
+                </ul>
+            </MadCap:dropDownBody>
+        </MadCap:dropDown>
+        <p>&#160;</p>
+        <p><b>See Also:</b>
+        </p>
+        <ul>
+            <li>
+                <MadCap:xref href="AutoTieringSetUp.htm">Setting Up Auto-Tiering</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="AutoTieringObjectAccess.htm">Accessing Auto-Tiered Objects</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

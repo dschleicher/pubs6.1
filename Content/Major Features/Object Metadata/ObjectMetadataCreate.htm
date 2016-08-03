@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="524" MadCap:lastWidth="841">
+    <head>
+    </head>
+    <body>
+        <h1>Creating User-Defined Object Metadata</h1>
+        <p>To create user-defined object metadata in the HyperStore system you use the standard Amazon S3 API methods that implement this functionality. When an S3 client application submits a <em>PUT Object</em> request it can include one or more <em>x-amz-meta-*</em> headers that specify user-defined metadata. For example, <em>x-amz-meta-project: apollo</em> or <em>x-amz-meta-topic: merger</em> or <em>x-amz-meta-author: uehara</em>.</p>
+        <p>For HyperStore support of the <em>PUT Object</em> S3 API method, see <MadCap:xref href="../../S3 API Support/OperationsObjects/PutObject.htm">PUT Object</MadCap:xref>.</p>
+        <p>The Amazon S3 API method <em>POST Object</em> — for uploading objects via HTML forms — also allows for the specification of user-defined metadata (through <em>x-amz-meta-*</em> form fields), and Cloudian HyperStore supports this API method as well. For HyperStore support of this S3 API method, see <MadCap:xref href="../../S3 API Support/OperationsObjects/PostObject.htm">POST Object</MadCap:xref>.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">	In the current version of HyperStore, the Cloudian Management Console’s built-in S3 client does not support creating user-defined object metadata. So, to create user-defined object metadata you will need to use an S3 application other than the CMC.</p>
+        <p>&#160;</p>
+        <p><b>See Also:</b>
+        </p>
+        <ul>
+            <li>
+                <MadCap:xref href="ObjectMetadataRetrieve.htm">Retrieving Object Metadata</MadCap:xref>
+            </li>
+            <li>
+                <MadCap:xref href="ObjectMetadataStoragePolicies.htm">Setting Storage Policies for Object Metadata</MadCap:xref>
+            </li>
+        </ul>
+    </body>
+</html>

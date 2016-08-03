@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="2" MadCap:lastHeight="315" MadCap:lastWidth="867">
+    <head>
+    </head>
+    <body>
+        <h1>Cassandra Data Compaction</h1>
+        <p>Cassandra stores data to disk in the form of "Sorted String Tables" (SSTables), a type of append-only commit log. During Cassandra operations, many SSTables may be written to disk for each column family. It’s important that SSTables be compacted regularly to minimize the amount of disk space that they use. Compaction merges multiple SSTables into one.</p>
+        <p>Cassandra regularly implements a "minor" compaction process that occurs <b>automatically</b>. This automatic compaction process is sufficient in the context of the HyperStore system. For the HyperStore system, <b>you do not need perform "major" compactions</b> using the <em>nodetool</em> utility.</p>
+        <p>You can monitor the compaction process by using JConsole or another JMX client to connect to a Cassandra node’s JMX listening port (7199 by default). By accessing the <em>CompactionManagerMBean</em> through the JMX console, you can check the progress of any compactions that are currently executing, and also check on the number of completed and pending compactions.</p>
+    </body>
+</html>
