@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CatapultDestination
+  Version="1"
+  Comment="This is my publish destination"
+  Host="ftp.myftpserver.com"
+  User="MyAccountId"
+  Password=""
+  Directory="C:\1-Cloudian\Flare\HyperStoreHelp\Publish\HyperStoreHelpEndUser"
+  Port=""
+  ViewUrl=""
+  Type="scm"
+  ProviderType="Git"
+  Database="file:///C:/1-Cloudian/Flare/HyperStoreHelp/.git"
+  DatabaseRoot="file:///C:/1-Cloudian/Flare/HyperStoreHelp/Publish/HyperStoreHelpEndUser"
+  PushToRemote="true"
+  RemoteRepository="origin"></CatapultDestination>
