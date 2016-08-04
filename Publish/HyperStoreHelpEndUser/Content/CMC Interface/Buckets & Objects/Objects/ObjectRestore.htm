@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelpEndUser.xml" data-mc-path-to-help-system="../../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="CMC Interface|Buckets &amp; Objects|Objects">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" type="text/css" data-mc-generated="True" /><title>Restore an Auto-Tiered File</title>
+        <link href="../../../Resources/Stylesheets/styles.css" rel="stylesheet" type="text/css" />
+        <script src="../../../../Resources/Scripts/custom.modernizr.js" type="text/javascript">
+        </script>
+        <script src="../../../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../../../Resources/Scripts/require.min.js" type="text/javascript">
+        </script>
+        <script src="../../../../Resources/Scripts/require.config.js" type="text/javascript">
+        </script>
+        <script src="../../../../Resources/Scripts/foundation.min.js" type="text/javascript">
+        </script>
+        <script src="../../../../Resources/Scripts/plugins.min.js" type="text/javascript">
+        </script>
+        <script src="../../../../Resources/Scripts/MadCapAll.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+        <h1>Restore an Auto-Tiered File</h1>
+        <p class="TopicTag" data-mc-conditions="General.Online">[CMC Interface]</p>
+        <p>If a bucket that you’re browsing has been configured for auto-tiering of objects older than a certain age, auto-tiered objects will display in the CMC's <b>Objects</b> view but will be marked with a <a href="#IconsForTransitionedOrRestoredFiles" target="_self">special icon</a>. Because these objects are currently stored in a remote tiered storage system (such as Amazon S3 or Amazon Glacier), you may not be able to directly download these objects. Whether they are directly downloadable or not depends on where they are stored — for example, objects in Amazon Glacier are never directly downloadable — and on the particular bucket lifecycle configuration that governed the auto-tiering of the objects.</p>
+        <p>You can try directly downloading an auto-tiered file by clicking on its file name. If direct download is not supported for the file, a response message will indicate that you need to temporarily restore a local copy of the file rather than directly downloading it.</p>
+        <p>To restore one or more auto-tiered files:</p>
+        <ol>
+            <li value="1">Click the checkbox(es) to the left of the object name(s).</li>
+            <li value="2">In the "Restore" number of days field, enter the number of days for which you want the restored object(s) to be locally available in your HyperStore S3 service.</li>
+            <li value="3">Click the <b>Restore</b> button.</li>
+        </ol>
+        <p>Note that restore does not happen instantly — it can take up to six hours before auto-tiered objects are restored to your local HyperStore S3 service (or up to nine hours for objects that have been auto-tiered to Amazon Glacier). In the interim, the file is marked with a special icon  that indicates that it’s in queue for being restored. During this stage you cannot download the object.</p>
+        <p>After an object has been restored (as indicated by an icon), you can download it in the normal way.</p>
+        <h2><a name="IconsForTransitionedOrRestoredFiles"></a>Icons for Transitioned or Restored Files</h2>
+        <p>In your file list display, the document icon to the left of file names will indicate if a file is transitioned, transitioning, restored, or restoring. The icons feature right-pointing or left-pointing red or blue arrows.</p>
+        <table style="width: 100%; border-spacing: 2px 2px; border-left-style: solid; border-left-width: 1px; border-right-style: solid; border-right-width: 1px; border-top-style: solid; border-top-width: 1px; border-bottom-style: solid; border-bottom-width: 1px; border-collapse: separate;">
+            <col style="width: 108px;" />
+            <col />
+            <thead>
+                <tr>
+                    <th style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">Icon</th>
+                    <th style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">Meaning</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="vertical-align: top;text-align: center;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">
+                        <img src="../../../Resources/Images/cmc/buckets/Icon_FileTransitioning.png" />
+                    </td>
+                    <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">File is in the process of transitioning to a remote tiered storage system.</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;text-align: center;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">
+                        <img src="../../../Resources/Images/cmc/buckets/Icon_FileTransitioned.png" />
+                    </td>
+                    <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">File has been transitioned to a remote tiered storage system.</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;text-align: center;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">
+                        <img src="../../../Resources/Images/cmc/buckets/Icon_FileRestoring.png" />
+                    </td>
+                    <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">A copy of the transitioned file is in the process of being restored to the local HyperStore S3 service. Download of the object is not yet supported.</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;text-align: center;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">
+                        <img src="../../../Resources/Images/cmc/buckets/Icon_FileRestored.png" />
+                    </td>
+                    <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">
+	
+
+A copy of the transitioned file has been restored to the local HyperStore S3 service. Download is supported.</td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

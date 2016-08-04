@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelpEndUser.xml" data-mc-path-to-help-system="../../../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="CMC Interface|Buckets &amp; Objects|Objects|Set Object Properties">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../../../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" type="text/css" data-mc-generated="True" /><title>Set Public URL Permissions on a File</title>
+        <link href="../../../../Resources/Stylesheets/styles.css" rel="stylesheet" type="text/css" />
+        <script src="../../../../../Resources/Scripts/custom.modernizr.js" type="text/javascript">
+        </script>
+        <script src="../../../../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../../../../Resources/Scripts/require.min.js" type="text/javascript">
+        </script>
+        <script src="../../../../../Resources/Scripts/require.config.js" type="text/javascript">
+        </script>
+        <script src="../../../../../Resources/Scripts/foundation.min.js" type="text/javascript">
+        </script>
+        <script src="../../../../../Resources/Scripts/plugins.min.js" type="text/javascript">
+        </script>
+        <script src="../../../../../Resources/Scripts/MadCapAll.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+        <h1>Set Public URL Permissions on a File</h1>
+        <p class="TopicTag" data-mc-conditions="General.Online">[CMC Interface]</p>
+        <p>Public URL access enables anyone to access the file over the web, using a standard browser (rather than an S3 client application). </p>
+        <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>You cannot set public URL permissions on a file that the system has encrypted with a user-provided encryption key. By contrast, public URL permissions are supported for files that the system has encrypted with a system-generated encryption key, which is the more typical encryption method.</p>
+        <p>To set public URL permissions on a file, in the CMC select the <b>Public URL Access</b> tab in the file properties interface.</p>
+        <p><a class="MCPopupThumbnailLink MCPopupThumbnailHover" href="../../../../Resources/Images/cmc/buckets/ObjectProperties_publicURL.png"><img class="MCPopupThumbnail img imgImgCloudian" data-mc-width="891" data-mc-height="301" src="../../../../Resources/Images/cmc/buckets/ObjectProperties_publicURL_thumb_0_60.png" tabindex="" /></a>
+        </p>
+        <ol>
+            <li value="1">Click the "Enable Public URL Access" checkbox.</li>
+            <li value="2">Configure the public URL access for the file:</li>
+        </ol>
+        <div class="Indent">
+            <ul>
+                <li value="1">In the "Maximum Downloads" field, specify a maximum number of times that the file can be downloaded in total (the maximum total downloads that you want to allow, by all users combined). If you want to allow an unlimited number of downloads, set this to "-1" (negative one). Note that after enabling public URL access for the file, you can subsequently return to this interface and view the number of times the file has been downloaded to date (the "Current Downloads" field).</li>
+                <li value="2">In the "Expiration Date/Time" field, choose an expiration date/time at which public URL access to the file will end. If you click in the field, a calendaring tool displays to make it easy to choose the date and time.</li>
+                <li value="3">If you want HTTP access to the file to be SSL-secured, select the "Secure URL (https)" checkbox.</li>
+            </ul>
+        </div>
+        <ol data-mc-continue="true">
+            <li value="3">Click <b>Save</b> and the system-generated public URL for the file will display in the interface. The public URL for an object has the following format:</li>
+        </ol>
+        <div class="Indent"><pre>http[s]://&lt;bucketName&gt;.&lt;defaultS3Domain&gt;/&lt;objectName&gt;?AWSAccesKeyId=&lt;accessKeyOfObjectOwner&gt;<br />&amp;Expires=&lt;expiryTimeInUnix&gt;&amp;Signature=&lt;signatureString&gt;&amp;x-amz-pt=&lt;uniqueIDforMaxDownloadTracking&gt;</pre>
+        </div>
+        <p>The CMC interface makes it easy for you to share this public URL with others. In the <b>Public URL Access</b> interface, click <b>Mail To</b> to open your default email client with the public URL pre-populated into the message body of a new email message. Just add recipients and optionally edit the subject line (which by default is "Public URL Access Link") and then send the email message.</p>
+        <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>For the <b>Mail To</b> feature to work, your browser must be configured to be able to open your default web-based email client.</p>
+        <p>If you want, you can make changes to a file’s public URL settings at a later point in time. For example, you can change the maximum allowed downloads or the expiration time. Note that in the "Expiration Date/Time" field the calendaring tool provides a <b>Now</b> button in case you want to terminate public URL access for the file immediately. Be sure to click <b>Save</b> to save your changes.</p>
+    </body>
+</html>

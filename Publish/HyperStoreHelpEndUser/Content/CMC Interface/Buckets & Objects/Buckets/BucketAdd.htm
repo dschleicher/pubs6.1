@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelpEndUser.xml" data-mc-path-to-help-system="../../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="CMC Interface|Buckets &amp; Objects|Buckets">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" type="text/css" data-mc-generated="True" /><title>Add a Bucket</title>
+        <link href="../../../Resources/Stylesheets/styles.css" rel="stylesheet" type="text/css" />
+        <script src="../../../../Resources/Scripts/custom.modernizr.js" type="text/javascript">
+        </script>
+        <script src="../../../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../../../Resources/Scripts/require.min.js" type="text/javascript">
+        </script>
+        <script src="../../../../Resources/Scripts/require.config.js" type="text/javascript">
+        </script>
+        <script src="../../../../Resources/Scripts/foundation.min.js" type="text/javascript">
+        </script>
+        <script src="../../../../Resources/Scripts/plugins.min.js" type="text/javascript">
+        </script>
+        <script src="../../../../Resources/Scripts/MadCapAll.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+        <h1>Add a Bucket</h1>
+        <p class="TopicTag" data-mc-conditions="General.Online">[CMC Interface]</p>
+        <p>A "bucket" is a logical container in which you can store data objects — comparable to a root folder in a conventional file system. You must create at least one bucket before you can store any data objects. Optionally you can have more than one bucket.</p>
+        <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>By default each user is allowed a maximum of 20 buckets.</p>
+        <p>To create a bucket:</p>
+        <ol>
+            <li value="1">In the <b>Buckets</b> list view, click <b>Add New Bucket</b>. This opens the bucket creation interface.</li>
+        </ol>
+        <div class="Indent">
+            <p><a class="MCPopupThumbnailLink MCPopupThumbnailHover" href="../../../Resources/Images/cmc/buckets/CreateBucket.png"><img class="MCPopupThumbnail img imgImgCloudian" data-mc-width="930" data-mc-height="190" src="../../../Resources/Images/cmc/buckets/CreateBucket_thumb_0_60.png" tabindex="" /></a>
+            </p>
+        </div>
+        <ol data-mc-continue="true">
+            <li value="2">Enter a bucket name. Your <b>bucket name must meet these restrictions</b>:</li>
+        </ol>
+        <div class="Indent">
+            <ul>
+                <li value="1">Must be globally unique across the HyperStore service. If you choose a bucket name that’s already been taken, an error message will display in the UI.</li>
+                <li value="2">Only lower case letters (a-z), numbers (0-9), dash (-), and period (.) are allowed.</li>
+                <li value="3">Must be at least 3 and no more than 63 characters long.</li>
+                <li value="4">Must start with a letter or a number.</li>
+                <li value="5">Must follow these restrictions regarding dashes, periods, and underscores:<ul style="list-style-type: circle;"><li value="1">Must not end with a dash or a period.</li><li value="2">Must not contain two or more adjacent periods.</li><li value="3">Must not contain dashes next to periods (e.g., "my-.bucket.com" and "my.-bucket" are invalid).</li><li value="4">Must not be in the form of an IPv4 address (e.g "192.168.5.4").</li><li value="5">Must not contain underscores if the bucket is being created in a non-default region of the S3 service. Underscores are allowed in bucket names for buckets created in the default service region.</li></ul></li>
+            </ul>
+        </div>
+        <ol data-mc-continue="true">
+            <li value="3">From the "Region" drop-down list, select the HyperStore service region in which you want the bucket to be created. If you have only one service region, that will be the only region listed.</li>
+            <li value="4">From the "Storage Policy" drop-down list, select a storage policy to apply to the data that will be stored in this bucket. A storage policy is a method for protecting data against loss or corruption. The policies are pre-configured by system administrators. When you select a policy from the drop-down list a brief policy description displays.</li>
+        </ol>
+        <p class="NoteIndent" data-mc-autonum="&lt;b&gt;Note: &lt;/b&gt;"><span class="autonumber"><span><b>Note: </b></span></span>If you do not select a storage policy the system default storage policy is automatically applied to the bucket. In the list of policies, the system default policy is the one listed first and prefixed by an asterisk (*).<br /><br />After a bucket is created, it cannot be assigned a different storage policy. The storage policy assigned to the bucket at bucket creation time will continue to be bucket’s storage policy for the life of the bucket.</p>
+        <ol data-mc-continue="true">
+            <li value="5">Click <b>Create</b> to create the bucket.</li>
+        </ol>
+        <p>The newly created bucket will then appear in the <b>Buckets</b> list view.</p>
+    </body>
+</html>
