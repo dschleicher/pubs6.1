@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="5" MadCap:lastHeight="1098" MadCap:lastWidth="642">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="5" MadCap:lastHeight="993" MadCap:lastWidth="791">
     <head>
     </head>
     <body>
@@ -20,7 +20,7 @@
         <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">If you have not yet done so, you must upload both the index document file and the error document file into the <b>root level</b> of your bucket, and make sure their names correspond exactly to those you specified in the <b>Static Website Hosting</b> interface.</p>
         <p>When you configure a bucket as a static website, the system automatically applies a bucket access policy that allows the public to read objects in the bucket. If you later disable the static website configuration for the bucket (by unchecking the "Enable Website Hosting" checkbox in the <b>Static Website Hosting</b> interface), the system removes this public read access policy for the bucket.</p>
         <p>For a bucket configured as a static website, the root URL will be:</p><pre>http://&lt;bucketName&gt;.&lt;regionalS3WebsiteEndpoint&gt;</pre>
-        <p>Each Cloudian HyperStore service region has its own website endpoint, set by system configuration on your S3 Server nodes. The configuration property in <em>region.csv</em> is <em>cloudians3_website_endpoint</em>. [XREF]</p>
-        <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">Make sure that in your service center’s DNS configuration this website endpoint domain is resolvable, and also that a wildcard entry has been set to resolve bucketnames under this domain. For example, if the website endpoint for the region is <em>s3-website-region1.cloudian.com</em>, then both <em>s3-website-region1.cloudian.com</em> and <em>*.s3-website-region1.cloudian.com</em> must be resolvable. For more on DNS set-up see <MadCap:xref href="../../../../Installation/Networking Preparation/DnsSetup.htm" target="_popup">DNS Set-Up</MadCap:xref>.</p>
+        <p MadCap:conditions="Cloudian.HelpSysAdminOnly,Cloudian.PrintOnly">Each Cloudian HyperStore service region has its own website endpoint, set by system configuration on your S3 Server nodes. The configuration property in <em>region.csv</em> is <em>cloudians3_website_endpoint</em>. [XREF]</p>
+        <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;" MadCap:conditions="Cloudian.HelpSysAdminOnly,Cloudian.PrintOnly">Make sure that in your service center’s DNS configuration this website endpoint domain is resolvable, and also that a wildcard entry has been set to resolve bucketnames under this domain. For example, if the website endpoint for the region is <em>s3-website-region1.cloudian.com</em>, then both <em>s3-website-region1.cloudian.com</em> and <em>*.s3-website-region1.cloudian.com</em> must be resolvable. For more on DNS set-up see <MadCap:xref href="../../../../Installation/Networking Preparation/DnsSetup.htm" target="_popup">DNS Set-Up</MadCap:xref>.</p>
     </body>
 </html>

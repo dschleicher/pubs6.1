@@ -1,23 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="5" MadCap:lastHeight="513" MadCap:lastWidth="659">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="5" MadCap:lastHeight="775" MadCap:lastWidth="790">
     <head>
     </head>
     <body>
         <h1>Profile</h1>
         <p class="TopicTag" MadCap:conditions="General.Online">[CMC Interface]</p>
         <p>Path: Drop-down menu under your user name (at top right) → <b>Profile</b></p>
-        <p>
+        <p MadCap:conditions="Cloudian.HelpEndUserOnly">
+            <img src="../../Resources/Images/cmc/my-account/AccountProfile_ver_user.png" class="ImgCloudian" />
+        </p>
+        <p MadCap:conditions="Cloudian.HelpGroupAdminOnly">
+            <img src="../../Resources/Images/cmc/my-account/AccountProfile_ver_group-admin.png" class="ImgCloudian" />
+        </p>
+        <p MadCap:conditions="Cloudian.HelpSysAdminOnly,Cloudian.PrintOnly">
             <img src="../../Resources/Images/cmc/my-account/AccountProfile_ver_sys-admin.png" style="mc-thumbnail-max-height: 60px;" class="ImgCloudian" />
         </p>
-        <p>Supported task:</p>
+        <p>Supported task<MadCap:conditionalText MadCap:conditions="Cloudian.HelpEndUserOnly,Cloudian.HelpGroupAdminOnly">s</MadCap:conditionalText>:</p>
         <ul>
             <li>Change your contact information</li>
+            <li MadCap:conditions="Cloudian.HelpEndUserOnly,Cloudian.HelpGroupAdminOnly">View your canonical user ID</li>
         </ul>
-        <p>To change your contact information:</p>
+        <h3>Change Your Contact Information</h3>
         <ol>
             <li>Update your contact information.</li>
             <li>Click <b>Save</b>.</li>
         </ol>
-        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">Changing your system administrator email address in this page does not impact the sending of system notification emails. To change the email address to which notification emails are sent, use the <MadCap:xref href="../Cluster/Configuration Settings/ConfigurationSettingsSMTP.htm#Default_Email_Address_to_Receive_Notifications" target="_popup">Default Email Address to Receive Notifications</MadCap:xref> setting on the <b>Configuration Settings</b> page.</p>
+        <p class="Note" MadCap:conditions="Cloudian.HelpSysAdminOnly,Cloudian.PrintOnly" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">Changing your system administrator email address in this page does not impact the sending of system notification emails. To change the email address to which notification emails are sent, use the <MadCap:xref href="../Cluster/Configuration Settings/ConfigurationSettingsSMTP.htm#Default_Email_Address_to_Receive_Notifications" target="_popup">Default Email Address to Receive Notifications</MadCap:xref> setting on the <b>Configuration Settings</b> page.</p>
+        <h3 MadCap:conditions="Cloudian.HelpGroupAdminOnly,Cloudian.HelpEndUserOnly">View Your Canonical User ID</h3>
+        <p MadCap:conditions="Cloudian.HelpGroupAdminOnly,Cloudian.HelpEndUserOnly">The information displayed in the Account Profile page includes your "Canonical ID". The system automatically generates a unique canonical ID for every user. It is not editable.</p>
     </body>
 </html>

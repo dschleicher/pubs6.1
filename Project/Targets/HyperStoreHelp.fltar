@@ -7,7 +7,7 @@
   GlossaryTermConversion="all"
   DefaultUrl="/Content/Introduction/Welcome.htm"
   MasterToc="/Project/TOCs/OnlineOutput.fltoc"
-  ConditionTagExpression="include[General.Online] exclude[General.PDF] "
+  ConditionTagExpression="include[Cloudian.HelpSysAdminOnly or General.Online] exclude[Cloudian.HelpEndUserOnly or Cloudian.HelpGroupAdminOnly or General.PDF] "
   InsertMOTW="true"
   EnableSitemap="false"
   IncludeStopWords="true"

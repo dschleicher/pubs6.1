@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CatapultToc
+  Version="1">
+  <TocEntry
+    Title="Buckets &amp; Objects">
+    <TocEntry
+      Title="Buckets">
+      <TocEntry
+        Title="Set Bucket Properties">
+        <TocEntry
+          Title="Set Versioning for a Bucket"
+          Link="/Content/CMC Interface/Buckets &amp; Objects/Buckets/Set Bucket Properties/BucketPolicyVersioning.htm" />
+        <TocEntry
+          Title="Set &quot;Canned&quot; S3 Permissions on a Bucket"
+          Link="/Content/CMC Interface/Buckets &amp; Objects/Buckets/Set Bucket Properties/BucketPropertiesCannedPermissions.htm" />
+        <TocEntry
+          Title="Set Custom S3 Permissions on a Bucket"
+          Link="/Content/CMC Interface/Buckets &amp; Objects/Buckets/Set Bucket Properties/BucketPropertiesCustomPermissions.htm" />
+        <TocEntry
+          Title="Configure a Bucket Lifecycle Policy for Object Auto-Tiering or Expiration"
+          Link="/Content/CMC Interface/Buckets &amp; Objects/Buckets/Set Bucket Properties/BucketPropertiesLifecycle.htm" />
+        <TocEntry
+          Title="Set Bucket Properties"
+          Link="/Content/CMC Interface/Buckets &amp; Objects/Buckets/Set Bucket Properties/BucketPropertiesOverview.htm" />
+        <TocEntry
+          Title="Configure Cross-Region Replication for a Bucket"
+          Link="/Content/CMC Interface/Buckets &amp; Objects/Buckets/Set Bucket Properties/BucketPropertiesReplication.htm" />
+        <TocEntry
+          Title="Configure a Bucket as a Static Website"
+          Link="/Content/CMC Interface/Buckets &amp; Objects/Buckets/Set Bucket Properties/BucketPropertiesStaticWebsite.htm" />
+        <TocEntry
+          Title="View a Bucket's Storage Policy Information"
+          Link="/Content/CMC Interface/Buckets &amp; Objects/Buckets/Set Bucket Properties/BucketPropertiesStoragePolicy.htm" />
+      </TocEntry>
+      <TocEntry
+        Title="Add a Bucket"
+        Link="/Content/CMC Interface/Buckets &amp; Objects/Buckets/BucketAdd.htm" />
+      <TocEntry
+        Title="Delete a Bucket"
+        Link="/Content/CMC Interface/Buckets &amp; Objects/Buckets/BucketDelete.htm" />
+      <TocEntry
+        Title="Buckets"
+        Link="/Content/CMC Interface/Buckets &amp; Objects/Buckets/BucketsOverview.htm" />
+    </TocEntry>
+    <TocEntry
+      Title="Objects">
+      <TocEntry
+        Title="Set Object Properties">
+        <TocEntry
+          Title="Set &quot;Canned&quot; S3 Permissions on a File"
+          Link="/Content/CMC Interface/Buckets &amp; Objects/Objects/Set Object Properties/ObjectPropertiesCannedPermissions.htm" />
+        <TocEntry
+          Title="Set Custom S3 Permissions on a File"
+          Link="/Content/CMC Interface/Buckets &amp; Objects/Objects/Set Object Properties/ObjectPropertiesCustomPermissions.htm" />
+        <TocEntry
+          Title="Set File Properties"
+          Link="/Content/CMC Interface/Buckets &amp; Objects/Objects/Set Object Properties/ObjectPropertiesOverview.htm" />
+        <TocEntry
+          Title="Set Public URL Permissions on a File"
+          Link="/Content/CMC Interface/Buckets &amp; Objects/Objects/Set Object Properties/ObjectPropertiesPublicUrl.htm" />
+      </TocEntry>
+      <TocEntry
+        Title="Create or Delete a &quot;Folder&quot;"
+        Link="/Content/CMC Interface/Buckets &amp; Objects/Objects/ObjectCreateFolder.htm" />
+      <TocEntry
+        Title="Delete a File"
+        Link="/Content/CMC Interface/Buckets &amp; Objects/Objects/ObjectDelete.htm" />
+      <TocEntry
+        Title="Download a File"
+        Link="/Content/CMC Interface/Buckets &amp; Objects/Objects/ObjectDownload.htm" />
+      <TocEntry
+        Title="Object Naming Restrictions"
+        Link="/Content/CMC Interface/Buckets &amp; Objects/Objects/ObjectNameRestrictions.htm" />
+      <TocEntry
+        Title="Restore an Auto-Tiered File"
+        Link="/Content/CMC Interface/Buckets &amp; Objects/Objects/ObjectRestore.htm" />
+      <TocEntry
+        Title="Search for a File"
+        Link="/Content/CMC Interface/Buckets &amp; Objects/Objects/ObjectSearch.htm" />
+      <TocEntry
+        Title="Objects"
+        Link="/Content/CMC Interface/Buckets &amp; Objects/Objects/ObjectsOverview.htm" />
+      <TocEntry
+        Title="Upload a File"
+        Link="/Content/CMC Interface/Buckets &amp; Objects/Objects/ObjectUpload.htm" />
+    </TocEntry>
+    <TocEntry
+      Title="Buckets &amp; Objects"
+      Link="/Content/CMC Interface/Buckets &amp; Objects/BucketsObjectsOverview.htm" />
+  </TocEntry>
+</CatapultToc>
