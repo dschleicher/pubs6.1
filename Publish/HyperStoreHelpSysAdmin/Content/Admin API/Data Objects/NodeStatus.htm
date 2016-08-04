@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Admin API|Data Objects">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>NodeStatus</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../AdminApiOverview.htm">Admin API</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="DataObjectsOverview.htm">Data Objects</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">NodeStatus</span>
+            </div>
+            <h1>NodeStatus</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[Admin API Object]</p>
+            <p>A list of NodeStatus objects — one for each node in the service region — is nested within the <a href="MonitorSystemInfo.htm" class="MCXref xref">MonitorSystemInfo</a> object.</p>
+            <p>The NodeStatus object consists of the following attributes:</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />hostname</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <div class="Indent">
+                        <p>(string) Hostname of the node.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />ipaddr</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <div class="Indent">
+                        <p>(string) This attribute will have value <em>null</em> or empty.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />status</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <div class="Indent">
+                        <p>(List&lt;string&gt;) Status of the node. A list of one or more of the following strings: "OK","SVC_DOWN","LOG_WARN", or "LOG_ERR". The meanings are:</p>
+                        <ul>
+                            <li value="1">"OK" — All HyperStore services are up and running on the node, and the node has no unacknowledged events.</li>
+                            <li value="2">"SVC_DOWN" — One or more HyperStore services (Admin, Cassandra, HyperStore, Redis QoS, Redis Credentials, Redis Monitor, or S3) is down on the node</li>
+                            <li value="3">"LOG_WARN" — There are unacknowledged warnings in an application log on the node (such as the S3 Service application log or the Cassandra application log).</li>
+                            <li value="4">"LOG_ERR" — There are unacknowledged errors in an application service log.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />timestamp</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <div class="Indent">
+                        <p>(string) xStatus timestamp in UTC milliseconds.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />value</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <div class="Indent">
+                        <p>(string) The "value" attribute will be identical to the "status" attribute, except formatted as a single string rather than a list of strings. For example:</p><pre>"status":["SVC_DOWN","LOG_WARN"],"value":"[SVC_DOWN, LOG_WARN]"</pre>
+                    </div>
+                </div>
+            </div>
+            <h2>Example</h2>
+            <p>This is an example of a NodeStatus object. The example is an excerpt from within a parent MonitorSystemInfo object. It indicates status information for a single node within the service region.</p><pre xml:space="preserve">{"hostname":"appliance3","ipaddr":null,"status":["SVC_DOWN","LOG_WARN"],
+"value":"[SVC_DOWN, LOG_WARN]","timestamp":"1449150002497"}</pre>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

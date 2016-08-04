@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="CMC Interface|Cluster|Advanced|Info Commands">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>hsstool status</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../../CMC Interface/CmcInterfaceOverview.htm">CMC Interface</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="../../CMC Interface/Cluster/ClusterOverview.htm">Cluster</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="../../CMC Interface/Cluster/Advanced/AdvancedOverview.htm">Advanced</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">status</span>
+            </div>
+            <h1>hsstool status</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[Command]</p>
+            <p>This <a href="hsstoolOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">hsstool </a> command returns status information for a storage cluster as a whole.</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Command Format</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>You can run the <em>hsstool status</em> command through the CMC UI:</p>
+                    <p>
+                        <img src="../../Resources/Images/cmc/cluster/Advanced_status_768x327.png" style="width: 768;height: 327;" />
+                    </p>
+                    <p>Or on the command line:</p><pre xml:space="preserve">[root]# /opt/cloudian/bin/hsstool [-h &lt;host&gt;] status</pre>
+                    <h3>Parameters</h3>
+                    <p>This command supports only this parameter:</p>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />-h &lt;host&gt; (called "Target Node" in CMC UI)</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>(Optional on command line; mandatory in CMC) You can use any node in the storage cluster as the target host. The  command retrieves cluster-wide information that is available via any node that belongs to the cluster. Defaults to local host if you do not supply <em>-h &lt;host&gt;</em> on the command line.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Command/Response Example and Response Description</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>The <em>status</em> command example below retrieves the status of a four-node cluster that spans two data centers. Response item descriptions follow the example.</p><pre xml:space="preserve">[root]# /opt/cloudian/bin/hsstool -h cloudian-node1 status
+Datacenter: DC1
+===============
+Address         DC  Rack  Cassandra   Tokens  Cassandra-Load  Hss  State  Hyperstore-Disk      Host-ID
+105.236.130.70  DC1 RAC1    Up        32      0.3037538      Up   Normal 10.84 GB / 78.74 GB (13.77%)
+cf15305c-d978-4dac-92eb-de915aa9dd7e
+198.199.106.194 DC1 RAC1    Up        32      0.22201389     Up   Normal 12.22 GB / 78.74 GB (15.52%)
+84cdf82c-738a-442e-9e88-38c5133aeb08
+Datacenter: DC2
+===============
+Address         DC  Rack  Cassandra   Tokens  Cassandra-Load  Hss  State  Hyperstore-Disk      Host-ID
+105.236.218.176 DC2 RAC1    Up        32      0.2740603      Up   Normal 9.21 GB / 78.74 GB (11.7%)
+eb7056ae-0d66-459b-86d2-a188224fc063
+105.236.97.48   DC2 RAC1    Up        32      0.20017202     Up   Normal 9.16 GB / 78.74 GB (11.63%)
+f1a2b1a9-4c30-405c-a765-1b5b6deb5df1</pre>
+                    <p>The <em>status</em> command response displays a status line for each physical node in the storage cluster. Each node’s status line consist of the following items:</p>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Address</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>IP address of the node.</p>
+                        </div>
+                    </div>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />DC</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>Data center in which the node resides.</p>
+                        </div>
+                    </div>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Rack</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>Rack in which the node resides.</p>
+                        </div>
+                    </div>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Cassandra</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>Cassandra Service status of the node. Will be one of: "Up", "Down", "Joining" (in the process of joining the cluster), "Leaving" (in the process of leaving the cluster), or "?" (host cannot be reached).</p>
+                        </div>
+                    </div>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Tokens</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>Number of tokens (also known as vNodes) assigned to the physical node. The tokens assigned to a physical node determine which S3 objects will be stored on the node. By default each node is assigned 32 tokens. For more information on how tokens are assigned to physical nodes, see <a href="../../Introduction/System Diagrams/vNodes.htm" class="MCXref xref">How vNodes Work</a>.</p>
+                        </div>
+                    </div>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Cassandra-Load</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>From among the total Cassandra load across the whole storage cluster, the portion that is stored on this node. This is expressed as a decimal value. For example, if 25% of the total Cassandra load in the cluster is stored on this node, this field displays .25.</p>
+                        </div>
+                    </div>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Hss</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>HyperStore Service status for the node. Will be one of: "Up", "Down", or "?" (physical host cannot be reached).</p>
+                        </div>
+                    </div>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />State</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>HyperStore Service state for the node. Will be one of: "Normal" or "Decommissioning".</p>
+                        </div>
+                    </div>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />HyperStore-Disk</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>The total volume of replicated S3 object data stored on the node. This includes S3 objects for which the node serves as a secondary or tertiary replica as well as S3 objects for which the node is the primary replica.</p>
+                            <p>This field also shows the total amount of disk space designated for S3 object storage on the node. The disk space is the total capacity for replica storage and erasure coded storage combined.</p>
+                        </div>
+                    </div>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />EC-Disk</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>The total volume of erasure coded S3 object data stored on the node, if any. This field also shows the total amount of disk space designated for S3 object storage on the node. The disk space is the total capacity for replica storage and erasure coded storage combined.</p>
+                        </div>
+                    </div>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Host-ID</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>System-generated hexadecimal number uniquely identifying the physical node. Note that with the use of vNodes, tokens uniquely identify vNodes while Host IDs uniquely identify each physical node within the cluster. If you have occasion to use the <a href="hsstoolRemovenode.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">hsstool removenode</a> operation you will need to supply the Host ID of the node that you are removing.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

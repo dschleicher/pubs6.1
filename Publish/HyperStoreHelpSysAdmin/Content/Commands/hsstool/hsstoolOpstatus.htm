@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="CMC Interface|Cluster|Advanced|Info Commands">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>hsstool opstatus</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../../CMC Interface/CmcInterfaceOverview.htm">CMC Interface</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="../../CMC Interface/Cluster/ClusterOverview.htm">Cluster</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="../../CMC Interface/Cluster/Advanced/AdvancedOverview.htm">Advanced</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">opstatus</span>
+            </div>
+            <h1>hsstool opstatus</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[Command]</p>
+            <p>This <a href="hsstoolOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">hsstool </a> command returns the status of the most recent runs of repair and cleanup operations that have been performed on a specified node. It also returns the status of any decommission operations. For repairs, the <em>opstatus</em> command reports the status of "proactive" repairs, repairs that have been triggered by the scheduled auto-repair feature, and any repairs that you have triggered manually by using <em>hsstool</em>.</p>
+            <p>For each operation type:</p>
+            <ul>
+                <li value="1">If a run of the operation is <b>in progress</b> on the node, then that’s the run for which status is returned.</li>
+                <li value="2">If the operation is not currently in progress on the node, then status is returned for the <b>most recent</b> run of that operation on the node. This is only for operations that have been performed since the last start-up of the HyperStore service on the target node.</li>
+            </ul>
+            <p>On the command line <em>opstatus</em> also supports an option to return a history of repairs performed on the target node. By default this history spans the past 90 days.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>For background information on repair types see <a href="../../Major Features/Automatic Data Repair/DataRepairOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Automatic Data Repair Feature Overview</a>.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>The <em>opstatus</em> command does not report on the status of "hinted hand-off" operations. For that, see the <a href="hsstoolHintsstatus.htm" class="MCXref xref">hsstool hintsstatus</a> command.</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Command Format</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>You can run the <em>hsstool opstatus</em> command through the CMC UI:</p>
+                    <p>
+                        <img src="../../Resources/Images/cmc/cluster/Advanced_opstatus_768x332.png" style="width: 768;height: 332;" />
+                    </p>
+                    <p>Or on the command line:</p><pre xml:space="preserve">[root]# /opt/cloudian/bin/hsstool [-h &lt;host&gt;] opstatus [&lt;type&gt;] [-a]</pre>
+                    <h3>Parameters</h3>
+                    <p>This command supports these parameters:</p>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />-h &lt;host&gt; (called "Target Node" in CMC UI)</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>(Optional on command line; mandatory in CMC) Target host for which to retrieve operations status. Defaults to local host if you do not supply <em>-h &lt;host&gt;</em> on the command line.</p>
+                        </div>
+                    </div>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />&lt;type&gt; (command line only)</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>(Optional) Type of operation for which to retrieve status. Valid types are:</p>
+                            <ul>
+                                <li value="1">cleanup</li>
+                                <li value="2">cleanupec</li>
+                                <li value="3">repair</li>
+                                <li value="4">repairec</li>
+                                <li value="5">proactiverepair</li>
+                                <li value="6">proactiverepairec</li>
+                                <li value="7">decommission</li>
+                                <li value="8">history</li>
+                            </ul>
+                            <div class="Indent">
+                                <p>The "history" type returns a history of repairs performed on the target node. By default this history spans the past 90 days. This period is configurable by mts.properties: monitoring.ophistory.ttl. [XREF]</p>
+                            </div>
+                            <p>If you do not specify a type, current operation status is returned for all supported operation types. </p>
+                            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>The "&lt;type&gt;" option is not supported in the CMC. Instead, current operation status is returned for <b>all</b> supported types. The CMC&#160;does not support a "history"&#160;report.</p>
+                            <p>For "decommission" operations, <em>opstatus</em> can only report in-progress status, not final, completed status. This is because the HyperStore service on the decommissioned node is immediately stopped at the completion of the <em>decommission</em> operation. For final, completed status information regarding a decommission operation, you can review the <em>cloudian-hyperstore.log</em> file for the decommissioned node.</p>
+                        </div>
+                    </div>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />-a (command line only)</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>(Optional) Verbose status output for a "repair" operation. This provides repair status details per token range. This option, which is suitable for debugging repair failure, is supported only for the "repair" ooperation type — not for the other types.</p>
+                            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>The "-a" option is not supported in the CMC.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Command/"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">Command/Response Example and Response Description</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>The <em>opstatus</em> command example below retrieves the most current operation statuses for host <em>cloudian-node1</em>. Note that erasure coding is not used in the enviroment in this sample, so when the <em>repairec</em> operation runs it finds nothing to repair and quickly completes. Response item descriptions follow the example.</p><pre xml:space="preserve">[root]# /opt/cloudian/bin/hsstool -h cloudian-node1 opstatus
+REPAIREC cmdno#: 12094 status: COMPLETED
+arguments:  computedigest=false logging=true
+start: Wed Jun 17 15:29:14 PDT 2015
+end: Wed Jun 17 15:29:15 PDT 2015
+duration: 0.687 sec
+task count: 0
+completed count: 0
+repaired count: 0
+failed count: 0
+skipped count: 0
+
+REPAIRCASSANDRA cmdno#: 11668 status: COMPLETED
+start: Tue Jun 16 15:29:11 PDT 2015
+end: Tue Jun 16 15:34:27 PDT 2015
+duration: 316.718 sec
+arguments: primary-range=true keyspaces=allkeyspaces
+cassandra repair time: 316.717 sec
+
+
+REPAIR cmdno#: 12526 status: COMPLETED
+start: Thu Jun 18 15:29:17 PDT 2015
+end: Thu Jun 18 15:29:22 PDT 2015
+duration: 5.245 sec
+arguments: primary-range=true merkletree=true computedigest=false keyspaces=nokeyspaces
+logging=true check-metadata=false timestamp=1434666557232
+cassandra repair time: 0.001 sec
+completed range count: 88/88
+repair file count: 27
+failed count: 0
+success count: 27
+total file count: 47
+scan time: 15.706
+stream time: 0.206</pre>
+                    <p>For each operation performed on the node the <em>opstatus</em> command returns the following items:</p>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />&lt;command-name&gt;</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>Command name: REPAIR, REPAIREC, REPAIRCASSANDRA, PROACTIVEREPAIR, PROACTIVEREPAIREC, CLEANUP, CLEANUPEC, or DECOMMISSION.</p>
+                            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>REPAIRCASSANDRA is for the Cassandra keyspace repair part of the HyperStore Auto-Repair feature; or for when you manually run <a href="hsstoolRepair.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">hsstool repair</a> either with its default behavior (which includes a repair of user data keyspaces in Cassandra) or with the "allkeyspaces" option (which includes a repair of user data keyspaces and service metadata keyspaces in Cassandra).</p>
+                        </div>
+                    </div>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />cmdno#</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>Command number of the run. Each run of a command is assigned a number.</p>
+                        </div>
+                    </div>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />status</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>Status of the command run: INPROGRESS, COMPLETED, or FAILED. In the case of <em>repair</em> or <em>repairec</em> operations the status can also be TERMINATED (meaning that the repair was aborted by the operator).</p>
+                            <p>For high level information on a FAILED operation, you can reviewed the other elements in the <em>opstatus</em> results. For much more detail on <em>repair</em> failures, run <em>opstatus</em> again using the "-a" option. This can only be done on the command line — the CMC’s implementation of <em>opstatus</em> does not support the "-a" option.</p>
+                            <p>For details on any FAILED operation you can also scan <em>cloudian-hyperstore.log</em> for error messages from the period during which the operation was running.</p>
+                        </div>
+                    </div>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />start</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>Start time of the operation.</p>
+                        </div>
+                    </div>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />end,
+duration</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>End time and duration of a completed operation.</p>
+                        </div>
+                    </div>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />estimated completion time,
+time remaining</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>Estimated completion time and estimated time remaining for an in-progress operation.</p>
+                        </div>
+                    </div>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />arguments</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>Value of the command arguments used for the run. The status results use internal labels for the arguments which may not exactly match the command-line arguments that are defined in a command’s syntax, but the relationships should be clear. For example, <a href="hsstoolRepair.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">hsstool repair</a> command-line syntax supports a "-pr" option, and in the <em>opstatus</em> results for repair arguments the use or non-use of this option is indicated as "primary-range=true" or "primary-range=false". See the repair and cleanup command syntax descrptions in this document for further information about supported command arguments.</p>
+                        </div>
+                    </div>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Operation-specific metrics</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>The <em>opstatus</em> results also show metrics particular to the operation type.</p>
+                            <p><b>For operation type </b><em style="font-weight: bold;">repair</em>, the metrics are:</p>
+                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />completed range count</a></span>
+                                <div class="MCDropDownBody dropDownBody">
+                                    <p>A fraction x/y where x is number of token ranges for which repair has been completed so far and y is the total number of ranges that will be repaired during this repair operation. The repair operation will encompass not only the token ranges assigned to the target repair node but also certain token ranges on other nodes in the cluster. These are token ranges in which are stored replicas of the same objects that are on the target repair node. As a simplified example, if objects residing in token range "c to d" on the target repair node are also replicated in ranges "d to e" and "e to f" on other nodes in the cluster, then ranges "d to e" and "e to f" will be among the ranges repaired by the repair operation. Consequently the total number of ranges to be repaired — the denominator in the "completed range count" value — will be larger than the number of tokens assigned to the node that is the target of the repair.</p>
+                                    <p>The exception is if the "-pr" option was used when the repair operation was executed, in which case the repair operation addresses only the target node’s "primary ranges". In this case the denominator in the "completed range count" value will equal the number of tokens assigned to the node.</p>
+                                </div>
+                            </div>
+                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />keyspace count</a></span>
+                                <div class="MCDropDownBody dropDownBody">
+                                    <p>Number of Cassandra keyspaces repaired. With the default repair behavior this will equal the number of storage policies that are in your HyperStore system. There is one Cassandra keyspace for each storage policy. This is where object metadata is stored.</p>
+                                </div>
+                            </div>
+                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />repair file count</a></span>
+                                <div class="MCDropDownBody dropDownBody">
+                                    <p>Of the total number of HSFS replica files (S3 object replicas in the HyperStore File System) evaluated by the repair operation, this is the number that were determined to be in need of repair. This figure may include files on other nodes as well as files on the target repair node. For example, if an object is correct on the target node but one of the object’s replicas on a different node is missing and needs repair, then that counts as one toward the repair file count. For a second example, if two of an object’s three replicas are found to be out-dated, that counts as two toward the "repair file count".</p>
+                                </div>
+                            </div>
+                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />failed count</a></span>
+                                <div class="MCDropDownBody dropDownBody">
+                                    <p>Of the files that were found to be in need of repair, the number of files for which the attempted repair failed. For information about such failures, scan <em>cloudian-hyperstore.log</em> for error messages from the period during which the repair operation was running. Running <em>opstatus</em> again on the command line and using the "-a" option may also provide useful information for debugging.</p>
+                                </div>
+                            </div>
+                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />success count</a></span>
+                                <div class="MCDropDownBody dropDownBody">
+                                    <p>Of the files that were found to be in need of repair, the number of files for which the repair succeeded. The "success count" plus the "failed count" should equal the "repair file count".</p>
+                                </div>
+                            </div>
+                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />total file count</a></span>
+                                <div class="MCDropDownBody dropDownBody">
+                                    <p>The total number of files that were assessed to see if they were in need of repair. This number reflects replication across the cluster — for example, if an object is supposed to be replicated three times (with one replica on the target repair node and two replicas on other nodes), then repair assessment of that object counts as three files toward the "total file count".</p>
+                                </div>
+                            </div>
+                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />total bytes streamed</a></span>
+                                <div class="MCDropDownBody dropDownBody">
+                                    <p>Total number of bytes streamed in to the target repair node or other nodes in order to implement repairs. For example, if a 50000 byte object on the target repair node is found to be out-dated, and an up-to-date replica of the object is streamed in from a different node, that counts as 50000 toward "total bytes streamed". As a second example, if a 50000 byte object exists on the target node, and replicas of that object are supposed to exist on two other nodes but are found to be missing, and the repair streams the good object replica from the target repair node into the two other nodes — that counts as 100000 toward "total bytes streamed".</p>
+                                </div>
+                            </div>
+                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />scan time</a></span>
+                                <div class="MCDropDownBody dropDownBody">
+                                    <p>Total time in seconds that in takes to scan the file systems and build the Merkle Tree that is used to detect discrepancies in object replicas across nodes.</p>
+                                </div>
+                            </div>
+                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />stream time</a></span>
+                                <div class="MCDropDownBody dropDownBody">
+                                    <p>Total time in seconds that is spent streaming replicas across nodes, in order to implement needed repairs.</p>
+                                </div>
+                            </div>
+                            <p><b>For operation type </b><em style="font-weight: bold;">repairec</em>, the metrics are:</p>
+                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />task count</a></span>
+                                <div class="MCDropDownBody dropDownBody">
+                                    <p>The number of erasure coded object fragments found on the target repair node. For each local fragment the "task" includes assessing the local fragment and also the other fragments — stored elsewhere in the cluster — into which the source object was encoded. For example, if for a given object a local erasure coded fragment is found, and that fragment is evaluated along with the object’s five other fragments around the cluster (presuming a 4+2 EC environment), that counts as one toward the "task count".</p>
+                                </div>
+                            </div>
+                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />completed count</a></span>
+                                <div class="MCDropDownBody dropDownBody">
+                                    <p>Of the task count, the number of tasks completed (the number of local fragments for which the object repair assessment has been completed). If the repair operation has fully completed, "completed count" should equal "task count".</p>
+                                </div>
+                            </div>
+                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />repaired count</a></span>
+                                <div class="MCDropDownBody dropDownBody">
+                                    <p>The number of erasure coded objects for which a repair was found to be necessary and was successfully completed.</p>
+                                </div>
+                            </div>
+                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />failed count</a></span>
+                                <div class="MCDropDownBody dropDownBody">
+                                    <p>The number of erasure coded objects for which a repair was found to be necessary, but the repair failed. For information about such failures, scan <em>cloudian-hyperstore.log</em> for error messages from the period during which the repair operation was running.</p>
+                                </div>
+                            </div>
+                            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />skipped count</a></span>
+                                <div class="MCDropDownBody dropDownBody">
+                                    <p>The number of erasure coded objects for which the repair assessment determined that no repair was needed. The "repaired count", "failed count", and "skipped count" should add up to equal the "completed count".</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

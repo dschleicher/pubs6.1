@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="CMC Interface|Cluster|Advanced|Info Commands">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>hsstool hintsstatus</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../../CMC Interface/CmcInterfaceOverview.htm">CMC Interface</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="../../CMC Interface/Cluster/ClusterOverview.htm">Cluster</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="../../CMC Interface/Cluster/Advanced/AdvancedOverview.htm">Advanced</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">hintsstatus</span>
+            </div>
+            <h1>hsstool hintsstatus</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[Command]</p>
+            <p>This <a href="hsstoolOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">hsstool </a> command returns the status of "hints" currently stored in the system, in connection with the HyperStore hinted hand-off feature. This feature is an automated mechanism for handling missed writes of object replica data when a node is briefly unavailable. For more detail on the hinted hand-off feature see <a href="../../Major Features/Automatic Data Repair/DataRepairOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Automatic Data Repair Feature Overview</a>.</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Command Format</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>You can run the <em>hsstool hintsstatus</em> command through the CMC UI:</p>
+                    <p>
+                        <img src="../../Resources/Images/cmc/cluster/Advanced_hintsstatus_768x325.png" style="width: 768;height: 325;" />
+                    </p>
+                    <p>Or on the command line:</p><pre xml:space="preserve">[root]# /opt/cloudian/bin/hsstool [-h &lt;host&gt;] hintsstatus</pre>
+                    <h3>Parameters</h3>
+                    <p>This command supports only this parameter:</p>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />-h &lt;host&gt; (called "Target Node" in CMC UI)</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>(Optional on command line; mandatory in CMC) You can use any node in the storage cluster as the target host. The  command retrieves cluster-wide information that is available via any node that belongs to the cluster. Defaults to local host if you do not supply <em>-h &lt;host&gt;</em> on the command line.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Command/Response Example and Response Description</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>The first <em>hintsstatus</em> command example below shows that there are currently no hints in the system.</p><pre xml:space="preserve">[root]# /opt/cloudian/bin/hsstool -h cloudian-node1 hintsstatus
+Hints per node : 0</pre>
+                    <p>The second <em>hintsstatus</em> command example below is from a system in which there are currently two hints queued for processing. The hints are stored on node <em>h164.geminimobile.com</em> and the node that was down when these writes came into the system is <em>10.10.1.165</em>. The values "24350751" and "24350752" are timestamps indicating that during those minutes hints were stored (timestamp is from the end of the minute and format is Unix time in minutes). Response item descriptions follow the example.</p><pre xml:space="preserve">[root]#/opt/cloudian/bin/hsstool -h 10.10.1.165 hintsstatus
+Hints per node
+h164.geminimobile.com 2
+
+Hints Column family :
+Down node                S3 node                 value
+10.10.1.165     FIRST_HINT_REPLICA              1461045088488
+10.10.1.165     NO_MORE_HINTS_EC                1461044435740
+10.10.1.165     NO_MORE_HINTS_REPLICA           1461045243460
+10.10.1.165     h164.geminimobile.com           24350751,24350752
+10.10.1.165:h164.geminimobile.com:24350751       1
+column = 00019f7c-df67-c634-8171-5254005fb66d,
+hint = bucket1/AA2:/var/lib/cloudian/hints/18114003876376849549521524190091482582/group1/135/243/
+18114003876376849549521524190091482582.1461045088488:25:ed33de4e0d4a341176ea0d36ee138650:2016-04-
+18T22:51:28.488-07:00:false:f9eac7f061de1f9e0a796d6a8917ccf1:1461045088488
+10.10.1.165:h164.geminimobile.com:24350752       1
+column = 00019f85-1cd3-cb8c-8171-5254005fb66d,
+hint = bucket1/AA3:/var/lib/cloudian/hints/116116785922809790061936095411411257103/group1/135/243/
+116116785922809790061936095411411257103.1461045123905:25:c30ea3056529f5f7fd4205f5e120483d:2016-04-
+18T22:52:03.905-07:00:false:f9eac7f061de1f9e0a796d6a8917ccf1:1461045123905</pre>
+                    <p>The <em>hintsstatus</em> command results display the following items:</p>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Hints per node</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>This indicates how many hints are currently stored on each S3 node, awaiting processing when a downed target node comes back online. If no hints are currently stored in the system the <em>hintsstatus</em> response indicates "Hints per node: 0".</p>
+                        </div>
+                    </div>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Hints detail</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>If there are hints in the system, the <em>hintsstatus</em> response includes metadata about those hints. This information includes:</p>
+                            <ul>
+                                <li value="1">"FIRST_HINT_REPLICA" — For the identified Down Node, this is the time (Unix time in milliseconds) when the first hint was stored for the downed node, by any S3 coordinator node.</li>
+                                <li value="2">"NO_MORE_HINTS_REPLICA" — For the identified Down Node, this is the time beyond which no additional hints will be stored for the downed node (due to configurable time or space restrictions on hinted hand-off). Missed writes from beyond this time are processed by proactive repair rather than hinted hand-off. This field will not display if this limit has not yet been reached.</li>
+                                <li value="3">"NO_MORE_HINTS_EC" — For the identified Down Node, this is the time when erasure coded object data bound for the downed node was first received by an S3 coordinator node. Since hinted handoff does not process erasure coded data, this missed write and any writes missed subsequent to this time will be processed by proactive repair rather than hinted hand-off. This field will not display if there have not been any erasure coded data write attempts to the downed node.</li>
+                                <li value="4">Hint location — This is information about the location of the hints on the S3 coordinator node on which they are stored.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

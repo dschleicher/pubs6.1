@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Working with HyperStore Major Features|Automatic Data Repair">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Checking Data Repair Status</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Working with HyperStore Major Features</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Automatic Data Repair</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Checking Data Repair Status</span>
+            </div>
+            <h1>Checking Data Repair Status</h1>
+            <p>Cluster-wide summary information about current automatic data repair activity is available in the CMC's <a href="../../CMC Interface/Analytics/Repair Status/RepairStatusOverview.htm" class="MCXref xref" xrefformat="{para}">Repair Status</a> page. This includes information about any in-progress proactive repair or data rebalancing. </p>
+            <p>For detailed repair status information for a specific node, in the CMC go to <b>Cluster → Nodes → Advanced</b> and from the "Info" command group execute the <a href="../../Commands/hsstool/hsstoolOpstatus.htm" class="MCXref xref" xrefformat="{para}">hsstool opstatus</a> command on that node.</p>
+            <p>To check whether there are currently any "hints" stored in the system (awaiting processing when a downed node comes back online), in the CMC go to <b>Cluster → Nodes → Advanced</b> and from the "Info" command group execute the <a href="../../Commands/hsstool/hsstoolHintsstatus.htm" class="MCXref xref" xrefformat="{para}">hsstool hintsstatus</a> command on any node.</p>
+            <p>To view the cluster-wide schedule for auto-repairs, in the CMC go to <b>Cluster → Nodes → Advanced</b> and from the "Info" command group execute the <a href="../../Commands/hsstool/hsstoolRepairqueue.htm" class="MCXref xref" xrefformat="{para}">hsstool repairqueue</a> command on any node.</p>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

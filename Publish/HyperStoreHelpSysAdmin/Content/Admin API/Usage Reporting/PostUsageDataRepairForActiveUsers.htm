@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Admin API|Methods|Usage Reporting">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>POST Usage Data Repair for Active Users</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../AdminApiOverview.htm">Admin API</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Methods</span><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="UsageReportingOverview.htm">Usage Reporting</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">POST Usage Data Repair for Active Users</span>
+            </div>
+            <h1>POST Usage Data Repair for Active Users</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[Admin API Method]</p>
+            <p>Use this Admin API method to repair usage data for active or "dirty" users. For background information on usage data repair, see <a href="../../Major Features/Usage Reporting/UsageValidation.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Validating Usage Data for Storage Levels</a>.</p>
+            <p>For purposes of this method, a dirty user is defined as a user whose storage bytes and/or storage object counts in the Redis QoS database have changed since the last time the user’s counts were subjected to a usage repair. This method selects users at random from among the set of dirty users, and performs usage repair for a configurable maximum number [XREF] of those users (1000 by default) per method execution.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>This method is invoked once every 12 hours by a HyperStore <a href="../../Maintenance/CronJobs.htm#Usage" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Usage Data Processing</a> cron job. In a multi-region system, a separate cron job is run from within each region.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>An Admin Service instance can run only one instance of this method at a time.</p>
+            <p>At the conclusion of this method's run, in <code>cloudian-admin.log</code> there will be an INFO level message from the CassandraUsageAccess::repairDirtyUsers component that indicates "1000 users processed. N remaining", where N is the number of remaining dirty users for whom usage repair was not performed.</p>
+            <p>Also in <code>cloudian-admin.log</code>, the CassandraUsageAccess::repairDirtyUsers component writes two INFO messages for each user processed — one message indicating the start of processing the user and one message indicating the completion of processing the user. If a correction was made to the user’s Redis QoS counts for stored bytes and/or stored objects, a third INFO message is sandwiched between the other two, indicating "Processed storage update: " and the correct counts.</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Request Format</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <h4>Syntax</h4><pre xml:space="preserve">POST /usage/repair/dirtyusers[?summarizeCounts=true|false]</pre>
+                    <h4>Query Parameters</h4>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />summarizeCounts</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <div class="Indent">
+                                <p>(Optional, boolean) If set to "true", then the POST /usage/repair/dirtyusers operation, after repairing usage counters for individual users, will update the group-level usage counters for the groups to which those repaired users belong. It will then also update system-level usage counts, based on the updated group counters.</p>
+                                <p>If set to "false", then the operation will repair only user-level counters, and will not update the group or whole-system counters.</p>
+                                <p>Defaults to "true".</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>Unlike the other usage data repair related methods, this method does not support a <em>region</em> query parameter. Instead it is always executed locally, in the region in which the call is submitted. This is the only usage data repair method that API clients are allowed to submit directly to a non-default region’s Admin Service.</p>
+                    <h4>Request Payload</h4>
+                    <p>None.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Response Format</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <h4>Response Status</h4>
+                    <p>In addition to the <a href="../CommonStatusCodes.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Common Response Status Codes</a>, this method may return these codes:</p>
+                    <table style="border-collapse: separate;border-top-left-radius: 0px;border-top-right-radius: 0px;border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;width: 100%;">
+                        <col style="width: 115px;" />
+                        <col style="width: 629px;" />
+                        <thead>
+                            <tr>
+                                <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Status Code</th>
+                                <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                                <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;">Missing or invalid parameters</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h4>Response Payload</h4>
+                    <p>None.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Example</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>In this example a usage data repair operation is successfully completed for active users.</p><pre xml:space="preserve"># Request -&gt;
+
+POST http://192.168.2.16:18081/usage/repair/dirtyusers
+
+# Response -&gt;
+
+Status Code: 200 OK
+Content-Length: 0
+Date: Wed, 30 Sep 2015 14:29:01 GMT</pre>
+                </div>
+            </div>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

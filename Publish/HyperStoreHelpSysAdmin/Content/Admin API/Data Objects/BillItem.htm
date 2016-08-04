@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Admin API|Data Objects">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>BillItem</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../AdminApiOverview.htm">Admin API</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="DataObjectsOverview.htm">Data Objects</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">BillItem</span>
+            </div>
+            <h1>BillItem</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[Admin API Object]</p>
+            <p>A list of BillItem objects is nested within the <a href="RegionBill.htm" class="MCXref xref">RegionBill</a> object.</p>
+            <p>The BillItem object consists of the following attributes:</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />item</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <div class="Indent">
+                        <p>(string) Usage type being billed for. Types are "SB" (storage bytes), "BI" (bytes in), "BO" (bytes out), "HG" (HTTP GETs), "HP" (HTTP PUTs), "HD" (HTTP DELETEs).</p>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />quantity</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <div class="Indent">
+                        <p>(number) Usage quantity during billing period. Usage quantity metrics depend on the usage type:</p>
+                        <ul>
+                            <li value="1">For storage bytes (SB), the metric is GB-Month (average number of GBs of data stored for the billing month). This is calculated by summing the month’s hourly readings of stored bytes, converting to GB, then dividing by the number of hours in the month.</li>
+                            <li value="2">For data transfer bytes in (BI) or out (BO), the metric is number of bytes.</li>
+                            <li value="3">For HTTP GETs (HG), PUTs (HP), or DELETEs (HD), the metric is number of multiples of 10,000 requests. For example, if usage type is HG and quantity is 7.50, that means 75,000 HTTP GET requests.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />rules</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <div class="Indent">
+                        <p>(string) Specification of billing rules for this usage type (from the user’s assigned rating plan).</p>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />subtotal</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <div class="Indent">
+                        <p>(&#160;number) Total billing charge for the particular usage type specified by the "item" attribute. This will be in units of the currency specified by the "currency" attribute of the <a href="RegionBill.htm" class="MCXref xref">RegionBill</a> object that contains this BillItem object. It’s labelled as "subtotal" because it will be added together with subtotals for other usage types (from other BillItem object instances within the RegionBill object, if any) to compute the "total" attribute for the encompassing RegionBill instance.</p>
+                    </div>
+                </div>
+            </div>
+            <h2>Example</h2>
+            <p>This is an example of a BillItem object. The usage type is storage bytes, and the usage quantity during the billing period was 108 GB-months (that is, the user’s storage bytes volume average 108GBs over the course of the month). The "rules" attribute indicates that the user’s rating plan is such that the first 1 GB-month is charged at $0.14, the next 5 GB-months is charged at $0.12, and any GB-months above that are charged at $0.10. Applying this rule to the user’s 108 GB-months for the billing period, a charge of $10.94 is due for storage byte volume used.</p><pre xml:space="preserve">{"item":"SB","rules":"1, 0.14:5, 0.12:0,0.10","quantity":108.00,"subtotal":10.94}</pre>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

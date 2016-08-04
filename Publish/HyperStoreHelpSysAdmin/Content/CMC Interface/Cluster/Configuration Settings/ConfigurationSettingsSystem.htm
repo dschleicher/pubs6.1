@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="CMC Interface|Cluster|Configuration Settings">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>System Settings</title>
+        <link href="../../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../../CmcInterfaceOverview.htm">CMC Interface</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="../ClusterOverview.htm">Cluster</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="ConfigurationSettingsOverview.htm">Configuration Settings</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">System Settings</span>
+            </div>
+            <h1>System Settings</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[CMC Interface]</p>
+            <p>The settings in this section of the CMC’s <b><a href="../../../Resources/Images/cmc/cluster/ConfigurationSettings.png" class="MCTopicPopup MCTopicPopupHotSpot a">Configuration Settings</a></b> page configure storage system operations. After making any edits, click <b>Save</b> at the bottom of the page to dynamically apply the configuration change to the cluster.</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Max_Connections_from_One_S3_Service_Node_to_All_HyperStore_Service_Node"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">Max Connections from One S3 Service Node to All HyperStore Service Nodes</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>The maximum allowed number of concurrently open connections between <b>each S3 Service node and all HyperStore Service nodes, combined</b>. This allows you to limit the traffic load between each front-end S3 Service node (as it processes incoming requests from S3 clients) and the whole back-end HyperStore storage layer.</p>
+                    <p>Note that each of your S3 Service nodes has its own pool of connections to the HyperStore storage layer, so the total possible connections from the front-end S3 Service as a whole to the back-end HyperStore storage layer as a whole would be the number of S3 Service nodes multiplied by the value of "Max Connections from One S3 Service Node to All HyperStore Service Nodes".</p>
+                    <p>Default = 600</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Max_Connections_from_One_S3_Service_Node_to_One_HyperStore_Service_Node"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">Max Connections from One S3 Service Node to One HyperStore Service Node</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>The maximum allowed number of concurrently open connections between <b>each S3 Service node and each HyperStore Service node</b>. This allows you to limit the traffic load between each front-end S3 Service node (as it processes incoming requests from S3 clients) and any single HyperStore Service node.</p>
+                    <p>Note that each of your S3 Service nodes has its own pool of connections to the HyperStore storage layer, so the total possible connections from the S3 Service as a whole to a single HyperStore Service node would be the number of S3 Service nodes multiplied by the value of "Max Connections from One S3 Service Node to One HyperStore Service Node".</p>
+                    <p>Default = 200</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Object_Size_Threshold_for_Storing_in_OS_File_System_Rather_Than_Cassandra"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">Object Size Threshold for Storing in OS File System Rather Than Cassandra</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>S3 objects <b>larger than this many bytes</b> will be stored in the Linux file system.</p>
+                    <p>S3 objects <b>equal to or smaller than this many bytes</b> will be stored in the Cassandra DB.</p>
+                    <p>By default, this threshold is set to 0 so that all S3 objects are stored in the Linux file system, and none are stored in Cassandra. With this approach, Cassandra is used exclusively for storing various types of metadata. This makes certain cluster maintenance operations, such as repair of S3 object data, simpler than if small S3 objects are stored in Cassandra while large objects are stored in the file system.</p>
+                    <p>For background information, see <a href="../../../Introduction/HyperStore Services/ServicesHyperStore.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">HyperStore Service and the HSFS</a>.</p>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>The threshold setting must not be larger than the "Object Max Storage Chunk Size" setting. Also, for performance reasons, it’s recommended that the HyperStore Size Threshold setting not be larger than 5MB.</p>
+                    <p>Default = 0</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="HyperStore_Compression_Type"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">HyperStore Compression Type</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>The type of compression to use for S3 objects stored in the HyperStore file system. This applies to replicated S3 object data and erasure coded S3 object data stored in the HyperStore file system. It does not apply to data stored in Cassandra.</p>
+                    <p>Supported options are:</p>
+                    <ul>
+                        <li value="1"><a href="http://google.github.io/snappy/" target="_blank">Snappy</a>
+                        </li>
+                        <li value="2"><a href="http://zlib.net/" target="_blank">Zlib</a>
+                        </li>
+                        <li value="3"><a href="https://github.com/Cyan4973/lz4" target="_blank">LZ4</a>
+                        </li>
+                        <li value="4">None (no compression)</li>
+                    </ul>
+                    <p>When enabled, compression is applied to incoming S3 objects by the S3 Service, before those objects are transmitted to the HyperStore Service and placed into storage. Any change that you make to the HyperStore Compression Type — such as changing it from disabled to a particular compression type, or from one compression type to another — is applied only to new S3 objects as they come into the system, not retroactively to objects that are already stored in the system.</p>
+                    <p>Each object’s compression type (if any) is stored in the object’s metadata in Cassandra. Consequently, if for example you use Snappy for a while and then switch to LZ4, those objects that had been compressed with Snappy will continue to have in their metadata an indicator that they were compressed with Snappy — and so the system will be able to de-compress the objects when they are downloaded by S3 client applications.</p>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>For S3 service usage tracking (for purposes of QoS enforcement and billing), the <b>uncompressed</b> size of objects is always used, even if you enable HyperStore compression.<br /><br />For a <a href="../../../S3 API Support/OperationsObjects/PutObjectCopy.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">PUT Object - Copy</a> operation, the copy of the object will be subject to whatever the <b>current</b> HyperStore Compression Type setting is (which may be different than the setting that was in effect when the original object was uploaded).</p>
+                    <p>Default = None</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Chunk_Size_for_Replicated_Objects_(Bytes)"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">Chunk Size for Replicated Objects (Bytes)</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>For large objects that are subject to a replication storage policy, as a performance optimization the HyperStore system breaks the objects into multiple chunks before replicating and storing them. This property sets the maximum size of a single chunk, in bytes. If an uploaded object subject to replication is larger than this, the system will first divide the object data into chunks. Each chunk will then be replicated in accordance with the storage policy that applies to that object.</p>
+                    <p>For example, suppose that the configured chunk size is 10MB, and that a 25MB object is uploaded to a bucket that uses 3X replication. The system will first divide the object data into three chunks of size 10MB, 10MB, and 5MB, and each of those chunks will then be replicated three times. For each chunk, its three replicas will each be stored on a different node so as to safeguard the chunk’s durability and availability.</p>
+                    <p>On reads, the system reassembles the object from its chunks.</p>
+                    <p>Default = 10485760</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Chunk_Size_for_Erasure_Coded_Objects_(Bytes)"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">Chunk Size for Erasure Coded Objects (Bytes)</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>For large objects that are subject to an erasure coding storage policy, as a performance optimization the HyperStore system breaks the objects into multiple chunks before erasure coding and storing them. This property sets the maximum size of a single chunk, in bytes. If an uploaded object subject to erasure coding is larger than this, the system will first divide the object data into chunks. Each chunk will then be erasure coded in accordance with the storage policy that applies to that object.</p>
+                    <p>For example, suppose that the configured chunk size is 40MB, and that a 100MB object is uploaded to a bucket that uses 4+2 erasure coding. The system will first divide the object data into three chunks of size 40MB, 40MB, and 20MB. Each of those chunks will then be subjected to 4+2 erasure coding. For example the first 40MB chunk will be erasure coded into six 10MB fragments, each of which will be stored on a different node.</p>
+                    <p>On reads, the system decodes each chunk from its fragments and then reassembles the object from its chunks.</p>
+                    <p>Default = 41943040</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="HyperStore_Disk_Failure_Action"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">HyperStore Disk Failure Action</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>The automated action for the system to take in the event that read or write errors occur for a particular HyperStore data disk. Supported automated actions are:</p>
+                    <ul>
+                        <li value="1"><b>Disable Disk and Move its Tokens</b> — With this setting, if disk errors are detected the system will automatically unmount the disk and mark it as disabled. The system will also automatically transfer the disabled disk’s vNodes (tokens) to the remaining disks on the host, in an approximately balanced way. Writes of new or updated S3 object data that would have gone to the disabled disk will now start going to the other disks on the host instead. Note that the existing data on the disabled disk will not be moved; the migration of the tokens will only impact writes of new data.</li>
+                    </ul>
+                    <div class="Indent">
+                        <p>When a disk has been automatically disabled in this manner, the disk’s status will be indicated as "Disabled" in the <a href="../Node Status/NodeStatusDisks.htm" class="MCTopicPopup MCTopicPopupHotSpot a">Disk Detail Info</a> section of the CMC’s <b>Node Status</b> page.</p>
+                        <p>When you subsequently re-enable or replace the disk, the tokens will automatically be moved back to the re-enabled or replacement disk.</p>
+                        <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>When moving tokens away from a disabled disk or back to a re-enabled or replacement disk, HyperStore uses a low-impact token migration technology called <a href="../../../Major Features/Disk Usage Balancing/DiskUsageOverview.htm#Dynamic" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Dynamic Object Routing</a>.</p>
+                    </div>
+                    <ul>
+                        <li value="1"><b>Disable Disk But Do Not Move Tokens</b> — With this setting, if disk errors are detected the system will automatically unmount the disk and mark it as disabled. However, the disk’s tokens will not be transferred to other disks on the node. Consequently while the disk is disabled the host will no longer be able to support S3 object data writes to the token ranges associated with the disabled disk.</li>
+                    </ul>
+                    <div class="Indent">
+                        <p>This option may be acceptable if you expect to always be able to promptly replace any failed disks.</p>
+                        <p>When a disk has been automatically disabled in this manner, the disk’s status will be indicated as "Disabled - No Move" in the <a href="../Node Status/NodeStatusDisks.htm" class="MCTopicPopup MCTopicPopupHotSpot a">Disk Detail Info</a> section of the CMC’s <b>Node Status</b> page.</p>
+                    </div>
+                    <p>By default, your configured automatic disk failure action will be triggered if 10 "HSDISKERROR" error messages for the disk occur in the HyperStore Service application log within a 5 minute span. This threshold is configurable by these settings in <em>hyperstore-server.properties.erb</em>:</p>
+                    <ul>
+                        <li value="1">disk.fail.error.count.threshold [XREF]</li>
+                        <li value="2">disk.fail.error.time.threshold [XREF]</li>
+                    </ul>
+                    <p>Your configured automatic disk failure action will also be triggered if the HyperStore drive audit feature detects that a disk is in a read-only condition.</p>
+                    <p>For instructions on <b>recovering from a disabled disk condition</b>:</p>
+                    <ul>
+                        <li value="1">To re-enable the same disk, see <a href="../../../Operations/ReenableDisk.htm" class="MCXref xref">Re-Enabling a Disk</a>.</li>
+                        <li value="2">To replace the disk with a new one, see <a href="../../../Operations/ReplaceDisk.htm" class="MCXref xref">Replacing a Disk</a>.</li>
+                    </ul>
+                    <p>For more information on HyperStore’s feature for automatically disabling failed disks see <a href="../../../Major Features/Disk Failure Handling/DiskFailureOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Disk Failure Handling Feature Overview</a>.</p>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>The automatic disk disabling feature works only if you have multiple HyperStore data disks on the host. If there is only one HyperStore data disk on the host, the system will not automatically disable the disk even if errors are detected.</p>
+                    <p>Default = Disable Disk and Move Its Tokens</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="HyperStore_Max_Hints_Time_Limit_(Sec)"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">HyperStore Max Hints Time Limit (Sec)</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>When a node is temporarily down or otherwise unable to perform local writes of S3 object replicas, other nodes in the cluster may create and store hinted handoffs for the unavailable node. The <em>HyperStore Max Hints Time Limit</em> sets a maximum interval (in seconds) during which other nodes may create hinted handoffs for an unavailable node. The interval starts when any node in the cluster creates a first hinted handoff for the unavailable node. The timer is reset when the unavailable node comes back online and all the hinted handoffs for the node are automatically processed.</p>
+                    <p>If a node is offline for <b>more than</b> this maximum interval, then:</p>
+                    <ul>
+                        <li value="1">Once the maximum interval ends no further hinted handoffs are created for the offline node, by any of the other nodes in the cluster.</li>
+                        <li value="2">When the offline node comes back online:<ul style="list-style-type: circle;"><li value="1">Hinted handoffs intended for the node are automatically processed.</li><li value="2">Proactive repair of the node is automatically performed, targeting the time period from when hinted handoffs stopped being created for the node up to the time that the node came back online.</li></ul></li>
+                    </ul>
+                    <p>Setting this to 0 has the effect of disabling hinted hand-off so that only proactive repair is used when a node has been down and then comes back online.</p>
+                    <p>For more information about hinted handoffs and proactive repair, see <a href="../../../Major Features/Automatic Data Repair/DataRepairOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Automatic Data Repair Feature Overview</a>.</p>
+                    <p>Default = 3600</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="HyperStore_Max_Hints_Space_Limit_(Bytes)"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">HyperStore Max Hints Space Limit (Bytes)</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Each node can locally store a maximum of this many bytes of hinted handoff data. If a coordinator node (a node processing an incoming S3 request) is unable to store a particular hinted handoff for an offline target node because doing so would exceed the coordinator node’s <em>HyperStore Max Hints Space Limit</em>, then:</p>
+                    <ul>
+                        <li value="1">That particular hinted handoff is not created on the coordinator node.</li>
+                        <li value="2">No further hinted handoffs are created for the offline node, by any of the other nodes in the cluster.</li>
+                        <li value="3">When the offline node comes back online:<ul style="list-style-type: circle;"><li value="1">Hinted handoffs intended for the node are automatically processed.</li><li value="2">Proactive repair of the node is automatically performed, targeting the time period from when hinted handoffs stopped being created for the node up to the time that the node came back online.</li></ul></li>
+                    </ul>
+                    <p>Setting this to 0 has the effect of disabling hinted hand-off so that only proactive repair is used when a node has been down and then comes back online.</p>
+                    <p>For more information about hinted handoffs and proactive repair, see <a href="../../../Major Features/Automatic Data Repair/DataRepairOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Automatic Data Repair Feature Overview</a>.</p>
+                    <p>Default = 1073741824</p>
+                </div>
+            </div>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

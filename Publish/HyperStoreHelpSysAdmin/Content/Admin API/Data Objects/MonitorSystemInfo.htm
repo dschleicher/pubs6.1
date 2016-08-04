@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Admin API|Data Objects">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>MonitorSystemInfo</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../AdminApiOverview.htm">Admin API</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="DataObjectsOverview.htm">Data Objects</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">MonitorSystemInfo</span>
+            </div>
+            <h1>MonitorSystemInfo</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[Admin API Object]</p>
+            <p>The MonitorSystemInfo object is returned as the <b>response payload</b> for this Admin API operation:</p>
+            <ul>
+                <li value="1"><a href="../System Monitoring/GetMonitoringDataForRegion.htm" class="MCXref xref">GET Monitoring Data for Region</a>
+                </li>
+            </ul>
+            <p>The MonitorSystemInfo object consists of the attributes below.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>Within the MonitorSystemInfo object, all statistics of type MonitorStat are formatted as <br /><em>"&lt;statName&gt;":{"timestamp":"&lt;UTCMilliseconds&gt;","value":"&lt;statValue&gt;"}</em>.</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />diskAvailKb</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <div class="Indent">
+                        <p>(MonitorStat) Across the whole service region, the total mounted disk space remaining still available for Cassandra data directory or HyperStore data directory storage. A disk’s "reserved-blocks-percentage" (the portion of the disk that’s reserved for privileged processes) does not count as available space.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />diskTotalKb</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <div class="Indent">
+                        <p>(MonitorStat) Across the whole service region, the total size of the disks mounted for Cassandra data directories or HyperStore data directories (the HyperStore File System [HSFS] and erasure coding file system). This stat does not include other any other disks on your HyperStore hosts — such as those that are being used only for the OS or application files, for example.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />nodeStatuses</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <div class="Indent">
+                        <p>(List&lt;<a href="NodeStatus.htm" class="MCXref xref">NodeStatus</a>&gt;) List of NodeStatus objects, one for each node in the service region.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />s3GetLatency</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <div class="Indent">
+                        <p>(MonitorStat) Across the whole service region, the average latency for completing S3 GET transactions, in milliseconds. This stat is recalculated each five minutes, based on the most recent five minutes of transaction data. HEAD transactions are counted toward this stat also.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />s3GetThruput</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <div class="Indent">
+                        <p>(MonitorStat) Across the whole service region, the data throughput for S3 GET transactions, expressed as MB per second. This stat is recalculated each five minutes, based on the most recent five minutes of transaction data. HEAD transactions are counted toward this stat also.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />s3GetTPS</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <div class="Indent">
+                        <p>(MonitorStat) Across the whole service region, the number of S3 GET transactions processed per second. This stat is recalculated each five minutes, based on the most recent five minutes of transaction data. HEAD transactions are counted toward this stat also.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />s3PutLatency</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <div class="Indent">
+                        <p>(MonitorStat) Across the whole service region, the average latency for completing S3 PUT transactions, in milliseconds. This stat is recalculated each five minutes, based on the most recent five minutes of transaction data. POST transactions are counted toward this stat also.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />s3PutThruput</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <div class="Indent">
+                        <p>(MonitorStat) Across the whole service region, the data throughput for S3 PUT transactions, expressed as MB per second. This stat is recalculated each five minutes, based on the most recent five minutes of transaction data. POST transactions are counted toward this stat also.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />s3PutTPS</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <div class="Indent">
+                        <p>(MonitorStat) Across the whole service region, the number of S3 PUT transactions processed per second. This stat is recalculated each five minutes, based on the most recent five minutes of transaction data. POST transactions are counted toward this stat also.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />status</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <div class="Indent">
+                        <p>(ServiceStatus) High-level service status for the system as a whole. Formatted as {"ipaddr":"&lt;empty&gt;","status":[&lt;one of "OK" or "SVC_DOWN"&gt;],"value": "&lt;sameAsStatus&gt;","timestamp":"&lt;UTCMilliseconds&gt;"}.</p>
+                        <p>The "ipaddr" value will be empty or null.</p>
+                        <p>The "status" will be formatted as a list but with just one member string. Status string meanings are:</p>
+                        <ul>
+                            <li value="1">"OK" — All HyperStore services are up and running on all nodes in the service region.</li>
+                            <li value="2">"SVC_DOWN" — A HyperStore service (Admin, Cassandra, HyperStore, Redis QoS, Redis Credentials, Redis Monitor, or S3) is down on one or more nodes in the service region.</li>
+                        </ul>
+                        <p>The "value" attribute will be identical to the "status" attribute, except formatted as a string rather than as a list. For example:</p><pre>"status":["SVC_DOWN"],"value":"[SVC_DOWN]"</pre>
+                    </div>
+                </div>
+            </div>
+            <h2>Example</h2>
+            <p>This is an example of a MonitorSystemInfo object. As shown by the "nodeStatuses" attribute, this example is for a single-node system.</p><pre xml:space="preserve">{"s3PutThruput":{"timestamp":"1443611105930","value":"0"},"s3GetThruput":{"timestamp":
+"1443611105930","value":"0"},"s3GetLatency":{"timestamp":"1443611105930","value":"0.0"},
+"s3PutLatency":{"timestamp":"1443611105930","value":"0.0"},"nodeStatuses":[{"hostname":
+"hyperstore1","ipaddr":null,"status":["LOG_WARN"],"value":"[LOG_WARN]","timestamp":
+"1443611105930"}],"s3GetTPS":{"timestamp":"1443611105930","value":"0.0"},"s3PutTPS":{"timestamp":
+"1443611105930","value":"0.0"},"diskAvailKb":{"timestamp":"1443610986440","value":"61243096"},
+"diskTotalKb":{"timestamp":"1443610986440","value":"67049088"},"status":{"ipaddr":"","status":
+["OK"],"value":"[OK]","timestamp":"1443611105930"}}</pre>
+            <p>This is a second example of a MonitorSystemInfo object, this time for a six-node system.</p><pre xml:space="preserve">{"s3GetTPS":{"timestamp":"1449150002497","value":"0.0"},"diskAvailKb":{"timestamp":"1449149882244",
+"value":"273768661444"},"diskTotalKb":{"timestamp":"1449149882244","value":"273904968704"},
+"s3PutTPS":{"timestamp":"1449150002497","value":"0.0"},"s3PutThruput":{"timestamp":"1449150002497",
+"value":"3"},"s3GetThruput":{"timestamp":"1449150002497","value":"0"},"s3GetLatency":{"timestamp":
+"1449150002497","value":"0.0"},"s3PutLatency":{"timestamp":"1449150002497","value":"0.0"},
+"nodeStatuses":[{"hostname":"appliance4","ipaddr":null,"status":["LOG_WARN"],"value":"[LOG_WARN]",
+"timestamp":"1449150002497"},{"hostname":"appliance2","ipaddr":null,"status":["LOG_WARN"],"value":
+"[LOG_WARN]","timestamp":"1449150002497"},{"hostname":"appliance3","ipaddr":null,"status":
+["SVC_DOWN","LOG_WARN"],"value":"[SVC_DOWN, LOG_WARN]","timestamp":"1449150002497"},{"hostname":
+"appliance6","ipaddr":null,"status":["LOG_WARN"],"value":"[LOG_WARN]","timestamp":"1449150002497"},
+{"hostname":"appliance5","ipaddr":null,"status":["LOG_WARN"],"value":"[LOG_WARN]","timestamp":
+"1449150002497"},{"hostname":"appliance1","ipaddr":null,"status":["LOG_WARN"],"value":"[LOG_WARN]",
+"timestamp":"1449150002497"}],"status":{"ipaddr":"","status":["SVC_DOWN"],"value":"[SVC_DOWN]",
+"timestamp":"1449150002497"}}</pre>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="S3 API Support|OperationsObjects">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Complete Multipart Upload</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../S3ApiSupportOverview.htm">S3 API Support</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="OperationsOnObjectsOverview.htm">OperationsObjects</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Complete Multipart Upload</span>
+            </div>
+            <h1>Complete Multipart Upload</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[S3 API Method]</p>
+            <p>For the Amazon S3 "Complete Multipart Upload" operation, the HyperStore system supports the S3 <a href="../CommonRequestHeaders.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Common Request Headers</a> and <a href="../CommonResponseHeaders.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Common Response Headers</a> and also the operation-specific items listed below. If a parameter, header, element, or special error from the Amazon S3 specification for this operation is not listed below, the HyperStore system does not support it.</p>
+            <p>For operation usage information and for descriptions of request and response items, see <a href="http://docs.aws.amazon.com/AmazonS3/latest/API/mpUploadComplete.html" target="_blank">Complete Multipart Upload</a> in the Amazon S3 REST API specification.</p>
+            <h2>Request Elements</h2>
+            <ul>
+                <li value="1">CompleteMultipartUpload</li>
+                <li value="2">Part</li>
+                <li value="3">PartNumber</li>
+                <li value="4">ETag</li>
+            </ul>
+            <h2>Response Headers</h2>
+            <ul>
+                <li value="1">x-amz-expiration</li>
+                <li value="2">x-amz-server-side-encryption</li>
+                <li value="3">x-amz-version-id</li>
+            </ul>
+            <h2>Response Elements</h2>
+            <ul>
+                <li value="1">CompleteMultipartUploadResult</li>
+                <li value="2">Location</li>
+                <li value="3">Bucket</li>
+                <li value="4">Key</li>
+                <li value="5">ETag</li>
+            </ul>
+            <h2>Special Errors</h2>
+            <ul>
+                <li value="1">InvalidPart</li>
+                <li value="2">InvalidPartOrder</li>
+                <li value="3">NoSuchUpload</li>
+            </ul>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="S3 API Support|OperationsObjects">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Delete Multiple Objects</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../S3ApiSupportOverview.htm">S3 API Support</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="OperationsOnObjectsOverview.htm">OperationsObjects</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Delete Multiple Objects</span>
+            </div>
+            <h1>Delete Multiple Objects</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[S3 API Method]</p>
+            <p>For the Amazon S3 "Delete Multiple Objects" operation, the HyperStore system supports the S3 <a href="../CommonRequestHeaders.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Common Request Headers</a> and <a href="../CommonResponseHeaders.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Common Response Headers</a> and also the operation-specific items listed below. If a parameter, header, element, or special error from the Amazon S3 specification for this operation is not listed below, the HyperStore system does not support it.</p>
+            <p>For operation usage information and for descriptions of request and response items, see <a href="http://docs.aws.amazon.com/AmazonS3/latest/API/multiobjectdeleteapi.html" target="_blank">Delete Multiple Objects</a> in the Amazon S3 REST API specification.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>	Do not attempt to delete more than 100,000 objects from a single bucket in less than an hour. Doing so will result in TombstoneOverwhelmingException errors in the Cassandra logs and an inability to successfully execute a <a href="../OperationsOnBuckets/GetBucketListObjects.htm" class="MCXref xref">GET Bucket (List Objects)</a> operation on the bucket. If the system is in this error condition, you can trigger a tombstone purge as described in Dealing with Excessive Tombstone Build-Up in the Cloudian HyperStore Administrator’s Guide [XREF-TBD].</p>
+            <h2>Request Headers</h2>
+            <ul>
+                <li value="1">Content-MD5</li>
+                <li value="2">Content-Length</li>
+            </ul>
+            <h2>Request Elements</h2>
+            <ul>
+                <li value="1">Delete</li>
+                <li value="2">Quiet</li>
+                <li value="3">Object</li>
+                <li value="4">Key</li>
+                <li value="5">VersionId</li>
+            </ul>
+            <h2>Response Elements</h2>
+            <ul>
+                <li value="1">DeleteResult</li>
+                <li value="2">Deleted</li>
+                <li value="3">Key</li>
+                <li value="4">VersionId</li>
+                <li value="5">DeleteMarker</li>
+                <li value="6">DeleteMarkerVersionId</li>
+                <li value="7">Error</li>
+                <li value="8">Key</li>
+                <li value="9">VersionId</li>
+                <li value="10">Code</li>
+                <li value="11">Message</li>
+            </ul>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

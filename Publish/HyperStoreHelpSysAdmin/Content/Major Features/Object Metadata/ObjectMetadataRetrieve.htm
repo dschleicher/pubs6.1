@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Working with HyperStore Major Features|Object Metadata">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Retrieving Object Metadata</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Working with HyperStore Major Features</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Object Metadata</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Retrieving Object Metadata</span>
+            </div>
+            <h1>Retrieving Object Metadata</h1>
+            <p>S3 client applications can retrieve object metadata by using either of two standard Amazon S3 API methods, both of which the HyperStore system supports:</p>
+            <ul>
+                <li value="1"><a href="../../S3 API Support/OperationsObjects/GetObject.htm" class="MCXref xref" xrefformat="{para}">GET Object</a> returns system-defined and user-defined object metadata (as response headers) as well as returning the object itself. </li>
+                <li value="2"><a href="../../S3 API Support/OperationsObjects/HeadObject.htm" class="MCXref xref" xrefformat="{para}">HEAD Object</a> returns system-defined and user-defined object metadata (as response headers) as well as returning the object itself. </li>
+            </ul>
+            <p>Additionally, HyperStore support for the <a href="../../S3 API Support/OperationsOnBuckets/GetBucketListObjects.htm" class="MCXref xref" xrefformat="{para}">GET Bucket (List Objects)</a> method includes an extension that enables S3 clients to retrieve user-defined metadata (as well as system-defined metadata) for all of the objects in a specified bucket. </p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>In the current version of HyperStore, the Cloudian Management Console’s built-in S3 client does not support retrieving user-defined object metadata. To retrieve user-defined object metadata you will need to use an S3 application other than the CMC.</p>
+            <p>&#160;</p>
+            <p><b>See Also:</b>
+            </p>
+            <ul>
+                <li value="1"><a href="ObjectMetadataCreate.htm" class="MCXref xref" xrefformat="{para}">Creating User-Defined Object Metadata</a>
+                </li>
+            </ul>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

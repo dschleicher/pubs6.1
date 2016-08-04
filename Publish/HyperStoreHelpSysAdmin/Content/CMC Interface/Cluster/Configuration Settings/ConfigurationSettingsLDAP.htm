@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="CMC Interface|Cluster|Configuration Settings">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>LDAP Authentication Settings</title>
+        <link href="../../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../../CmcInterfaceOverview.htm">CMC Interface</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="../ClusterOverview.htm">Cluster</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="ConfigurationSettingsOverview.htm">Configuration Settings</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">LDAP Authentication Settings</span>
+            </div>
+            <h1>LDAP Authentication Settings</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[CMC Interface]</p>
+            <p>The settings in this section of the CMC’s <b><a href="../../../Resources/Images/cmc/cluster/ConfigurationSettings.png" class="MCTopicPopup MCTopicPopupHotSpot a">Configuration Settings</a></b> page enable and configure HyperStore integration with your LDAP system. After making any edits, click <b>Save</b> at the bottom of the page to dynamically apply the configuration change to the cluster.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>For complete information on this feature see <a href="../../../Major Features/User Provisioning/ProvisioningLdap.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Integrating with an LDAP System</a>.</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Enable_LDAP_Authentication"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">Enable LDAP Authentication</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Whether to enable or disable the CMC’s LDAP authentication feature.</p>
+                    <p>Note that if you have existing users that have been created in the CMC, and then you enable LDAP authentication, those pre-existing users <b>will no longer be able to log into the CMC</b>. For more detail see <a href="../../../Major Features/User Provisioning/ProvisioningLdap.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Integrating with an LDAP System</a>.</p>
+                    <p>Default = disabled</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="LDAP_Server_URL"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">LDAP Server URL</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>The URL that the CMC should use to access your LDAP Server when authenticating users.</p>
+                    <p>Note that if you use <em>ldaps</em> (LDAP secured by SSL/TLS), your LDAP server must use a CA-verified certificate not a self-signed certificate. HyperStore does not support connecting to an LDAP server that’s using a self-signed SSL certificate.</p>
+                    <p>Default = ldap://hostname:389/o=MyOrg</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="User_DN_Template"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">User DN Template</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Set this to the DN (Distinguished Name) template by which users are uniquely identified in your LDAP system. This template specification must include the DN attribute "uid" set to equal the exact literal string "{userId}" and the DN attribute "ou" set to equal the exact literal string "{groupId}". For example:</p>
+                    <p><em>uid={userId}, ou={groupId}, dc=my-company, dc=com</em>
+                    </p>
+                    <p>Or for another example:</p>
+                    <p><em>uid={userId}, ou={groupId}, dc=my-organization, dc=org</em>
+                    </p>
+                    <p>Note that you should set the "uid" and "ou" attributes to the required string, but customize the "dc" attributes to values appropriate for your particular organization.</p>
+                    <p>Default = uid={userId}, ou={groupId}, dc=company, dc=com</p>
+                </div>
+            </div>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

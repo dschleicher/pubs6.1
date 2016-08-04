@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Admin API|Methods|System Monitoring">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>GET Event List</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../AdminApiOverview.htm">Admin API</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Methods</span><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="SystemMonitoringOverview.htm">System Monitoring</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">GET Event List</span>
+            </div>
+            <h1>GET Event List</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[Admin API Method]</p>
+            <p>Use this Admin API method to retrieve the list of current monitoring events associated with a specified node. These are noteworthy system events as defined by an existing notification rule, such as a threshold being exceeded.</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Request Format</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <h4>Syntax</h4><pre xml:space="preserve">GET /monitor/events?nodeId=xxx[&amp;region=xxx][&amp;limit=xxx]</pre>
+                    <h4>Query Parameters</h4>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />nodeId</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <div class="Indent">
+                                <p>(Mandatory, string) Hostname of the node for which to retrieve monitoring events.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />region</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <div class="Indent">
+                                <p>(Optional, string) Name of the service region in which the node is located. If a region is not specified in the request, the default region is assumed.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />showAck</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <div class="Indent">
+                                <p>(Optional, boolean) Whether to return acknowledged events as well as unacknowledged events, true or false.</p>
+                                <p>If not specified in the request, defaults to false (only unacknowledged events are returned).</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />limit</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <div class="Indent">
+                                <p>(Optional, integer) &#160;Maximum number of events to return in the response.</p>
+                                <p>If not specified in the request, the default limit is 100 events.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <h4>Request Payload</h4>
+                    <p>None.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Response Format</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <h4>Response Status</h4>
+                    <p>In addition to the <a href="../CommonStatusCodes.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Common Response Status Codes</a>, this method may return these codes:</p>
+                    <table style="border-collapse: separate;border-top-left-radius: 0px;border-top-right-radius: 0px;border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;width: 100%;">
+                        <col style="width: 115px;" />
+                        <col style="width: 629px;" />
+                        <thead>
+                            <tr>
+                                <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Status Code</th>
+                                <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                                <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;">Missing required parameters : {nodeId}</td>
+                            </tr>
+                            <tr>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                                <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;"> 	
+
+Invalid region : {region}</td>
+                            </tr>
+                            <tr>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                                <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;"> 	
+
+Invalid limit</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>The "Invalid limit" response is returned if the "limit" URI parameter is set to a non-integer value.</p>
+                    <h4>Response Payload</h4>
+                    <p>List &lt;<a href="../Data Objects/MonitoringEvent.htm" class="MCXref xref">MonitoringEvent</a>&gt; in JSON.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Example</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>In this example, unacknowledged events for a node with hostname "appliance6" are successfully retrieved. There are currently three unacknowledged events for the node.</p><pre xml:space="preserve"># Request -&gt;
+
+GET http://10.50.200.204:18081/monitor/events?nodeId=appliance6
+
+# Response -&gt;
+
+Status Code: 200 OK
+Content-Length: 717
+Content-Type: application/json
+Date: Tue, 24 Nov 2015 16:03:54 GMT
+[{"statId":"svcAdmin","condition":"=","conditionVal":"LOG_ERR","ack":false,"eventType":
+"9|AuditDataCollector:populateNodeInfo(410)","timestamp":"1448377322891","count":3,
+"nodeId":"appliance6","value":"2015-11-18 17:01:00,289 ERROR [AUDITDATA-COLLECTOR]
+AuditDataCollector:populateNodeInfo(410) Audit: Unable to get disk space info for node:
+10.50.200.203, jmx port: 19082"},{"statId":"svcAdmin","condition":"=","conditionVal":"SVC_DOWN",
+"ack":false,"eventType":"5","timestamp":"1447893482603","count":1,"nodeId":"appliance6","value":
+"[SVC_DOWN]"},{"statId":"svcS3","condition":"=","conditionVal":"SVC_DOWN","ack":false,
+"eventType":"6","timestamp":"1447893482603","count":1,"nodeId":"appliance6","value":"[SVC_DOWN]"}]</pre>
+                    <p>For more information about MonitoringEvent attributes, see <a href="../Data Objects/MonitoringEvent.htm" class="MCXref xref">MonitoringEvent</a>.</p>
+                </div>
+            </div>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

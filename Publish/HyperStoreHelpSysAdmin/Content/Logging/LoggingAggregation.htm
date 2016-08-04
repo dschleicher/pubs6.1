@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Operations &amp; Maintenance|Logging">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Aggregating Logs to a Central Server</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Operations &amp; Maintenance</span><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="LoggingOverview.htm">Logging</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Aggregating Logs to a Central Server</span>
+            </div>
+            <h1>Aggregating Logs to a Central Server</h1>
+            <p>If you wish you can have application logs from the S3 Service, Admin Service, and HyperStore Service — as well as system logs from the host machines in your cluster — aggregated to a central logging server using <em>rsyslog</em>. This is not enabled by default, but you can enable it by editing configuration files. This procedure sets up your HyperStore logging so that logs are written to a central logging server <b>in addition to</b> being written on each HyperStore node locally.</p>
+            <p>The procedure presumes that:</p>
+            <ul>
+                <li value="1">You have a central logging server running <em>rsyslog</em>.</li>
+                <li value="2">Each of your HyperStore nodes has <em>rsyslog</em> installed.</li>
+            </ul>
+            <p class="Important" data-mc-autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;"><span class="autonumber"><span><b>IMPORTANT: </b></span></span>The central logging server must <b>not</b> be one of your HyperStore nodes.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span><em>rsyslog</em> is included in the HyperStore appliance ISO and also in standard RHEL/CentOS distributions. This procedure has been tested using <em>rsyslog</em> v5.8.10.</p>
+            <p>To aggregate HyperStore application logs and system logs to a central logging server follow the instructions below.</p>
+            <ol>
+                <li value="1"><b>On the central logging server</b>, do the following:</li>
+            </ol>
+            <div class="Indent">
+                <ol style="list-style-type: lower-alpha;">
+                    <li value="1">In the configuration file <em>/etc/rsyslog.conf</em>, enable UDP by uncommenting these lines:</li>
+                </ol>
+                <div class="Indent"><pre xml:space="preserve"># BEFORE
+
+#$ModLoad imudp
+#$UDPServerRun 514
+
+# AFTER
+
+$ModLoad imudp
+$UDPServerRun 514</pre>
+                </div>
+                <ol style="list-style-type: lower-alpha;" data-mc-continue="true">
+                    <li value="2">Create a file <em>/etc/rsyslog.d/cloudian.conf</em> and enter these Cloudian-specific configuration lines in the file:</li>
+                </ol>
+                <div class="Indent"><pre xml:space="preserve">$template CloudianTmpl,"%HOSTNAME% %TIMESTAMP:::date-rfc3339% %syslogseverity-
+text:::uppercase% %msg%\n"
+$template CloudianReqTmpl,"%HOSTNAME% %msg%\n"
+:programname, isequal, "ADMINAPP" /var/log/cloudian-admin.log;CloudianTmpl
+:programname, isequal, "HSAPP"   /var/log/cloudian-hyperstore.log;CloudianTmpl
+:programname, isequal, "HSREQ" /var/log/cloudian-hyperstore-request-info.log;CloudianReqTmpl
+:programname, isequal, "S3APP"  /var/log/cloudian-s3.log;CloudianTmpl
+:programname, isequal, "S3REQ"  /var/log/cloudian-request-info.log;CloudianReqTmpl</pre>
+                </div>
+                <ol style="list-style-type: lower-alpha;" data-mc-continue="true">
+                    <li value="3">Restart <em>rsyslog</em> by "service rsyslog restart".</li>
+                    <li value="4">Enable rotation on the centralized HyperStore logs. For example, to use <em>logrotate</em> for rotating the HyperStore logs, create a file <em>/etc/logrotate.d/cloudian</em> and enter the following configuration lines in the file. (Optionally adjust the rotated file retention scheme — 14 rotations before deletion in the example below — to match your retention policy.)</li>
+                </ol>
+                <div class="Indent"><pre xml:space="preserve">/var/log/cloudian-*.log
+{
+   daily
+   rotate 14
+   create
+   missingok
+   compress
+   delaycompress
+   sharedscripts
+   postrotate
+      /bin/kill -HUP `cat /var/run/syslogd.pid 2&gt; /dev/null` 2&gt; /dev/null || true
+   endscript
+}</pre>
+                </div>
+            </div>
+            <ol data-mc-continue="true">
+                <li value="2"><b>On your HyperStore Puppet Master node</b>, do the following:</li>
+            </ol>
+            <div class="Indent">
+                <ol style="list-style-type: lower-alpha;">
+                    <li value="1">Go to <em>/etc/cloudian-&lt;version&gt;-puppet/modules/cloudians3/templates/</em>. Here you will edit three configuration files:</li>
+                </ol>
+                <div class="Indent">
+                    <ul>
+                        <li value="1"><em>log4j-admin.xml.erb</em>
+                        </li>
+                        <li value="2"><em>log4j-hyperstore.xml.erb</em>
+                        </li>
+                        <li value="3"><em>log4j-s3.xml.erb</em>
+                        </li>
+                    </ul>
+                    <p>In each of these three files uncomment the syslog sections. In each file there are a few syslog sections and each such section is marked with a "#syslog" tag. When you are done uncommenting, there should be no remaining "#syslog" tags.</p>
+                    <p><b>Also</b>, in the first syslog section at the top of each file — nested within the "Properties" block — in addition to uncommenting the syslog section set the <em>sysloghost</em> property to the hostname or IP address or your central syslog server and set the <em>syslogport</em> property to the central syslog server’s UDP port (which by default is port number is 514).</p>
+                    <p>Here is a before and after example for uncommenting and editing the syslog section within a "Properties" block. In this example the hostname of the central logging server is "regulus".</p><pre xml:space="preserve"># BEFORE
+
+&lt;Properties&gt;
+   &lt;!-- #syslog
+   &lt;Property name="sysloghost"&gt;localhost&lt;/Property&gt;
+   &lt;Property name="syslogport"&gt;514&lt;/Property&gt;
+   --&gt;
+&lt;/Properties&gt;
+
+# AFTER
+
+&lt;Properties&gt;
+   &lt;Property name="sysloghost"&gt;regulus&lt;/Property&gt;
+   &lt;Property name="syslogport"&gt;514&lt;/Property&gt;
+&lt;/Properties&gt;</pre>
+                    <p>Be sure to uncomment <b>all</b> the "#syslog" tagged sections in each file. Only the syslog section within the "Properties" block requires editing an attribute value; the rest of the syslog sections only require uncommenting.</p>
+                </div>
+                <ol style="list-style-type: lower-alpha;" data-mc-continue="true">
+                    <li value="2">Go to <em>/etc/cloudian-&lt;version&gt;-puppet/modules/rsyslog/templates/</em>. Then edit <em>loghost.conf.erb</em> to uncomment the following line and replace "&lt;loghost&gt;" with the hostname (or IP address) of your central syslog server host:</li>
+                </ol>
+                <div class="Indent"><pre xml:space="preserve"># BEFORE
+
+#*.* @&lt;loghost&gt;:514
+
+# AFTER
+
+*.* @regulus:514</pre>
+                    <p class="Important" data-mc-autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;"><span class="autonumber"><span><b>IMPORTANT: </b></span></span>The central log host must <b>not</b> be one of your HyperStore hosts. (The reason is that if you have one of your HyperStore hosts acting as the central log host, then that host is sending logs to itself which results in a loop and rapid proliferation of log messages.)</p>
+                </div>
+                <ol style="list-style-type: lower-alpha;" data-mc-continue="true">
+                    <li value="3">Go to your installation staging directory, then launch the HyperStore installer:</li>
+                </ol>
+                <div class="Indent"><pre>root# ./cloudianInstall.sh</pre>
+                </div>
+                <ol style="list-style-type: lower-alpha;" data-mc-continue="true">
+                    <li value="4">From the installer’s main menu, select "Cluster Management". Then from the "Cluster Management" menu select "Push Configuration Settings to Cluster" and follow the prompts.</li>
+                    <li value="5">From the "Cluster Management" menu, select "Manage Services". Then from the "Service Management" menu, restart the HyperStore Service and the S3 Service. (Restarting the S3 Service also automatically restarts the Admin Service.)</li>
+                </ol>
+            </div>
+            <ol data-mc-continue="true">
+                <li value="3"><b>Back on the central logging server</b>:</li>
+            </ol>
+            <div class="Indent">
+                <ol style="list-style-type: lower-alpha;">
+                    <li value="1">Confirm that logs are being written in <em>/var/log/cloudian-*</em> files.</li>
+                    <li value="2">Confirm that system messages from HyperStore nodes appear on the log host (for example in <em>/var/log/messages</em>). If you want you can proactively test this by running the command "logger test 1" on any HyperStore node.</li>
+                </ol>
+            </div>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

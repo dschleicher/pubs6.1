@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Admin API|Methods|System Monitoring">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>PUT New Notification Rule</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../AdminApiOverview.htm">Admin API</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Methods</span><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="SystemMonitoringOverview.htm">System Monitoring</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">PUT New Notification Rule</span>
+            </div>
+            <h1>PUT New Notification Rule</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[Admin API Method]</p>
+            <p>Use this Admin API method to create a new rule for having the system notify system administrators about a specified system event. The rule details, in the JSON-encoded request body, indicate the system event that will trigger a notification and how the system should implement the notification.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>The HyperStore system comes with a sizable number of pre-created notification rules. To see the existing set of rules use the <a href="GetNotificationRules.htm" class="MCXref xref">GET Notification Rules</a> method; or alternatively, log into the CMC and go to <b>Cluster → Alert Rules</b>. Note that in the CMC&#160;the term "alert" is used rather than "notification"; in the context of HyperStore these two terms mean the same thing.</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Request Format</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <h4>Syntax</h4><pre xml:space="preserve">PUT /monitor/notificationrule</pre>
+                    <h4>Query Parameters</h4>
+                    <p>None.</p>
+                    <h4>Request Payload</h4>
+                    <p><a href="../Data Objects/NotificationRule.htm" class="MCXref xref">NotificationRule</a> JSON object.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Response Format</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <h4>Response Status</h4>
+                    <p>In addition to the <a href="../CommonStatusCodes.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Common Response Status Codes</a>, this method may return these codes:</p>
+                    <table style="border-collapse: separate;border-top-left-radius: 0px;border-top-right-radius: 0px;border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;width: 100%;">
+                        <col style="width: 115px;" />
+                        <col style="width: 629px;" />
+                        <thead>
+                            <tr>
+                                <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Status Code</th>
+                                <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                                <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;">Invalid JSON object</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h4>Response Payload</h4>
+                    <p>None.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Example</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>In this example a new notification rule is successfully created. Note that in the PUT request body the "ruleId" attribute must be set to empty (""). Upon rule creation the system will automatically generate a ruleId. If you want to know what ruleId the system generated for the new rule, use the <a href="GetNotificationRules.htm" class="MCXref xref">GET Notification Rules</a> method.</p>
+                    <p>Note also that in this sample request body the "region" attribute is set to empty. Consequently, the new rule will be created in the default service region. If you want the rule to be created in a specific region other than the default region, use the "region" attribute to specify the region.</p><pre xml:space="preserve"># Request -&gt;
+
+PUT http://10.50.10.16:18081/monitor/notificationrule
+
+Content-Type: application/json
+
+{"email":"default","statId":"s3GetLatency","condition":"&gt;","conditionVal":"150","snmpTrap":false,
+"ruleId":"","enabled":true,"region":""}
+
+# Response -&gt;
+
+Status Code: 200 OK
+Content-Length: 0
+Date: Fri, 04 Dec 2015 11:55:52 GMT</pre>
+                    <p>For more information about NotificationRule object attributes, see <a href="../Data Objects/NotificationRule.htm" class="MCXref xref">NotificationRule</a>.</p>
+                </div>
+            </div>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

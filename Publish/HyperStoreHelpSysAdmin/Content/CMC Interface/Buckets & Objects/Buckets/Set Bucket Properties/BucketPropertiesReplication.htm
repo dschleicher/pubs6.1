@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="CMC Interface|Buckets &amp; Objects|Buckets|Set Bucket Properties">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Configure Cross-Region Replication for a Bucket</title>
+        <link href="../../../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../../../CmcInterfaceOverview.htm">CMC Interface</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="../../BucketsObjectsOverview.htm">Buckets &amp; Objects</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="../BucketsOverview.htm">Buckets</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Configure Cross-Region Replication for a Bucket</span>
+            </div>
+            <h1>Configure Cross-Region Replication for a Bucket</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[CMC Interface]</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Introduction</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>You can configure a bucket so that any newly uploaded objects (objects uploaded <b>after</b> you configure this feature) are automatically replicated to your chosen destination bucket in a different service region. This feature enables you to enhance the protection of your data by having it stored in two geographically dispersed service regions. The feature is also useful in cases where you want to have the same set of data stored in two different regions in order to minimize read latency for users in those regions.</p>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;" data-mc-conditions="Cloudian.HelpSysAdminOnly,Cloudian.PrintOnly"><span class="autonumber"><span><b>Note &#160;</b></span></span>For system configuration steps that you need to take before this feature can be used for individual buckets, see <a href="../../../../Major Features/Cross-Region Replication/CrrSetUp.htm" class="MCXref xref">Setting Up Cross-Region Replication</a>.</p>
+                    <p>Along with allowing you to replicate from a source bucket to a destination bucket in a different service region in the same HyperStore system, you can also choose as your destination a bucket in an external S3 system such as Amazon S3.</p>
+                    <p>HyperStore also allows you to replicate to a destination bucket that’s in the same HyperStore service region as the source bucket, if you want to. Note however that replicating from a source bucket to another bucket in the same region will not provide the geographical dispersion of data copies that replicating across regions does.</p>
+                    <p>Object metadata — including any access permissions assigned to an object — is replicated to the destination bucket as well as the object data itself.</p>
+                    <p>The cross-region replication feature does <b>not</b> replicate:</p>
+                    <ul>
+                        <li value="1">Objects that were already in the source bucket before you configured the bucket for cross-region replication.</li>
+                        <li value="2">Objects that are encrypted with user-managed encryption keys. (By contrast, objects encrypted with system-managed keys are replicated. When you choose the "Store encrypted" option when uploading objects via the CMC, system-managed encryption keys are used — so those objects are eligible for replication.)</li>
+                        <li value="3">Object deletions. If you delete an object in the source bucket, the replicated instance of the object in the destination bucket is not deleted.</li>
+                        <li value="4">Objects that are themselves replicas from other source buckets. If you configure "bucket1" to replicate to "bucket2", and you also configure "bucket2" to replicate to "bucket3", then only objects that are directly uploaded into "bucket2" by you or other users are replicated to "bucket3" — <b>not</b> objects that the system has replicated from "bucket1" into "bucket2".</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Restrictions and Cautions</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>As with Amazon S3, with HyperStore both the source bucket and the destination bucket must have "versioning" enabled in order to activate cross-region replication. However, in the current HyperStore release, the CMC user interface does not support versioning. (The CMC UI will support versioning in a future HyperStore release, but does not in release 6.0).</p>
+                    <p>Because the CMC UI does not support versioning in HyperStore 6.0, configuring cross-region replication through the CMC should be done only with awareness of these restrictions and cautions:</p>
+                    <ul>
+                        <li value="1">If a HyperStore user uses the CMC to configure cross-region replication for a HyperStore source bucket, in the background the CMC will <b>automatically</b> enable versioning on that bucket. If the destination bucket is also in HyperStore, the CMC will automatically enable versioning on that bucket as well.</li>
+                        <li value="2">The user will have no ability to turn off versioning through the CMC UI, and disabling cross-region replication on a bucket will not disable versioning.</li>
+                        <li value="3">When versioning is enabled on a bucket, if updated versions of objects are uploaded to the bucket, the system stores <b>all</b> versions of those objects — old versions as well as the current version. Since all versions of objects are retained, the user’s storage space usage count will be higher than it would be without versioning.</li>
+                        <li value="4">Since the CMC UI does not support versioning, it does not allow the user to list all versions of an object — it only lists the newest version. The CMC also <b>does not allow a user to delete a versioned object</b>. Deleting a versioned object requires that an object versionID be provided with the delete request, and the CMC UI does not currently support this. An object delete action taken through the CMC UI — with no object versionID specified — will merely have the effect of hiding the object in the CMC display (technically the latest "version" of the object becomes a "Delete Marker"). In fact all previous versions of the object data will continue to exist in storage. In this scenario, the CMC user can neither see the previous versions of the object nor delete them.</li>
+                        <li value="5">Because a user cannot delete versioned objects from a bucket, the user will not be able to delete the bucket (since only empty buckets are allowed to be deleted).</li>
+                    </ul>
+                    <p>If the user also uses other S3 client applications (other than the CMC) to access a HyperStore bucket, then the user may be able to see a list of versioned objects, delete versioned objects, and so on — depending on whether the S3 client application supports versioning.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="To"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">To Configure a Source Bucket for Replication</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>To configure a source bucket for replication, from the source bucket’s properties interface in the CMC select the <b>Cross Region Replication</b> tab.</p>
+                    <p>Then do the following:</p>
+                    <ol>
+                        <li value="1">Select the "Enable Cross Region Replication" checkbox.</li>
+                        <li value="2">If you want all new objects (objects uploaded after you configure this feature) in the source bucket to be replicated, leave the "Prefix" field empty. If you only want to replicate objects whose full names (including path) start with a particular prefix, enter that prefix in the "Prefix" field. You do not need to include a leading forward slash at the start of the prefix. "Taxes/documents" is a valid example, or "profile/images/headshots".</li>
+                    </ol>
+                    <div class="Indent">
+                        <p>If you want to replicate objects associated with multiple prefixes, enter a comma-separated list of prefixes, with no spaces between prefixes. For example "legal/docs,legal/audio,compliance/docs".</p>
+                        <p>Note that if you are specifying multiple prefixes, all the replication must go to the same one destination bucket (you can’t replicate from a single source bucket to multiple destination buckets). Note also that the source prefixes will be included in the full name of the object replicas in the destination bucket (for example, source object "legal/docs/briefing_04-17-2016" will be replicated as "legal/docs/briefing_04-17-2016" in the destination bucket).</p>
+                    </div>
+                    <ol data-mc-continue="true">
+                        <li value="3">Specify the Destination Bucket name.</li>
+                    </ol>
+                    <div class="Indent">
+                        <ul>
+                            <li value="1">If the destination bucket is in <b>HyperStore</b>, it must be a bucket that you own.</li>
+                            <li value="2">If the destination bucket is in an <b>external S3 storage system</b> such as Amazon S3, "versioning" must be enabled on the bucket and you must have write permissions on the bucket.</li>
+                        </ul>
+                        <p>If you wish, in the future you can edit your cross-region replication configuration and specify a different destination bucket. After that, new data uploaded to the source bucket would replicate to the new destination bucket rather than to the original destination bucket.</p>
+                    </div>
+                    <ol data-mc-continue="true">
+                        <li value="4">If the destination bucket is in an external S3 storage system such as Amazon S3 (not in the HyperStore system), enter the external system’s S3 endpoint in the Destination Endpoint field, in format <em>&lt;protocol&gt;://&lt;endpoint&gt;:&lt;port&gt;</em>. For example <em>https://s3.amazonaws:443</em>. If the destination bucket is in the HyperStore system, leave this field empty.</li>
+                        <li value="5">If you completed the Destination Endpoint field, then two additional fields will display in which you must enter your Access Key and Secret Key (security credentials) for the external S3 system. If the destination bucket is in the HyperStore system, leave these fields empty.</li>
+                        <li value="6">Click <b>Save</b>.</li>
+                    </ol>
+                </div>
+            </div>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

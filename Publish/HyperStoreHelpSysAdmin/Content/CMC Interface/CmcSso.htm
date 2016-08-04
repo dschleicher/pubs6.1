@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="CMC Interface">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Implementing Single Sign-On for the CMC</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="CmcInterfaceOverview.htm">CMC Interface</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Implementing SSO</span>
+            </div>
+            <h1>Implementing Single Sign-On for the CMC</h1>
+            <p>To enable integration between a portal and the Cloudian Management Console, the Cloudian HyperStore system employs a one-way hash based Single Sign-On (SSO) solution. It allows for cross-domain sign-ons from the portal to CMC.</p>
+            <p>User provisioning is beyond the scope of the provided SSO solution. The HyperStore provides an <a href="../Admin API/User Management/UserManagementOverview.htm">Admin API  for user provisioning</a> but the implementation of user mapping is left to the portal application integrating with CMC.</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Note for customers upgrading from a HyperStore version older than 5.0</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>The CMC’s SSO solution was redesigned in HyperStore version 5.0. The following changes were made:</p>
+                    <ul>
+                        <li value="1">The SSO Secure URL (<em>ssosecurelogin.htm</em>) now directly creates an authenticated CMC session instead of returning a CMCSSO cookie. Therefore, it is now possible to do cross-domain sign-ons from a portal to CMC. The portal and CMC no longer have to be on the same top level domain such as ".cloudian.com".</li>
+                        <li value="2"><em>ssosecurelogin.htm</em> also takes an optional query string <em>redirect=RELATIVE_OR_ABSOLUTE_URL</em>, which can be used to redirect the client to a CMC interior page upon successful sign-on.</li>
+                        <li value="3">The CMC logout URL (<em>logout.htm</em>) now takes an optional query string <em>redirect=RELATIVE_OR_ABSOLUTE_URL</em>, which can be used to redirect the client back to a portal page after signing out from the CMC.</li>
+                    </ul>
+                    <p>This redesigned SSO solution provides backward compatibility. If you already have working SSO from a portal to a version of the CMC older than 5.0, it should remain working.</p>
+                    <p>However, some of the SSO methods from earlier releases have been deprecated. Cloudian, Inc. recommends not using these methods, and in a future release support for them will be discontinued.</p>
+                    <ul>
+                        <li value="1">The method for having your portal application create a CMCSSO cookie has been deprecated. Use SSO secure login API (<em>ssosecurelogin.htm</em>) instead.</li>
+                        <li value="2">The method for having the CMC create a CMCSSO cookie using password (<em>ssologin.htm</em>) has been deprecated. Use SSO secure login API (<em>ssosecurelogin.htm</em>) instead.</li>
+                        <li value="3">The CMC SSO logout API (<em>ssologout.htm</em>) has been deprecated. Use CMC’s regular logout URL (<em>logout.htm</em>) instead.</li>
+                    </ul>
+                </div>
+            </div>
+            <h2>How SSO for the CMC Works</h2>
+            <p>Cloudian HyperStore SSO is ideal for sites that already have an authentication model in place using a browser/login session and that want to incorporate the Cloudian Management Console into their web portal application.</p>
+            <p>The idea is that a portal application calculates an one-way hash (also known as a signature) based on Cloudian HyperStore user identification, timestamp and the shared key. Then the user’s browser accesses <em>ssosecurelogin.htm</em> with the signature. The CMC checks for this signature to determine whether a user is authenticated or not. If the signature is found valid, access to the CMC from the client will skip the login page and take the user directly to a CMC interior page such as the <b>Buckets &amp; Objects</b> page.</p>
+            <p class="Important" data-mc-autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;"><span class="autonumber"><span><b>IMPORTANT: </b></span></span>To use the Cloudian HyperStore SSO feature, the following system configuration settings must be set to "true":<br /><br /><a href="../System Configuration/Configuration Files/CommonCsv.htm#cmc_web_secure" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">cmc_web_secure</a> in <em>common.csv</em> -- This is set to true by default. Leave it true if you want to use SSO.<br />sso.enabled in <em>mts-ui.properties.erb</em> -- This is set to false by default. Change it to true if you want to use SSO. [XREF]<br /><br />Also in <em>mts-ui.properties</em>, if you enable SSO functionality (by setting <em>sso.enabled</em> to true), then for security reasons you should set <em>sso.shared.key</em> and <em>sso.cookie.cipher.key</em> to custom values. <b>Do not use the default keys</b>.</p>
+            <h2>CMC SSO Secure Login Using One-Way Hash</h2>
+            <p>The single sign-on with one-way hash method relies on a one-way hash of query string parameters (also known as a signature).</p>
+            <p>The following HTTP API, using a signature, prompts the CMC to create an authenticated session for the client that submitted the request:</p><pre xml:space="preserve">https://&lt;cmc_FQDN&gt;:&lt;cmc_port&gt;/Cloudian/ssosecurelogin.htm?user=USERID&amp;group=GROUPID
+&amp;timestamp=TIMESTAMP&amp;signature=SIG&amp;redirect=RELATIVE_OR_ABSOLUTE_URL</pre>
+            <ul>
+                <li value="1"><em>user</em>: Cloudian HyperStore userId of the user</li>
+                <li value="2"><em>group</em>: Cloudian HyperStore groupId of the group to which the user belongs</li>
+                <li value="3"><em>timestamp</em>: Current Epoch time in milliseconds (eg. "1346881953440"). The timestamp is used to implement the configurable request expiration (mts-ui.properties: sso.tolerance.millis; expiration defaults to one hour).</li>
+                <li value="4"><em>signature</em>: This is the URI encoding of the base64 representation of the calculated signature. For further information see below.</li>
+                <li value="5"><em>redirect</em>: This optional parameter can be used to redirect the client to the given URL upon successful sign-in. It is typically set to a CMC interior page such as <em>bucket.htm</em>.</li>
+            </ul>
+            <p>Each value must be URL-encoded by the client. Order of the parameters does not matter.</p>
+            <p>If the signature is found valid, the CMC creates an authenticated session for the HyperStore user, allowing the client to skip the login page and access to a CMC interior page.</p>
+            <h3>How to Create the Signature</h3>
+            <p>The portal server can create the signature by the following steps.</p>
+            <ol>
+                <li value="1">Assemble the query string.</li>
+            </ol>
+            <div class="Indent">
+                <ul>
+                    <li value="1">querystring = "user=USERID&amp;group=GROUPID&amp;timestamp=TIMESTAMP"</li>
+                </ul>
+                <p class="NoteIndent" data-mc-autonum="&lt;b&gt;Note: &lt;/b&gt;"><span class="autonumber"><span><b>Note: </b></span></span>When using the querystring to create the signature, do not URL-encode the querystring. Also do not reorder the items. (By contrast, when the client subsequently submits the SSO secure login request to the CMC, it’s desirable to URL encode the request querystring.)</p>
+            </div>
+            <ol data-mc-continue="true">
+                <li value="2">Calculate one-way hash for the querystring using the standard HmacSHA1 and the CMC SSO shared key. The shared key is configured by <em>mts-ui.properties: sso.shared.key</em>.</li>
+            </ol>
+            <div class="Indent">
+                <ul>
+                    <li value="1">hashresult = HmacSHA1(querystring, sharedkey)</li>
+                </ul>
+            </div>
+            <ol data-mc-continue="true">
+                <li value="3">Base64 encode the resulting hash.</li>
+            </ol>
+            <div class="Indent">
+                <ul>
+                    <li value="1">base64string = Base64Encode(hashresult)</li>
+                </ul>
+            </div>
+            <ol data-mc-continue="true">
+                <li value="4">URI encode the base64 encoded hash result.</li>
+            </ol>
+            <div class="Indent">
+                <ul>
+                    <li value="1">signature = encodeURIComponent(base64string)</li>
+                </ul>
+            </div>
+            <p>For a sample of a Python script that uses the one-way hash login API, see <a href="#Cloudian" class="MCXref xref selected">Cloudian HyperStore SSO Sample Script</a>.</p>
+            <h3>Access to a CMC’s Interior Page</h3>
+            <p>After creating the signature, the portal server can return an HTML page with a hyperlink to the CMC SSO secure login API. The following example will display CMC’s <b>Buckets &amp;&#160;Objects</b> page (<em>bucket.htm</em>) embedded in the inline frame on the portal’s page.</p><pre xml:space="preserve">&lt;iframe src="https://&lt;cmc_FQDN&gt;:&lt;cmc_port&gt;/Cloudian/ssosecurelogin.htm
+?user=USERID&amp;group=GROUPID&amp;timestamp=TIMESTAMP&amp;signature=SIG
+&amp;redirect=bucket.htm"&gt;&lt;/iframe&gt;</pre>
+            <h3>CMC SSO Secure Login HTTP Response</h3>
+            <p>If <em>redirect=RELATIVE_OR_ABSOLUTE_URL</em> is given, the CMC’s SSO secure login API returns an HTTP redirect response.</p>
+            <ul>
+                <li value="1"><b>If the request was successful</b>, the redirect response will take the client to the URL specified by <em>redirect</em>.</li>
+                <li value="2"><b>If the request failed</b>, the redirect response will take the client to the CMC’s Login panel.</li>
+            </ul>
+            <p>If <em>redirect=RELATIVE_OR_ABSOLUTE_URL</em> is not given, the CMC’s SSO secure login API returns an HTTP response with content-type "text/plain".</p>
+            <ul>
+                <li value="1"><b>If the request was successful</b>, the HTTP response status is 200 OK.</li>
+                <li value="2"><b>If the request failed</b>, a 400 BAD REQUEST status is returned, along with a plain text status description. Possible reasons for failure include:<ul style="list-style-type: circle;"><li value="1">Missing required parameters</li><li value="2">SSO token already exists (request is ignored)</li><li value="3">Timestamp in request is outside of configured tolerance range</li><li value="4">Invalid signature</li><li value="5">Invalid credentials (group ID and/or user ID is invalid)</li></ul></li>
+            </ul>
+            <h3>CMC Logout</h3>
+            <p>This API method allows for immediately invalidating the CMC session.</p><pre>https://&lt;cmc_FQDN&gt;:&lt;cmc_port&gt;/Cloudian/logout.htm&amp;redirect=RELATIVE_OR_ABSOLUTE_URL</pre>
+            <ul>
+                <li value="1"><em>redirect</em>: This optional parameter can be used to redirect the client to the URL after logging out from the CMC. It is typically set to a portal page. The URL must be URL-encoded by the client.</li>
+            </ul>
+            <h3>CMC Logout HTTP Response</h3>
+            <p>If <em>redirect=RELATIVE_OR_ABSOLUTE_URL</em> is given, the CMC’s logout API returns an HTTP redirect response to take the client to the given URL after logging out from the CMC.</p>
+            <p>If <em>redirect=RELATIVE_OR_ABSOLUTE_URL</em> is not given, the CMC’s logout API returns an HTTP redirect response to take the client to the CMC’s Login panel.</p>
+            <h3>Logging Out from the CMC and Portal at Once</h3>
+            <p>You may want the logout link on the portal page to also trigger logout from the CMC. You can achieve this by using the <em>redirect </em>parameter.</p>
+            <p>For example, if you have the portal’s logout link like this:</p><pre>&lt;a href="/auth/logout"&gt;Logout&lt;/a&gt;</pre>
+            <p>You can change it to the following:</p><pre xml:space="preserve">&lt;a href="https://&lt;cmc_FQDN&gt;:&lt;cmc_port&gt;/Cloudian/logout.htm
+?redirect=https:%2F%2F&lt;portal_FQDN&gt;:&lt;portal_port&gt;%2Fauth%2Flogout"&gt;Logout&lt;/a&gt;</pre>
+            <ul>
+                <li value="1">The redirect URL must be an absolute URL including the protocol (e.g. https://) and portal’s FQDN.</li>
+                <li value="2">The redirect URL must be URL-encoded.</li>
+            </ul>
+            <h2><a name="Cloudian"></a>Cloudian HyperStore SSO Sample Script</h2>
+            <p>Below is a sample Python script that outputs a HyperStore SSO secure login URL for use with the one-way hash method of having the CMC create a cookie. The script also creates an SSO logout URL.</p><pre xml:space="preserve">#!/usr/bin/python
+
+import time
+import hmac
+import hashlib
+import base64
+import urllib
+
+# TODO: Move these config options to configuration file
+SSO_DOMAIN = 'cmc.cloudian.com'
+SSO_PORT = 8443
+SSO_KEY = 'aa2gh3t7rx6d'
+
+# TODO: Dynamically choose user/group based on the user
+# and group you want to login using.
+SSO_USER = 'sso@group'
+SSO_GROUP = 'ssogroup'
+
+# Do Not Change
+SSO_PROTO = 'https://'
+SSO_PATH = 'Cloudian/ssosecurelogin.htm'
+SSO_LOGOUT_PATH = 'Cloudian/ssologout.htm'
+
+def sso_sig(user, group, timestamp):
+   # query string with no urlencoding for signature
+   signme = 'user=%s&amp;group=%s&amp;timestamp=%s' % (user, group, timestamp)
+   hmacsha1 = hmac.new(SSO_KEY, signme, hashlib.sha1).digest()
+   return base64.b64encode(hmacsha1)
+
+def sso_url(user, group):
+   timestamp = int(time.time() * 1000)
+   signature = sso_sig(user, group, timestamp)
+   params = {'user': user,
+      'group': group,
+      'timestamp': timestamp,
+      'signature': signature}
+   query = urllib.urlencode(params)
+   url = '%s%s:%d/%s?%s' % (SSO_PROTO, SSO_DOMAIN, SSO_PORT, SSO_PATH, query)
+   return url
+
+def sso_logout_url():
+   url = '%s%s:%d/%s' % (SSO_PROTO, SSO_DOMAIN, SSO_PORT, SSO_LOGOUT_PATH)
+   return url
+
+print 'login: ' + sso_url(SSO_USER, SSO_GROUP)
+print '\nlogout: ' + sso_logout_url()</pre>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>The sample script hard-codes the SSO secret key, which is not advisable for actual practice. In practice, you should keep the secret key safely on the server side.</p>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

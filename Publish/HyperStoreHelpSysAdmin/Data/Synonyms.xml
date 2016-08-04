@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MadCapSynonyms xml:lang="en-us">
+    <!-- saved from url=(0016)http://localhost -->
+    <Groups>
+        <SynonymGroup Stem="true">
+            <Word Stem="add">add</Word>
+            <Word Stem="creat">create</Word>
+            <Word Stem="put">put</Word>
+            <Word Stem="upload">upload</Word>
+        </SynonymGroup>
+        <SynonymGroup Stem="true">
+            <Word Stem="edit">edit</Word>
+            <Word Stem="modifi">modify</Word>
+            <Word Stem="chang">change</Word>
+            <Word Stem="post">post</Word>
+        </SynonymGroup>
+        <SynonymGroup Stem="true">
+            <Word Stem="delet">delete</Word>
+            <Word Stem="remov">remove</Word>
+        </SynonymGroup>
+        <SynonymGroup Stem="true">
+            <Word Stem="get">get</Word>
+            <Word Stem="retriev">retrieve</Word>
+            <Word Stem="find">find</Word>
+        </SynonymGroup>
+        <SynonymGroup Stem="true">
+            <Word Stem="object">object</Word>
+            <Word Stem="file">file</Word>
+        </SynonymGroup>
+        <SynonymGroup Stem="true">
+            <Word Stem="alert">alert</Word>
+            <Word Stem="notif">notification</Word>
+        </SynonymGroup>
+        <SynonymGroup Stem="true">
+            <Word Stem="overview">overview</Word>
+            <Word Stem="introduct">introduction</Word>
+            <Word Stem="explan">explanation</Word>
+            <Word Stem="explain">explained</Word>
+        </SynonymGroup>
+        <SynonymGroup Stem="true">
+            <Word Stem="redismon">redismon</Word>
+            <Word Stem="redi">redis</Word>
+        </SynonymGroup>
+        <SynonymGroup Stem="true">
+            <Word Stem="troubl">trouble</Word>
+            <Word Stem="problem">problem</Word>
+        </SynonymGroup>
+        <SynonymGroup Stem="true">
+            <Word Stem="remov">remove</Word>
+            <Word Stem="uninstal">uninstall</Word>
+        </SynonymGroup>
+    </Groups>
+    <Directional />
+</MadCapSynonyms>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="CMC Interface|Cluster|Node Status">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>View a Node's Summary Status</title>
+        <link href="../../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../../CmcInterfaceOverview.htm">CMC Interface</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="../ClusterOverview.htm">Cluster</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="NodeStatusOverview.htm">Node Status</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">View a Node's Summary Status</span>
+            </div>
+            <h1>View a Node's Summary Status</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[CMC Interface]</p>
+            <p>The upper part of the CMC's <a href="../../../Resources/Images/cmc/cluster/NodeStatus.png" class="MCTopicPopup MCTopicPopupHotSpot a">Node Status</a> page provides a dashboard view of the health and performance of an individual node within your HyperStore system. A drop-down list lets you choose a node for which to display information.</p>
+            <p><a class="MCPopupThumbnailLink MCPopupThumbnailHover" href="../../../Resources/Images/cmc/cluster/NodeStatus_general.png"><img class="MCPopupThumbnail img imgImgCloudian" data-mc-width="917" data-mc-height="260" src="../../../Resources/Images/cmc/cluster/NodeStatus_general_thumb_0_60.png" tabindex="" /></a>
+            </p>
+            <p>For the selected node, the <b>Node Status</b> page displays current information for the status and performance items described below.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>The <b>Node Status</b> page — and the status and performance information displayed on the page — automatically refreshes once each minute.</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Disk Used %</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>On the node, the percentage of total data disk capacity that is currently used. In the circle icon that graphically shows disk usage percentage, the disk used portion of the circle displays in <span style="color: #32cd32;">green</span> if disk usage is less than 70%; in <span style="color: #ffd700;">yellow</span> if usage is between 70% and 89%; or in <span style="color: #ff4500;">red</span> if usage is 90% or higher.</p>
+                    <p>Only disks that store HyperStore data directories (as configured by the <a href="../../../System Configuration/Configuration Files/CommonCsv.htm#hyperstore_data_directory" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">hyperstore_data_directory</a> setting in the <em>common.csv</em> file) or the Cassandra data directory (as configured by the <a href="../../../System Configuration/Configuration Files/CommonCsv.htm#cassandra_data_directory" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">cassandra_data_directory</a> setting in <em>common.csv</em>) count toward this stat. This stat does not count disks that are being used only for OS or application files, for example.</p>
+                    <p>This stat calculates disk usage in a way that counts a disk’s "reserved-blocks-percentage" (the portion of the disk space that’s reserved for privileged processes) as used space. Consequently this stat may show a higher disk usage value than would the Linux <em>df</em> command, which does not count reserved space towards a disk’s used space. By default in Linux systems the configurable "reserved-blocks-percentage" for a file system is 5% of disk capacity. In a HyperStore Appliance it’s set to 0.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Disk Reads per second</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Across <b>all</b> of the node’s disks, the average disk read throughput per second during the past minute. The metric will auto-scale from B (bytes) to KB or MB or GB as appropriate.</p>
+                    <p>This system stat is recalculated each minute, based on the most recent minute of data.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Disk Writes per second</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Across <b>all</b> of the node’s disks, the average disk write throughput per second during the past minute. The metric will auto-scale from B (bytes) to KB or MB or GB as appropriate.</p>
+                    <p>This system stat is recalculated each minute, based on the most recent minute of data.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />CPU Utilization %</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Current CPU utilization on the node. In the icon that graphically shows disk usage percentage, the disk used portion of the icon displays in green if disk usage is less than 70%; in yellow if usage is between 70% and 89%; or in red if usage is 90% or higher.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Network Traffic</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>The aggregate network interface throughput (received and transmitted) for the node during the past minute, for all types of network traffic including but not limited to S3 request traffic. For example, data transmission associated with cluster maintenance operations would would count toward these statistics. The metric will auto-scale from B (bytes) to KB or MB or GB as appropriate.</p>
+                    <p>These system stats are recalculated each minute, based on the most recent minute of data.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Request Throughput</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>For just this node, the data throughput for S3 transactions during the past five minutes, expressed as MB per second. This is broken out to GET transactions and PUT transactions.</p>
+                    <p>HEAD transactions are counted toward the GET stat, and POST transactions are counted toward the PUT stat.</p>
+                    <p>These S3 stats are recalculated each five minutes, based on the most recent five minutes of transaction data.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Transactions/sec</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>For just this node, the number of S3 transactions processed per second during the past five minutes. This is broken out to GET transactions and PUT transactions.</p>
+                    <p>HEAD transactions are counted toward the GET stat, and POST transactions are counted toward the PUT stat.</p>
+                    <p>These S3 stats are recalculated each five minutes, based on the most recent five minutes of transaction data.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Average Request Latency (ms)</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>For just this node, the average latency  (in milliseconds) for completing S3 transactions during the past five minutes. This is broken out to GET transactions and PUT transactions.</p>
+                    <p>HEAD transactions are counted toward the GET stat, and POST transactions are counted toward the PUT stat.</p>
+                    <p>These S3 stats are recalculated each five minutes, based on the most recent five minutes of transaction data.</p>
+                </div>
+            </div>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

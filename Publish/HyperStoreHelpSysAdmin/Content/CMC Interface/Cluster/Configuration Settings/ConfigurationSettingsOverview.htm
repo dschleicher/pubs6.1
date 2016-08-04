@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="CMC Interface|Cluster">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Configuration Settings</title>
+        <link href="../../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../../CmcInterfaceOverview.htm">CMC Interface</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="../ClusterOverview.htm">Cluster</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Configuration Settings</span>
+            </div>
+            <h1>Configuration Settings</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[CMC Interface]</p>
+            <p>Path: <b>Cluster → Cluster Config → Configuration Settings</b></p>
+            <p><a class="MCPopupThumbnailLink MCPopupThumbnailHover" href="../../../Resources/Images/cmc/cluster/ConfigurationSettings.png"><img class="MCPopupThumbnail img imgImgCloudian" data-mc-width="968" data-mc-height="629" src="../../../Resources/Images/cmc/cluster/ConfigurationSettings_thumb_0_60.png" tabindex="" /></a>
+            </p>
+            <p>Supported task:&#160;</p>
+            <ul>
+                <li value="1">Edit HyperStore configuration settings</li>
+            </ul>
+            <p>You can edit any of the following types of settings. Be sure to click <b>Save</b> at the bottom of the page to save your changes.</p>
+            <ul>
+                <li value="1"><a href="ConfigurationSettingsSMTP.htm" class="MCXref xref">SMTP/Email Settings for Alerts/Notifications</a>
+                </li>
+                <li value="2"><a href="ConfigurationSettingsSNMP.htm" class="MCXref xref">SNMP Trap Destination Settings</a>
+                </li>
+                <li value="3"><a href="ConfigurationSettingsSystem.htm" class="MCXref xref">System Settings</a>
+                </li>
+                <li value="4"><a href="ConfigurationSettingsUsage.htm" class="MCXref xref">Usage Tracking Settings</a>
+                </li>
+                <li value="5"><a href="ConfigurationSettingsQoS.htm" class="MCXref xref">Quality of Service Settings</a>
+                </li>
+                <li value="6"><a href="ConfigurationSettingsAutoTiering.htm" class="MCXref xref">Auto-Tiering Settings</a>
+                </li>
+                <li value="7"><a href="ConfigurationSettingsS3Restrictions.htm" class="MCXref xref">S3 Request Restriction Settings</a>
+                </li>
+                <li value="8"><a href="ConfigurationSettingsAutoRepair.htm" class="MCXref xref">Auto-Repair Schedule Settings</a>
+                </li>
+                <li value="9"><a href="ConfigurationSettingsLDAP.htm" class="MCXref xref">LDAP Authentication Settings</a>
+                </li>
+            </ul>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>When you change settings in the CMC’s <b>Configuration Settings</b> page the system applies your configuration changes dynamically — no service restart is required. At the same time, the system automatically updates the corresponding configuration file settings on the Puppet master node and triggers a Puppet sync-up so that the configuration file changes propagate to all your HyperStore nodes. This makes it so that your configuration changes persist across any future restarts of HyperStore services.</p>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

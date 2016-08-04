@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Working with HyperStore Major Features|Billing">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Creating Rating Plans for Billing</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Working with HyperStore Major Features</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Billing</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Creating Rating Plans for Billing</span>
+            </div>
+            <h1>Creating Rating Plans for Billing</h1>
+            <p>The HyperStore system supports the creation of billing rating plans in which charges can be specified for each of several different service activity types. The system supports rating plans that charge:</p>
+            <ul>
+                <li value="1">Per GB of data in storage (based on a calculated average storage volume for the billing period)</li>
+                <li value="2">Per GB of data uploaded</li>
+                <li value="3">Per GB of data downloaded</li>
+                <li value="4">Per 10,000 HTTP GET or HEAD requests</li>
+                <li value="5">Per 10,000 HTTP PUT or POST requests</li>
+                <li value="6">Per 10,000 HTTP DELETE requests</li>
+            </ul>
+            <p>A user’s bill can then be calculated by applying the user’s assigned rating plan to the user’s activity levels for each of these activity types, and adding together the charges for each activity type to get a total charge for the billing period.</p>
+            <p>You can create multiple, named rating plans, each of which applies different charges to the various service activity types. Once you’ve created rating plans, those plans are then available for you to <a href="BillingAssignRatingPlans.htm">assign to users</a>.</p>
+            <p>For example, you can create higher-priced and lower-priced rating plans and then assign different plans to different users based on the users' quality of service terms.</p>
+            <p class="Important" data-mc-autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;"><span class="autonumber"><span><b>IMPORTANT: </b></span></span>	If you want to bill for data upload or download volume, or for HTTP request volume, you must enable the "Track/Report Usage for Request Rates and Data Transfer Rates" setting in the CMC’s Configuration Settings page, Usage Tracking section. By default this setting is disabled and the system does not maintain per-user HTTP request counts and data transfer byte counts.</p>
+            <p>You can create rating plans either through the CMC or through the HyperStore Admin API. The system also comes equipped with an editable default rating plan.</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Creating Rating Plans for Billing (CMC)</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>To create rating plans through the CMC, use the <a href="../../CMC Interface/Users &amp; Groups/Rating Plan/RatingPlanOverview.htm" class="MCXref xref" xrefformat="{para}">Rating Plan</a> page. For each plan you create, you can select a currency and then specify the charges to apply per each of the chargeable service activity types (per GB of stored data, per GB of data uploaded, and so on). For each rating plan, the interface supports the creation of single-tier or multi-tier pricing schemes for each chargeable activity.</p>
+                    <p>The <b>Rating Plan</b> page also supports viewing and editing existing plans, including the <a href="../../CMC Interface/Users &amp; Groups/Rating Plan/RatingPlanDefault.htm" class="MCTopicPopup MCTopicPopupHotSpot a">default rating plan</a> that comes with the HyperStore system.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Creating Rating Plans for Billing (Admin API)</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>To create a rating plan through the Admin API, use the <a href="../../Admin API/Rating Plans/PutNewRatingPlan.htm">PUT /ratingPlan</a> method.</p>
+                    <p>The Admin API also supports:</p>
+                    <ul>
+                        <li value="1">Retrieving a list of existing rating plans: <a href="../../Admin API/Rating Plans/GetRatingPlanList.htm">GET /ratingPlan/list</a></li>
+                        <li value="2">Retrieving a rating plan: <a href="../../Admin API/Rating Plans/GetRatingPlan.htm">GET /ratingPlan</a></li>
+                        <li value="3">Editing a rating plan: <a href="../../Admin API/Rating Plans/PostUpdatedRatingPlan.htm">POST /ratingPlan</a></li>
+                        <li value="4">Deleting a rating plan: <a href="../../Admin API/Rating Plans/DeleteRatingPlan.htm">DELETE /ratingPlan</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Example"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">Example of a Rating Plan Applied to Calculate a User’s Monthly Bill</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>This example walks through a hypothetical rating plan and how it would apply to a user’s service usage for a month.</p>
+                    <h3>Storage Charges</h3>
+                    <ul>
+                        <li value="1">Types: One type only. The average number of GBs of data stored for the month.</li>
+                        <li value="2">Example:<ul style="list-style-type: circle;"><li value="1">Unit: Dollars per GB-months.</li><li value="2">Pricing: From 0-1 TB at $0.14 per GB-month, 1-10 TB at $0.12 per GB-month, 10+ TB at $0.10 per GB-month.</li><li value="3">Usage: Store 0.1 TB for first 10 days of month, then 20 TB for remaining 21 days of month.</li><li value="4">Sum up usage over month: 0.1TB X 240 hours + 20TB X 504 hours = 10,104 TB-hours.</li><li value="5">Convert to GB-months: 10,104 TB-hours X (1024 GB/TB) X (1 month/744 hours) = 13,906.58 GB-months</li><li value="6">Apply tiered pricing: ($0.14 X 1 X 1024GB) + ($0.12 X 9 X 1024GB) + ($0.10 X 3666.58GB) = $1615.94.</li></ul></li>
+                    </ul>
+                    <h3>Data Transfer Charges</h3>
+                    <ul>
+                        <li value="1">Types: 2 types. Data Transfer IN and Data Transfer OUT.<ul style="list-style-type: circle;"><li value="1">Each type (IN, OUT) has own cost.</li></ul></li>
+                        <li value="2">Example:<ul style="list-style-type: circle;"><li value="1">Unit: Dollars per GB.</li><li value="2">Pricing: IN: 0GB+ at $0.10. OUT: 0-10GB at $0.20, 10GB+ at $0.10</li><li value="3">Usage: Transfer-IN 300GB, Transfer-OUT 100GB.</li><li value="4">(300 X $0.10) + (10 X $0.20 + 90 X $0.10) = $41.00.</li></ul></li>
+                    </ul>
+                    <h3>Request Charges</h3>
+                    <ul>
+                        <li value="1">Types: 3 types of requests are HTTP PUT/POST, HTTP GET/HEAD, and HTTP DELETE.<ul style="list-style-type: circle;"><li value="1">Each request type has own cost.</li></ul></li>
+                        <li value="2">Example:<ul style="list-style-type: circle;"><li value="1">Unit: Dollars per 10,000 requests.</li><li value="2">Pricing: PUT/POST: $0.20 per 10,000 requests, GET/HEAD: $0.01 per 10,000 requests, DELETE: $0.00 per 10,000 requests.</li><li value="3">Usage: For the month, 25,000 PUTs/POSTs, 300,000 GETs/HEADs, 1000 DELETEs.</li><li value="4">($0.20 X 25,000 / 10,000) + ($0.01 X 300,000 / 10,000) + ($0.00 X 1000 / 10,000) = $0.53.</li></ul></li>
+                    </ul>
+                    <h3>Total Bill for Month</h3>
+                    <ul>
+                        <li value="1">Storage charges: $1615.94</li>
+                        <li value="2">Data transfer charges: $41.00</li>
+                        <li value="3">Requests charges: $0.53</li>
+                        <li value="4">TOTAL: $1657.47</li>
+                    </ul>
+                </div>
+            </div>
+            <p>&#160;</p>
+            <p><b>See Also:</b>
+            </p>
+            <ul>
+                <li value="1"><a href="BillingAssignRatingPlans.htm" class="MCXref xref" xrefformat="{para}">Assigning Rating Plans to Users</a>
+                </li>
+            </ul>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

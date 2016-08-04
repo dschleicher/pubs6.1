@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="System Configuration|Configuration Files">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>hyperstore-server.properties.erb</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">System Configuration</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Configuration Files</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">hyperstore-server.properties.erb</span>
+            </div>
+            <h1>hyperstore-server.properties.erb</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[Configuration File]</p>
+            <p>The <em>hyperstore-server.properties</em> file is the primary configuration file for the HyperStore Service. On your HyperStore Service nodes, the file is located at the following path by default:</p><pre>/opt/cloudian/conf/hyperstore-server.properties</pre>
+            <p>On the Puppet master node, the template file for <em>hyperstore-server.properties</em> is <em>hyperstore-server.properties.erb</em>:</p><pre>/etc/cloudian-&lt;version&gt;-puppet/modules/cloudians3/templates/hyperstore-server.properties.erb</pre>
+            <p>Certain <em>hyperstore-server.properties.erb</em> properties take their values from settings in Puppet extdata files (most often <em>common.csv</em>) or from settings that you can control through the CMC's <a href="../../CMC Interface/Cluster/Configuration Settings/ConfigurationSettingsOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="../../CMC Interface/Cluster/Configuration Settings/ConfigurationSettingsOverview.htm" xrefformat="{para}">Configuration Settings</a> page. In the <em>mts.properties.erb</em> file these properties' values are formatted as bracket-enclosed variables, like <em>&lt;%= … %&gt;</em>.  In the property documentation below, the descriptions of such properties indicate "Takes its value from <em>&lt;location&gt;: &lt;setting&gt;</em>; use that setting instead.". For example, "Takes its value from <em>common.csv: hyperstore_data_directory</em>; use that setting instead."). Also in such cases, a link to the source setting's description is provided.</p>
+            <p class="Important" data-mc-autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;"><span class="autonumber"><span><b>IMPORTANT: </b></span></span>After making changes to <em>hyperstore-server.properties.erb</em> use the HyperStore installer (<em>cloudianInstall.sh</em>) on the Puppet master to propagate your changes to the cluster and to restart the HyperStore Service.</p>
+            <p>The <em>hyperstore-server.properties.erb</em> file has the following settings:</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="cloudian.storage.datadir"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">cloudian.storage.datadir</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Takes its value from <em>common.csv:</em> <a href="CommonCsv.htm#hyperstore_data_directory" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="CommonCsv.htm#hyperstore_data_directory" xrefformat="{para}">hyperstore_data_directory</a>; use that setting instead.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="disk.write.threadpool.corepoolsize"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">disk.write.threadpool.corepoolsize</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>"Core" size of each per-disk threadpool that the HyperStore Service uses to execute writes to disk, in support of S3 operations (such as when new S3 objects are written to disk). On each HyperStore Service node, there is one write threadpool for each HyperStore data disk on the node. When a write is to be done to a particular disk and there are no idle threads in the threadpool for that disk, then:</p>
+                    <ul>
+                        <li value="1">If fewer than this many threads are in the threadpool, the threadpool executor will create a new thread.</li>
+                        <li value="2">If this many or more threads are in the threadpool, the threadpool executor will queue the new task.</li>
+                    </ul>
+                    <p>Default = 5</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="messaging.service.listen.address"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">messaging.service.listen.address</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Takes its value from <em>common.csv:</em> <a href="CommonCsv.htm#hyperstore_listen_ip" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="CommonCsv.htm#hyperstore_listen_ip" xrefformat="{para}">hyperstore_listen_ip</a>; use that setting instead.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="messaging.service.listen.port"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">messaging.service.listen.port</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>The port on which a HyperStore Service node listens for messages from other HyperStore Service nodes. This internal cluster messaging service is used in support of cluster management operations such as node repair.</p>
+                    <p>Default = 19050</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="messaging.service.stream.buffer.size"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">messaging.service.stream.buffer.size</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>During node repair, while transferring files between nodes, file transfer will occur in chunks of this byte size.</p>
+                    <p>Default = 65536</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="messaging.service.threadpool.corepoolsize"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">messaging.service.threadpool.corepoolsize</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>"Core" size of the threadpool used by the HyperStore inter-node messaging service. When there is a new task and there are no idle threads available in the threadpool:</p>
+                    <ul>
+                        <li value="1">If fewer than this many threads are in the threadpool, the threadpool executor will create a new thread.</li>
+                        <li value="2">If this many or more threads are in the threadpool, the threadpool executor will queue the new task.</li>
+                    </ul>
+                    <p>Default = 100</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="messaging.service.maxconnections"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">messaging.service.maxconnections</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Maximum simultaneous number of connections that the HyperStore messaging service will accept.</p>
+                    <p>Default = 1000</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="messaging.service.repairfile.timeout"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">messaging.service.repairfile.timeout</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Maximum time in seconds to allow for repair of a single file on a HyperStore node. File repair entails checking other HyperStore nodes to find the most recent copy of the file and then downloading that copy.</p>
+                    <p>Default = 120</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="messaging.service.connection.timeout"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">messaging.service.connection.timeout</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Maximum time in seconds that a HyperStore node will allow for establishing a connection to another HyperStore node, for conducting inter-node operations.</p>
+                    <p>Default = 60</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="repair.session.threadpool.corepoolsize"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">repair.session.threadpool.corepoolsize</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>"Core" size of the threadpool used for hsstool repair [XREF] or hsstool repairec  [XREF] operations. When there is a new task and there are no idle threads available in the threadpool:</p>
+                    <ul>
+                        <li value="1">If fewer than this many threads are in the threadpool, the threadpool executor will create a new thread.</li>
+                        <li value="2">If this many or more threads are in the threadpool, the threadpool executor will queue the new task.</li>
+                    </ul>
+                    <p>Default = 10</p>
+                    <p>Reloadable via JMX (HyperStore Service’s JMX port 19082; MBean attribute = com.gemini.cloudian.hybrid.server → FileRepairService → Attributes → RepairSessionThreadPoolCorePoolSize)</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="repair.session.rangeslice.maxrows"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">repair.session.rangeslice.maxrows</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>During hsstool repair [XREF] and hsstool repairec [XREF] operations, the maximum number of row keys to retrieve per get_range_slice query performed on Cassandra &lt;GROUPID&gt;_METADATA column families.</p>
+                    <p>Default = 2</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="repair.session.columnslice.maxcolumns"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">repair.session.columnslice.maxcolumns</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>During hsstool repair [XREF] and hsstool repairec [XREF] operations, the maximum number of columns to retrieve per get_slice or get_range_slice query performed on Cassandra &lt;GROUPID&gt;_METADATA column families.</p>
+                    <p>Default = 100</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="repair.session.slicequery.maxretries"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">repair.session.slicequery.maxretries</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>During hsstool repair [XREF] and hsstool repairec [XREF] operations, the maximum number of times to retry get_slice or get_range_slice queries after encountering a timeout. The timeout interval is configured by <em>cassandra.cluster.CassandraThriftSocketTimeout</em> in<em> mts.properties</em>, and retries are attempted as soon as a timeout occurs.</p>
+                    <p>Default = 3</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="repair.session.updateobjs.queue.maxlength"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">repair.session.updateobjs.queue.maxlength</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>During hsstool repair [XREF] operations, the target maximum number of object update jobs to queue for processing. Object update jobs are placed in queue by a differencer mechanism that detects discrepancies between object metadata on remote replicas versus object metadata on the local node.</p>
+                    <p>This target maximum may be exceeded in certain circumstances as described for repair.session.updateobjs.queue.maxwaittime [XREF].</p>
+                    <p>Default = 1000</p>
+                    <p>Reloadable via JMX (HyperStore Service’s JMX port 19082; MBean attribute = com.gemini.cloudian.hybrid.server → FileRepairService → Attributes → RepairSessionJobQueueMaxLength)</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="repair.session.updateobjs.queue.waittime"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">repair.session.updateobjs.queue.waittime</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>If during hsstool repair [XREF] operations the differencer detects that the number of queued object update jobs is at or above the target maximum (as configured by <em>repair.session.updateobjs.queue.maxlength</em>), the number of seconds to wait before checking the queue size again. During this interval the differencer adds no more object update jobs to the queue.</p>
+                    <p>Default = 2</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="repair.session.updateobjs.queue.maxwaittime"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">repair.session.updateobjs.queue.maxwaittime</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>During hsstool repair [XREF] operations, the maximum total number of seconds for the differencer to wait for the object update job queue to fall below its target maximum size. After this interval, the differencer goes ahead and writes its current batch of update requests to the queue. In this scenario, the queue can grow beyond the target maximum size. The next time that the differencer has object update requests, it again checks the queue size, and if it’s larger than the target maximum size, the wait time procedure starts over again.</p>
+                    <p>Default = 120</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="repair.session.object.download.maxretries"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">repair.session.object.download.maxretries</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>During hsstool repair [XREF] and hsstool repairec [XREF] operations, the maximum number of times to retry object download requests after encountering a timeout. The timeout interval is configured by<em> mts.properties: cassandra.cluster.CassandraThriftSocketTimeout</em>, and retries are attempted as soon as a timeout occurs.</p>
+                    <p>Default = 3</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="repair.session.inmemory.fileindex"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">repair.session.inmemory.fileindex</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>When performing Merkle Tree based hsstool repair [XREF] (the default repair type) for files in the HyperStore File System, whether to hold the file indexes in memory rather than writing them to disk. Options are:</p>
+                    <ul>
+                        <li value="1">true — For each vNode being repaired, a file index directory is created and is held in memory unless its size exceeds a threshold in which case it is written to disk (under the HyperStore data mount point that the vNode is associated with). For most vNodes it will not be necessary to write the file indexes to disk. If file indexes are written to disk, they are automatically deleted after the repair operation completes.</li>
+                        <li value="2">false — For each vNode being repaired, a file index directory is created and written to disk (under the HyperStore data mount point that the vNode is associated with), regardless of size. The file indexes are automatically deleted after the repair operation completes.</li>
+                    </ul>
+                    <p>Default = true</p>
+                    <p>Reloadable via JMX (HyperStore Service’s JMX port 19082; MBean = FileRepairServiceMBean → RepairSessionInMemoryFileIndex)</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="repair.digest.index.threadpool.corepoolsize"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">repair.digest.index.threadpool.corepoolsize</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>"Core" size of the threadpool used for reading digest files on a node in order to build the index required by Merkle Tree based repair (the default hsstool repair [XREF] type). When there is a new task and there are no idle threads available in the threadpool:</p>
+                    <ul>
+                        <li value="1">If fewer than this many threads are in the threadpool, the threadpool executor will create a new thread.</li>
+                        <li value="2">If this many or more threads are in the threadpool, the threadpool executor will queue the new task.</li>
+                    </ul>
+                    <p>Default = 20</p>
+                    <p>Reloadable via JMX (HyperStore Service’s JMX port 19082; MBean attribute = com.gemini.cloudian.hybrid.server → FileRepairService → Attributes → DigestIndexCorePoolSize)</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="rangerepair.threadpool.corepoolsize"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">rangerepair.threadpool.corepoolsize</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>"Core" size of the threadpool used for running multiple range repair tasks in parallel during hsstool repair [XREF] . When there is a new task and there are no idle threads available in the threadpool:</p>
+                    <ul>
+                        <li value="1">If fewer than this many threads are in the threadpool, the threadpool executor will create a new thread.</li>
+                        <li value="2">If this many or more threads are in the threadpool, the threadpool executor will queue the new task.</li>
+                    </ul>
+                    <p>Default = 4</p>
+                    <p>Reloadable via JMX (HyperStore Service’s JMX port 19082; MBean attribute = com.gemini.cloudian.hybrid.server → FileRepairService → Attributes → RangeRepairThreadPoolCorePoolSize)</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="stream.outbound.threadpool.corepoolsize"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">stream.outbound.threadpool.corepoolsize</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>"Core" size of the threadpool used for streaming files from one HyperStore node to another during Merkle Tree based hsstool repair [XREF]. When there is a new task and there are no idle threads available in the threadpool:</p>
+                    <ul>
+                        <li value="1">If fewer than this many threads are in the threadpool, the threadpool executor will create a new thread.</li>
+                        <li value="2">If this many or more threads are in the threadpool, the threadpool executor will queue the new task.</li>
+                    </ul>
+                    <p>Default = 25</p>
+                    <p>Reloadable via JMX (HyperStore Service’s JMX port 19082; MBean attribute = com.gemini.cloudian.hybrid.server → FileStreamingService → Attributes → StreamOutboundThreadPoolCorePoolSize)</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="repairec.session.queue.maxlength"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">repairec.session.queue.maxlength</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>During hsstool repairec [XREF] operations, the target maximum number of object update jobs to queue for processing. Object update jobs are placed in queue by a differencer mechanism that detects discrepancies between object metadata on remote replicas versus object metadata on the local node.</p>
+                    <p>This target maximum may be exceeded in certain circumstances as described for repairec.session.updateobjs.queue.maxwaittime [XREF].</p>
+                    <p>Default = 1000</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="repairec.session.queue.waittime"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">repairec.session.queue.waittime</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>If during hsstool repairec [XREF] operations the differencer detects that the number of queued object update jobs is at or above the target maximum (as configured by <em>repairec.session.updateobjs.queue.maxlength</em>), the number of seconds to wait before checking the queue size again. During this interval the differencer adds no more object update jobs to the queue.</p>
+                    <p>Default = 2</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="repairec.session.queue.maxwaittime"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">repairec.session.queue.maxwaittime</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>During hsstool repairec [XREF] operations, the maximum total number of seconds for the differencer to wait for the object update job queue to fall below its target maximum size. After this interval, the differencer goes ahead and writes its current batch of update requests to the queue. In this scenario, the queue can grow beyond the target maximum size. The next time that the differencer has object update requests, it again checks the queue size, and if it’s larger than the target maximum size, the wait time procedure starts over again.</p>
+                    <p>Default = 120</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="downloadrange.session.threadpool.corepoolsize"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">downloadrange.session.threadpool.corepoolsize</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>"Core" size of the threadpool used for range download sessions conducted by a HyperStore Service node. When there is a new task and there are no idle threads available in the threadpool:</p>
+                    <ul>
+                        <li value="1">If fewer than this many threads are in the threadpool, the threadpool executor will create a new thread.</li>
+                        <li value="2">If this many or more threads are in the threadpool, the threadpool executor will queue the new task.</li>
+                    </ul>
+                    <p>Default = 10</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="uploadrange.session.threadpool.corepoolsize"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">uploadrange.session.threadpool.corepoolsize</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>"Core" size of the threadpool used for range upload sessions conducted by a HyperStore Service node. When there is a new task and there are no idle threads available in the threadpool:</p>
+                    <ul>
+                        <li value="1">If fewer than this many threads are in the threadpool, the threadpool executor will create a new thread.</li>
+                        <li value="2">If this many or more threads are in the threadpool, the threadpool executor will queue the new task.</li>
+                    </ul>
+                    <p>Default = 10</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="decommission.threadpool.corepoolsize"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">decommission.threadpool.corepoolsize</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>"Core" size of the threadpool used for uploading files away from a node that is being decommissioned (hsstool decommission [XREF] ). When there is a new task and there are no idle threads available in the threadpool:</p>
+                    <ul>
+                        <li value="1">If fewer than this many threads are in the threadpool, the threadpool executor will create a new thread.</li>
+                        <li value="2">If this many or more threads are in the threadpool, the threadpool executor will queue the new task.</li>
+                    </ul>
+                    <p>Default = 4</p>
+                    <p>Reloadable via JMX (HyperStore Service’s JMX port 19082; MBean attribute = com.gemini.cloudian.hybrid.server → FileRepairService → Attributes → DecommissionThreadPoolCorePoolSize)</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="cleanup.session.threadpool.corepoolsize"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">cleanup.session.threadpool.corepoolsize</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>"Core" size of the threadpool used for for hsstool cleanup [XREF] or hsstool cleanupec [XREF] operations. When there is a new task and there are no idle threads available in the threadpool:</p>
+                    <ul>
+                        <li value="1">If fewer than this many threads are in the threadpool, the threadpool executor will create a new thread.</li>
+                        <li value="2">If this many or more threads are in the threadpool, the threadpool executor will queue the new task.</li>
+                    </ul>
+                    <p>Default = 10</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="cleanup.session.deleteobjs.queue.maxlength"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">cleanup.session.deleteobjs.queue.maxlength</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>During hsstool cleanup [XREF] and hsstool cleanupec  [XREF] operations, the target maximum number of object delete jobs to queue for processing. Object delete jobs are placed in queue by a differencer mechanism that detects discrepancies between object metadata on remote replicas versus object metadata on the local node.</p>
+                    <p>This target maximum may be exceeded in certain circumstances as described for <em>cleanup.session.deleteobjs.queue.maxwaittime</em>.</p>
+                    <p>Default = 1000</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="cleanup.session.deleteobjs.queue.waittime"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">cleanup.session.deleteobjs.queue.waittime </a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>If during hsstool cleanup [XREF] and hsstool cleanupec [XREF] operations the differencer detects that the number of queued object delete jobs is at or above the target maximum (as configured by <em>cleanup.session.deleteobjs.queue.maxlength</em>), the number of seconds to wait before checking the queue size again. During this interval the differencer adds no more object delete jobs to the queue.</p>
+                    <p>Default = 2</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="cleanup.session.deleteobjs.queue.maxwaittime"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">cleanup.session.deleteobjs.queue.maxwaittime</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>During hsstool cleanup [XREF] and hsstool cleanupec [XREF] operations, the maximum total number of seconds for the differencer to wait for the object delete job queue to fall below its target maximum size. After this interval, the differencer goes ahead and writes its current batch of delete requests to the queue. In this scenario, the queue can grow beyond the target maximum size. The next time that the differencer has object delete requests, it again checks the queue size, and if it’s larger than the target maximum size, the wait time procedure starts over again.</p>
+                    <p>Default = 120</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="cleanup.session.delete.graceperiod"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">cleanup.session.delete.graceperiod</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>During hsstool cleanup [XREF] and hsstool cleanupec [XREF] operations, only consider an object for deletion if at least this many seconds have passed since the object’s Last Modified timestamp.</p>
+                    <p>Default = 86400</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="repairec.lastrepairwait"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">repairec.lastrepairwait</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>During an hsstool repairec [XREF] operation on a node, the process by which erasure coded objects are evaluated to determine whether they’re in need of repair (which entails retrieving the object fragments' digest files from other nodes in the cluster) will <b>skip</b> any object whose local fragment has a "lastrepair" timestamp within the <em>repairec.lastrepairwait</em> period, in seconds. An erasure-coded object fragment’s "lastrepair" timestamp — which is stored in the fragment’s digest file — is updated whenever the fragment is either:</p>
+                    <ul>
+                        <li value="1">Subjected to a "read repair" check. The repair check may determine that the fragment is OK and not in need in repair; or if needed an actual repair may be performed on the fragment. In either case the fragment’s "lastrepair" timestamp is updated. (For more on erasure code read repair, see mts.properties: ec.read.repair.chance [XREF] ).</li>
+                        <li value="2">Subjected to a repair check as part of an<em> hsstool repairec</em> operation run on the local node <b>or any other node</b>. The repair check may determine that the fragment is OK and not in need in repair; or if needed an actual repair may be performed on the fragment. In either case the fragment’s "lastrepair" timestamp is updated.</li>
+                    </ul>
+                    <p>The purpose of this configuration property is to streamline the <em>hsstool repairec</em> operation by having it skip objects that were recently repaired or recently determined to not need repair. This streamlining is especially significant in the context where <em>repairec</em> is being run on muliple nodes in sequence.</p>
+                    <p>Default = 604800 (one week)</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="hyperstore.hints.poll_time"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">hyperstore.hints.poll_time</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>At this recurring interval each HyperStore Service node checks metadata in Cassandra to see whether the node needs to replay hinted handoffs for itself and/or execute proactive repair on itself. Configured as a number of minutes.</p>
+                    <p>For more information about the hinted handoff and proactive repair features, see Automatic Data Repair [XREF] .</p>
+                    <p>Default = 60</p>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>This check is also automatically performed when a HyperStore Service node starts up.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="hyperstore.hints.hint_replay_retry_attempts"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">hyperstore.hints.hint_replay_retry_attempts</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>When replaying a hinted handoff, the number of times to retry if the first replay attempt doesn’t work. If this many retry attempts all fail, then the object becomes subject to proactive repair.</p>
+                    <p>Default = 3</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="hyperstore.hints.hint_replay_retry_delay"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">hyperstore.hints.hint_replay_retry_delay</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>If retries are necessary when replaying a hinted handoff, the number of seconds to wait between retries.</p>
+                    <p>Default = 10</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="hyperstore.hints.readMetadataThreads"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">hyperstore.hints.readMetadataThreads</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>On each HyperStore Service node, the maximum number of processing threads to use when reading high-level hinted handoff metadata in Cassandra (at each <em>hyperstore.hints.poll_time</em> interval). This is the metadata that indicates whether there are hinted handoffs to process for that HyperStore Service node and whether that node needs to execute a proactive repair.</p>
+                    <p>Default = 5</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="hyperstore.hints.readDataThreads"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">hyperstore.hints.readDataThreads</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>On each HyperStore Service node, the maximum number of processing threads to use when reading granular (per-object) hinted handoff metadata in Cassandra. This occurs only if there are in fact hinted handoffs to process for that HyperStore Service node. This setting can act as a throttle on the execution of hinted handoff replays.</p>
+                    <p>Default = 10</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="stream.throughput.outbound"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">stream.throughput.outbound</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>During an hsstool repair [XREF] or hsstool repairec [XREF] operations, HyperStore nodes may stream large amounts of data to other HyperStore nodes. This setting places an upper limit on outbound streaming throughput during repair operations, in megabits per second.</p>
+                    <p>Default = 800</p>
+                    <p>Reloadable via JMX (HyperStore Service’s JMX port 19082; MBean attribute = com.gemini.cloudian.hybrid.server → FileStreamingService → Attributes → MaxStreamThroughputOutbound)</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="auto.repair.threadpool.corepoolsize"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">auto.repair.threadpool.corepoolsize</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>"Core" size of the threadpool used by the HyperStore auto-repair feature. When there is an auto-repair to execute and there are no idle threads available in the threadpool:</p>
+                    <ul>
+                        <li value="1">If fewer than this many threads are in the threadpool, the threadpool executor will create a new thread.</li>
+                        <li value="2">If this many or more threads are in the threadpool, the threadpool executor will queue the new task.</li>
+                    </ul>
+                    <p>Default = 2</p>
+                    <p>Reloadable via JMX (HyperStore Service’s JMX port 19082; MBean attribute = com.gemini.cloudian.hybrid.server → FileRepairService → Attributes → AutoRepairThreadpoolCorePoolSize)</p>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>For more information about the auto-repair feature see Automatic Data Repair [XREF].</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="auto.repair.scheduler.polltime"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">auto.repair.scheduler.polltime</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Interval (in minutes) at which each HyperStore node’s auto-repair scheduler will check the auto-repair queues for HSFS repair, Cassandra repair, and erasure coded data repair to see whether it’s time to initiate a repair on that node.</p>
+                    <p>Default = 10</p>
+                    <p>Reloadable via JMX (HyperStore Service’s JMX port 19082; MBean attribute = com.gemini.cloudian.hybrid.server → FileRepairService → Attributes → AutoRepairSchedulerPollTime)</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="auto.repair.schedule.interval"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">auto.repair.schedule.interval</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Takes its value from CMC Configuration Settings page, Auto Repair Schedule section [XREF] : "Replicas Repair Interval"; use that setting instead.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="auto.repairec.schedule.interval"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">auto.repairec.schedule.interval</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Takes its value from CMC Configuration Settings page, Auto Repair Schedule section [XREF] : "EC Repair Interval"; use that setting instead.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="auto.repaircassandra.schedule.interval"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">auto.repaircassandra.schedule.interval</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Takes its value from CMC Configuration Settings page, Auto Repair Schedule section[XREF]: "Cassandra Repair Interval"; use that setting instead.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="cloudian.storage.jmx.port"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">cloudian.storage.jmx.port</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>The port on which the HyperStore Service listens for JMX requests.</p>
+                    <p>Default = 19082</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="disk.fail.action"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">disk.fail.action</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Use CMC Configuration Settings page, System section[XREF]: "HyperStore Disk Failure Action"; use that setting instead.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="disk.fail.error.count.threshold"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">disk.fail.error.count.threshold</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>This setting in combination with the <em>disk.fail.error.time.threshold</em> setting provides you the option to specify a read/write error frequency threshold that must be met before the system takes the automated action that is specified by the "HyperStore Disk Failure Action" setting.</p>
+                    <p>The threshold, if configured, is in the form of "If <em>disk.fail.error.count.threshold</em> number of HSDISKERROR messages are logged in <em>cloudian-hyperstore.log</em> in regard to the same disk within an interval of <em>disk.fail.error.time.threshold</em> seconds, then take the automated action specified by the <em>disk.fail.action</em> setting." </p>
+                    <p>For example, if <em>disk.fail.error.count.threshold</em> = 3, and <em>disk.fail.error.time.threshold</em> = 60, and <em>disk.fail.action</em> = "disable", then the system will disable any HyperStore data disk for which 3 or more HSDISKERROR messages appear in <em>cloudian-hyperstore.log</em> within a 60 second time span.</p>
+                    <p>If you set the two threshold settings to "0", then no threshold behavior is implemented, and instead the automated action specified by the <em>disk.fail.action</em> setting is triggered by any single occurrence of an HSDISKERROR message in <em>cloudian-hyperstore.log</em>.</p>
+                    <p>Default = 10</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="disk.fail.error.time.threshold"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">disk.fail.error.time.threshold</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Disk error threshold time span in seconds. For more description see <em>disk.fail.error.count.threshold</em> above.</p>
+                    <p>Default = 300</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="disk.check.interval"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">disk.check.interval</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>The interval (in minutes) at which each HyperStore Service node will run a check to see if there is significant imbalance in disk usage on the node. If an imbalance is found in excess of that configured by <em>disk.balance.delta</em>, then one or more tokens are automatically moved from the over-used disk(s) to one or more less-used disk(s) on the same host. For more information see Disk Usage Balancing[XREF].</p>
+                    <p>Default = 10080</p>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>This feature applies only to HyperStore data disks (on which are stored S3 object data). It does not apply to disks that are storing only the OS and Cassandra.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="disk.balance.delta"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">disk.balance.delta</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>When the disk balance check is run, if any disk’s usage percentage exceeds the average disk usage percentage on the host by more than this much, that disk will have tokens automatically moved to other less-used disks on the same host. For example, if at the time of a disk balance check the average disk usage percentage on the host is 30%, and <em>disk.balance.delta </em>= 10, and there’s one disk that has a 45% usage level, that disk will have one or more tokens automatically moved to less-used disks (because that disk’s usage percentage is 15 higher than the average on the host, and 15 exceeds the threshold of 10 in this example). For more information see Disk Usage Balancing[XREF].</p>
+                    <p>Default = 5</p>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>	If a disk becomes <b>100% full</b>, all of that disk’s tokens are automatically and immediately moved to non-full disks on the host, regardless of the degree of usage delta between the full disk and the other disks. The S3 object data on the disk remains readable — it is not disabled — but no additional data will be written to the disk.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="disk.audit.interval"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">disk.audit.interval</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>At this configurable interval (in number of minutes), the system tries to write one byte of data to each HyperStore data disk. If any of these writes fail<em>, /var/log/messages </em>is scanned for messages indicating that the file system associated with the disk drive in question is in a read-only condition (message containing the string "Remounting filesystem read-only"). If any such message is found, the disk is automatically disabled in accordance with your configured HyperStore Disk Failure Action[XREF].</p>
+                    <p>The scan of <em>/var/log/messages</em> will be limited to the time period since the the last time the disk audit was run.</p>
+                    <p>This recurring audit of disk drive health is designed to proactively detect disk problems even during periods when there is no HyperStore Service read/write activity on a disk.</p>
+                    <p>Default = 60</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="disk.error.check.fs"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">disk.error.check.fs</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>When scanning <em>/var/log/messages</em> as part of the disk audit, the messages will be first filtered by this file system name string.</p>
+                    <p>Default = "EXT4-fs"</p>
+                </div>
+            </div>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

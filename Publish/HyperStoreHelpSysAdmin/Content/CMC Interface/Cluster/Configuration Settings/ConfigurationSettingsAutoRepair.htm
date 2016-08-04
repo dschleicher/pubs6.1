@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="CMC Interface|Cluster|Configuration Settings">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Auto-Repair Schedule Settings</title>
+        <link href="../../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../../CmcInterfaceOverview.htm">CMC Interface</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="../ClusterOverview.htm">Cluster</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="ConfigurationSettingsOverview.htm">Configuration Settings</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Auto-Repair Schedule Settings</span>
+            </div>
+            <h1>Auto-Repair Schedule Settings</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[CMC Interface]</p>
+            <p>The settings in this section of the CMC’s <b><a href="../../../Resources/Images/cmc/cluster/ConfigurationSettings.png" class="MCTopicPopup MCTopicPopupHotSpot a">Configuration Settings</a></b> page configure the scheduling of the HyperStore auto-repair feature. After making any edits, click <b>Save</b> at the bottom of the page to dynamically apply the configuration change to the cluster.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>For more information about the auto-repair feature see <a href="../../../Major Features/Automatic Data Repair/DataRepairOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Automatic Data Repair Feature Overview</a></p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Replicas_Repair_Interval_(Minutes)"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">Replicas Repair Interval (Minutes)</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>For each HyperStore node, the interval (in minutes) between scheduled auto-repairs of replicated S3 object data. This feature invokes the <a href="../../../Commands/hsstool/hsstoolRepair.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">hsstool repair</a> operation to automatically repair each node at the configured interval. The nodes will not all be repaired simultaneously, however — instead the start times will be staggered so that only one node is repaired at a time.</p>
+                    <p>Auto-repair of the replicated object data in your cluster is a resource-intensive operation and should be configured to run infrequently.</p>
+                    <p>Default = 129600 (every 90 days)</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="EC_Repair_Interval_(Minutes)"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">EC Repair Interval (Minutes)</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>For each HyperStore node, the interval (in minutes) between scheduled auto-repairs of erasure coded S3 object data. This feature invokes the <a href="../../../Commands/hsstool/hsstoolRepairec.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">hsstool repairec</a> operation to automatically repair each node at the configured interval. The nodes will not all be repaired simultaneously, however — instead the start times will be staggered so that only one node is repaired at a time.</p>
+                    <p>Auto-repair of the erasure coded object data in your cluster is a resource-intensive operation and should be configured to run infrequently.</p>
+                    <p>Default = 128160 (every 89 days)</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Cassandra_Repair_Interval_(Minutes)"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">Cassandra Repair Interval (Minutes)</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>For each HyperStore node, the interval (in minutes) between auto-repairs of Cassandra data. This interval is added to each node’s most recent Cassandra repair start time to determine a scheduled next start start time for Cassandra auto-repair on that node.</p>
+                    <p>The Cassandra auto-repair feature <b>must be less than 10 days</b>. It’s recommended that you leave it at its default of seven days.</p>
+                    <p>Default = 10080 (every seven days)</p>
+                </div>
+            </div>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

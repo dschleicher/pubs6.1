@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="CMC Interface|Users &amp; Groups|Manage Users">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Retrieve a User or List of Users</title>
+        <link href="../../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../../CmcInterfaceOverview.htm">CMC Interface</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="../UsersGroupsOverview.htm">Users &amp; Groups</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="ManageUsersOverview.htm">Manage Users</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Retrieve a User or List of Users</span>
+            </div>
+            <h1>Retrieve a User or List of Users</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[CMC Interface]</p>
+            <p>In the CMC's <b><a href="../../../Resources/Images/cmc/users/ManageUsers_ver_sys-admin.png" class="MCTopicPopup MCTopicPopupHotSpot a">Manage Users</a></b> page you can retrieve a single user or a filtered list of users.</p>
+            <ol>
+                <li value="1">Select or enter your user list filtering criteria. You can filter by:</li>
+            </ol>
+            <div class="Indent">
+                <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Search for User By ID</a></span>
+                    <div class="MCDropDownBody dropDownBody">
+                        <p>Specify a user ID prefix to retrieve a list of users whose IDs start with that prefix.</p>
+                        <p>Specify a complete user ID if you want to retrieve just that one user.</p>
+                        <p>This field is case-sensitive.</p>
+                        <p>Leave this field blank if you want to filter exclusively by the other criteria.</p>
+                    </div>
+                </div>
+                <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Group Name</a></span>
+                    <div class="MCDropDownBody dropDownBody">
+                        <p>This is a drop-down list of group names in the system. This includes "System Admin" which is the group to which system administrators belong.</p>
+                    </div>
+                </div>
+                <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />User Type</a></span>
+                    <div class="MCDropDownBody dropDownBody">
+                        <ul>
+                            <li value="1">User — Regular service users.</li>
+                            <li value="2">Group Admin — Group admin users.</li>
+                            <li value="3">All — Regular service users, group admin users, and system admin users.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />User Status</a></span>
+                    <div class="MCDropDownBody dropDownBody">
+                        <ul>
+                            <li value="1">Active — Users who are currently allowed service access.</li>
+                            <li value="2">Inactive — Users whose service access credentials have been deactivated but who have not been deleted from the system. They may still have objects in storage.</li>
+                            <li value="3">All — Active users and inactive users.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <ol data-mc-continue="true">
+                <li value="2">Click <b>Search</b>. Your filtered search results then display in the lower part of the page.</li>
+            </ol>
+            <div class="Indent">
+                <p><a class="MCPopupThumbnailLink MCPopupThumbnailHover" href="../../../Resources/Images/cmc/users/UserActions.png"><img class="MCPopupThumbnail img imgImgCloudian" data-mc-width="930" data-mc-height="78" src="../../../Resources/Images/cmc/users/UserActions_thumb_300_60.png" style="mc-thumbnail-max-height: 60px;mc-thumbnail-max-width: 300px;" tabindex="" /></a>
+                </p>
+                <p>You can then take any of the following actions regarding the retrieved user(s):</p>
+                <ul>
+                    <li value="1"><a href="ManageUsersEdit.htm" class="MCXref xref">Edit a User</a>
+                    </li>
+                    <li value="2"><a href="ManageUsersObjects.htm" class="MCXref xref">Manage a User's Stored Objects</a>
+                    </li>
+                    <li value="3"><a href="ManageUsersDelete.htm" class="MCXref xref">Delete a User</a>
+                    </li>
+                </ul>
+            </div>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

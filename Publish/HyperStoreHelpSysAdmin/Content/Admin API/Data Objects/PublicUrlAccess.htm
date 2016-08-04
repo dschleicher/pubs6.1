@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Admin API|Data Objects">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>PublicUrlAccess</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../AdminApiOverview.htm">Admin API</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="DataObjectsOverview.htm">Data Objects</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">PublicUrlAccess</span>
+            </div>
+            <h1>PublicUrlAccess</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[Admin API Object]</p>
+            <p>The PublicUrlAccess object is returned as the <b>response payload</b> for this Admin API operation:</p>
+            <ul>
+                <li value="1"><a href="../Public URLs/GetObjectsPublicUrlPermissions.htm" class="MCXref xref">GET Object's Public URL Permissions</a>
+                </li>
+            </ul>
+            <p>The PublicUrlAccess object is required as the <b>request payload</b> for this Admin API operation:</p>
+            <ul>
+                <li value="1"><a href="../Public URLs/PostObjectsPublicUrlPermissions.htm" class="MCXref xref">POST Object's Public URL Permissions</a>
+                </li>
+            </ul>
+            <p>The PublicUrlAccess object consists of the attributes below. Each attribute description indicates whether the attribute is mandatory or optional when this object is transmitted as a request payload.</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />allowRead</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <div class="Indent">
+                        <p>(&#160;Optional, boolean) Whether a public URL is enabled for the associated object, <em>true</em> or <em>false</em>. Defaults to <em>true</em>.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />currentDownloads</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <div class="Indent">
+                        <p>(Optional, number) Current total number of times that the object has been downloaded via public URL. This value is set by the system, not by the client. Starts at 0 for a new public URL.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />expiryTime</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <div class="Indent">
+                        <p>(Mandatory, string) Expiration date-time of the public URL in UTC milliseconds. After this date-time the public URL will no longer work.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />maxDownloadNum</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <div class="Indent">
+                        <p>(Optional, number) Maximum number of times that the system will allow the object to be downloaded via public URL, by all users in total. To allow unlimited downloads, set this to "-1". Defaults to 1000.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />secure</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <div class="Indent">
+                        <p>(Optional, boolean) Whether the object’s public URL should use HTTPS rather than HTTP, <em>true</em> or <em>false</em>. Defaults to <em>true</em>.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />url</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <div class="Indent">
+                        <p>(Optional, string) System-generated public URL for accessing the object.</p>
+                        <p>To request that a new public URL be generated for an object, do not include the "url" attribute in the request body.</p>
+                        <p>To modify usage attributes for an existing public URL that the system has already generated for an object (such as to change the "maxDownloadNum" value), use the "url" attribute in the request body to specify the existing public URL.</p>
+                    </div>
+                </div>
+            </div>
+            <p>The public URL for an object will have the following format:</p><pre xml:space="preserve">http[s]://&lt;bucketName&gt;.&lt;S3Domain&gt;/&lt;objectName&gt;?AWSAccesKeyId=&lt;accessKeyOfObjectOwner&gt;
+&amp;Expires=&lt;expiryTime&gt;&amp;Signature=&lt;signatureString&gt;&amp;x-amz-pt=&lt;internalTrackingCode&gt;</pre>
+            <p>This format follows the AWS specification for signed URLs.</p>
+            <h2>Example</h2>
+            <p>This first example shows a PublicUrlAccess object in the body of a POST request that is requesting that a public URL be created. Note that the "url" attribute is not included in the object.</p><pre xml:space="preserve">{"expiryTime":"1444306080000","allowRead":true,"maxDownloadNum":100000,"secure":true}</pre>
+            <p>This is second example shows a PublicUrlAccess object as it is returned in response to a GET request. The object now includes the "url" attribute.</p><pre xml:space="preserve">{"expiryTime":"1444306080000","allowRead":true,"currentDownloads":0,"maxDownloadNum":100000,
+"secure":true,"url":"https://pubs.bucket.1.s3-region1.mycloudianhyperstore.com/HyperStore-Software-
+Install-Guide.html?AWSAccessKeyId=35a39816c26d3e930a70&amp;Expires=1445005200&amp;
+Signature=D5dzQ84CIGQvaMQT2hQGF2%2BM0bg%3D&amp;x-amz-pt=MDAyNjgxMjMxNDQ1MDAxNjgwNDIx"}</pre>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

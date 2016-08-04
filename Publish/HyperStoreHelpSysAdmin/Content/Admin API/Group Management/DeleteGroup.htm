@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Admin API|Methods|Group Management">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>DELETE Group</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../AdminApiOverview.htm">Admin API</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Methods</span><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="GroupManagementOverview.htm">Group Management</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">DELETE Group</span>
+            </div>
+            <h1>DELETE Group</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[Admin API Method]</p>
+            <p>Use this Admin API method to delete a user group.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>Before you can delete a group with this method, you must first delete all users associated with the group, using the <a href="../User Management/DeleteUser.htm" class="MCXref xref">DELETE User</a> method. When you delete users, the users' stored objects are deleted and are not recoverable. However, usage data for deleted users and groups is retained for a period of time as configured by the <code>reports.*.ttl </code>settings in <code>mts.properties.erb</code>.</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Request Format</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <h4>Syntax</h4><pre xml:space="preserve">DELETE /group?groupId=xxx</pre>
+                    <h4>Query Parameters</h4>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />groupId</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <div class="Indent">
+                                <p>(Mandatory, string) Group ID for group that is being deleted.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <h4>Request Payload</h4>
+                    <p>None.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Response Format</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <h4>Response Status</h4>
+                    <p>In addition to the <a href="../CommonStatusCodes.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Common Response Status Codes</a>, this method may return these codes:</p>
+                    <table style="border-collapse: separate;border-top-left-radius: 0px;border-top-right-radius: 0px;border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;width: 100%;">
+                        <col style="width: 115px;" />
+                        <col style="width: 629px;" />
+                        <thead>
+                            <tr>
+                                <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Status Code</th>
+                                <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                                <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;">Missing required parameters : {groupId}</td>
+                            </tr>
+                            <tr>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">400</td>
+                                <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;"> 	
+
+Group does not exist</td>
+                            </tr>
+                            <tr>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">409</td>
+                                <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;"> 	
+
+Cannot delete. Group is not empty.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h4>Response Payload</h4>
+                    <p>None.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Example</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>In this example a user group is successfully deleted. Note that the request must include a <em>Content-Type: application/json</em> header even though there is no request body.</p><pre xml:space="preserve"># Request -&gt;
+
+DELETE http://192.168.2.16:18081/group?groupId=HR
+
+# Response -&gt;
+
+Status Code: 200 OK
+Content-Length: 0
+Date: Wed, 23 Sep 2015 19:22:39 GMT</pre>
+                </div>
+            </div>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

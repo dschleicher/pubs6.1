@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Operations &amp; Maintenance|Node Operations|Changing Node Role Assignments">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Move the Crontab Primary or Backup Role</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Operations &amp; Maintenance</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Node Operations</span><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="ChangeNodeRoleOverview.htm">Changing Node Role Assignments</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Move the Crontab Primary or Backup Role</span>
+            </div>
+            <h1>Move the Crontab Primary or Backup Role</h1>
+            <p>Certain HyperStore system maintenance tasks are implemented by cron jobs that run on a regular schedule, as configured by a crontab. When your HyperStore system is installed the install script designates one node to host the crontab configuration and run the cron jobs, and a second node to serve as a backup. In the event that the primary cron job host goes offline (or if <em>crond</em> goes down) the backup host <b>automatically</b> takes over as the active cron job host.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>Do not put the Crontab Primary role on the same host as your Puppet Master role. If the Crontab Primary and the Puppet Master are on the same host and that host goes down, automated fail-over from the Crontab Primary to the Crontab Backup will not work.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>The HyperStore Monitoring Data Collector resides on the same primary host and backup host as the cron jobs. If the cron jobs automatically fail over to the backup, the Monitoring Data Collector also fails over to the backup.</p>
+            <p>The system supports moving the primary or backup cron job host role to a different host as described below.</p>
+            <ol>
+                <li value="1">On the Puppet master node, launch the HyperStore installer.</li>
+            </ol>
+            <div class="Indent"><pre xml:space="preserve">[root]# cd &lt;your-installation-staging-directory&gt;
+[root]# ./cloudianInstall.sh</pre>
+            </div>
+            <ol data-mc-continue="true">
+                <li value="2">From the installer’s main menu, select "Advanced Configuration Options". Then from the Advanced Configuration Options menu select "Change server role assignments".</li>
+                <li value="3">From the Change Server Role Assignments menu select "Cronjob/Cluster Monitor node".</li>
+                <li value="4">At the prompts specify your desired primary host and backup host for the cron jobs.</li>
+                <li value="5">After completing the interaction for specifying cron job hosts, return to the Change Server Role Assignments menu and select "Review cluster configuration". Then at the prompt confirm that you want to apply the updated configuration to the Puppet master.</li>
+                <li value="6">Go to the installer’s main menu and choose "Cluster Management" → "Push Configuration Settings to Cluster" and follow the prompts. When Puppet pushes the current configuration settings to the cluster it will also automatically restart <em>cron.d</em> on the affected nodes. You do not need to manually restart <em>cron.d</em>.</li>
+                <li value="7">Exit the installer, then log into the CMC and go to the <a href="../../Resources/Images/cmc/cluster/ClusterInfo.png" class="MCTopicPopup MCTopicPopupHotSpot a">Cluster Information</a> page. Review the service information section to confirm that your Admin Cronjob primary and backup hosts are what you want them to be.</li>
+            </ol>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>
