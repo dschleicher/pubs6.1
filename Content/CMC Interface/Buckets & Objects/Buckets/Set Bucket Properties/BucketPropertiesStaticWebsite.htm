@@ -4,7 +4,7 @@
     </head>
     <body>
         <h1>Configure a Bucket as a Static Website</h1>
-        <p class="TopicTag" MadCap:conditions="General.Online">[CMC Interface]</p>
+        <p class="TopicTag" MadCap:conditions="Cloudian.HelpSysAdminOnly">[CMC Interface]</p>
         <p>You can configure a bucket as a website in order to make all of its content available to public users using regular web browsers. Only <b>static</b> websites are supported. A static website is a website that serves the same content to all visitors (no content personalization based on cookies or other mechanisms). A static site does not use server-side scripting.</p>
         <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">Public access to buckets configured as static websites is through HTTP not HTTPS. The static website feature does not support HTTPS (SSL).</p>
         <p>To configure a bucket as a static website, select the <b>Static Website Hosting</b> tab of the CMC's bucket properties interface.</p>
@@ -21,6 +21,6 @@
         <p>When you configure a bucket as a static website, the system automatically applies a bucket access policy that allows the public to read objects in the bucket. If you later disable the static website configuration for the bucket (by unchecking the "Enable Website Hosting" checkbox in the <b>Static Website Hosting</b> interface), the system removes this public read access policy for the bucket.</p>
         <p>For a bucket configured as a static website, the root URL will be:</p><pre>http://&lt;bucketName&gt;.&lt;regionalS3WebsiteEndpoint&gt;</pre>
         <p MadCap:conditions="Cloudian.HelpSysAdminOnly,Cloudian.PrintOnly">Each Cloudian HyperStore service region has its own website endpoint, set by system configuration on your S3 Server nodes. The configuration property in <em>region.csv</em> is <em>cloudians3_website_endpoint</em>. [XREF]</p>
-        <p class="Important" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;" MadCap:conditions="Cloudian.HelpSysAdminOnly,Cloudian.PrintOnly">Make sure that in your service center’s DNS configuration this website endpoint domain is resolvable, and also that a wildcard entry has been set to resolve bucketnames under this domain. For example, if the website endpoint for the region is <em>s3-website-region1.cloudian.com</em>, then both <em>s3-website-region1.cloudian.com</em> and <em>*.s3-website-region1.cloudian.com</em> must be resolvable. For more on DNS set-up see <MadCap:xref href="../../../../Installation/Networking Preparation/DnsSetup.htm" target="_popup">DNS Set-Up</MadCap:xref>.</p>
+        <p class="Important" MadCap:conditions="Cloudian.HelpSysAdminOnly,Cloudian.PrintOnly" MadCap:autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;">Make sure that in your service center’s DNS configuration this website endpoint domain is resolvable, and also that a wildcard entry has been set to resolve bucketnames under this domain. For example, if the website endpoint for the region is <em>s3-website-region1.cloudian.com</em>, then both <em>s3-website-region1.cloudian.com</em> and <em>*.s3-website-region1.cloudian.com</em> must be resolvable. For more on DNS set-up see <MadCap:xref href="../../../../Installation/Networking Preparation/DnsSetup.htm" target="_popup">DNS Set-Up</MadCap:xref>.</p>
     </body>
 </html>

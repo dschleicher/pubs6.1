@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="3091" MadCap:lastWidth="777">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="3091" MadCap:lastWidth="778">
     <head>
     </head>
     <body>
         <h1>Configure a Bucket Lifecycle Policy for Object Auto-Tiering or Expiration</h1>
-        <p class="TopicTag" MadCap:conditions="General.Online">[CMC Interface]</p>
+        <p class="TopicTag" MadCap:conditions="Cloudian.HelpSysAdminOnly">[CMC Interface]</p>
         <p>The HyperStore system supports configuring bucket lifecycle policies so that objects are automatically deleted on a defined schedule. The system also supports auto-tiering, whereby objects in a bucket are automatically moved to a different storage system on a defined schedule. <MadCap:conditionalText MadCap:conditions="Cloudian.HelpSysAdminOnly,Cloudian.PrintOnly">For more information on the auto-tiering feature see <MadCap:xref href="../../../../Major Features/Auto-Tiering/AutoTieringOverview.htm" target="_popup">Auto-Tiering Feature Overview</MadCap:xref> .</MadCap:conditionalText></p>
-        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;" MadCap:conditions="Cloudian.HelpSysAdminOnly,Cloudian.PrintOnly">By default the auto-tiering function is disabled. If you want to enable this function, go to the CMC's <b>Configuration Settings</b> page where you can turn on the <MadCap:xref href="../../../Cluster/Configuration Settings/ConfigurationSettingsAutoTiering.htm#Enable_Auto_Tiering" target="_popup">Enable Auto Tiering</MadCap:xref> setting and set an <MadCap:xref href="../../../Cluster/Configuration Settings/ConfigurationSettingsAutoTiering.htm#Auto_Tiering_URL" target="_popup">Auto Tiering URL</MadCap:xref>.<br /><br />Note that even if object auto-tiering is disabled, you can still configure a bucket lifecycle for object expiration.</p>
+        <p class="Note" MadCap:conditions="Cloudian.HelpSysAdminOnly,Cloudian.PrintOnly" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">By default the auto-tiering function is disabled. If you want to enable this function, go to the CMC's <b>Configuration Settings</b> page where you can turn on the <MadCap:xref href="../../../Cluster/Configuration Settings/ConfigurationSettingsAutoTiering.htm#Enable_Auto_Tiering" target="_popup">Enable Auto Tiering</MadCap:xref> setting and set an <MadCap:xref href="../../../Cluster/Configuration Settings/ConfigurationSettingsAutoTiering.htm#Auto_Tiering_URL" target="_popup">Auto Tiering URL</MadCap:xref>.<br /><br />Note that even if object auto-tiering is disabled, you can still configure a bucket lifecycle for object expiration.</p>
         <p>To configure auto-tiering or auto-expiration for a bucket, select the <b>Lifecycle Policy</b> tab of the CMC's bucket properties interface.</p>
         <p>
             <img src="../../../../Resources/Images/cmc/buckets/BucketProperties_lifecycle.png" class="ImgCloudian" />

@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="5" MadCap:lastHeight="660" MadCap:lastWidth="828">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="5" MadCap:lastHeight="660" MadCap:lastWidth="791">
     <head>
     </head>
     <body>
         <h1>Delete a Storage Policy</h1>
-        <p class="TopicTag" MadCap:conditions="General.Online">[CMC Interface]</p>
+        <p class="TopicTag" MadCap:conditions="Cloudian.HelpSysAdminOnly">[CMC Interface]</p>
         <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">You cannot delete the default storage policy. If you want to delete that policy you must first promote a different policy to be the new default.</p>
         <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">In a HyperStore system that upgraded from a version earlier than 5.2, your legacy system storage configuration is codified as a storage policy named "DEFAULT_&lt;regionName&gt;". You cannot delete this policy. You can however disable it so that no new buckets use that policy. See <MadCap:xref href="StoragePoliciesDisable.htm">Disable a Storage Policy</MadCap:xref>.</p>
         <p>Deleting a storage policy completely removes the policy from the system. You can only delete a policy <b>if no buckets are using the policy</b>.</p>

@@ -4,14 +4,14 @@
     </head>
     <body>
         <h1>Configure Cross-Region Replication for a Bucket</h1>
-        <p class="TopicTag" MadCap:conditions="General.Online">[CMC Interface]</p>
+        <p class="TopicTag" MadCap:conditions="Cloudian.HelpSysAdminOnly">[CMC Interface]</p>
         <MadCap:dropDown>
             <MadCap:dropDownHead class="CloudianParentDropDown">
                 <MadCap:dropDownHotspot>Introduction</MadCap:dropDownHotspot>
             </MadCap:dropDownHead>
             <MadCap:dropDownBody>
                 <p>You can configure a bucket so that any newly uploaded objects (objects uploaded <b>after</b> you configure this feature) are automatically replicated to your chosen destination bucket in a different service region. This feature enables you to enhance the protection of your data by having it stored in two geographically dispersed service regions. The feature is also useful in cases where you want to have the same set of data stored in two different regions in order to minimize read latency for users in those regions.</p>
-                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;" MadCap:conditions="Cloudian.HelpSysAdminOnly,Cloudian.PrintOnly">For system configuration steps that you need to take before this feature can be used for individual buckets, see <MadCap:xref href="../../../../Major Features/Cross-Region Replication/CrrSetUp.htm">Setting Up Cross-Region Replication</MadCap:xref>.</p>
+                <p class="Note" MadCap:conditions="Cloudian.HelpSysAdminOnly,Cloudian.PrintOnly" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">For system configuration steps that you need to take before this feature can be used for individual buckets, see <MadCap:xref href="../../../../Major Features/Cross-Region Replication/CrrSetUp.htm">Setting Up Cross-Region Replication</MadCap:xref>.</p>
                 <p>Along with allowing you to replicate from a source bucket to a destination bucket in a different service region in the same HyperStore system, you can also choose as your destination a bucket in an external S3 system such as Amazon S3.</p>
                 <p>HyperStore also allows you to replicate to a destination bucket that’s in the same HyperStore service region as the source bucket, if you want to. Note however that replicating from a source bucket to another bucket in the same region will not provide the geographical dispersion of data copies that replicating across regions does.</p>
                 <p>Object metadata — including any access permissions assigned to an object — is replicated to the destination bucket as well as the object data itself.</p>
