@@ -13,4 +13,7 @@
   Database="file:///C:/1-Cloudian/Flare/HyperStoreHelp/.git"
   DatabaseRoot="file:///C:/1-Cloudian/Flare/HyperStoreHelp/Publish/HyperStoreHelpSysAdmin"
   PushToRemote="true"
-  RemoteRepository="origin"></CatapultDestination>
+  RemoteRepository="origin"
+  UploadLogFile="false"
+  RemoveStale="false"
+  ChangedOnly="false"></CatapultDestination>

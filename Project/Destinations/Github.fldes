@@ -13,4 +13,7 @@
   Database="file:///C:/1-Cloudian/Flare/Test3 Import AsciiDoc Text/.git"
   DatabaseRoot="file:///C:/1-Cloudian/Flare/Test3 Import AsciiDoc Text/Staging"
   PushToRemote="true"
-  RemoteRepository="origin"></CatapultDestination>
+  RemoteRepository="origin"
+  UploadLogFile="false"
+  RemoveStale="false"
+  ChangedOnly="false"></CatapultDestination>
