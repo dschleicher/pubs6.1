@@ -11,7 +11,8 @@
   Skin="/Project/Skins/HTML5 - Tripane Group Admin.flskn"
   ConditionTagExpression="include[Cloudian.HelpGroupAdminOnly] exclude[Cloudian.HelpEndUserOnly or Cloudian.HelpSysAdminOnly] "
   ExcludeUnreferencedContent="true"
-  ResultsPerPage="5">
+  ResultsPerPage="5"
+  BrowseSequence="/Project/Advanced/BrowseSequenceEndUser.flbrs">
   <PrintedOutput
     CollapseMargins="true"
     GenerateTOCProxy="true"

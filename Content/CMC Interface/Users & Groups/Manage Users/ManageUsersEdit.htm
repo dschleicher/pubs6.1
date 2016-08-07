@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="8" MadCap:lastHeight="1666" MadCap:lastWidth="751">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="8" MadCap:lastHeight="1666" MadCap:lastWidth="752">
     <head>
     </head>
     <body>
         <h1>Edit a User</h1>
         <p class="TopicTag" MadCap:conditions="Cloudian.HelpSysAdminOnly">[CMC Interface]</p>
         <ol>
-            <li>Use the CMC's <b>Manage Users</b> page to <MadCap:xref href="ManageUsersRetrieve.htm" target="_popup">Retrieve a User or List of Users (CMC)</MadCap:xref>.</li>
+            <li>Use the CMC's <b>Manage Users</b> page to <MadCap:xref href="ManageUsersRetrieve.htm" target="_popup">Retrieve a User or List of Users</MadCap:xref>.</li>
         </ol>
         <ol MadCap:continue="true">
             <li>In the "Actions" column for the user that you want to edit, click <b>Edit</b>. This displays a panel for editing the user’s attributes.</li>
@@ -42,7 +42,7 @@
                         <li><b>Group Admin</b> -- An administrator of<MadCap:conditionalText MadCap:conditions="Cloudian.HelpSysAdminOnly"> a particular group of storage service users</MadCap:conditionalText><MadCap:conditionalText MadCap:conditions="Cloudian.HelpGroupAdminOnly"> your group</MadCap:conditionalText>. He or she will be able to use the CMC to perform administrative functions for the group, such as adding users or setting user-level QoS profiles. A group admin has a storage service account and can upload their own objects to storage. A group admin can also manage stored objects on behalf of particular users within the group.</li>
                         <li MadCap:conditions="Cloudian.HelpSysAdminOnly"><b>System Admin</b> -- System administrator. He or she will be able to use the CMC to perform a variety of system administration and service administration tasks. System admins do not have a storage service account and cannot upload their own objects to storage. However, system admins can manage stored objects on behalf of particular service users.</li>
                     </ul>
-                    <p class="NoteIndent" MadCap:autonum="&lt;b&gt;Note: &lt;/b&gt;" MadCap:conditions="Cloudian.HelpSysAdminOnly">You cannot change a regular user’s or group administrator’s User Type to System Admin. Also, you cannot change a system administrator’s User Type to anything other than System Admin.</p>
+                    <p class="NoteIndent" MadCap:conditions="Cloudian.HelpSysAdminOnly" MadCap:autonum="&lt;b&gt;Note: &lt;/b&gt;">You cannot change a regular user’s or group administrator’s User Type to System Admin. Also, you cannot change a system administrator’s User Type to anything other than System Admin.</p>
                 </MadCap:dropDownBody>
             </MadCap:dropDown>
             <MadCap:dropDown>
@@ -66,7 +66,7 @@
                             <MadCap:dropDownHotspot style="font-weight: bold;">Note for systems using LDAP authentication</MadCap:dropDownHotspot>
                         </MadCap:dropDownHead>
                         <MadCap:dropDownBody>
-                            <p>Do not edit a user’s password in the CMC if your HyperStore system is configured to use <a href="../../../Major Features/User Provisioning/ProvisioningLdap.htm" target="_popup">LDAP authentication</a>. When LDAP is used, the CMC authenticates users against their password stored in your LDAP server. The password that’s stored in the CMC is simply a system-generated random string that serves as a placeholder within the HyperStore user profile schema. When LDAP integration is enabled, this CMC-stored password string is not actually used for user authentication.</p>
+                            <p>Do not edit a user’s password in the CMC if your HyperStore system is configured to use LDAP authentication. When LDAP is used, the CMC authenticates users against their password stored in your LDAP server. The password that’s stored in the CMC is simply a system-generated random string that serves as a placeholder within the HyperStore user profile schema. When LDAP integration is enabled, this CMC-stored password string is not actually used for user authentication.</p>
                         </MadCap:dropDownBody>
                     </MadCap:dropDown>
                 </MadCap:dropDownBody>
