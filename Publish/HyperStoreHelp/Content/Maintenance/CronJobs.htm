@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Operations &amp; Maintenance|Automated Maintenance">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>System cron Jobs</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Operations &amp; Maintenance</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Automated Maintenance</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">System cron Jobs</span>
+            </div>
+            <h1>System cron Jobs</h1>
+            <p>Most HyperStore automated maintenance routines are implemented as cron jobs. Maintenance cron jobs are run from one HyperStore node in each of your service regions. To see which of your nodes is running the cron jobs, go to the CMC's <a href="../Resources/Images/cmc/cluster/ClusterInfo.png" class="MCTopicPopup MCTopicPopupHotSpot a">Cluster Information</a> page. In the Service Information section you will see the identity of the Admin Cronjob Primary Host, from which the cron jobs are run. (You will also see the identity of the Admin Cronjob Backup Host. If the primary host goes offline -- or if <em>crond</em> goes down on the primary host --the backup host automatically takes over the cronjob running duties.)</p>
+            <p>The cron jobs themselves are configured in the <em>/etc/cron.d/cloudian-crontab</em> file on the host node. If you want to adjust the scheduling of these cron jobs you should do so via Puppet configuration management, by editing the configuration template file<em> /etc/cloudian-&lt;version&gt;-puppet/modules/cloudians3/cloudian-crontab.erb</em> on the Puppet master node. For general information on how to configure cron job scheduling, refer to any reputable resource on the topic.</p>
+            <p>Note that most of the cron jobs configured in <em>cloudian-crontab.erb</em> have "&gt; /dev/null 2&gt;&amp;1" appended to them and therefore they direct all output to <em>/dev/null</em>.</p>
+            <p>System cron jobs are implemented for the following system maintenance tasks:</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />System Monitoring Data Collection</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Scope: One job per region</p>
+                    <p>Frequency: Every 1 minute</p>
+                    <p>Operation invoked: S3 Service<em> /bin/snapshotData</em></p>
+                    <p>This cron job invokes a process that logs "snapshot" system statistics each minute in support of the Cloudian Management Console’s system monitoring functionality.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Diagnostic Log Upload</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Scope: One job per region</p>
+                    <p>Frequency: Once per day</p>
+                    <p>Operation invoked: S3 Service <em>/bin/phoneHome</em></p>
+                    <p>This cron job uploads a daily diagnostics file to a configurable S3 URI, if the HyperStore "Phone Home" feature (also known as "Smart Support" [XREF]) is enabled. Typically this would be the S3 URI of Cloudian Support.</p>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>The upload will occur within an hour of the time specified in the crontab. A random wait time is built into the upload process so that not all Cloudian customer environments are uploading to Cloudian Support at the same time.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Usage"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">Usage Data Processing</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Three types of cron jobs are involved in processing service usage data for users and groups.</p>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>For an overview of how the HyperStore system tracks service usage by groups and users, see <a href="../Major Features/Usage Reporting/UsageOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="../Major Features/Usage Reporting/UsageOverview.htm" xrefformat="{para}">Usage Reporting Feature Overview</a>.</p>
+                    <h3>Saving Usage Data for Storage Bytes and Objects</h3>
+                    <p>Scope: One job per region</p>
+                    <p>Frequency: Every 5 minutes</p>
+                    <p>Operation invoked: Admin API method <a href="../Admin API/Usage Reporting/PostUsageDataForActiveUsers.htm" class="MCTopicPopup MCTopicPopupHotSpot a">POST /usage/storage</a></p>
+                    <p>This cron job writes snapshots of per-user and per-group counts for stored bytes and number of stored objects from the Redis QoS database over to the "Raw" column family in the Cassandra "Reports" keyspace. The operation is applied only to users and groups that have uploaded or deleted objects in the time since the operation was last executed.</p>
+                    <h3><a name="Repairin"></a>Repairing Usage Data for Active Users</h3>
+                    <p>Scope: One job per region</p>
+                    <p>Frequency: Every 12 hours</p>
+                    <p>Operation invoked: Admin API method <a href="../Admin API/Usage Reporting/PostUsageDataRepairForActiveUsers.htm" class="MCTopicPopup MCTopicPopupHotSpot a">POST /usage/repair/dirtyusers</a></p>
+                    <p>This cron job repairs Redis QoS stored bytes and stored object counts for up to 1000 active or "dirty" users. See the Admin API method description for more detail.</p>
+                    <h3>Creating Usage Roll-Up Reports</h3>
+                    <p>Scope: One job per region for each roll-up granularity (hour, day, month)</p>
+                    <p>Frequency: Hourly, daily, monthly</p>
+                    <p>Operation invoked: Admin API method <a href="../Admin API/Usage Reporting/PostUsageDataRollup.htm" class="MCTopicPopup MCTopicPopupHotSpot a">POST /usage/rollup</a></p>
+                    <ul>
+                        <li value="1">One job with granularity=hour (runs once per hour)</li>
+                        <li value="2">One job with granularity=day (runs once per day)</li>
+                        <li value="3">One job with granularity=month (runs once per month)</li>
+                    </ul>
+                    <p>These three cron jobs create summary (or "roll-up") usage reports data from more granular reports data. The hourly roll-up data is derived from the raw data (the transactional data and stored bytes/stored object count snapshot data in the Cassandra "Raw" column family). The daily roll-up data is derived from the hourly data, and the monthly roll-up data is derived from the daily data.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Bucket Log Processing</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Scope: One job per region</p>
+                    <p>Frequency: Once every 10 minutes</p>
+                    <p>Operation invoked: S3 Service <em>/.system/dumpbucketlogs</em></p>
+                    <p>This cron job moves bucket logging data from the Cassandra BucketLog column family into the S3 storage system, in support of the <a href="../S3 API Support/OperationsOnBuckets/PutBucketLogging.htm" class="MCTopicPopup MCTopicPopupHotSpot a">S3 Bucket logging</a> feature.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Bucket Lifecyle Processing</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Two cron jobs are involved in S3 bucket lifecyle implementation.</p>
+                    <h3>Auto-Tiering and Auto-Expiring S3 Objects</h3>
+                    <p>Scope: One job per region</p>
+                    <p>Frequency: Once a day</p>
+                    <p>Operation invoked: S3 Service<em> /.system/autoexpire</em></p>
+                    <p>This cron job performs two tasks in support of <a href="../S3 API Support/OperationsOnBuckets/PutBucketLifecycle.htm" class="MCTopicPopup MCTopicPopupHotSpot a">S3 bucket lifecyle</a> policies:</p>
+                    <ul>
+                        <li value="1">Transitions (auto-tiers) objects to Amazon, if the objects have reached their scheduled auto-tiering interval or date. (Alternatively, if you’ve configured your system to auto-tier to a remote HyperStore region or system, this cron job auto-tiers objects to the HyperStore destination.)</li>
+                    </ul>
+                    <p class="NoteIndent" data-mc-autonum="&lt;b&gt;Note: &lt;/b&gt;"><span class="autonumber"><span><b>Note: </b></span></span>For more information on the HyperStore auto-tiering feature, see <a href="../Major Features/Auto-Tiering/AutoTieringOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="../Major Features/Auto-Tiering/AutoTieringOverview.htm" xrefformat="{para}">Auto-Tiering Feature Overview</a>.</p>
+                    <ul>
+                        <li value="1">Deletes objects from HyperStore storage (or from the remote tiered storage system if they’ve been auto-tiered), if the objects have reached their scheduled expiration interval or date.</li>
+                    </ul>
+                    <h3>Restoring Auto-Tiered S3 Objects</h3>
+                    <p>Scope: One job per region</p>
+                    <p>Frequency: Every six hours</p>
+                    <p>Operation invoked: S3 Service <em>/.system/restore</em></p>
+                    <p>This cron job executes queued object-restore jobs. Restore jobs are placed in queue when S3 clients invoke the S3 API method <a href="../S3 API Support/OperationsObjects/PostObjectRestore.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="../S3 API Support/OperationsObjects/PostObjectRestore.htm" xrefformat="{para}">POST Object restore</a>, to restore a local copy of objects that have been auto-tiered to a remote storage system. The cron job executes queued restored jobs every six hours.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Object"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">Object Deletion Queue Processing</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Scope: One job per region</p>
+                    <p>Frequency: Every hour</p>
+                    <p>Operation invoked: S3 Service <em>/.system/deleteobjects</em></p>
+                    <p>When HyperStore clients delete S3 objects, the HyperStore system deletes the object metadata immediately but does not delete the actual objects until the next run of the <em>/.system/deleteobjects</em> cron job. Each run of the cron job deletes all the S3 objects that are queued for deletion unless throttling of the <em>/.system/deleteobjects</em> operation is configured by the mts.properties: cloudian.s3.batch.delete.maxkeys [XREF] property. The speed of the operation execution can also be throttled, by using the mts.properties: cloudian.s3.batch.delete.delay [XREF] property.</p>
+                    <p>	If a run of <em>/.system/deleteobjects</em> is still in progress at the time of the next scheduled run (one hour later by default), the latter run is skipped.</p>
+                    <h3>Dealing with Excessive Tombstone Build-Up</h3>
+                    <p>Under normal circumstances the hourly running of the <em>/.system/deleteobjects</em> cron job should ensure that there is no excessive build-up of Cassandra "tombstones" in connection with the deletion of objects from users' storage buckets. However, it is possible to encounter TombstoneOverwhelmingException errors in Cassandra logs and an inability to successfully execute an S3 <a href="../S3 API Support/OperationsOnBuckets/GetBucketListObjects.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="../S3 API Support/OperationsOnBuckets/GetBucketListObjects.htm" xrefformat="{para}">GET Bucket (List Objects)</a> operation against a specific bucket, in either of these unusual circumstances:</p>
+                    <ul>
+                        <li value="1">An S3 client application has attempted to delete more than 100,000 objects from the bucket in less than hour.</li>
+                        <li value="2">Over the course of multiple hours an S3 client application has attempted to delete more than 100,000 objects from the bucket and during that time the hourly /.system/deleteobjects cron job has failed to purge tombstones for one reason or another.</li>
+                    </ul>
+                    <p>In such circumstances you can trigger tombstone removal by connecting to any S3 server’s JMX port (19080) and submitting a <em>purgeTombstone</em> command with the bucket name as input. If you are using JConsole, after connecting to port 19080 on an S3 node select the <em>MBeans</em> tab, then select <em>com.cloudian.ss.cassandra.cl → BatchJobs → Operations → purgeTombstone</em>. On the right side of the console enter the bucket name as the <em>p1</em> value and then execute the operation (by clicking <em>purgeTombstone</em> on the right side of the console).</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="User"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">User Deletion Cleanup</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Scope: One job per HyperStore system (run only in default region)</p>
+                    <p>Frequency: Once a day</p>
+                    <p>Operation invoked: Admin API method <a href="../Admin API/System Services/PostDeletedUserCleanup.htm" class="MCTopicPopup MCTopicPopupHotSpot a">POST /system/deletedUserCleanup</a></p>
+                    <p>This cron job attempts to complete the user deletion process for users for whom the deletion process failed to complete on the original attempt. These are users who are stuck in "Deleting" status for one reason or another.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Storage"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">Storage Policy Deletion Processing</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Scope: One job per HyperStore system (run only in default region)</p>
+                    <p>Frequency: Once a day</p>
+                    <p>Operation invoked: Admin API method <a href="../Admin API/System Services/PostStoragePolicyDeletionProcessing.htm" class="MCTopicPopup MCTopicPopupHotSpot a">POST /system/processProtectionPolicy</a></p>
+                    <p>This cron job processes any pending storage policy delete jobs. System operators can initiate the deletion of an unused storage policy (a storage policy that is not assigned to any buckets) through the Admin API <a href="../Admin API/Storage Policies/DeleteStoragePolicy.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="../Admin API/Storage Policies/DeleteStoragePolicy.htm" xrefformat="{para}">DELETE Storage Policy</a> method, or through the CMC's <a href="../Resources/Images/cmc/cluster/StoragePolicies.png" class="MCTopicPopup MCTopicPopupHotSpot a">Storage Policies</a> page. This operator action makes the policy immediately unavailable to service users. However, the full deletion of the storage policy from the system is not processed until this cron job runs.</p>
+                </div>
+            </div>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

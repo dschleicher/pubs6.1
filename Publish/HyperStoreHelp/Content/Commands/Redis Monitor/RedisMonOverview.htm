@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Operations &amp; Maintenance|Commands">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Redis Monitor Commands</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Operations &amp; Maintenance</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Commands</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Redis Monitor Commands</span>
+            </div>
+            <h1>Redis Monitor Commands</h1>
+            <p>The main command utility for managing your HyperStore system is <a href="../hsstool/hsstoolOverview.htm" class="MCXref xref" xrefformat="{para}">hsstool </a>. However on occasion you may have reason to use a different command set, specifically for interacting with the HyperStore <a href="../../Introduction/HyperStore Services/ServicesRedisMon.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="../../Introduction/HyperStore Services/ServicesRedisMon.htm" xrefformat="{para}">Redis Monitor Service</a>.</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Introduction</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>The HyperStore Redis Monitor monitors Redis Credentials and Redis QOS cluster health and implements automatic failover of the Redis master node role in each cluster. In a multi-node HyperStore system, the Redis Monitor runs on two nodes, with one instance being the primary and the other being the backup.</p>
+                    <p>To check which of your nodes is running the primary Redis Monitor, go to the CMC's <a href="../../Resources/Images/cmc/cluster/ClusterInfo.png" class="MCTopicPopup MCTopicPopupHotSpot a">Cluster Information</a> page. Toward the bottom of the "Service Information" section of the page the identity of your Redis Monitor primary host is displayed (the backup host identity is also displayed).</p>
+                    <p>You can submit commands to the Redis Monitor primary host through the Redis Monitor CLI or through a JMX client like JConsole. A couple of the more useful commands can also be executed through the CMC.</p>
+                    <p><b>To initiate a CLI session with the Redis Monitor</b>, use <em>nc</em> to connect to port 9078 on the node on which the primary Redis Monitor is running:</p><pre>$ nc &lt;redismon_primary_host&gt; 9078</pre>
+                    <p>You can then use any of the commands listed below. When you want to terminate your CLI session, enter quit on the command line.</p>
+                    <p><b>To access Redis Monitor commands in the CMC</b>, go to  the <a href="../../Resources/Images/cmc/cluster/Advanced.png" class="MCTopicPopup MCTopicPopupHotSpot a">Advanced</a> page for node management and from the "Command Type" drop-down list select "Redis Monitor Operations".</p>
+                    <p><b>To submit commands to Redis Monitor through JConsole</b>, first launch JConsole on any of your HyperStore nodes. JConsole comes bundled with the Java platform that HyperStore uses. By default the full path to the JConsole executable is <em>/usr/java/latest/bin/jconsole</em>.</p>
+                    <p>Using the JConsole GUI, connect to the Redis Monitor primary host at port 19083. Once connected, in the JConsole GUI change to the MBeans tab. The domain under which the relevant MBeans appear is <em>com.gemini.cloudian.util</em>. Under this domain select <em>RedisCluster</em>. Under <em>RedisCluster</em> you will see an MBean for each of your Redis clusters: one global Redis Credentials cluster (named <em>redis.credentials</em>) and one Redis QoS cluster for each of your service regions (each named <em>redis.qos.&lt;regionName&gt;</em>). After selecting a cluster-specific MBean you can execute the Redis Monitor actions listed below.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="get"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">get cluster</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Use this operation to retrieve basic status information that the Redis Monitor currently has for a specified Redis cluster. The cluster status information includes:</p>
+                    <ul>
+                        <li value="1">The identity of the Redis master node within the cluster</li>
+                        <li value="2">Whether monitoring of the cluster by the Redis Monitor is enabled</li>
+                        <li value="3">Whether the sending of cluster status notifications to clients of the cluster is enabled</li>
+                        <li value="4">A list of cluster member nodes, with an indication of the status (UP/DOWN) of each node</li>
+                        <li value="5">A list of cluster clients (which write to and/or read from this Redis database), with an indication of the status (UP/DOWN) of each client. The clients will include S3 Service nodes (identified by JMX listening socket &lt;host&gt;:19080), Admin Service nodes (&lt;host&gt;:19081), and HyperStore Service nodes (&lt;host&gt;:19082). These are the clients to which the Redis Monitor sends notifications regarding the Redis cluster’s status.</li>
+                    </ul>
+                    <h3>Command Line Syntax</h3><pre>get cluster redis.credentials|redis.qos.&lt;region&gt;</pre>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>For this and all other Redis Monitor commands, the Redis QOS cluster identifier includes the name of the service region in which the cluster resides. This is necessary since in a multi-region HyperStore system each region has its own Redis QoS cluster. By contrast the Redis Credentials cluster, since it is global (extending across all service regions), does not include a region name in its identifier.</p>
+                    <p>Example:</p><pre xml:space="preserve">$ nc 10.50.200.123 9078
+get cluster redis.credentials
+OK master: appliance1:6379, monitoring: enabled, notifications: enabled
+nodes: [[appliance1:6379,UP,master], [appliance4:6379,UP,slave], [appliance5:6379,UP,slave]]
+clients: [[appliance1:19080,UP,appliance1], [appliance2:19080,UP,appliance1],
+[appliance3:19080,UP,appliance1], [appliance4:19080,UP,appliance1],
+[appliance5:19080,UP,appliance1], [appliance6:19080,UP,appliance1],
+[appliance1:19081,UP,appliance1], [appliance2:19081,UP,appliance1],
+[appliance3:19081,UP,appliance1], [appliance4:19081,UP,appliance1],
+[appliance5:19081,UP,appliance1], [appliance6:19081,UP,appliance1],
+[appliance1:19082,UP,appliance1], [appliance2:19082,UP,appliance1],
+[appliance3:19082,UP,appliance1], [appliance4:19082,UP,appliance1],
+[appliance5:19082,UP,appliance1], [appliance6:19082,UP,appliance1]]]</pre>
+                    <h3>Path in JConsole</h3>
+                    <p>com.gemini.cloudian.util → RedisCluster → &lt;clusterMBean&gt; → Attributes → Cluster</p>
+                    <h3>CMC UI</h3>
+                    <p>Path: <b>Cluster → Nodes → Advanced</b></p>
+                    <p><a class="MCPopupThumbnailLink MCPopupThumbnailHover" href="../../Resources/Images/cmc/cluster/Advanced_RedisMon_get-cluster.png"><img class="MCPopupThumbnail img imgImgCloudian" data-mc-width="788" data-mc-height="284" src="../../Resources/Images/cmc/cluster/Advanced_RedisMon_get-cluster_thumb_0_60.png" tabindex="" /></a>
+                    </p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />get master</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Use this operation to retrieve from the Redis Monitor the identity of the current master node within a specified Redis cluster.</p>
+                    <h3>Command Line Syntax</h3><pre>get master redis.credentials|redis.qos.&lt;region&gt;</pre>
+                    <p>Example:</p><pre xml:space="preserve">$ nc 10.50.200.123 9078
+get master redis.qos.region1
+OK appliance2:6380</pre>
+                    <h3>Path in JConsole</h3>
+                    <p>com.gemini.cloudian.util → RedisCluster → &lt;clusterMBean&gt; → Attributes → ClusterMaster</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />get nodes</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Use this operation to retrieve from the Redis Monitor a list of all current members of a specified Redis cluster. The command response also indicates the status (UP/DOWN) of each member node.</p>
+                    <h3>Command Line Syntax</h3><pre>get nodes  redis.credentials|redis.qos.&lt;region&gt;</pre>
+                    <p>Example:</p><pre xml:space="preserve">$ nc 10.50.200.123 9078
+get nodes redis.credentials
+OK [[[appliance1:6379,UP,master], [appliance4:6379,UP,slave], [appliance5:6379,UP,slave]]]</pre>
+                    <h3>Path in JConsole</h3>
+                    <p>com.gemini.cloudian.util → RedisCluster → &lt;clusterMBean&gt; → Attributes → ClusterNodes</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />get clients</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Use this operation to retrieve from the Redis Monitor a list of clients of a specified Redis cluster (client nodes that write to and/or read from the Redis database). These are the clients to which the Redis Monitor sends notifications regarding the Redis cluster’s status. For example, if the cluster’s master role changes from one node to another, the Redis Monitor will notify these clients of the change.</p>
+                    <p>The clients will include S3 Service nodes (identified by JMX listening socket &lt;host&gt;:19080), Admin Service nodes (&lt;host&gt;:19081), and HyperStore Service nodes (&lt;host&gt;:19082). The command response also indicates the status (UP/DOWN) of each client, and for each client it shows which node the client thinks is the Redis master.</p>
+                    <h3>Command Line Syntax</h3><pre>get clients redis.credentials|redis.qos.&lt;region&gt;</pre>
+                    <p>Example:</p><pre xml:space="preserve">$ nc 10.50.200.123 9078
+get clients redis.credentials
+OK [[[appliance1:19080,UP,appliance1], [appliance2:19080,UP,appliance1],
+[appliance3:19080,UP,appliance1], [appliance4:19080,UP,appliance1],
+[appliance5:19080,UP,appliance1], [appliance6:19080,UP,appliance1],
+[appliance1:19081,UP,appliance1], [appliance2:19081,UP,appliance1],
+[appliance3:19081,UP,appliance1], [appliance4:19081,UP,appliance1],
+[appliance5:19081,UP,appliance1], [appliance6:19081,UP,appliance1],
+[appliance1:19082,UP,appliance1], [appliance2:19082,UP,appliance1],
+[appliance3:19082,UP,appliance1], [appliance4:19082,UP,appliance1],
+[appliance5:19082,UP,appliance1], [appliance6:19082,UP,appliance1]]]</pre>
+                    <p>In the above example, "appliance1" is the current Redis Credentials master node. All the clients correctly have this information.</p>
+                    <h3>Path in JConsole</h3>
+                    <p>com.gemini.cloudian.util → RedisCluster → &lt;clusterMBean&gt; → Attributes → ClusterClients</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />enable monitoring</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Use this operation to enable monitoring of a specified Redis cluster by the Redis Monitor.</p>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>Monitoring is enabled by default. This operation is relevant only if you have previously disabled monitoring.</p>
+                    <h3>Command Line Syntax</h3><pre>enable monitoring  redis.credentials|redis.qos.&lt;region&gt;</pre>
+                    <p>Example:</p><pre xml:space="preserve">$ nc 10.50.200.123 9078
+enable monitoring redis.credentials
+OK enabled</pre>
+                    <h3>Path in JConsole</h3>
+                    <p>com.gemini.cloudian.util → RedisCluster → &lt;clusterMBean&gt; → Operations → EnableClusterMonitoring</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />disable monitoring</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Use this operation if you want to temporarily disable Redis Monitor’s monitoring of a specified Redis cluster — for example if you are performing maintenance work on the Redis cluster. (You can subsequently use the <em>enable monitor</em> command re-enable monitoring of that cluster.)</p>
+                    <h3>Command Line Syntax</h3><pre>disable monitoring  redis.credentials|redis.qos.&lt;region&gt;</pre>
+                    <p>Example:</p><pre xml:space="preserve">$ nc 10.50.200.123 9078
+disable monitoring redis.qos.region1
+OK disabled</pre>
+                    <h3>Path in JConsole</h3>
+                    <p>com.gemini.cloudian.util → RedisCluster → &lt;clusterMBean&gt; → Operations → disableClusterMonitoring</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="enable"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">enable notifications</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Use this operation to enable Redis Monitor’s sending of notifications to the clients of a specified Redis cluster. (The clients are the S3 Service nodes, Admin Service nodes, and HyperStore Service nodes that write to and/or read from that Redis cluster).</p>
+                    <p>The Redis Monitor sends notifications to inform clients of the identity of the Redis cluster’s master node, in either of these circumstances:</p>
+                    <ul>
+                        <li value="1">The Redis master role has switched from one host to another. (This could happen if the original master goes down and Redis Monitor detects this and fails the master role over to one of the slave nodes; or if an operator uses the Redis Monitor CLI to move the master role from one node to another).</li>
+                        <li value="2">The Redis Monitor in its regular polling of cluster clients' status detects that one of the clients has incorrect information about the identity of the Redis cluster master node. In this case the Redis Monitor notifies the client to give it the correct information.</li>
+                    </ul>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>Notifications are enabled by default. This operation is relevant only if you have previously disabled notifications using the <em>disable notifications</em> command.</p>
+                    <h3>Command Line Syntax</h3><pre>enable notifications redis.credentials|redis.qos.&lt;region&gt;</pre>
+                    <p>Example:</p><pre xml:space="preserve">$ nc 10.50.200.123 9078
+enable notifications redis.credentials
+OK enabled</pre>
+                    <h3>Path in JConsole</h3>
+                    <p>com.gemini.cloudian.util → RedisCluster → &lt;clusterMBean&gt; → Operations → enableClusterNotifications</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />disable notifications</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Use this operation to temporarily disable Redis Monitor’s sending of Redis cluster status notifications to the clients of that cluster. For more information on the notification feature see <a href="#enable" class="MCXref xref" xrefformat="{para}">enable notifications</a>.</p>
+                    <h3>Command Line Syntax</h3><pre>disable notifications redis.credentials|redis.qos.&lt;region&gt;</pre>
+                    <p>Example:</p><pre xml:space="preserve">$ nc 10.50.200.123 9078
+disable notifications redis.qos.region1
+OK disabled</pre>
+                    <h3>Path in JConsole</h3>
+                    <p>com.gemini.cloudian.util → RedisCluster → &lt;clusterMBean&gt; → Operations → disableClusterNotifications</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />set master</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Use this operation to assign the Redis master role to a different node within a specified Redis cluster. <b>The node to which you assign the master role must be one of the current slaves within the same Redis cluster</b>.</p>
+                    <p>The Redis master node within a cluster is the node to which Redis clients submit writes. The writes are asynchronously replicated to the slave(s) within that cluster. Redis clients read from the slave(s).</p>
+                    <p>An example of when you would move the Redis master role is if you want to remove the current Redis master host from your cluster.</p>
+                    <p>Using this command is part of a broader procedure for moving a Redis master role to a slave. For the full procedure including the use of this command within the procedure, see <a href="../../Operations/Change Node Role/MoveRedisMaster.htm" class="MCXref xref" xrefformat="{para}">Move the Redis Credentials Master or QoS Master Role</a>.</p>
+                    <h3>Command Line Syntax</h3><pre>set master redis.credentials|redis.qos.&lt;region&gt; [&lt;host:redisPort&gt;]</pre>
+                    <p>Example:</p><pre xml:space="preserve">$ nc 10.50.200.123 9078
+set master redis.credentials appliance5:6379
+OK set new master appliance5:6379</pre>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>If you do not specify a <em>&lt;host:redisPort&gt;</em> value, the Redis Monitor chooses a slave node at random (from within the cluster) to elevate to the master role.</p>
+                    <h3>Path in JConsole</h3>
+                    <p>com.gemini.cloudian.util → RedisCluster → &lt;clusterMBean&gt; → Operations → setClusterMaster</p>
+                    <p>(set "p1" to the node’s hostname or IP address and "p2" to 6379 for Redis Credentials or 6380 for RedisQoS)</p>
+                    <h3>CMC UI</h3>
+                    <p>Path: <b>Cluster → Nodes → Advanced</b></p>
+                    <p><a class="MCPopupThumbnailLink MCPopupThumbnailHover" href="../../Resources/Images/cmc/cluster/Advanced_RedisMon_set-master.png"><img class="MCPopupThumbnail img imgImgCloudian" data-mc-width="781" data-mc-height="340" src="../../Resources/Images/cmc/cluster/Advanced_RedisMon_set-master_thumb_0_60.png" tabindex="" /></a>
+                    </p>
+                    <p>In the CMC UI, use the "Hostname" field to specify the host to which you want to move the Redis master role.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />add node</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Use this operation to add a Redis node to the list of nodes that Redis Monitor is monitoring, for a specified Redis cluster. This would be if you have used the installer (<em>cloudianInstall.sh</em> in the installation directory on your Puppet master node) to activate Redis on a HyperStore node that wasn’t previously running Redis. In this circumstances you have two options to make Redis Monitor aware of the new member of the Redis cluster:</p>
+                    <ul>
+                        <li value="1">Restart Redis Monitor</li>
+                    </ul>
+                    <div class="Indent">
+                        <p>OR</p>
+                    </div>
+                    <ul>
+                        <li value="1">Use this command.</li>
+                    </ul>
+                    <h3>Command Line Syntax</h3><pre>add node redis.credentials|redis.qos.&lt;region&gt; &lt;host:redisPort&gt;</pre>
+                    <p>Example:</p><pre xml:space="preserve">$ nc 10.50.200.123 9078
+add node redis.qos.region1 appliance3:6380
+OK added node appliance3:6380 to redis</pre>
+                    <h3>Path in JConsole</h3>
+                    <p>com.gemini.cloudian.util → RedisCluster → &lt;clusterMBean&gt; → Operations → addClusterNode</p>
+                    <p>(set "p1" to the node’s hostname or IP address and "p2" to 6379 for Redis Credentials or 6380 for RedisQoS)</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />add client</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Use this operation to add a new S3 Service, Admin Service, and/or HyperStore Service node to the list of clients to which Redis Monitor will send notifications regarding the status of a specified Redis cluster.</p>
+                    <p>In normal circumstances you should not have to use this command. If you add a new node to your HyperStore cluster (as described in <a href="../../Operations/AddNode.htm" class="MCXref xref" xrefformat="{para}">Adding a Node</a>), the system automatically makes Redis Monitor aware of the new clients of the Redis Credentials and Redis QoS clusters.</p>
+                    <p>If you do use this command, add only one client per command run. A client is identified by its JMX socket (for example "vm12:19080" for an S3 Service instance running on host vm12, or "vm12:19081" for an Admin Service instance running on host vm12).</p>
+                    <h3>Command Line Syntax</h3><pre>add client redis.credentials|redis.qos.&lt;region&gt; &lt;host:JMXport&gt;</pre>
+                    <p>Example:</p><pre xml:space="preserve">$ nc 10.50.200.123 9078
+add client redis.credentials appliance7:19080
+OK added client appliance7:19080 to redis</pre>
+                    <h3>Path in JConsole</h3>
+                    <p>com.gemini.cloudian.util → RedisCluster → &lt;clusterMBean&gt; → Operations → addClusterClient</p>
+                    <p>(set "p1" to the node’s hostname or IP address and "p2" to 19080 for an S3 Server’s JMX port, 19081 for an Admin Server’s JMX port, or 19082 for a HyperStore Server’s JMX port)</p>
+                </div>
+            </div>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

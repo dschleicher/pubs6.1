@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Working with HyperStore Major Features|Automatic Data Repair">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Configuring Automatic Data Repair</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Working with HyperStore Major Features</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Automatic Data Repair</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Configuring Automatic Data Repair</span>
+            </div>
+            <h1>Configuring Automatic Data Repair</h1>
+            <p>By default, HyperStore’s automatic data repair functions are configured in a way that’s suitable for typical HyperStore deployments. However, there are a few settings that you can modify if you wish.</p>
+            <p>Most of the important automatic data repair settings are available in the CMC's <b>Configuration Settings</b> page. In the <a href="../../CMC Interface/Cluster/Configuration Settings/ConfigurationSettingsSystem.htm" class="MCXref xref" xrefformat="{para}">System Settings</a> panel of that page, there are settings for hinted handoff:</p>
+            <ul>
+                <li value="1">HyperStore Max Hints Time Limit (default = 1hr)</li>
+                <li value="2">HyperStore Max Hints Space Limit (default = 1GB)</li>
+            </ul>
+            <p>Also on the CMC’s <b>Configuration Settings</b> page, in the <a href="../../CMC Interface/Cluster/Configuration Settings/ConfigurationSettingsAutoRepair.htm" class="MCXref xref" xrefformat="{para}">Auto-Repair Schedule Settings</a> panel, are these settings for scheduled auto-repair:</p>
+            <ul>
+                <li value="1">Replicas Repair Interval (default = every 90 days)</li>
+                <li value="2">EC Repair Interval (default = every 89 days)</li>
+                <li value="3">Cassandra Repair Interval (default = every 7 days)</li>
+            </ul>
+            <p>There are also settings named as <em>hyperstore.hints.*</em> in the <em>hyperstore-properties.erb</em> configuration file on your Puppet master node. This includes <em>hyperstore.hints.poll_time</em>, which controls how frequently each HyperStore node checks to see whether it needs to replay hinted handoffs for itself and or execute proactive repair for itself. HyperStore nodes automatically make this check upon start-up, and then again at this configurable interval (default is 1 hour). This recurring check is necessary because even if a node hasn’t been down, there may be need to replay hinted handoffs for the node or execute proactive repair — for example, if network issues had made the node temporarily unreachable as other nodes were processing S3 write requests.</p>
+            <p>If you edit any <em>hyperstore.hints.*</em> settings in <em>hyperstore-properties.erb</em>, be sure to use the installer on the Puppet master to push the setting changes to your cluster and to restart the HyperStore service.</p>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

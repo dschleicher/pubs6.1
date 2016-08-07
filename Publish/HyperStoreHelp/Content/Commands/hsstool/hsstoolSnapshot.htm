@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="CMC Interface|Cluster|Advanced|Maintenance Commands">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>hsstool snapshot</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../../CMC Interface/CmcInterfaceOverview.htm">CMC Interface</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="../../CMC Interface/Cluster/ClusterOverview.htm">Cluster</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="../../CMC Interface/Cluster/Advanced/AdvancedOverview.htm">Advanced</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">snapshot</span>
+            </div>
+            <h1>hsstool snapshot</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[Command]</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Introduction</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Use this <a href="hsstoolOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">hsstool </a> command to take a backup snapshot of all the data on a physical node. In particular, the <em>snapshot</em> operation backs up the contents of your Cassandra data directory (the directory specified by the system configuration setting <em>common.csv: cassandra_data_directories</em>) and the contents of your HyperStore data directories (the directories specified by the system configuration setting <em>common.csv: hyperstore_data_directory</em>).</p>
+                    <p>Note that if your HyperStore deployment uses erasure coding, the erasure coded data is stored in the HyperStore data directories along with HyperStore File System data. Consequently the <em>snapshot</em> operation backs up erasure coded data as well as HSFS replica data and Cassandra data.</p>
+                    <p>When you run <em>snapshot</em> on a node you will specify a destination directory into which the snapshot will be written. In that destination directory, the <em>snapshot</em> operation creates a sub-folder named cassandra to contain Cassandra data backups and a sub-folder named <em>native</em> to contain HSFS replica and erasure coding backups.</p>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>The <em>snapshot</em> operation uses the backup utility <em>rdiff-backup</em> which is installed with the HyperStore package. The <em>snapshot</em> operation creates a complete mirror of the source directories and consequently a snapshot will consume a large amount of disk space. If you use <em>snapshot</em> recurrently with the same destination directory, the operation also maintains increments that enable you to restore to a previous point in time if so desired. For further implementation detail see the <a href="http://www.nongnu.org/rdiff-backup/index.html" target="_blank">rdiff-backup online documentation</a>.<br /><br />You can use these <em>rdiff-backup</em> commands to see what increments currently exist in the snapshot destination directory’s <em>cassandra</em> and <em>native</em> sub-directories:<br /><br /><code># for Cassandra data:<br />[root]# rdiff-backup -l &lt;destination_dir&gt;/cassandra/<br /><br /># for HyperStore and erasure coded data:<br />[root]# rdiff-backup -l &lt;destination_dir&gt;/native/</code></p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Command Format</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>You can run the <em>hsstool snapshot</em> command through the CMC UI:</p>
+                    <p>
+                        <img src="../../Resources/Images/cmc/cluster/Advanced_snapshot_768x393.png" style="width: 768;height: 393;" />
+                    </p>
+                    <p>Or on the command line:</p><pre xml:space="preserve">[root]# /opt/cloudian/bin/hsstool -h &lt;host&gt; snapshot &lt;destination-dir&gt; [debug]</pre>
+                    <h3>Parameters</h3>
+                    <p>This command supports these parameters:</p>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />-h &lt;host&gt; (called "Target Node" in CMC UI)</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>(Mandatory) Target host for which to take a snapsnot.</p>
+                        </div>
+                    </div>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />&lt;destination-dir&gt;</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>(Mandatory) &#160;Destination directory into which to write the snapshot. This will typically be on the node that’s being backed up. For information about specifying a destination directory on a different host than the one that’s being backed up, see the <a href="http://www.nongnu.org/rdiff-backup/index.html" target="_blank">rdiff-backup online documentation</a>.</p>
+                        </div>
+                    </div>
+                    <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />debug</a></span>
+                        <div class="MCDropDownBody dropDownBody">
+                            <p>(Optional) Write debug info to the HyperStore Service application log on the node being backed up.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

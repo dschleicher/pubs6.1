@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="CMC Interface|Cluster|Storage Policies">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Add a Storage Policy</title>
+        <link href="../../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../../CmcInterfaceOverview.htm">CMC Interface</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="../ClusterOverview.htm">Cluster</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="StoragePoliciesOverview.htm">Storage Policies</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Add a Storage Policy</span>
+            </div>
+            <h1>Add a Storage Policy</h1>
+            <p class="TopicTag" data-mc-conditions="Cloudian.HelpSysAdminOnly">[CMC Interface]</p>
+            <h2>Introduction</h2>
+            <p>Storage policies are ways of protecting data so that it’s durable and highly available to users. The HyperStore system lets you pre-configure one or more storage policies. Users when they create a new storage bucket can then choose which pre-configured storage policy to use to protect data in that bucket. <b>Users cannot create buckets until you have created at least one storage policy</b>.</p>
+            <p>For each storage policy that you create you can choose from either of two data protection methods:</p>
+            <ul>
+                <li value="1"><b>Replication</b> — With replication, a configurable number of copies of each data object are maintained in the system, and each copy is stored on a different node. For example, with 3X replication 3 copies of each object are stored, with each copy on a different node.</li>
+                <li value="2"><b>Erasure coding</b> — With erasure coding, each object is encoded into a configurable number (known as the "k" value) of data fragments plus a configurable number (the "m" value) of redundant parity fragments. Each of an object’s "k" plus "m" fragments is unique, and each fragment is stored on a different node. The object can be decoded from any "k" number of fragments. To put it another way: the object remains readable even if "m" number of nodes are unavailable.</li>
+            </ul>
+            <div class="Indent">
+                <p>For example, in a 4+2 erasure coding configuration (4 data fragments plus 2 parity fragments), each object is encoded into a total of 6 unique fragments which are stored on 6 different nodes, and the object can be decoded and read so long as any 4 of those 6 fragments are available.</p>
+            </div>
+            <p>If your HyperStore system spans multiple data centers, for each storage policy you can also choose how data is allocated across your data centers.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>The system supports a configurable maximum number of storage policies (default = 25) [XREF]. If this many policies already exist, you cannot create new policies until you either delete unused policies or increase the configurable maximum.</p>
+            <h2>To Add a Storage Policy:</h2>
+            <ol>
+                <li value="1"> In the CMC's <b><a href="../../../Resources/Images/cmc/cluster/StoragePolicies.png" class="MCTopicPopup MCTopicPopupHotSpot a">Storage Policies</a></b> page click <b>Create Storage Policy</b>. This opens the <b>Create New Storage Policy</b> interface.</li>
+            </ol>
+            <div class="Indent">
+                <p><a class="MCPopupThumbnailLink MCPopupThumbnailHover" href="../../../Resources/Images/cmc/cluster/StoragePolicies_create.png"><img class="MCPopupThumbnail img imgImgCloudian" data-mc-width="779" data-mc-height="785" src="../../../Resources/Images/cmc/cluster/StoragePolicies_create_thumb_0_90.png" style="mc-thumbnail-max-height: 90px;" tabindex="" /></a>
+                </p>
+            </div>
+            <ol data-mc-continue="true">
+                <li value="2">Enter a Policy Name (only letters, numbers, dashes, and underscores are allowed; maximum 32 characters) and also a Policy Description that will be meaningful to your users (maximum 64 characters).</li>
+            </ol>
+            <div class="Indent">
+                <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />More detail on this step</a></span>
+                    <div class="MCDropDownBody dropDownBody">
+                        <p>The Policy Name and Policy Description are important because users will see this text when they are choosing a storage policy to apply to a newly created storage bucket. In the CMC’s <a href="../../Buckets &amp; Objects/Buckets/BucketsOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Buckets</a> interface, a user creating a bucket will see a drop-down menu listing all the pre-configured storage policies by name, and when they select a policy they will see its description (before they complete the process of creating the bucket). So, use policy names and descriptions that will be meaningful to your service users.</p>
+                        <p>For example, suppose your HyperStore spans two data centers, one in Chicago and one in Kansas City. You create one storage policy that uses replication and stores the data in both of your data centers, and another policy that uses erasure coding and stores data only in Kansas City. If the people who will be creating storage buckets are fairly technical, then in creating these two policies you might use names and descriptions like:</p>
+                        <table style="width: 100%; border-left-style: solid; border-left-width: 1px; border-right-style: solid; border-right-width: 1px; border-top-style: solid; border-top-width: 1px; border-bottom-style: solid; border-bottom-width: 1px; border-collapse: separate;">
+                            <col />
+                            <col />
+                            <thead>
+                                <tr>
+                                    <th style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Policy Name</th>
+                                    <th style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Policy Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Replication_Chicago-3X_KC-2X</td>
+                                    <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">3 replicas stored in Chicago and 2 in Kansas City</td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Erasure_coding_KC-only</td>
+                                    <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Objects are erasure coded and stored in Kansas City only</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>If your users are non-technical, you might gear your policy descriptions more towards the type of data that users intend to store. Since replication is commonly used for more active data while erasure coding is suitable to "cold" data, you might do something like:</p>
+                        <table style="width: 100%; border-left-style: solid; border-left-width: 1px; border-right-style: solid; border-right-width: 1px; border-top-style: solid; border-top-width: 1px; border-bottom-style: solid; border-bottom-width: 1px; border-collapse: separate;">
+                            <col />
+                            <col />
+                            <thead>
+                                <tr>
+                                    <th style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Policy Name</th>
+                                    <th style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Policy Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Active_High-Availability</td>
+                                    <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">For "live" data that is accessed often</td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Cold_Archival_Storage</td>
+                                    <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">For "cold" data that is rarely accessed</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>Note that if your HyperStore system has multiple service regions and/or multiple data centers, it may be important to communicate data storage location information to end users through the Policy Name and Policy Description — especially if your system spans multiple countries.</p>
+                    </div>
+                </div>
+            </div>
+            <ol data-mc-continue="true">
+                <li value="3">Choose and configure a Data Distribution Scheme. You can choose between replication and erasure coding, and whether you want the data associated with the storage policy to be stored in a single data center or multiple data centers. After making your basic scheme choice, specify a number of replicas and/or "k" + "m" values for erasure coding.</li>
+            </ol>
+            <div class="Indent">
+                <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />More detail on this step</a></span>
+                    <div class="MCDropDownBody dropDownBody">
+                        <p>You can choose among these data distribution schemes:</p>
+                        <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Replicas Within Single Data Center</a></span>
+                            <div class="MCDropDownBody dropDownBody">
+                                <p><a class="MCPopupThumbnailLink MCPopupThumbnailHover" href="../../../Resources/Images/cmc/cluster/StoragePolicies_replicas-singleDC.png"><img class="MCPopupThumbnail img imgImgCloudian" data-mc-width="872" data-mc-height="314" src="../../../Resources/Images/cmc/cluster/StoragePolicies_replicas-singleDC_thumb_0_60.png" tabindex="" /></a>
+                                </p>
+                                <p>This scheme protects S3 object data by replicating it within a single data center.
+</p>
+                                <p>When you choose this option, the interface displays a "Number of Replicas" field in which you can specify how many replicas you want. For example, if you specify 3, then with this storage policy the system will maintain a total of 3 copies of each S3 data object, each on a different node.
+
+</p>
+                                <p>The system will also maintain the same number of replicas of each S3 object’s metadata (in Cassandra), again with each replica on a different node.
+</p>
+                                <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>	If you have a multiple data center HyperStore system, you can still choose "Replicas Within Single Data Center" as the distribution scheme for the policy you are creating, and then in the <b>Data Center Assignment</b> section of the storage policy interface you can choose which one of your data centers to use for this policy. This is appropriate if you want to create a policy that stores data in just one of your DCs and not the others.</p>
+                            </div>
+                        </div>
+                        <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />EC Within Single Data Center</a></span>
+                            <div class="MCDropDownBody dropDownBody">
+                                <p><a class="MCPopupThumbnailLink MCPopupThumbnailHover" href="../../../Resources/Images/cmc/cluster/StoragePolicies_ec-singleDC.png"><img class="MCPopupThumbnail img imgImgCloudian" data-mc-width="878" data-mc-height="316" src="../../../Resources/Images/cmc/cluster/StoragePolicies_ec-singleDC_thumb_0_60.png" tabindex="" /></a>
+                                </p>
+                                <p>This scheme protects S3 object data by erasure coding the data, within a single data center.</p>
+                                <p>When you choose this option, the interface lets you select which of the supported EC "k"+"m" configuration schemes to use. For example:</p>
+                                <ul>
+                                    <li value="1"><b>2+1</b> — Each object will be encoded into 2 data fragments plus 1 parity fragment, with each fragment stored on a different node. Objects can be read so long as any 2 of the 3 fragments are available.</li>
+                                    <li value="2"><b>4+2</b> — Each object will be encoded into 4 data fragments plus 2 parity fragments, with each fragment stored on a different node. Objects can be read so long as any 4 of the 6 fragments are available.</li>
+                                </ul>
+                                <p>In addition to the options above, the system also supports:</p>
+                                <ul>
+                                    <li value="1"><b>6+2</b>
+                                    </li>
+                                    <li value="2"><b>8+2</b>
+                                    </li>
+                                    <li value="3"><b>9+3</b>
+                                    </li>
+                                    <li value="4"><b>12+4</b>
+                                    </li>
+                                </ul>
+                                <p>The choice among these supported EC configurations is largely a matter of how many HyperStore nodes you have in the data center. For example, 4+2 EC provides a higher degree of protection and availability than 2+1 EC (since with 4+2 EC, objects can be read/written even if 2 of the involved nodes are unavailable) while delivering the same level of storage efficiency (both 2+1 and 4+2 require 50% storage overhead — the parity fragments as a percentage of data fragments). So 4+2 is preferable to 2+1 if you have at least 6 HyperStore nodes in the data center.</p>
+                                <p>Likewise, compared to a 4+2 configuration, 6+2 EC provides the same degree of resiliency against nodes being unavailable (objects can be read/written even if 2 of the involved nodes are unavailable), while delivering a higher level of storage efficiency (2/6 = only 33% overhead). The cost, compared to a smaller number of fragments, is a very slight increase in the time that it takes to encode and decode objects.</p>
+                                <p>Whatever erasure coding configuration you choose, the system will maintain (2*m)+1 replicas of each object’s metadata (in Cassandra). Because metadata is so small, it’s not suitable for erasure coding. Therefore, even within storage policies that protect object data by erasure coding, the object metadata is protected by replication. For example, with a 4+2 EC configuration, the system maintains (2*2)+1 = 5 copies of each object’s metadata, with each copy on a different node. With QUORUM as the default consistency level requirement for metadata, read/write availability is preserved even if 2 metadata replica endpoints are inaccessible, just as read/write availability is preserved even if 2 erasure coded fragment endpoints are inaccessible.</p>
+                                <p>	If you have a multiple data center HyperStore system, you can still choose "EC Within Single Data Center" as the distribution scheme for the policy you are creating, and then in the <b>Data Center Assignment</b> section of the storage policy interface you can choose which one of your data centers to use for this policy. This is appropriate if you want to create a policy that stores data in just one of your DCs and not the others.</p>
+                            </div>
+                        </div>
+                        <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Replication Across Data Centers</a></span>
+                            <div class="MCDropDownBody dropDownBody">
+                                <p>This distribution scheme is supported only for HyperStore systems that span multiple data centers. Choose this option if you want S3 objects to be replicated and to have those replicas distributed across data centers.</p>
+                                <p>When you choose this option, the interface displays a "Number of Replicas" field in which you can specify the <b>total</b> number of replicas that you want, across multiple data centers. For example, if for each S3 object you want 3 replicas stored in your Dallas data center and 2 replicas in your San Antonio data center, enter 5 in the "Number of Replicas" field. Subsequently, in the <b>Data Center Assignment</b> section of the interface you can specify exactly where you want each of the 5 replicas to be stored.</p>
+                                <p>The system will also maintain the same number of replicas of each S3 object’s metadata (in Cassandra).</p>
+                            </div>
+                        </div>
+                        <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Replication EC Across Data Centers</a></span>
+                            <div class="MCDropDownBody dropDownBody">
+                                <p>This distribution scheme is supported only for HyperStore systems that span multiple data centers. Choose this option if you want to use erasure coding and to also have each S3 object’s erasure coded fragments replicated across multiple data centers. With this distribution scheme, each data center stores the full set of an object’s fragments (each data center stores the data fragments plus the parity fragments).</p>
+                                <p>When you choose this option, the right side of the interface enables you to choose your EC "k"+"m" configuration (for description of the options, see "EC Within Single Data Center" above in this table). The left side of the interface displays a "Number of Replicas" field in which you can specify the number of data centers in which you want the EC fragments to be replicated. For example, if you choose 4+2 as the EC configuration, and 2 as the number of replicas, then for each S3 object there will be 6 unique fragments (4+2) in one data center and replicas of those same 6 fragments in the other data center. Subsequently, in the <b>Data Center Assignment</b> section of the storage policy interface you can specify which of your data centers are to be included in the policy.</p>
+                                <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>For this type of distribution scheme, each participating data center has the same "k"+"m" configuration. You cannot create a policy that uses 2+1 in one data center while using 4+2 in a different data center, for instance.</p>
+                                <p>In each data center included in the policy, the system also maintains (2*m)+1 replicas of each object’s metadata. For more on object metadata protection within the context of an EC storage policy, see "EC Within Single Data Center" above in this table.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ol data-mc-continue="true">
+                <li value="4">If your HyperStore system is deployed across multiple data centers,  specify a data center assignment for the policy. This determines which of your data centers to use for storing data, for this storage policy. (If your HyperStore system is deployed in only one data center, skip to the next step.)</li>
+            </ol>
+            <div class="Indent">
+                <p class="Important" data-mc-autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;"><span class="autonumber"><span><b>IMPORTANT: </b></span></span>You have the option of creating a storage policy that stores data in some of your data centers and not others — for example, store data in DC1 and DC2 but not in DC3. Note, however, that DC3 may be involved in processing S3 requests associated with buckets that use this policy. By default there is only one S3 service endpoint per region, and incoming S3 requests may resolve to any DC within the region. If the S3 Service in DC3 receives an S3 PUT request in association with a policy that stores data only in DC1 and DC2, it will transmit the uploaded object on to DC1 and D2 (it will not be stored in DC3). Likewise, if DC3 receives an S3 GET request in association with a policy that stores data only in DC1 and DC2, then DC3’s S3 Service will get the object from DC1 or DC2 and pass it on to the client. If you want more absolute barriers so that for example DC3 never touches DC2’s data and vice-versa, you need to set up your system so those DCs are in different service regions.</p>
+            </div>
+            <div class="Indent">
+                <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />More detail on this step</a></span>
+                    <div class="MCDropDownBody dropDownBody">
+                        <p>For HyperStore systems deployed across multiple data centers, your data center assignment options depend on which type of data distribution scheme you chose for the policy you are creating:</p>
+                        <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Replicas Within Single Data Center</a></span>
+                            <div class="MCDropDownBody dropDownBody">
+                                <p>If you’re configuring a "Replicas Within Single Data Center" storage policy the data center assignment interface appears like the sample image below. You can use the "Data Center" drop-down list to select which single one of your data centers will be used to store <b>all</b> of the object replicas associated with this storage policy (as well as the corresponding object metadata). In the sample below, all 3 replicas will be stored in the data center named "DC1".</p>
+                                <p>
+                                    <img src="../../../Resources/Images/cmc/cluster/StoragePolicies_dc-assign_replicas-singleDC_768x209.png" class="" style="width: 768;height: 209;" />
+                                </p>
+                            </div>
+                        </div>
+                        <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />EC Within Single Data Center</a></span>
+                            <div class="MCDropDownBody dropDownBody">
+                                <p>If you’re configuring an "EC Within Single Data Center" storage policy the data center assignment interface appears like the sample image below. You can use the "Data Center" drop-down list to select which single one of your data centers will be used to store the erasure coded objects associated with this storage policy (as well as the corresponding object metadata). In the sample below, all 6 fragments of each object will be stored in "DC1". The "Replica" column simply indicates "1 of 1", meaning that with this storage policy these erasure coded fragments are not replicated in other data centers.</p>
+                                <p>
+                                    <img src="../../../Resources/Images/cmc/cluster/StoragePolicies_dc-assign_ec-singleDC_768x140.png" class="" style="width: 768;height: 140;" />
+                                </p>
+                            </div>
+                        </div>
+                        <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Replication Across Data Centers</a></span>
+                            <div class="MCDropDownBody dropDownBody">
+                                <p>If you’re configuring a "Replication Across Data Centers" storage policy the data center assignment interface appears like the sample image below. You can use the "Data Center" drop-down lists to select which one of your data centers will house <b>each replica</b>. This interface allows you to define how many replicas will be stored in each specific data center. In the example below, 3 replicas will be stored in "DC1" and 2 replicas will be stored in "DC2". Note that the ordering of the replicas doesn’t matter — what matters is the total number of replicas that you assign to each data center. Object metadata replicas will automatically be allocated in the same way as the object data replicas.</p>
+                                <p>
+                                    <img src="../../../Resources/Images/cmc/cluster/StoragePolicies_dc-assign_replicas-multiDC_768x349.png" class="" style="width: 768;height: 349;" />
+                                </p>
+                            </div>
+                        </div>
+                        <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Replication EC Across Data Centers</a></span>
+                            <div class="MCDropDownBody dropDownBody">
+                                <p>If you’re configuring a "Replication EC Across Data Centers" storage policy the data center assignment interface appears like the sample image below. You can use the "Data Center" drop-down lists to select which ones of your data centers will be used for this storage policy. Each data center will store a full set of "k" + "m" fragments for each erasure coded object. In the sample below, for each S3 object stored in association with this storage policy, a full set of 6 unique fragments will be stored in "DC1" and a replica full set of those 6 fragments will be stored in "DC2". Those same data centers will also store the corresponding object metadata.</p>
+                                <p>
+                                    <img src="../../../Resources/Images/cmc/cluster/StoragePolicies_dc-assign_ec-multiDC_768x184.png" class="" style="width: 768;height: 184;" />
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ol data-mc-continue="true">
+                <li value="5">Specify requirements for object data consistency and object metadata consistency. The options are:</li>
+            </ol>
+            <div class="Indent">
+                <ul>
+                    <li value="1"><b>Strong</b> — This is the default for object data and for object metadata. Requiring strong data consistency means that when the system is processing read and write requests from S3 clients, it does so in a way that increases the likelihood that all replicas of an object (or erasure coded fragments of an object) are present in the storage layer and up-to-date, at all times. This prioritization of data consistency comes at a small cost of latency (to ensure data consistency while processing S3 read and write requests) and increased chance of S3 requests resulting in a failure response being sent back to the client (due to a temporary inability to meet consistency requirements).</li>
+                    <li value="2"><b>Eventual</b> — This is an option for object data. With eventual data consistency, the prioritization is on minimizing request processing latency and increasing the likelihood of returning a success response to read and write requests from S3 clients. The cost is a somewhat increased chance of some replicas (or fragments in the case of erasure coding) being temporarily missing or inconsistent, until such time as <a href="../../../Major Features/Automatic Data Repair/DataRepairOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot a">automatic data repair</a> occurs.</li>
+                    <li value="3"><b>Custom</b> — This option allows you to configure granular consistency requirements for read and write operations rather than using the high-level "Strong" or "Eventual" settings.</li>
+                </ul>
+            </div>
+            <div class="Indent">
+                <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />More detail on this step</a></span>
+                    <div class="MCDropDownBody dropDownBody">
+                        <p>Granular consistency level settings display when you click <b>Detail</b> or <b>Custom</b> in the "Data Consistency Level and Metadata Consistency Level" configuration interface:</p>
+                        <ul>
+                            <li value="1"><b>If you click Detail</b> the display of granular settings is view-only, and allows you to see how the high-level "Strong" and "Eventual" settings map to granular settings for read and write. For example, the first screen below is for data consistency in the context of a Replicas Within Single Datacenter data distribution scheme. We’ve clicked <b>Detail</b>, and we can see that the high-level setting "Strong" — the default setting — maps to granular settings of Read=QUORUM, Write=QUORUM, WriteNew=QUORUM (the meaning of QUORUM and other consistency levels is described further below).</li>
+                        </ul>
+                        <div class="Indent">
+                            <p>
+                                <img src="../../../Resources/Images/cmc/cluster/StoragePolicies_consistency_detail1.png" />
+                            </p>
+                        </div>
+                        <div class="Indent">
+                            <p>In this second screen shot we’re still in a <b>Detail</b> view but we’ve selected the high-level setting "Eventual" and we can see that it maps to Read=ONE, Write=ONE, WriteNew=ONE.</p>
+                            <p>
+                                <img src="../../../Resources/Images/cmc/cluster/StoragePolicies_consistency_detail2.png" />
+                            </p>
+                        </div>
+                        <ul>
+                            <li value="1"><b>If you click Custom</b> the granular settings grid becomes editable, and you can fine-tune your storage policy configuration by selecting from among the granular consistency levels that are supported for the data distribution scheme that you are using. For example for Write you could deselect the currently selected checkbox and instead select ALL. </li>
+                        </ul>
+                        <p>For descriptions of the specific granular consistency levels available to you such as ALL&#160;or QUORUM, see <a href="StoragePoliciesConsistencyLevels.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Consistency Levels Definitions</a>.</p>
+                    </div>
+                </div>
+            </div>
+            <ol data-mc-continue="true">
+                <li value="6">The final part of configuring a storage policy is selecting which user groups are allowed to use the policy. Users from the groups that you select here will see the policy as an available storage policy when they create a storage bucket. Users are required to choose a storage policy when creating a bucket.</li>
+            </ol>
+            <div class="Indent">
+                <p>To make this storage policy available to <b>all</b> user groups, do nothing in the <b>Group Visibility</b> section of the interface. Making policies available to all user groups is the default behavior.</p>
+                <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>If this storage policy is going to be the default storage policy, do not specify any groups. The default storage policy must be available to all groups.</p>
+                <p>If you want the policy to be used only by certain user groups, do the following for each group that you want the policy to be available to:</p>
+                <ol style="list-style-type: lower-alpha;">
+                    <li value="1">Use the drop-down list to select a group.</li>
+                    <li value="2">Click <b>Add</b>.</li>
+                </ol>
+                <p>The groups that you select will appear in the interface.</p>
+            </div>
+            <ol data-mc-continue="true">
+                <li value="7">Click <b>Save</b> to create the new policy in the system. The policy will then appear in your storage policy list in the CMC’s <b>Storage Policies</b> page. The new policy will initially show a status of PENDING, but if you check again a few minutes later it should have a status of ACTIVE, at which point the policy is available to users.</li>
+            </ol>
+            <p class="NoteIndent" data-mc-autonum="&lt;b&gt;Note: &lt;/b&gt;"><span class="autonumber"><span><b>Note: </b></span></span>	In the unlikely event that the new policy fails to be created in the system, in your policy list the policy will appear with status FAILED. In this case you can delete the failed policy (see <a href="StoragePoliciesDelete.htm" class="MCXref xref">Delete a Storage Policy</a>) and then try again to configure and save a new policy with your desired settings.</p>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

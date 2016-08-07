@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="CMC Interface|Analytics|Usage By Users &amp; Groups">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Create a Usage Report</title>
+        <link href="../../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../../CmcInterfaceOverview.htm">CMC Interface</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="../AnalyticsOverview.htm">Analytics</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="UsageOverview.htm">Usage By Users &amp; Groups</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Create a Usage Report</span>
+            </div>
+            <h1>Create a Usage Report</h1>
+            <p class="TopicTag" data-mc-conditions="Cloudian.HelpSysAdminOnly">[CMC Interface]</p>
+            <p data-mc-conditions="Cloudian.HelpSysAdminOnly">In the CMC’s <b>Usage By Users &amp; Group</b> page you can generate service usage reports for individual users, for user groups, and for the system as a whole.</p>
+            <p>Usage reporting complies with Amazon S3 in that data storage and data transfer activity are always attributed to the bucket owner, regardless of who owns an individual object within the bucket, or who is submitting object-related requests.</p>
+            <p>To create a usage report, choose your report filtering criteria:</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Group Name</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <ul>
+                        <li value="1">ID of the Group to report on. For a system-wide report choose "All Groups".</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />User</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <ul>
+                        <li value="1">User ID, if you want the report to be limited to a specific user’s activity.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Operation</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <ul>
+                        <li value="1"><em>Storage-Bytes</em> — this report shows number of stored bytes.</li>
+                        <li value="2"><em>Storage-Objects</em> — this report shows number of stored objects.</li>
+                        <li value="3"><em>Data Transfer-In-Bytes</em> — this report shows data upload activity.</li>
+                        <li value="4"><em>Data Transfer-Out-Bytes</em> — this report shows data download activity.</li>
+                        <li value="5"><em>All Request</em>s — this report shows HTTP PUT, GET, and DELETE activity.</li>
+                        <li value="6"><em>Get/Head Requests</em> — this report shows HTTP GET and HEAD activity. In List form this report is identical to the Data Transfer-Out-Bytes. In Graph form, Get/Head Requests graphs a request count while Data Transfer-Out-Bytes graphs number of bytes.</li>
+                        <li value="7"><em>Put/Post Requests</em> — this report shows HTTP PUT and POST activity. In List form this report is identical to the Data Transfer-In-Bytes. In Graph form, Put/Post Requests graphs a request count while Data Transfer-In-Bytes graphs number of bytes.</li>
+                        <li value="8"><em>Delete Requests</em> — this report shows HTTP DELETE activity.</li>
+                    </ul>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;" data-mc-conditions="Cloudian.HelpSysAdminOnly"><span class="autonumber"><span><b>Note &#160;</b></span></span>By default only the Storage-Bytes and Storage-Objects reports are enabled. To enable the other types of reports, you must enable the <a href="../../Cluster/Configuration Settings/ConfigurationSettingsUsage.htm#Track/Report_Usage_for_Request_Rates_and_Data_Transfer_Rates" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Track/Report Usage for Request Rates and Data Transfer Rates</a> setting on the CMC’s <b>Configuration Settings</b> page.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Report Granularity</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <ul>
+                        <li value="1"><em>Hours</em> — break the report period down into hourly intervals. Note that the report will show only hours that have completed (to the top of the hour), not the currently in-progress hour.</li>
+                        <li value="2"><em>Days</em> — break the report period down into daily intervals. Note that the report will show only days that have completed (midnight to midnight), not the currently in-progress day.</li>
+                        <li value="3"><em>Months </em>— break the report period down into monthly intervals. Not appropriate unless you’ve selected a custom Time Period that spans multiple months.</li>
+                        <li value="4"><em>Raw</em> — list every report-relevant transaction individually, with timestamp. For raw granularity, you must choose a custom Time Period that spans no more than 24 hours.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Time Period</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <ul>
+                        <li value="1"><em>Current Billing Period</em> — the current calendar month up to today’s date.</li>
+                        <li value="2"><em>Previous Billing Period</em> — the previous calendar month.</li>
+                        <li value="3"><em>Last Week</em> — the last completed calendar week (Monday to Sunday).</li>
+                        <li value="4"><em>Last Month</em> — the last completed calendar month. This is equal to Previous Billing Period.</li>
+                        <li value="5"><em>Custom Period</em> — this option opens a calendar tool in which you can specify a particular report begin date and report end date.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Region</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <ul>
+                        <li value="1">The Cloudian HyperStore service region for which to report usage activity. Choose "all" to show aggregate activity across all regions. This field displays only if your HyperStore system has multiple service regions.</li>
+                    </ul>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>"All" regions is a valid option only if you are generating a List report — not a Graph or CSV report. Multi-region Graph or CSV reports are not currently supported.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Traffic Type</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <ul>
+                        <li value="1">Choose "Normal" or "Whitelist". "Whitelist" refers to request traffic that originates from white-listed source IP addresses (traffic subject to special pricing), and is an option only if white-listing is enabled in the system. "Normal" refers to all other traffic.</li>
+                    </ul>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>The Traffic Type option does not apply to reports with Report Granularity "Raw", nor to reports with Storage-Bytes or Storage-Objects as the Operation. The Traffic Type field will not display if you choose those types of reports.</p>
+                </div>
+            </div>
+            <p>After specifying your usage report parameters, click:</p>
+            <ul>
+                <li value="1"><b>List</b> to display a traditional tabular report.</li>
+                <li value="2"><b>Graph</b> to display a graphical report.</li>
+            </ul>
+            <p class="NoteIndent" data-mc-autonum="&lt;b&gt;Note: &lt;/b&gt;"><span class="autonumber"><span><b>Note: </b></span></span>Graphs are not supported for Raw granularity reports or for reports that span multiple regions. For more on graphing functionality see Manipulating Graph Reports.</p>
+            <ul>
+                <li value="1"><b>Download CSV</b> to download a comma-separated value version of the report to your computer.</li>
+            </ul>
+            <p class="NoteIndent" data-mc-autonum="&lt;b&gt;Note: &lt;/b&gt;"><span class="autonumber"><span><b>Note: </b></span></span>	In CSV-formatted report output, all data size values are expressed in bytes (rather than KBs, MBs, or GBs).</p>
+            <h2>Manipulating Graph Reports</h2>
+            <p>When you generate a graph report you can manipulate the graph display.</p>
+            <p><a class="MCPopupThumbnailLink MCPopupThumbnailHover" href="../../../Resources/Images/cmc/analytics/UsageReports_graph.png"><img class="MCPopupThumbnail img imgImgCloudian" data-mc-width="970" data-mc-height="495" src="../../../Resources/Images/cmc/analytics/UsageReports_graph_thumb_0_60.png" tabindex="" /></a>
+            </p>
+            <p>In the small graph at the bottom of the page click and drag horizontally to create a dark grey block. You can then click and drag the edges of the block to expand or contract the time period shown in the main graph. A narrower block provides a more granular view while a wider block provides a less granular view. You can also click the block’s center and drag the block to shift the main graph to an earlier or later time interval (within the bounds of the Time Period that you selected when generating the graph).</p>
+            <p><a class="MCPopupThumbnailLink MCPopupThumbnailHover" href="../../../Resources/Images/cmc/analytics/UsageReports_graph2.png"><img class="MCPopupThumbnail img imgImgCloudian" data-mc-width="936" data-mc-height="486" src="../../../Resources/Images/cmc/analytics/UsageReports_graph2_thumb_0_60.png" tabindex="" /></a>
+            </p>
+            <p>For reports on usage for a single group, the graph will show a horizontal line that indicates the quality of service (QoS) limit for that group, for the service metric that’s the focus of the report (storage bytes, for instance). For reports on usage for a single user, two horizontal lines display in the graph — one indicating the user’s QoS limit and one indicating the user’s group’s QoS limit. You can uncheck the QoS display boxes to hide these lines.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span><b>Hiding the QoS lines</b> will be desirable if the current usage indicated by the graph is just a small fraction of the QoS limit. When QoS lines are included, the graph’s Y axis will necessarily scale up to include the QoS limit level, which can make it hard to view variation within the usage level if usage is confined to just a small portion of the Y axis. Without the QoS lines the Y axis will scale appropriately to the usage level.<br /><br />The <b>metric used on a graph’s Y-axis auto-scales</b> to units that are most appropriate for the particular quantities being conveyed. Specifically, for a given report the Y-axis may be expressed in terms of bytes, KBs, MBs, or GBs, depending on the usage level during the full 30-day graphing interval. Pay attention to the Y-axis label to see what metric is being used.<br /><br />If your <b>report is based on granular data but covers a long time period</b>, the labels on the X-axis will be less granular than the source data. For example, if you generate a report based on hourly granularity and a month-long reporting period, the X-axis labels will indicate days not hours. However, the graph content — the trend line itself — will be based on hourly data points. In a month with 30 days, 720 hourly data points (30 X 24) will go into determining and drawing the trend line. Note that if you use the click-and-drag controls (below the graph) to zoom in on a shorter period of time — such as a day or a portion of a day — then the X-axis labels will show hours rather than days.</p>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

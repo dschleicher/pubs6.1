@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Working with HyperStore Major Features|Disk Usage Balancing">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Triggering an Immediate Balance Check</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Working with HyperStore Major Features</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Disk Usage Balancing</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Triggering an Immediate Balance Check</span>
+            </div>
+            <h1>Triggering an Immediate Balance Check</h1>
+            <p>If you don’t want to wait until the next automatic check of disk usage balance (which by default occurs every 7 days for each node), you have the option of using a JMX command to immediately trigger a disk balance check on a specific node.</p>
+            <p>To trigger an immediate disk usage balance check:</p>
+            <ol>
+                <li value="1">Use <em>JConsole</em> to access the HyperStore Service’s JMX port (19082 by default) on the host for which you want the balance check to be performed.</li>
+                <li value="2">Access the <em>com.gemini.cloudian.hybrid.server.disk → VirtualNodePartitioner</em> MBean, and under "Operations" execute the "rebalance" operation.</li>
+            </ol>
+            <p>The operation will run in a background thread and may take some time to complete. If the space utilization for any disk is found to exceed the configured maximum delta (5% by default), then tokens will automatically be migrated away from the over-used disk to other disks on the same host.</p>
+            <p>&#160;</p>
+            <p><b>See Also:</b>
+            </p>
+            <ul>
+                <li value="1"><a href="DiskUsageConfigure.htm" class="MCXref xref" xrefformat="{para}">Configuring Disk Usage Balancing</a>
+                </li>
+            </ul>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

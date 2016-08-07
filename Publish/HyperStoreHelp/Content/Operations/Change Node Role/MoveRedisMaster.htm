@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Operations &amp; Maintenance|Node Operations|Changing Node Role Assignments">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Move the Redis Credentials Master or QoS Master Role</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Operations &amp; Maintenance</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Node Operations</span><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="ChangeNodeRoleOverview.htm">Changing Node Role Assignments</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Move the Redis Credentials Master or QoS Master Role</span>
+            </div>
+            <h1>Move the Redis Credentials Master or QoS Master Role</h1>
+            <p>To move the Redis Credentials master role to a current Redis Credentials slave node, or to move the Redis QoS master role to a current Redis QoS slave node, follow the steps below. At the same time, the master will become a slave.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>The system does not support moving the master role to a node that is not currently a slave.</p>
+            <ol>
+                <li value="1">Submit a Redis CLI  <em>info</em> command to the Redis slave node to which you want to move the master role. Confirm that the slave node returns the following status information:</li>
+            </ol>
+            <div class="Indent">
+                <ul>
+                    <li value="1"><em>role</em> is slave</li>
+                    <li value="2"><em>master_host</em> is the current master</li>
+                    <li value="3"><em>master_link_status</em> is up</li>
+                    <li value="4"><em>master_sync_in_progress</em> is 0</li>
+                </ul>
+                <div class="Indent">
+                    <p>When submitting the CLI command, use 6379 as the port if you plan to move the Redis Credentials master or 6380 as the port if you plan to move the Redis QoS master.</p>
+                    <p>For example, if the slave to which you want to move the Redis Credentials master role is host "jenkins-jdk8" and the current master is "cloudian-node2":</p><pre xml:space="preserve"># /opt/redis/redis-cli -h jenkins-jdk8 -p 6379 info | egrep
+"role|master_host|master_link_status|master_sync_in_progress"
+role:slave
+master_host:cloudian-node2
+master_link_status:up
+master_sync_in_progress:0</pre>
+                </div>
+            </div>
+            <ol data-mc-continue="true">
+                <li value="2">Dynamically switch the master role to the slave:</li>
+            </ol>
+            <div class="Indent">
+                <p>Log into the CMC and go to <b>Cluster → Nodes → Advanced</b>. Select Command Type "Redis Monitor Operations", then select a Cluster type (credentials or QoS) and select Command "setClusterMaster". </p>
+                <p><a class="MCPopupThumbnailLink MCPopupThumbnailHover" href="../../Resources/Images/cmc/cluster/Advanced_RedisMon_set-master.png"><img class="MCPopupThumbnail img imgImgCloudian" data-mc-width="781" data-mc-height="340" src="../../Resources/Images/cmc/cluster/Advanced_RedisMon_set-master_thumb_0_60.png" tabindex="" /></a>
+                </p>
+                <p>For "Hostname" select the host to which you want to move the Redis master role. The drop-down list will show only nodes that are currently slaves within the Cluster type that you selected.</p>
+                <p>After making your selections, click <b>Execute</b>. The chosen slave will become the master, while the master becomes a slave. The change happens immediately upon command execution.</p>
+            </div>
+            <ol data-mc-continue="true">
+                <li value="3">Make the switch of the master and slave permanent by updating your system configuration:</li>
+            </ol>
+            <div class="Indent">
+                <ol style="list-style-type: lower-alpha;">
+                    <li value="1">On the Puppet master node, launch the HyperStore installer.</li>
+                </ol>
+                <div class="Indent"><pre xml:space="preserve">[root]# cd &lt;your-installation-staging-directory&gt;
+[root]# ./cloudianInstall.sh</pre>
+                </div>
+                <ol style="list-style-type: lower-alpha;" data-mc-continue="true">
+                    <li value="2">From the installer’s main menu, select "Advanced Configuration Options". Then from the Advanced Configuration Options menu select "Change server role assignments".</li>
+                    <li value="3">From the Change Server Role Assignments menu select the option for the master that you want to move — Credentials master or QoS master.</li>
+                    <li value="4">At the prompt indicate the host to which you want to move the Redis master role. This must be the same host that you selected in Step 1.</li>
+                    <li value="5">After completing the interaction for specifying the new master host, return to the Change Server Role Assignments menu and select "Review cluster configuration". Then at the prompt confirm that you want to apply the updated configuration to the Puppet master.</li>
+                    <li value="6">Go to the installer’s main menu, then choose "Cluster Management" → "Push Configuration Settings to Cluster" and follow the prompts.</li>
+                    <li value="7">Return to the "Cluster Management" menu, then choose "Manage Services" and restart the following services:</li>
+                </ol>
+                <div class="Indent">
+                    <ul>
+                        <li value="1">The Redis service for which you’ve changed the master role (either Redis Credentials or Redis QoS)</li>
+                        <li value="2">Redis Monitor</li>
+                    </ul>
+                </div>
+            </div>
+            <ol data-mc-continue="true">
+                <li value="4">Exit the installer, then log into the CMC and go to the <a href="../../Resources/Images/cmc/cluster/ClusterInfo.png" class="MCTopicPopup MCTopicPopupHotSpot a">Cluster Information</a> page. Review the service information section to confirm that the Redis master that you moved is now where you want it to be.</li>
+            </ol>
+            <p>Now, the former Redis slave has been promoted to master and the former master has been demoted to slave.</p>
+            <p class="Important" data-mc-autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;"><span class="autonumber"><span><b>IMPORTANT: </b></span></span>	If you want to remove the demoted host (the former master that’s now a slave) from your cluster, you must first move the slave role to a different host in your cluster, so that you always have at least one slave node. See the next section below for instructions for moving a Redis Credentials slave, or the section after that for moving a Redis QoS slave.</p>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

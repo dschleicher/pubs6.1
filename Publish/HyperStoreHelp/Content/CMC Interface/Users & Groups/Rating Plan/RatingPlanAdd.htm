@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="CMC Interface|Users &amp; Groups|Rating Plan">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Add a Rating Plan</title>
+        <link href="../../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../../CmcInterfaceOverview.htm">CMC Interface</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="../UsersGroupsOverview.htm">Users &amp; Groups</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="RatingPlanOverview.htm">Rating Plan</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Add a Rating Plan</span>
+            </div>
+            <h1>Add a Rating Plan</h1>
+            <p class="TopicTag" data-mc-conditions="Cloudian.HelpSysAdminOnly">[CMC Interface]</p>
+            <p>Rating plans specify pricing for various types and levels of user activity, to facilitate billing. Through the CMC's <a href="../../../Resources/Images/cmc/users/RatingPlans.png" class="MCTopicPopup MCTopicPopupHotSpot a">Rating Plans</a> page you can create and configure new rating plans.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>HyperStore includes a pre-configured <a href="RatingPlanDefault.htm#DefaultRatingPlan" class="MCTopicPopup MCTopicPopupHotSpot a">default rating plan</a> named "Default-RP". If you wish you can <a href="RatingPlanEdit.htm">edit the contents</a> of that plan. There is also a pre-configured plan named "Whitelist-RP" which supports the HyperStore <a href="../Whitelist.htm" class="MCTopicPopup MCTopicPopupHotSpot a">whitelist feature</a>.</p>
+            <p>To create a new rating plan:</p>
+            <ol>
+                <li value="1">In the <b>Rating Plans</b> page click <b>Add Rating Plan</b>. This opens the <b>Add Rating Plan</b> panel.</li>
+            </ol>
+            <div class="Indent">
+                <p><a class="MCPopupThumbnailLink MCPopupThumbnailHover" href="../../../Resources/Images/cmc/users/AddRatingPlan.png"><img class="MCPopupThumbnail img imgImgCloudian" data-mc-width="928" data-mc-height="468" src="../../../Resources/Images/cmc/users/AddRatingPlan_thumb_0_60.png" style="mc-thumbnail-max-height: 60px;" tabindex="" /></a>
+                </p>
+            </div>
+            <ol data-mc-continue="true">
+                <li value="2">Assign the plan a unique ID, and optionally a Name.</li>
+                <li value="3">From the Currency drop-down list, choose the currency units on which the plan’s pricing structure will be based (for example, USD for U.S. dollars).</li>
+            </ol>
+            <ol data-mc-continue="true">
+                <li value="4">Specify the billing rates that will constitute the rating plan. You can specify billing rates per:</li>
+            </ol>
+            <div class="Indent">
+                <ul>
+                    <li value="1">Average GBs of data in storage during the calendar month for which the bill is calculated ("Storage-Size Rates")</li>
+                    <li value="2">GBs of data uploaded to the system. ("Data-Transfer-IN Rates")</li>
+                    <li value="3">GBs of data downloaded from the system. ("Data-Transfer-OUT Rates")</li>
+                    <li value="4">10,000 HTTP GET or HEAD requests. ("HTTP[S] GET/HEAD Rates")</li>
+                    <li value="5">10,000 HTTP PUT or POST requests. ("HTTP[S] PUT/POST Rates")</li>
+                    <li value="6">10,000 HTTP DELETE requests. ("HTTP[S] DELETE Rates")</li>
+                </ul>
+                <p class="Important" data-mc-autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;"><span class="autonumber"><span><b>IMPORTANT: </b></span></span>If you want to bill for data upload or download volume, or for HTTP request volume, you must enable the <a href="../../Cluster/Configuration Settings/ConfigurationSettingsUsage.htm#Track/Report_Usage_for_Request_Rates_and_Data_Transfer_Rates" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Track/Report Usage for Request Rates and Data Transfer Rates</a> setting on the CMC’s <b>Configuration Settings</b> page. By default this setting is disabled and the system does not maintain per-user HTTP request counts and data transfer byte counts.</p>
+                <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>	For an example of these rates applied to a user’s bill, see <a href="../../../Major Features/Billing/BillingCreateRatingPlans.htm#Example" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Example of a Rating Plan Applied to Calculate a User’s Monthly Bill</a></p>
+                <p>For each rated activity you can establish either a single-tier or multi-tier pricing structure, based on activity level.</p>
+                <p>With <b>single-tier pricing</b>, the per-unit rate charged for the activity is not impacted by the activity level; whether the activity level is low or high, the per-unit charge remains the same. The initial display for each rated activity accommodates single-tier pricing.</p>
+                <p>For example, in the screen below, for Storage-Size Rates, a single-tier pricing structure can be established by simply specifying a Rate Per GB Per Month. In this example, the rate is $2 per GB-month. That same per GB-month rate applies whether a user stores, for instance, 10 GB-month ($20 charge) or 100 GB-month ($200 charge).</p>
+                <p><a class="MCPopupThumbnailLink MCPopupThumbnailHover" href="../../../Resources/Images/cmc/users/AddRatingPlan_single-tier.png"><img class="MCPopupThumbnail img imgImgCloudian" data-mc-width="902" data-mc-height="187" src="../../../Resources/Images/cmc/users/AddRatingPlan_single-tier_thumb_0_60.png" style="mc-thumbnail-max-height: 60px;" tabindex="" /></a>
+                </p>
+                <p>To create a <b>multi-tier pricing</b> structure for a rated activity, first click on the activity type (for example, "Data-Transfer-IN Rates"). Then click <b>Add</b> once for each additional pricing tier that you want to specify, beyond a single tier. For example, in the screen below, <b>Add</b> has been clicked twice to enable a three tier pricing structure for Data-Transfer-IN Rates. In this example, the first five GB of data uploaded during the billing period are priced at $2 per GB; the next five GB are priced at $2.50 per GB; and any uploads beyond that level (above the 10 GBs encompassed by the first two tiers) are priced at $3 per GB.</p>
+                <p><a class="MCPopupThumbnailLink MCPopupThumbnailHover" href="../../../Resources/Images/cmc/users/AddRatingPlan_multi-tier.png"><img class="MCPopupThumbnail img imgImgCloudian" data-mc-width="902" data-mc-height="286" src="../../../Resources/Images/cmc/users/AddRatingPlan_multi-tier_thumb_0_60.png" style="mc-thumbnail-max-height: 60px;" tabindex="" /></a>
+                </p>
+                <p>Note that the numbers that you enter in the "Rate Per" column signify units of the currency that you chose in the upper part of the <b>Add Rating Plan</b> panel. You can use decimals if you want; for example, if your currency is dollars, you can enter ".1" in the "Rate Per" column to indicate a charge of 10 cents (.1 dollars) per unit of activity.</p>
+                <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>For HTTP request rates, the pricing is based on blocks of 10,000 requests. So for example, if you want the first 50,000 requests to be charged at a certain price per block of 10,000, then in the "Number of 10,000 Requests" field for that tier, <b>enter 5 — not 50,000</b>.</p>
+            </div>
+            <ol data-mc-continue="true">
+                <li value="5">
+                    <p>When you’re done creating the new rating plan, click <b>Save</b> at the bottom of the <b>Add Rating Plan</b> panel. The plan will then appear in the <b>Rating Plans</b> list.</p>
+                </li>
+            </ol>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

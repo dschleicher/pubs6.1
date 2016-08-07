@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="System Configuration|Configuration Files">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>mts-ui.properties.erb</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">System Configuration</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Configuration Files</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">mts-ui.properties.erb</span>
+            </div>
+            <h1>mts-ui.properties.erb</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[Configuration File]</p>
+            <p>The <em>mts-ui.properties</em> file is the primary configuration file for the Cloudian Management Console server (CMC). On your CMC nodes, the file is located at the following path by default:</p><pre>/opt/tomcat/webapps/Cloudian/WEB-INF/classes/mts-ui.properties</pre>
+            <p>On the Puppet master node, the template file for <em>mts-ui.properties</em> is <em>mts-ui.properties.erb</em>:</p><pre>/etc/cloudian-&lt;version&gt;-puppet/modules/cmc/templates/mts-ui.properties.erb</pre>
+            <p>Certain <em>mts-ui.properties.erb</em> properties take their values from settings in Puppet extdata files (most often <em>common.csv</em>) or from settings that you can control through the CMC's <a href="../../CMC Interface/Cluster/Configuration Settings/ConfigurationSettingsOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="../../CMC Interface/Cluster/Configuration Settings/ConfigurationSettingsOverview.htm" xrefformat="{para}">Configuration Settings</a> page. In the <em>mts.properties.erb</em> file these properties' values are formatted as bracket-enclosed variables, like <em>&lt;%= … %&gt;</em>.  In the property documentation below, the descriptions of such properties indicate "Takes its value from <em>&lt;location&gt;: &lt;setting&gt;</em>; use that setting instead.". For example, "Takes its value from <em>common.csv: hyperstore_data_directory</em>; use that setting instead."). Also in such cases, a link to the source setting's description is provided.</p>
+            <p class="Important" data-mc-autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;"><span class="autonumber"><span><b>IMPORTANT: </b></span></span>After making changes to <em>mts-ui.properties.erb</em> use the HyperStore installer (<em>cloudianInstall.sh</em>) on the Puppet master to propagate your changes to the cluster and to restart the CMC Service.</p>
+            <p>The <em>mts-ui.properties.erb</em> file has the settings below.</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="admin.host"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">admin.host</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Takes its value from <em>common.csv</em>: <a href="CommonCsv.htm#cmc_admin_host_ip" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="CommonCsv.htm#cmc_admin_host_ip" xrefformat="{para}">cmc_admin_host_ip</a>; use that setting instead.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="admin.port"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">admin.port</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Takes its value from <em>common.csv</em>:<a href="CommonCsv.htm#ld_cloudian_s3_admin_port" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="CommonCsv.htm#ld_cloudian_s3_admin_port" xrefformat="{para}">ld_cloudian_s3_admin_port</a>; use that setting instead.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="admin.secure.port"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">admin.secure.port</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Takes its value from <em>common.csv</em>: <a href="CommonCsv.htm#cmc_admin_secure_port" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="CommonCsv.htm#cmc_admin_secure_port" xrefformat="{para}">cmc_admin_secure_port</a>; use that setting instead.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="admin.secure.ssl"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">admin.secure.ssl</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Takes its value from <em>common.csv</em>: <a href="CommonCsv.htm#cmc_admin_secure_ssl" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="CommonCsv.htm#cmc_admin_secure_ssl" xrefformat="{para}">cmc_admin_secure_ssl</a>; use that setting instead.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="web.secure"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">web.secure</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Takes its value from <em>common.csv</em>: <a href="CommonCsv.htm#cmc_web_secure" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="CommonCsv.htm#cmc_web_secure" xrefformat="{para}">cmc_web_secure</a>; use that setting instead.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="web.secure.port"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">web.secure.port</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Takes its value from <em>common.csv</em>: <a href="CommonCsv.htm#cmc_https_port" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="CommonCsv.htm#cmc_https_port" xrefformat="{para}">cmc_https_port</a>; use that setting instead.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="web.nonsecure.port"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">web.nonsecure.port</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Takes its value from <em>common.csv</em>: <a href="CommonCsv.htm#cmc_http_port" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="CommonCsv.htm#cmc_http_port" xrefformat="{para}">cmc_http_port</a>; use that setting instead.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="storageuri.ssl.enabled"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">storageuri.ssl.enabled</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>If this is set to "true", the CMC uses HTTPS to connect to the HyperStore S3 Service (in implementing the CMC <b>Buckets &amp; Objects</b> functionality). If "false", the CMC uses regular HTTP to connect to the HyperStore S3 Service.</p>
+                    <p>Do not set this to "true" unless you have set up SSL for your HyperStore S3 Service [XREF]. By default the HyperStore S3 Service does not use SSL/HTTPS.</p>
+                    <p>Default = false</p>
+                    <p><b>If you used a CA-verified certificate to implement SSL for your HyperStore S3 Service</b>, then all that is necessary for the CMC to be able to connect to the S3 Service is for you to set <em>mts-ui.properties.erb: storageuri.ssl.enabled</em> to "true" on the Puppet master node, have Puppet push the change out to the cluster, and restart your CMC service.</p>
+                    <p>However, <b>if you used a self-signed certificate to implement SSL for your HyperStore S3 Service</b> then additional action is necessary because the AWS-SDK that the CMC uses to implement its S3 client does not by default support connecting to an S3 service that is using a self-signed SSL certificate. The full procedure is:</p>
+                    <ol>
+                        <li value="1">Set <em>mts-ui.properties.erb: storageuri.ssl.enabled</em> to "true" on the Puppet master node.</li>
+                        <li value="2">Have Puppet push the change out to the cluster.</li>
+                        <li value="3"><b>On each individual CMC node</b> use the following command to create a file <em>/opt/tomcat/bin/setenv.sh</em> with a single configuration line in it which disables certificate checking by the CMC’s S3 client:</li>
+                    </ol>
+                    <div class="Indent"><pre>echo "CATALINA_OPTS=-Dcom.amazonaws.sdk.disableCertChecking=true" &gt; /opt/tomcat/bin/setenv.sh </pre>
+                        <p>You cannot use Puppet to disseminate this configuration change; you must do it manually on each CMC node.</p>
+                    </div>
+                    <ol data-mc-continue="true">
+                        <li value="4">Restart the CMC service.</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="path.style.access"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">path.style.access</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Whether the CMC should use "path style" request formatting when submitting S3 requests to the HyperStore S3 Service. In path style S3 requests, the bucket name is part of the URI rather than being part of the Host header value.</p>
+                    <p>Options are:</p>
+                    <ul>
+                        <li value="1">true — The CMC will use path style HTTP request formatting when submitting S3 requests to the HyperStore S3 Service. The bucketname associated with the request will be in the request URI. For example:</li>
+                    </ul>
+                    <div class="Indent"><pre xml:space="preserve">PUT /bucket1/objectname HTTP/1.1
+Host: s3-region1.mycompany.com</pre>
+                    </div>
+                    <ul>
+                        <li value="1">false — The CMC will not use path style HTTP request formatting when submitting S3 requests to the HyperStore S3 Service. The bucketname associated with the request will be in the Host header. For example:</li>
+                    </ul>
+                    <div class="Indent"><pre xml:space="preserve">PUT /objectname  HTTP/1.1
+Host: bucket1.s3-region1.mycompany.com</pre>
+                        <p>With this approach (which is what Amazon S3 currently uses) your DNS environment must be configured to resolve this type of Host value. See <a href="../../Installation/Networking Preparation/DnsSetup.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="../../Installation/Networking Preparation/DnsSetup.htm" xrefformat="{para}">DNS Set-Up</a>.</p>
+                    </div>
+                    <p>Default = false</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="service.name"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">service.name</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Service name for the Cloudian HyperStore S3 storage service.</p>
+                    <p>Default = CLOUDIAN</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="application.name"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">application.name</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Takes its value from <em>common.csv</em>: <a href="CommonCsv.htm#cmc_application_name" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="CommonCsv.htm#cmc_application_name" xrefformat="{para}">cmc_application_name</a>; use that setting instead.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="s3.client.timeout"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">s3.client.timeout</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Connection timeout on requests to the S3 Service, in milliseconds.</p>
+                    <p>Default = 1800000</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="s3.upload.part.minsize"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">s3.upload.part.minsize</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>When the CMC uses Multipart Upload to transmit an object to the S3 Service, each of the parts will be this many bytes or larger — with the exception of the final part, which may be smaller. For example, if Multipart Upload is used for an 18MB object, and the configured minimum part size is 5MB, the object will be transmitted in four parts of size 5MB, 5MB, 5MB, and 3MB.</p>
+                    <p>Default = 5242880 (5MB)</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="s3.upload.part.threshold"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">s3.upload.part.threshold</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>When a CMC user uploads an object larger than this many bytes, the CMC uses Multipart Upload to transmit the object to the S3 Service, rather than PUT Object.</p>
+                    <p>Default = 16777216 (16MB)</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="query.maxrows"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">query.maxrows</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Maximum number of data rows to retrieve when processing a usage report request.</p>
+                    <p>Default = 100000</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="page.size.default_"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">
+
+page.size.default </a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>For usage report pagination, the maxium number of table rows that users can select to display on each page of a tabular report.</p>
+                    <p>Default = 100</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="graph.datapoints.max"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">
+
+graph.datapoints.max </a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Maximum number of datapoints to include within a graphical report.</p>
+                    <p>Default = 1000</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="csv.rows.max"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">csv.rows.max</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Maximum number of rows to include within a comma-separated value report.</p>
+                    <p>Default = 1000</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="fileupload.abort.max.hours"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">
+
+fileupload.abort.max.hours </a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>When a very large file is being uploaded through the CMC, the maximum number of hours for the CMC to wait for the S3 file upload operation to complete. If this maximum is reached, the upload operation is aborted.</p>
+                    <p>Default = 3</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="license.request.email"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">license.request.email</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Email address to which to send Cloudian license requests. This address is used in a request license information link in the CMC interface.</p>
+                    <p>Default = support@cloudian.com [XREF]</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="admin.auth.user"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">admin.auth.user</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Takes its value from <em>common.csv</em>: <a href="CommonCsv.htm#admin_auth_user" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="CommonCsv.htm#admin_auth_user" xrefformat="{para}">admin_auth_user</a>; use that setting instead.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="admin.auth.pass"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">admin.auth.pass</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Takes its value from <em>common.csv</em>: <a href="CommonCsv.htm#admin_auth_pass" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="CommonCsv.htm#admin_auth_pass" xrefformat="{para}">admin_auth_pass</a>; use that setting instead.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="ldap.enabled"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">ldap.enabled</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Takes its value from CMC <b>System Configuration</b> page, LDAP Authentication section[XREF]: "Enable LDAP Authentication"; use that setting instead.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="ldap.url"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">ldap.url</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Takes its value from CMC <b>System Configuration</b> page, LDAP Authentication section[XREF]: "LDAP Server URL"; use that setting instead.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="ldap.userdn"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">ldap.userdn</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Takes its value from CMC <b>System Configuration</b> page, LDAP Authentication section[XREF]: "User DN Template"; use that setting instead.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="cloudian.s3.regions"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">cloudian.s3.regions</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Takes its value from <em>common.csv</em>: <a href="CommonCsv.htm#regions" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="CommonCsv.htm#regions" xrefformat="{para}">regions</a>; use that setting instead.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="cloudian.s3.default.region"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">cloudian.s3.default.region</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Takes its value from <em>common.csv</em>: <a href="CommonCsv.htm#default_region" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="CommonCsv.htm#default_region" xrefformat="{para}">default_region</a>; use that setting instead.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="acl.grantee.public"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">acl.grantee.public</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>In the CMC UI dialogs that let CMC users specify permissions on S3 buckets, folders, or files, the label to use for the ACL grantee "public". If the <em>acl.grantee.public</em> property is not set in <em>mts-ui.properties</em>, then the system instead uses the <em>acl.grantee.public</em> value from your <em>resources_xx_XX.properties</em> files (for example, for the U.S. English version of the UI, the value is in <em>resources_en_US.properties</em>).</p>
+                    <p>Default = commented out (value is taken from resource file[s])</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="acl.grantee.cloudianUser"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">acl.grantee.cloudianUser</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>In the CMC UI dialogs that let CMC users specify permissions on S3 buckets, folders, or files, the label to use for the ACL grantee "all Cloudian HyperStore service users". If the <em>acl.grantee.cloudianUser</em> property is not set in <em>mts-ui.properties</em>, then the system instead uses the <em>acl.grantee.cloudianUser</em> value from your <em>resources_xx_XX.properties</em> files (for example, for the U.S. English version of the UI, the value is in <em>resources_en_US.properties</em>).</p>
+                    <p>Default = commented out (value is taken from resource file[s])</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="session.timedout.url"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">session.timedout.url</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>URL of page to display if a CMC user’s login session times out.</p>
+                    <p>If this value is not set in <em>mts-ui.properties</em>, the behavior defaults to displaying the CMC Login screen if the user’s session times out.</p>
+                    <p>Default = commented out (CMC Login screen displays)</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="admin.manage_users.enabled"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">admin.manage_users.enabled</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>This setting controls whether the <b>Manage Users</b> function will be enabled in the CMC GUI. For a screen shot and description of this function, see Manage Users[XREF] in the CMC Help document.</p>
+                    <p>Options are:</p>
+                    <ul>
+                        <li value="1">true — This function will display for users logged in as a system administrator or group administrator. For group admins this function is restricted to their own group.</li>
+                        <li value="2">false — This function will not display for any users. If you set this to "false" then the <b>Manage Users</b> functionality as a whole is disabled and the more granular <em>admin.manage_users.*.enabled</em> properties below are ignored.</li>
+                        <li value="3">SystemAdmin — This function will display only for users logged in as a system administrator.</li>
+                        <li value="4">GroupAdmin — This function will display only for users logged in as a group administrator.</li>
+                    </ul>
+                    <p>Default = Commented out and uses internal default of "true". To assign a different value, add an uncommented instance of the setting to <em>mts-ui.properties.erb</em>.</p>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>If you want to enable some aspects of the <b>Manage Users</b> function and not others, you can have <em>admin.manage_users.enabled</em> set so that the function is enabled for your desired user types, and then use the granular <em>admin.manage_users.*.enabled</em> properties below to enable/disable specific capabilities.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="admin.manage_users.create.enabled"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">admin.manage_users.create.enabled</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Within the <b>Manage Users</b> function in the CMC GUI, this setting enables or disables the capability to create new users.</p>
+                    <p>Options are:</p>
+                    <ul>
+                        <li value="1">true — This capability will display for users logged in as a system administrator or group administrator. For group admins this capability is restricted to their own group.</li>
+                        <li value="2">false — This capability will not display for any users.</li>
+                        <li value="3">SystemAdmin — This capability will display only for users logged in as a system administrator.</li>
+                        <li value="4">GroupAdmin — This capability will display only for users logged in as a group administrator.</li>
+                    </ul>
+                    <p>Default = Commented out and uses internal default of "true". To assign a different value, add an uncommented instance of the setting to <em>mts-ui.properties.erb</em>.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="admin.manage_users.edit.enabled"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">admin.manage_users.edit.enabled</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Within the <b>Manage Users</b> function in the CMC GUI, this setting enables or disables the capability to edit existing users' profiles and service attributes.</p>
+                    <p>Options are:</p>
+                    <ul>
+                        <li value="1">true — This capability will display for users logged in as a system administrator or group administrator. For group admins this capability is restricted to their own group.</li>
+                        <li value="2">false — This capability will not display for any users.</li>
+                        <li value="3">SystemAdmin — This capability will display only for users logged in as a system administrator.</li>
+                        <li value="4">GroupAdmin — This capability will display only for users logged in as a group administrator.</li>
+                    </ul>
+                    <p>Default = Commented out and uses internal default of "true". To assign a different value, add an uncommented instance of the setting to <em>mts-ui.properties.erb.</em></p>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>Regardless of your configuration choices, nobody but a system administrator can ever change a user’s rating plan assignment.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="admin.manage_users.delete.enabled"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">admin.manage_users.delete.enabled</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Within the <b>Manage Users</b> function in the CMC GUI, this setting enables or disables the capability to delete users.</p>
+                    <p>Options are:</p>
+                    <ul>
+                        <li value="1">true — This capability will display for users logged in as a system administrator or group administrator. For group admins this capability is restricted to their own group.</li>
+                        <li value="2">false — This capability will not display for any users.</li>
+                        <li value="3">SystemAdmin — This capability will display only for users logged in as a system administrator.</li>
+                        <li value="4">GroupAdmin — This capability will display only for users logged in as a group administrator.</li>
+                    </ul>
+                    <p>Default = Commented out and uses internal default of "true". To assign a different value, add an uncommented instance of the setting to <em>mts-ui.properties.erb.</em></p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="admin.manage_users.viewuserdata.enabled"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">admin.manage_users.viewuserdata.enabled</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Within the <b>Manage Users</b> function in the CMC GUI, this setting enables or disables the capability to access users' S3 storage buckets in order to view, add, delete, or change the properties of stored objects.</p>
+                    <p>Options are:</p>
+                    <ul>
+                        <li value="1">true — This capability will display for users logged in as a system administrator or group administrator. For group admins this capability is restricted to their own group.</li>
+                        <li value="2">false — This capability will not display for any users.</li>
+                        <li value="3">SystemAdmin — This capability will display only for users logged in as a system administrator.</li>
+                        <li value="4">GroupAdmin — This capability will display only for users logged in as a group administrator.</li>
+                    </ul>
+                    <p>Default = Commented out and uses internal default of "true". To assign a different value, add an uncommented instance of the setting to <em>mts-ui.properties.erb</em>.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="admin.manage_users.edit.user_qos.enabled"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">admin.manage_users.edit.user_qos.enabled</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Within the <b>Manage Users</b> function in the CMC GUI, this setting enables or disables the capability to set Quality of Service (QoS) controls for specific users.</p>
+                    <p>Options are:</p>
+                    <ul>
+                        <li value="1">true — This capability will display for users logged in as a system administrator or group administrator. For group admins this capability is restricted to their own group.</li>
+                        <li value="2">false — This capability will not display for any users.</li>
+                        <li value="3">SystemAdmin — This capability will display only for users logged in as a system administrator.</li>
+                        <li value="4">GroupAdmin — This capability will display only for users logged in as a group administrator.</li>
+                    </ul>
+                    <p>Default = Commented out and uses internal default of "true". To assign a different value, add an uncommented instance of the setting to <em>mts-ui.properties.erb</em>.</p>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>This setting is relevant only if the admin.manage_users.enabled[XREF] and admin.manage_users.edit.enabled[XREF]settings are enabled.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="admin.manage_groups.enabled"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">admin.manage_groups.enabled</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>This setting controls whether the <b>Manage Groups</b> function will be enabled in the CMC GUI. For a screen shot and description of this function, see Manage Groups[XREF] in the CMC Help document.</p>
+                    <p>Options are:</p>
+                    <ul>
+                        <li value="1">true — This function will display for users logged in as a system administrator or group administrator. For group admins this function is restricted to their own group.</li>
+                        <li value="2">false — This function will not display for any users. If you set this to "false" then the <b>Manage Groups</b> functionality as a whole is disabled and the more granular <em>admin.manage_groups.*.enabled</em> properties below are ignored.</li>
+                        <li value="3">SystemAdmin — This function will display only for users logged in as a system administrator.</li>
+                        <li value="4">GroupAdmin — This function will display only for users logged in as a group administrator.</li>
+                    </ul>
+                    <p>Default = Commented out and uses internal default of "true". To assign a different value, add an uncommented instance of the setting to <em>mts-ui.properties.erb</em>.</p>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>If you want to enable some aspects of the <b>Manage Groups</b> function and not others, you can have <em>admin.manage_groups.enabled</em> set so that the function is enabled for your desired user types, and then use the granular <em>admin.manage_groups.*.enabled</em> properties below to enable/disable specific capabilities.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="admin.manage_groups.create.enabled"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">admin.manage_groups.create.enabled</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Within the <b>Manage Groups</b> function in the CMC GUI, this setting enables or disables the capability to create new groups.</p>
+                    <p>Options are:</p>
+                    <ul>
+                        <li value="1">true — This capability will display for users logged in as a system administrator.</li>
+                        <li value="2">false — This capability will not display for any users.</li>
+                    </ul>
+                    <p>Default = Commented out and uses internal default of "true". To assign a different value, add an uncommented instance of the setting to <em>mts-ui.properties.erb</em>.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="admin.manage_groups.edit.enabled"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">admin.manage_groups.edit.enabled</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Within the <b>Manage Groups</b> function in the CMC GUI, this setting enables or disables the capability to edit an existing group’s profile and service attributes.</p>
+                    <p>Options are:</p>
+                    <ul>
+                        <li value="1">true — This capability will display for users logged in as a system administrator or group administrator. For group admins this capability is restricted to their own group.</li>
+                    </ul>
+                    <p class="NoteIndent" data-mc-autonum="&lt;b&gt;Note: &lt;/b&gt;"><span class="autonumber"><span><b>Note: </b></span></span>Even when this capability is enabled for group admins, they will not be able to perform certain group-related actions that are reserved for system admins, such as setting QoS controls for the group as a whole or assigning a default rating plan for the group. Group admins' privileges will be limited to changing their group description and changing the default user QoS settings for the group. The latter capability is controlled by a more granular configuration property <em>admin.manage_groups.user_qos_groups_default.enabled</em> (below), which defaults to "true".</p>
+                    <ul>
+                        <li value="1">false — This capability will not display for any users.</li>
+                        <li value="2">SystemAdmin — This capability will display only for users logged in as a system administrator.</li>
+                        <li value="3">GroupAdmin — This capability will display only for users logged in as a group administrator.</li>
+                    </ul>
+                    <p>Default = Commented out and uses internal default of "true". To assign a different value, add an uncommented instance of the setting to <em>mts-ui.properties.erb</em>.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="admin.manage_groups.delete.enabled"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">admin.manage_groups.delete.enabled</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Within the <b>Manage Groups</b> function in the CMC GUI, this setting enables or disables the capability to delete a group.</p>
+                    <p>Options are:</p>
+                    <ul>
+                        <li value="1">true — This capability will display for users logged in as a system administrator.</li>
+                        <li value="2">false — This capability will not display for any users.</li>
+                    </ul>
+                    <p>Default = Commented out and uses internal default of "true". To assign a different value, add an uncommented instance of the setting to <em>mts-ui.properties.erb</em>.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="admin.manage_groups.user_qos_groups_default.enabled"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">admin.manage_groups.user_qos_groups_default.enabled</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Within the <b>Manage Groups</b> function in the CMC GUI, this setting enables or disables the capability to set default Quality of Service (QoS) controls for users within a specific group.</p>
+                    <p>Options are:</p>
+                    <ul>
+                        <li value="1">true — This capability will display for users logged in as a system administrator or group administrator. For group admins this capability is restricted to their own group.</li>
+                        <li value="2">false — This capability will not display for any users.</li>
+                        <li value="3">SystemAdmin — This capability will display only for users logged in as a system administrator.</li>
+                        <li value="4">GroupAdmin — This capability will display only for users logged in as a group administrator.</li>
+                    </ul>
+                    <p>Default = Commented out and uses internal default of "true". To assign a different value, add an uncommented instance of the setting to <em>mts-ui.properties.erb</em>.</p>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>This setting is relevant only if the admin.manage_groups.enabled[XREF] and admin.manage_groups.edit.enabled[XREF]  settings are enabled.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="account.profile.writeable.enabled"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">account.profile.writeable.enabled</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>This setting controls whether a user can edit his or her own account profile information in the <b>Account</b> section of the CMC GUI. For user types for which this editing capability is not enabled, account profile information will be read-only. For a screen shot and description of this function, see Account Profile[XREF] in the CMC Help document.</p>
+                    <p>Options are:</p>
+                    <ul>
+                        <li value="1">true — This capability will be enabled for all user types (system administrator, group administrator, and regular user).</li>
+                        <li value="2">false — This capability will be disabled for all user types.</li>
+                        <li value="3">SystemAdmin — This capability will be enabled only for users logged in as a system administrator.</li>
+                        <li value="4">GroupAdmin — This capability will be enabled only for users logged in as a group administrator.</li>
+                        <li value="5">User — This capability will be enabled only for users logged in as a regular user.</li>
+                        <li value="6">You can also specify a comma-separated list of multiple user types for which to enable this capability — for example, "SystemAdmin,GroupAdmin".</li>
+                    </ul>
+                    <p>Default = Commented out and uses internal default of "true". To assign a different value, add an uncommented instance of the setting to <em>mts-ui.properties.erb</em>.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="account.credentials.enabled"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">account.credentials.enabled</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>This setting controls whether the <b>Security Credentials</b> function will be enabled in the CMC GUI. For a screen shot and description of this function, see Security Credentials in the CMC Help document.</p>
+                    <p>Options are:</p>
+                    <ul>
+                        <li value="1">true — This function will display for all user types (system administrator, group administrator, and regular user).</li>
+                        <li value="2">false — This function will not display for any user types. If you set this to "false" then the Security Credentials functionality as a whole is disabled and the more granular account.credentials.*.enabled properties below are ignored.</li>
+                        <li value="3">SystemAdmin — This function will display only for users logged in as a system administrator.</li>
+                        <li value="4">GroupAdmin — This function will display only for users logged in as a group administrator.</li>
+                        <li value="5">User — This function will display only for users logged in as a regular user.</li>
+                        <li value="6">You can also specify a comma-separated list of multiple user types for which to enable this function — for example, "SystemAdmin,GroupAdmin".</li>
+                    </ul>
+                    <p>Default = Commented out and uses internal default of "true". To assign a different value, add an uncommented instance of the setting to <em>mts-ui.properties.erb</em>.</p>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>	If you want to enable some aspects of the <b>Security Credentials</b> function and not others, you can have <em>account.credentials.enabled</em> set so that the function is enabled for your desired user types, and then use the granular <em>account.credentials.*.enabled</em> properties below to enable/disable specific capabilities.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="account.credentials.access.enabled"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">account.credentials.access.enabled</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Within the <b>Security Credentials</b> function in the CMC GUI, this setting enables or disables the capability of CMC users to view and change their own S3 storage access keys.</p>
+                    <p>Options are:</p>
+                    <ul>
+                        <li value="1">true — This capability will display for users logged in as a group administrator or regular user. (This capability is <b>not</b> supported for system admins since the system admin role does not have its own S3 storage account.)</li>
+                        <li value="2">false — This capability will not display for any users.</li>
+                        <li value="3">GroupAdmin — This capability will display only for users logged in as a group administrator.</li>
+                        <li value="4">User — This capability will display only for users logged in as a regular user.</li>
+                    </ul>
+                    <p>Default = Commented out and uses internal default of "true". To assign a different value, add an uncommented instance of the setting to <em>mts-ui.properties.erb</em>.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="account.credentials.signin.enabled"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">account.credentials.signin.enabled</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Within the <b>Security Credentials</b> function in the CMC GUI, this setting enables or disables the capability CMC users to change their own CMC login password.</p>
+                    <p>Options are:</p>
+                    <ul>
+                        <li value="1">true — This capability will display for all user types (system administrator, group administrator, and regular user).</li>
+                        <li value="2">false — This capability will not display for any user types.</li>
+                        <li value="3">SystemAdmin — This capability will display only for users logged in as a system administrator.</li>
+                        <li value="4">GroupAdmin — This capability will display only for users logged in as a group administrator.</li>
+                        <li value="5">User — This capability will display only for users logged in as a regular user.</li>
+                        <li value="6">You can also specify a comma-separated list of multiple user types for which to enable this capability — for example, "SystemAdmin,GroupAdmin".</li>
+                    </ul>
+                    <p>Default = Commented out and uses internal default of "true". To assign a different value, add an uncommented instance of the setting to <em>mts-ui.properties.erb.</em></p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="account.activity.enabled"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">account.activity.enabled</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>This setting controls whether the <b>Account Activity</b> function will be enabled in the CMC GUI. For a screen shot and description of this function, see Account Activity[XREF] in the CMC Help document.</p>
+                    <p>Options are:</p>
+                    <ul>
+                        <li value="1">true — This function will display for all user types (system administrator, group administrator, and regular user).</li>
+                        <li value="2">false — This function will not display for any user types.</li>
+                        <li value="3">SystemAdmin — This function will display only for users logged in as a system administrator.</li>
+                        <li value="4">GroupAdmin — This function will display only for users logged in as a group administrator.</li>
+                        <li value="5">User — This function will display only for users logged in as a regular user.</li>
+                        <li value="6">You can also specify a comma-separated list of multiple user types for which to enable this function — for example, "SystemAdmin,GroupAdmin".</li>
+                    </ul>
+                    <p>Default = Commented out and uses internal default of "true". To assign a different value, add an uncommented instance of the setting to <em>mts-ui.properties.erb</em>.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="usage.enabled"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">usage.enabled</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>This setting controls whether the <b>Report</b> function will be enabled in the CMC GUI. For a screen shot and description of this function, see Report[XREF] in the CMC Help document.</p>
+                    <p>Options are:</p>
+                    <ul>
+                        <li value="1">true — This function will display for all user types (system administrator, group administrator, and regular user).</li>
+                        <li value="2">false — This function will not display for any user types. If you set this to "false" then the <b>Report</b> functionality as a whole is disabled and the more granular <em>usage.aws.enabled</em> property below is ignored.</li>
+                        <li value="3">SystemAdmin — This function will display only for users logged in as a system administrator.</li>
+                        <li value="4">GroupAdmin — This function will display only for users logged in as a group administrator.</li>
+                        <li value="5">User — This function will display only for users logged in as a regular user.</li>
+                        <li value="6">You can also specify a comma-separated list of multiple user types for which to enable this function — for example, "SystemAdmin,GroupAdmin".</li>
+                    </ul>
+                    <p>Default = Commented out and uses internal default of "true". To assign a different value, add an uncommented instance of the setting to <em>mts-ui.properties.erb.</em></p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="usage.aws.enabled"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">usage.aws.enabled</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>This setting is not typically used and can be ignored.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="login.grouplist.enabled"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">login.grouplist.enabled</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>This setting controls whether to enable the <b>Group</b> drop-down menu in the CMC’s <b>Sign In</b> screen. The <b>Group</b> drop-down menu lists all groups registered in the HyperStore system, and when users log in they can choose their group from the list. If disabled, the drop-down menu will not display and instead users will need to enter their group name in a text input box when logging into the CMC.</p>
+                    <p>Options are true, false.</p>
+                    <p>Set this to "false" if you don’t want users to see the names of other groups that use the HyperStore service. You should also set it to "false" if there are more than 100 groups in your system. The CMC drop-down lists cannot support more than 100 items.</p>
+                    <p>Default = Commented out and uses internal default of "true". To assign a different value, add an uncommented instance of the setting to <em>mts-ui.properties.erb.</em></p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="grouplist.enabled"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">grouplist.enabled</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>This setting controls whether to use a drop-down list when selection of a group is necessary in interior parts of the CMC GUI (parts other than the login page). This is relevant only for system administrators, since only system administrators have the opportunity to choose among groups for certain features (such as user or group management). Set this to "false" to have the UI instead present a text box in which the administrator can type the group name.</p>
+                    <p>Options are true, false.</p>
+                    <p>Set this to "false" if there are more than 100 groups in your system. The CMC drop-down lists cannot support more than 100 items.</p>
+                    <p>Default = Commented out and uses internal default of "true". To assign a different value, add an uncommented instance of the setting to <em>mts-ui.properties.erb</em>.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="error.stacktrace.enabled"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">error.stacktrace.enabled</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Throughout the CMC UI, when an exception occurs and an error page is displayed to the user, include on the error page a link to a stack trace.</p>
+                    <p>Options are:</p>
+                    <ul>
+                        <li value="1">true — Stack trace links will display for all user types (system administrator, group administrator, and regular user).</li>
+                        <li value="2">false — Stack trace links will not display for any user types.</li>
+                        <li value="3">SystemAdmin — Stack trace links will display only for users logged in as a system administrator.</li>
+                        <li value="4">GroupAdmin — Stack trace links will display only for users logged in as a group administrator.</li>
+                        <li value="5">User — Stack trace links will display only for users logged in as a regular user.</li>
+                        <li value="6">You can also specify a comma-separated list of multiple user types for which to enable this feature — for example, "SystemAdmin,GroupAdmin".</li>
+                    </ul>
+                    <p>Default = false</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="admin.whitelist.enabled"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">admin.whitelist.enabled</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Takes its value from <em>common.csv</em>: <a href="CommonCsv.htm#admin_whitelist_enabled" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="CommonCsv.htm#admin_whitelist_enabled" xrefformat="{para}">admin_whitelist_enabled</a>; use that setting instead.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="sso.enabled"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">sso.enabled</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Whether to enable CMC support for single sign-on functionality, true or false. When this is set to false, if a user attempts to access the CMC via SSO, the access will be denied and an error will be written to <em>cloudian-ui.log</em>.</p>
+                    <p>Default = false</p>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>For more information on CMC SSO, see the Implementing Single Sign-On for the CMC[XREF] section of your Cloudian HyperStore S3 Compliance Guide.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="sso.shared.key"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">sso.shared.key</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Shared security key used for hash creation, when using the "auto-login with one way hash" [XREF]method of single sign-on access to the CMC.</p>
+                    <p>Default = ss0sh5r3dk3y</p>
+                    <p class="Important" data-mc-autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;"><span class="autonumber"><span><b>IMPORTANT: </b></span></span>If you enable CMC SSO functionality (using the sso.enabled[XREF] setting), then for security reasons you should <b>set a custom value for <em>sso.shared.key</em></b>. Do not leave it at its default value.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="sso.tolerance.millis"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">sso.tolerance.millis</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Maximum allowed variance between the CMC server time and the timestamp submitted in a client request invoking the "auto-login with one way hash"[XREF] method of single sign-on access to the CMC, in milliseconds. If the variance is greater than this, the request is rejected. This effectively serves as a request expiry mechanism.</p>
+                    <p>Default = 3600000</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="sso.cookie.cipher.key"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">sso.cookie.cipher.key</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Triple DES key used for cookie encryption.</p>
+                    <p>Default = 123456789012345678901234</p>
+                    <p class="Important" data-mc-autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;"><span class="autonumber"><span><b>IMPORTANT: </b></span></span>	If you enable CMC SSO functionality (using the sso.enabled[XREF] setting), then for security reasons you should <b>set a custom value for <em>sso.cookie.cipher.key</em></b>. Do not leave it at its default value.</p>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>If you change this value after CMC SSO has already been in service, end users who had used SSO previously will have on their browser a Cloudian SSO cookie that is no longer valid. If such users access the CMC after your <em>sso.cookie.cipher.key</em> change, the CMC detects the invalid cookie, deletes it, and drops a new, valid one.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="bucket.transition.enabled"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">bucket.transition.enabled</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Takes its value from CMC Configuration Settings page, Auto-Tiering section: "Enable Auto-Tiering"[XREF]; use that setting instead.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="tiering.perbucketcredentials.enabled"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">tiering.perbucketcredentials.enabled</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>If auto-tiering is enabled in the CMC UI (<em>bucket.transition.enabled</em> = true), whether the UI should allow bucket owners to specify their own Amazon Web Services credentials when configuring auto-tiering for a bucket.</p>
+                    <p>Options are:</p>
+                    <ul>
+                        <li value="1">true — The CMC’s <b>Bucket Lifecycle</b> configuration interface will include fields in which a bucket owner can enter her own AWS credentials, thereby enabling her to auto-tier to her own AWS S3 account.</li>
+                        <li value="2">false — The CMC’s <b>Bucket Lifecycle</b> configuration interface will not include fields in which a bucket owner can enter her own AWS credentials. Instead, all auto-tiering (from any bucket) will be directed to one default AWS account. Credentials for that account are specified by system administrators in the CMC’s <b>Auto-Tiering Credentials</b> page.</li>
+                    </ul>
+                    <p>Default = true</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="bucket.transition.url"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">bucket.transition.url</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Takes its value from CMC Configuration Settings page, Auto-Tiering section[XREF]: "Auto-Tiering URL"; use that setting instead.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="bucket.transitiontocloudian.enabled"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">bucket.transitiontocloudian.enabled</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>If auto-tiering is enabled in the CMC UI (<em>bucket.transition.enabled</em> = true), whether the UI should support auto-tiering to a remote HyperStore region or system rather than to Amazon.</p>
+                    <p>Options are:</p>
+                    <ul>
+                        <li value="1">true — The auto-tiering functionality in the UI will be for auto-tiering to a remote HyperStore region or system. If you’re interested in this feature, consult with Cloudian Support.</li>
+                        <li value="2">false — The auto-tiering functionality in the UI will be for auto-tiering to Amazon S3 or Amazon Glacier.</li>
+                    </ul>
+                    <p>Default = false</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="puppet.master.licensefile"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">puppet.master.licensefile</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>This setting supports the feature whereby an updated HyperStore license file can be uploaded via the CMC. Do not edit.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="puppet.master.fileupdate.location"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">puppet.master.fileupdate.location</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>This setting supports the feature whereby an updated HyperStore license file can be uploaded via the CMC. Do not edit.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="local.ssh.privateKey"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">local.ssh.privateKey</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Private key to use when the CMC connects via SSH to the Puppet master node or HyperStore nodes when implementing node management functions. The Cloudian installation script automatically populates this setting.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="local.ssh.passphrase"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">local.ssh.passphrase</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Pass phrase to use when the CMC connects via SSH to the Puppet master node or HyperStore nodes when implementing node management functions. The Cloudian installation script automatically populates this setting.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="local.temp.dir"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">local.temp.dir</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>This setting supports the feature whereby an updated HyperStore license file can be uploaded via the CMC. Do not edit.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="remote.ssh.user"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">remote.ssh.user</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>The user as which to connect via SSH to the Puppet master node or HyperStore nodes.</p>
+                    <p>Default = root</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="remote.ssh.port"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">remote.ssh.port</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>The port to which to connect via SSH to the Puppet master node or HyperStore nodes.</p>
+                    <p>Default = 22</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="uninstall.node.options"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">uninstall.node.options</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Options used by the "Uninstall Node" function on the CMC’s <b>Node Management</b> page. These options specify that HyperStore packages are to be removed from the target node as part of the uninstall process. This setting is for internal system use and should not be edited unless you first consult with Cloudian Support.</p>
+                    <p>Default = -u -r</p>
+                </div>
+            </div>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

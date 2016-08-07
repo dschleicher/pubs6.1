@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Availability for Replicated Object Reads</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <p><a name="kanchor5"></a>
+            </p>
+            <h1>Availability for Replicated Object Reads</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[Diagram]</p>
+            <p>The read scenarios in this section continue the presumptions of the write scenarios from <a href="ReplicationWriteAvailability.htm" class="MCXref xref" xrefformat="{para}">Availability for Replicated Object Writes</a>: 3X replication is being used to protect objects in a six node cluster, in a single data center. We are now trying to read the same object that was written in the preceding section: object data replicas are stored on <em>node1</em>, <em>node5</em>, and <em>node6</em>; and object metadata replicas are stored on <em>node2</em>, <em>node3</em> and <em>node5</em>.</p>
+            <p>When you configure storage policies for replication in a single DC you can choose one of three supported consistency level (CL) requirements for S3 object data reads: ALL, QUORUM, or ONE. An object data read CL of ONE is sufficient to ensure that only fresh data is returned to clients (when combined with an object metadata read CL of QUORUM or stricter), and so the following scenarios assume an object data read CL of ONE. You can separately configure CL requirements for object metadata reads, choosing from ALL or QUORUM.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>The read scenarios that follow presume that all the object data replicas and all the object metadata replicas are consistent (having the same timestamp), which is the usual condition. For information about read availability if data is inconsistent, see <a href="DataFreshness.htm" class="MCXref xref" xrefformat="{para}">Data Freshness for Replicated Object Reads</a>.</p>
+            <p>Presuming data consistency, the system behaves as shown in the diagrams that follow.</p>
+            <h2>Read Scenario: One Object Data Endpoint Is Down</h2>
+            <p>
+                <img src="../../Resources/Images/diagrams/Single-DC-Read-One-Data-Down.png" />
+            </p>
+            <h2>Read Scenario: One Object Metadata Endpoint Is Down</h2>
+            <p>
+                <img src="../../Resources/Images/diagrams/Single-DC-Read-One-Metadata-Down.png" />
+            </p>
+            <h2>Read Scenario: Two Object Data Endpoints and One Object Metadata Endpoint Are Down</h2>
+            <p>
+                <img src="../../Resources/Images/diagrams/Single-DC-Read-Two-Data-One-Metadata-Down.png" />
+            </p>
+            <p><b>See Also:</b>
+            </p>
+            <ul>
+                <li value="1"><a href="ReplicationWriteAvailability.htm" class="MCXref xref" xrefformat="{para}">Availability for Replicated Object Writes</a>
+                </li>
+                <li value="2"><a href="ErasureCodingWriteAvailability.htm" class="MCXref xref" xrefformat="{para}">Availability for Erasure Coded Object Writes</a>
+                </li>
+                <li value="3"><a href="ErasureCodingReadAvailability.htm" class="MCXref xref" xrefformat="{para}">Availability for Erasure Coded Object Reads</a>
+                </li>
+            </ul>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

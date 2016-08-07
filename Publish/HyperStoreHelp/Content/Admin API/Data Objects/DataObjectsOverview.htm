@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Admin API">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Admin API Data Objects</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../AdminApiOverview.htm">Admin API</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Admin API Data Objects</span>
+            </div>
+            <h1>Admin API Data Objects</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[Admin API Object]</p>
+            <p>This section describes data objects that are passed as request or response payloads via the HyperStore Admin API. The objects are documented in alphabetical order.</p>
+            <p>HyperStore Admin API response payloads are JSON encoded objects. Per the JSON specification (http://www.json.org), "An object is an unordered set of name/value pairs" (emphasis added). Accordingly, HyperStore Admin API clients should not expect that the ordering of attributes within a JSON-encoded response body will necessarily match the ordering of the attributes in the object’s documentation.</p>
+            <p>For POST or PUT requests that require a request payload, the request payloads must be JSON encoded as well. The documentation of these objects indicates whether each object attribute is mandatory or optional when submitted in request bodies. Note that:</p>
+            <ul>
+                <li value="1">Mandatory attributes cannot be assigned a null string nor an empty string value. They must be assigned a valid value as appropriate to the particular attribute.</li>
+                <li value="2">Some optional attributes have a default value, as indicated in the documentation. For optional attributes that have a default value:<ul style="list-style-type: circle;"><li value="1">On PUTs the default is used if the attribute is empty in the PUT request body.</li><li value="2">On POSTs the existing value in the system (from a prior PUT of the object) is retained if the attribute is empty in the POST request body.</li></ul></li>
+            </ul>
+            <h2>Data Types</h2>
+            <p>These are the standard data types used by the HyperStore Admin API:</p>
+            <table style="border-collapse: separate;border-top-left-radius: 0px;border-top-right-radius: 0px;border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;width: 100%;">
+                <col style="width: 115px;" />
+                <col style="width: 468px;" />
+                <thead>
+                    <tr>
+                        <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Type</th>
+                        <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">boolean</td>
+                        <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;">Lower case literals<em> true</em> or <em>false</em>.</td>
+                    </tr>
+                    <tr>
+                        <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">number</td>
+                        <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;">A numeric value.</td>
+                    </tr>
+                    <tr>
+                        <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">string</td>
+                        <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;">Unicode characters. Note that within JSON objects (if you are constructing a JSON object to submit in a request body) strings must be enclosed with double-quotes (for example "host1").</td>
+                    </tr>
+                    <tr>
+                        <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;text-align: center;">null</td>
+                        <td style="padding-left: 4px;padding-right: 4px;padding-top: 4px;padding-bottom: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;text-align: left;">An empty value signified by the literal null.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>The Admin API also utilizes certain custom data types that are built on the standard types. Custom types are described in the documentation of the data objects in which the custom types appear.</p>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

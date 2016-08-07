@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="CMC Interface|Buckets &amp; Objects|Buckets|Set Bucket Properties">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Set Custom S3 Permissions on a Bucket</title>
+        <link href="../../../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../../../CmcInterfaceOverview.htm">CMC Interface</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="../../BucketsObjectsOverview.htm">Buckets &amp; Objects</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="../BucketsOverview.htm">Buckets</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Set Custom S3 Permissions on a Bucket</span>
+            </div>
+            <h1>Set Custom S3 Permissions on a Bucket</h1>
+            <p class="TopicTag" data-mc-conditions="Cloudian.HelpSysAdminOnly">[CMC Interface]</p>
+            <p>To choose who you want to be able to access your bucket using S3 protocol applications, and which specific permissions you want to give them, select the <b>Bucket Permissions</b> tab of the CMC's bucket properties interface. (This is the tab that displays by default.)</p>
+            <p><a class="MCPopupThumbnailLink MCPopupThumbnailHover" href="../../../../Resources/Images/cmc/buckets/BucketProperties_permissions.png"><img class="MCPopupThumbnail img imgImgCloudian" data-mc-width="913" data-mc-height="343" src="../../../../Resources/Images/cmc/buckets/BucketProperties_permissions_thumb_0_60.png" tabindex="" /></a>
+            </p>
+            <ol>
+                <li value="1">Select the S3 permissions to grant to the <b>public at large</b> (the "Public" row). Supported permission types are:</li>
+            </ol>
+            <div class="Indent">
+                <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Readable</a></span>
+                    <div class="MCDropDownBody dropDownBody">
+                        <p>Grantee can view a list of the bucket’s contents. This enables only a list view; it does not enable opening or downloading of individual files. (To allow read permissions on individual files, see <a href="../../Objects/Set Object Properties/ObjectPropertiesOverview.htm" class="MCXref xref">Set File Properties</a>.)</p>
+                    </div>
+                </div>
+                <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Writable</a></span>
+                    <div class="MCDropDownBody dropDownBody">
+                        <p>Grantee can upload objects to the bucket, replace existing objects in the bucket, and delete objects from the bucket.</p>
+                    </div>
+                </div>
+                <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />ACP Readable</a></span>
+                    <div class="MCDropDownBody dropDownBody">
+                        <p>Grantee can view the current permission settings for the bucket.</p>
+                    </div>
+                </div>
+                <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />ACP Writable</a></span>
+                    <div class="MCDropDownBody dropDownBody">
+                        <p>Grantee can change the permission settings for the bucket.</p>
+                    </div>
+                </div>
+            </div>
+            <ol data-mc-continue="true">
+                <li value="2">Select the S3 permissions to grant to <b>all users of the Cloudian HyperStore service</b> (the "Cloudian User" row). The supported permission types are the same as described in Step 1.</li>
+                <li value="3">If you want the HyperStore system to be able to store the bucket’s server access logs in the bucket, give the "Log Delivery" user Writable permission.</li>
+                <li value="4">If you want to grant S3 permissions to <b>specific users of the Cloudian HyperStore service</b>:</li>
+            </ol>
+            <div class="Indent">
+                <ol style="list-style-type: lower-alpha;">
+                    <li value="1">Click <b>Add New</b>. A new grantee row will display. </li>
+                    <li value="2">Specify the grantee by &lt;groupID&gt;|&lt;userID&gt;, with the vertical bar separator between groupID and userID. For example, "sales|kurihara123". (Do not include the quote marks.) </li>
+                </ol>
+                <p class="NoteIndent" data-mc-autonum="&lt;b&gt;Note: &lt;/b&gt;"><span class="autonumber"><span><b>Note: </b></span></span>The CMC does not validate the user IDs that you enter. If you enter a user ID that does not belong to an active Cloudian HyperStore user, your action will have no effect. <br /><br />If you want to grant permissions to <b>all members of a particular Cloudian HyperStore user group</b>, specify the grantee as &lt;groudID&gt;|. For example "sales|". (Do not include the quote marks.) </p>
+                <ol style="list-style-type: lower-alpha;" data-mc-continue="true">
+                    <li value="3">Select the S3 permissions to give the grantee. The supported permission types are the same as described in Step 1.</li>
+                </ol>
+            </div>
+            <ol data-mc-continue="true">
+                <li value="5">Click <b>Save</b>.</li>
+            </ol>
+            <p>If you add a specific Cloudian HyperStore user as a grantee, and then later want to remove that grantee, click the <b>Delete</b> button for that grantee, then click <b>Save</b>. </p>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

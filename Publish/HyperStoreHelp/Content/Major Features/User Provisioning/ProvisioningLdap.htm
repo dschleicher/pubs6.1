@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Working with HyperStore Major Features|User Provisioning">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Integrating with an LDAP System</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Working with HyperStore Major Features</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">User Provisioning</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Integrating with an LDAP System</span>
+            </div>
+            <h1>Integrating with an LDAP System</h1>
+            <p>HyperStore supports integrating with your existing LDAP system so that users can log into the CMC with their LDAP-based login credentials. This feature is disabled by default but can be easily enabled and configured through the CMC.</p>
+            <p>The HyperStore feature for integrating with LDAP requires that in your LDAP schema the Distiguished Name (DN) for each user who will be logging into the CMC includes a <b>uid</b> attribute (login ID) and an <b>ou</b> attribute (organization unit).</p>
+            <p>When integration with LDAP is enabled and configured, the HyperStore system behaves as follows:</p>
+            <ul>
+                <li value="1">Users who are in your LDAP system, and who are in organization units that you want to allow access to HyperStore, can log into the CMC using their LDAP-based login ID and password.</li>
+                <li value="2">When such a user first logs into the CMC, the CMC automatically provisions the user as a HyperStore system user. This includes automatic creation of security keys for accessing the HyperStore S3 data store. Within HyperStore, the user’s profile initially consists only of a login ID (which matches the user’s "uid" value from LDAP) and user group name. If desired, the user or an administrator can through the CMC add more profile information such as full name or contact information. The user cannot change their login password through the CMC; rather, the operative login passwords are controlled exclusively through your LDAP system.</li>
+                <li value="3">Every time such an auto-provisioned user subsequently logs into the CMC, the CMC authenticates the user against your LDAP system.</li>
+                <li value="4">With the exception of system administrators, <b>users who are not in your LDAP system will not be allowed to log into the CMC</b>.</li>
+                <li value="5">If you have <b>existing HyperStore users that you’ve created through the CMC</b>, and then you enable LDAP authentication, the already existing HyperStore users <b>will no longer be able to log into the CMC</b>. They can, however, continue to access the HyperStore S3 service with S3 client applications other than the CMC (that is, their S3 credentials will still be valid). Also, if you subsequently disable LDAP authentication, then those pre-existing users can once again log into the CMC.</li>
+            </ul>
+            <p class="NoteIndent" data-mc-autonum="&lt;b&gt;Note: &lt;/b&gt;"><span class="autonumber"><span><b>Note: </b></span></span>	If you have a migration situation where you’ve got existing users in HyperStore and then you want to switch to LDAP authentication, consult with Cloudian Support.</p>
+            <p>Under no circumstances does the CMC try to write to your LDAP server — it only reads from it, for the purpose of authenticating users.</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Enabling and Configuring LDAP Integration</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>To enable and configure HyperStore’s LDAP integration feature:</p>
+                    <ol>
+                        <li value="1">Log into the CMC, go to <b>Cluster → Cluster Config → Configuration Settings</b>, and open the "LDAP Authentication Settings" panel.</li>
+                        <li value="2">Edit these settings, then <b>Save</b> your changes:</li>
+                    </ol>
+                    <div class="Indent">
+                        <ul>
+                            <li value="1">"Enable LDAP Authentication" — Set this to Enabled.</li>
+                            <li value="2">"LDAP Server URL" — Set this to the URL that the CMC should use to access your LDAP Server when authenticating users. For example:</li>
+                        </ul>
+                        <div class="Indent"><pre>ldap://my.ldap.server:389</pre>
+                            <p>Or for another example:</p><pre>ldap://my.ldap.server:389/o=MyCompany</pre>
+                        </div>
+                        <ul>
+                            <li value="1">"User DN Template" — Set this to the DN (Distinguished Name) template by which users are uniquely identified in your LDAP system. This template specification must include the DN attribute "uid" set to equal the exact literal string "{userId}" and the DN attribute "ou" set to equal the exact literal string "{groupId}". For example:</li>
+                        </ul>
+                        <div class="Indent"><pre>uid={userId}, ou={groupId}, dc=my-company, dc=com</pre>
+                            <p>Or for another example:</p><pre>uid={userId}, ou={groupId}, dc=my-organization, dc=org</pre>
+                        </div>
+                        <div class="Indent">
+                            <p>Note that you set the "uid" and "ou" attributes to the required string, but customize the "dc" attributes to values appropriate for your particular organization.</p>
+                        </div>
+                    </div>
+                    <ol data-mc-continue="true">
+                        <li value="3">Still in the CMC, go to <b>Users &amp; Groups → Manage Groups</b>.</li>
+                        <li value="4">Use the <b>New Group</b> function to add to the CMC each LDAP-based user group that you want to grant access to the HyperStore system. For each group you will specify two types of group name:</li>
+                    </ol>
+                    <div class="Indent">
+                        <ul>
+                            <li value="1">The "LDAP Org Unit" name for the group. This must exactly match the group’s "ou" name in your LDAP system.</li>
+                            <li value="2">A "Group Name" for the group in HyperStore. HyperStore group names only allow letters, numbers, dashes, and underscores. If for example you have a group whose "ou" value in LDAP is "Marketing", then you would set that as the LDAP Org Unit value in the CMC and you can also use it as the Group Name in HyperStore. However if the group’s "ou" name in LDAP is for example "U.S. Marketing", then you would set the LDAP Org Unit value to "U.S. Marketing" but you will need to set a HyperStore Group Name that meets the character restrictions, such as "US_Marketing". This latter name is what users will see when they choose from the drop-down list of supported groups when logging into the CMC.</li>
+                        </ul>
+                        <p class="Important" data-mc-autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;"><span class="autonumber"><span><b>IMPORTANT: </b></span></span>Of all the users in your LDAP system, only those in groups that you set up in the CMC will be allowed to log into the CMC. For example, if in the CMC you create only the groups "Marketing", "Sales", "Development", and "Support", a user whose only "ou" association in your LDAP system is "Accounting" will not be able to log into the CMC.</p>
+                    </div>
+                    <p>Once you have enabled and configured LDAP authentication in the CMC’s <b>Configuration Settings</b> page and added the desired groups through the CMC’s <b>Manage Groups</b> page, you are done with setting up HyperStore LDAP integration.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Creating Group Administrators When LDAP Integration Is Enabled</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>To create a group administrator in CMC when your HyperStore system is using LDAP integration, have the user log into the CMC using their LDAP credentials. Once this occurs and the CMC automatically provisions the user, you can subsequently edit the user’s profile (using the CMC’s user edit function) to promote them to the group admin role.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Deleting Users from the CMC and/or LDAP</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>After you’ve enabled LDAP integration and have been using this feature, the HyperStore system behaves in the following way in respect to users being deleted from the CMC and/or LDAP:</p>
+                    <ul>
+                        <li value="1">If you delete a user from the CMC but that user still exists in LDAP, the user will be able to log in to the CMC as if they were a first-time user and the CMC will auto-provision the user once again. If you want to prevent a user from accessing the CMC and HyperStore, but the user still exists in LDAP, the thing to do is to <b>deactivate</b> the user in the CMC (through the CMC’s user edit function), rather than deleting them. This will prevent the user from logging into the CMC or accessing HyperStore storage, even though they still exist in LDAP.</li>
+                        <li value="2">If you delete a user from LDAP but do not delete them from the CMC, the user will not be able to log into the CMC. However, they still have valid S3 credentials and can access the HyperStore storage layer through a different S3 client (if your enterprise uses S3 clients other than the CMC). If you want a user who you’ve deleted from LDAP to not have access to the HyperStore S3 system, you should delete them from CMC also (which prevents access and also deletes the user’s stored data) or else deactivate them in the CMC (which prevents access but leaves their stored data in place).</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Disabling LDAP Integration After Having Used It</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>If you use LDAP integration for some period of time, and during that time LDAP-based users logged into and were auto-provisioned into the HyperStore system, and then for some reason you subsequently disable LDAP integration — those auto-provisioned users will no longer be able to log into the CMC. This is because the login passwords that the CMC stores in association with those auto-provisioned accounts are system-generated random strings that are simply used as placeholders in the CMC’s user data schema. While LDAP integration is enabled, the users' true, operative passwords are those stored in your LDAP system.</p>
+                    <p>In the "use LDAP for a while, then disable it" scenario, the auto-provisioned accounts still exist in the CMC, and the random string passwords become the operative passwords (since the CMC is now using its standard authentication mechanism rather than authenticating against your LDAP system). Because users do not know these passwords, they cannot log into the CMC.</p>
+                    <p>As a system administrator you can remedy this situation by using the CMC’s edit user function to create new passwords for such users, and then informing the affected users of their new passwords. They will then be able to log into the CMC once again.</p>
+                </div>
+            </div>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

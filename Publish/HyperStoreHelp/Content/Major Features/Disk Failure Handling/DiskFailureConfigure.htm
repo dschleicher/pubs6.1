@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Working with HyperStore Major Features|Disk Failure Handling">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Configuring Disk Failure Handling</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Working with HyperStore Major Features</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Disk Failure Handling</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Configuring Disk Failure Handling</span>
+            </div>
+            <h1>Configuring Disk Failure Handling</h1>
+            <p>Several aspects of the HyperStore automated disk failure handling feature are configurable.</p>
+            <p>In the CMC page <b>Cluster → Cluster Config → Configuration Settings</b>, in the <a href="../../CMC Interface/Cluster/Configuration Settings/ConfigurationSettingsSystem.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="../../CMC Interface/Cluster/Configuration Settings/ConfigurationSettingsSystem.htm" xrefformat="{para}">System Settings</a> section, you can choose a "HyperStore Disk Failure Action". This is the automated action for the system to take in the event of a detected disk failure, and the options are "Disable Disk and Move Its Tokens" or "Disable Disk But Don’t Move Tokens", as described in the feature overview above. The default is "Disable Disk and Move Its Tokens". If you change this setting in the <b>Configuration Settings</b> page, your change is dynamically applied to the cluster — no service restart is necessary.</p>
+            <p>Additional settings are available in <em>hyperstore-server.properties.erb</em> on your Puppet master node. These include settings for establishing an error rate threshold for disk-related errors in the HyperStore Service application log (which if exceeded for a given disk will result in the automatic triggering of the Disk Failure Action):</p>
+            <ul>
+                <li value="1"><a href="../../System Configuration/Configuration Files/HyperstoreServerProperties.htm#disk.fail.error.count.threshold" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="../../System Configuration/Configuration Files/HyperstoreServerProperties.htm#disk.fail.error.count.threshold" xrefformat="{para}">disk.fail.error.count.threshold</a>
+                </li>
+                <li value="2"><a href="../../System Configuration/Configuration Files/HyperstoreServerProperties.htm#disk.fail.error.time.threshold" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="../../System Configuration/Configuration Files/HyperstoreServerProperties.htm#disk.fail.error.time.threshold" xrefformat="{para}">disk.fail.error.time.threshold</a>
+                </li>
+            </ul>
+            <p>By default the threshold is 10 errors in the space of 5 minutes, for a particular disk.</p>
+            <p>Also in <em>hyperstore-server.properties.erb</em> is this setting for the interval at which to conduct the proactive disk drive audit:</p>
+            <ul>
+                <li value="1"><a href="../../System Configuration/Configuration Files/HyperstoreServerProperties.htm#disk.audit.interval" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="../../System Configuration/Configuration Files/HyperstoreServerProperties.htm#disk.audit.interval" xrefformat="{para}">disk.audit.interval</a>
+                </li>
+            </ul>
+            <p>By default the proactive audit occurs hourly.</p>
+            <p>After editing any of these <em>hyperstore-server.properties.erb</em> settings, do the following to apply your change to the cluster:</p>
+            <ol>
+                <li value="1">Launch the HyperStore installer:</li>
+            </ol>
+            <div class="Indent"><pre>root# &lt;installation-staging-directory&gt;/cloudianInstall.sh</pre>
+            </div>
+            <ol data-mc-continue="true">
+                <li value="2">From the installer’s main menu, select "Cluster Management". Then from the "Cluster Management" menu select "Push Configuration Settings to Cluster" and follow the prompts.</li>
+                <li value="3">From the "Cluster Management" menu, select "Manage Services". Then from the "Service Management" menu, restart the HyperStore Service.</li>
+            </ol>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

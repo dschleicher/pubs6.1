@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="CMC Interface|Cluster|Alert Rules">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>View Pre-Configured Alert Rules</title>
+        <link href="../../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../../CmcInterfaceOverview.htm">CMC Interface</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="../ClusterOverview.htm">Cluster</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="AlertRulesOverview.htm">Alert Rules</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">View Pre-Configured Alert Rules</span>
+            </div>
+            <h1>View Pre-Configured Alert Rules</h1>
+            <p class="TopicTag" data-mc-conditions="Cloudian.HelpSysAdminOnly">[CMC Interface]</p>
+            <p>The HyperStore system comes with a set of pre-configured alert rules. The pre-configured alert rules are listed in the <b>Rules</b> section of the <b><a href="../../../Resources/Images/cmc/cluster/AlertRules.png" class="MCTopicPopup MCTopicPopupHotSpot a">Alert Rules</a></b> page. These pre-configured rules trigger node alerts if any of the following occur on a HyperStore node:</p>
+            <ul>
+                <li value="1">CPU utilization on a node exceeds 90%</li>
+                <li value="2">Disk read/write error detected</li>
+                <li value="3">Aggregate available disk space on a node falls below 10% of capacity (only disks used for Cassandra or HyperStore data directories are counted)</li>
+                <li value="4">Available space on an individual disk falls below 15% of capacity</li>
+                <li value="5">A data repair operation has completed.</li>
+                <li value="6">A service goes down on a node on which the service is supposed to be running.</li>
+                <li value="7">An ERROR level message has been written to a service log.</li>
+            </ul>
+            <p>For the "service down" events, pre-configured alert rules are in place for each of the major services (Admin, Cassandra, HyperStore, Redis Credentials, Redis QoS, Redis Monitor, and S3). For the "ERROR in log" events, preconfigured rules are in place for all services except for the Redis Monitor.</p>
+            <p>If any of the system events covered by these pre-configured rules occur, an email is sent to your <a href="../Configuration Settings/ConfigurationSettingsSMTP.htm" class="MCTopicPopup MCTopicPopupHotSpot a">default system administrator email address(es)</a> and an event entry displays in the <a href="../Node Status/NodeStatusOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Node Status</a> page and also in the <a href="../../Alerts/AlertsOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Alerts</a> page.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>	For more information about alerts, see <a href="AlertRulesImplementation.htm" class="MCXref xref">How HyperStore Implements Alerts</a>.</p>
+            <p>Optionally you can <a href="AlertRulesEdit.htm">edit</a> any of these pre-configured alert rules, or <a href="AlertRulesDisable.htm">disable</a> them, or <a href="AlertRulesDelete.htm">delete</a> them.</p>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

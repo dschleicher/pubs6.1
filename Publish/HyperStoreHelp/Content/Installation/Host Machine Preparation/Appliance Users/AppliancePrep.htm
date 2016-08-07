@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Installing HyperStore|Host Machine Preparation|Appliance Users">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Installing CentOS from the HyperStore ISO File</title>
+        <link href="../../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../../InstallationOverview.htm">Installing HyperStore</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="../HostMachineOverview.htm">Host Machine Preparation</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Appliance Users</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Installing CentOS from the HyperStore ISO File</span>
+            </div>
+            <h1>Installing CentOS from the HyperStore ISO File</h1>
+            <p>The HyperStore Appliance ISO is intended for use with any HyperStore Appliance server hardware model. These machines have at least 32GB of RAM and at least 10 disks.</p>
+            <p class="Important" data-mc-autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;"><span class="autonumber"><span><b>IMPORTANT: </b></span></span>	If for evaluation purposes you are using the ISO file to install HyperStore on a host other than a HyperStore appliance machine, the host should preferably have at least 16GB of RAM, at least 1GB of hard drive space, and at least 8 processor cores. At bare minimum the host must have at least 2GB RAM and 100MB hard drive space or else the installation will abort.</p>
+            <p>This section describes how to install and configure CentOS 6.7 from the HyperStore ISO file.</p>
+            <ol>
+                <li value="1">Burn the HyperStore ISO file on a CD or DVD.</li>
+            </ol>
+            <div class="Indent">
+                <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />More detail on this step</a></span>
+                    <div class="MCDropDownBody dropDownBody">
+                        <p>When burning the ISO file on a CD&#160;or DVD be sure to use a "burn image" operation, not a simple copy operation.</p>
+                    </div>
+                </div>
+            </div>
+            <ol data-mc-continue="true">
+                <li value="2">Have the host machine boot from the ISO CD or DVD.</li>
+            </ol>
+            <div class="Indent">
+                <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />More detail on this step</a></span>
+                    <div class="MCDropDownBody dropDownBody">
+                        <ol style="list-style-type: lower-alpha;">
+                            <li value="1">Insert the CD or DVD into the host machine.</li>
+                            <li value="2">Start the host machine (or restart it if it’s already running) and use your hardware-specific hot key to enter the BIOS setup utility.</li>
+                            <li value="3">Use the BIOS setup utility to change the machine’s boot order so that it boots first from the CD/DVD drive. When you save your changes, the machine will restart and boot from the ISO file. After a few moments, the CentOS Installer welcome screen will briefly appear.</li>
+                            <li value="4">Select the first option in the welcome menu, "Install or upgrade an existing system", and press enter. If you do not make a selection within 5 seconds, the "Install or upgrade an existing system" option automatically executes. The console will display progress information as the packages are installed. There will be a pause for a couple minutes after the last package is installed, and then post-installation scripts will run. Altogether the system installation will typically take less than 10 minutes to complete.</li>
+                            <li value="5">After the install has completed, the CD/DVD tray ejects and the system begins to reboot. Remove the CD/DVD from the tray when it ejects so that the machine does not boot from the CD/DVD again.</li>
+                        </ol>
+                        <p>CentOS 6.7 and HyperStore prerequisites are now installed on the host, and the HyperStore binaries and host set-up tool have been placed on the host.</p>
+                    </div>
+                </div>
+            </div>
+            <ol data-mc-continue="true">
+                <li value="3">After CentOS installs and reboots, at the login prompt log in with user "root" and password "password".</li>
+            </ol>
+            <div class="Indent">
+                <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />More detail on this step</a></span>
+                    <div class="MCDropDownBody dropDownBody">
+                        <p>When the host reboots, an OS login prompt displays. The login prompt text includes <em>cloudian-node1</em> which is the default hostname (you will be given an opportunity to change the hostname later in this procedure).</p>
+                        <p>For your first login, use "root" as the login user and "password" as the password. You will change the password later in this procedure.</p>
+                    </div>
+                </div>
+            </div>
+            <ol data-mc-continue="true">
+                <li value="4">Launch the following script and follow the prompts to change the root user’s password, set the correct time zone, configure basic network settings, and format disks and mount points:</li>
+            </ol>
+            <div class="Indent"><pre>root# configure_appliance.sh</pre>
+            </div>
+            <div class="Indent">
+                <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />More detail on this step</a></span>
+                    <div class="MCDropDownBody dropDownBody">
+                        <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>The <em>configure_appliance.sh</em> script is located under <em>/root/CloudianTools</em> but you do not need to be in that directory to invoke the script.</p>
+                        <p>On launch the script displays a task menu for setting up the host:</p>
+                        <p><a class="MCPopupThumbnailLink MCPopupThumbnailPopup" href="../../../Resources/Images/installation/ConfigureApplianceMenu.png"><img class="MCPopupThumbnail img" data-mc-width="566" data-mc-height="261" src="../../../Resources/Images/installation/ConfigureApplianceMenu_thumb_0_60.png" style="mc-thumbnail: popup;mc-thumbnail-max-height: 60px;" tabindex="" /></a>
+                        </p>
+                        <ol style="list-style-type: lower-alpha;">
+                            <li value="1">At the "Choice" prompt enter 1 then proceed through the task of changing the root user’s password on the host. <b>For system security it’s important not to leave the root password at its default</b> (which is "password").</li>
+                            <li value="2">After changing the root password, back at the main task menu enter 2 then proceed through the task of setting the appropriate local timezone for the host.</li>
+                            <li value="3">After setting the correct timezone, back at the main task menu enter 3 to configure network settings for the host machine. The interactive script will ask you to provide the information below.</li>
+                        </ol>
+                        <table style="width: 100%;border-collapse: separate;border-top-left-radius: 0px;border-top-right-radius: 0px;border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">
+                            <col style="width: 166px;" />
+                            <col />
+                            <thead>
+                                <tr>
+                                    <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">Item</th>
+                                    <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Hostname</td>
+                                    <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Hostname of the machine. Do not use capital letters in the hostname, and do not use localhost as the hostname. </td>
+                                </tr>
+                                <tr>
+                                    <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Network Interface</td>
+                                    <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Network interface device to which these configurations will be applied; for example, "eth0".</td>
+                                </tr>
+                                <tr>
+                                    <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">IP Address</td>
+                                    <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">IP (v4) address of the network interface being configured. This must be a static IP address (not DHCP). Do not use the loopback address (127.0.0.1). Do not use IPv6.</td>
+                                </tr>
+                                <tr>
+                                    <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Netmask</td>
+                                    <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Netmask for the subnet in which this host machine will be deployed.</td>
+                                </tr>
+                                <tr>
+                                    <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Default Gateway</td>
+                                    <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">IP address of the default gateway device for the subnet in which this host machine will be deployed.</td>
+                                </tr>
+                                <tr>
+                                    <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Primary DNS server</td>
+                                    <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">IP address of the DNS server that this host will use.</td>
+                                </tr>
+                                <tr>
+                                    <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Secondary DNS server</td>
+                                    <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">IP address of the secondary DNS server that this host will use, if any.</td>
+                                </tr>
+                                <tr>
+                                    <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Domain</td>
+                                    <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">
+                                        <p>
+
+    Domain to which this host will belong. This is the fully qualified domain name (FQDN) of the host, minus the hostname segment. For example:
+
+        </p>
+                                        <ul>
+                                            <li value="1">If the host’s hostname is <em>hyperstore1</em> and its FQDN will be <em>hyperstore1.enterprise.com</em>, then specify <em>enterprise.com</em> as the domain.
+
+        </li>
+                                            <li value="2">If the host’s hostname is <em>hyperstore1</em> and its FQDN will be <em>hyperstore1.west.enterprise.com</em>, then specify <em>west.enterprise.com</em> as the domain.
+</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <ol style="list-style-type: lower-alpha;" data-mc-continue="true">
+                            <li value="4">After configuring network settings, back at the main task menu enter 4 to format and mount the available disks. The script will automatically configure and mount available disks as <em>ext4</em> file systems, for storage of HyperStore S3 objects. The mount points will be named as <em>/cloudian1</em>,<em> /cloudian2</em>, and so on. Console output will inform you of the progress for each disk as the script creates a partition, creates an <em>ext4</em> file system, and mounts the file system.</li>
+                        </ol>
+                        <p class="ImportantIndent" data-mc-autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;"><span class="autonumber"><span><b>IMPORTANT: </b></span></span>Before formatting the available disks on the host, the script will delete any existing partitions and data on the disks.</p>
+                        <p class="NoteIndent" data-mc-autonum="&lt;b&gt;Note: &lt;/b&gt;"><span class="autonumber"><span><b>Note: </b></span></span>If the host machine has <b>10 or more hard drives</b>, then during the ISO install the two smallest hard drives were mirrored and used for the OS. Those drives will also store Cassandra data, Cassandra commit logs, and Redis data. The rest of the drives are considered available for the <em>configure_appliance.sh</em> script to mount as <em>ext4</em> file systems for S3 object storage. <br /><br />If the host machine has <b>fewer than 10 hard drives</b>, then during the ISO install the smallest hard drive was used for the OS. That drive will also store Cassandra data, Cassandra commit logs, and Redis data. The rest of the drives are considered available for the <em>configure_appliance.sh</em> script to mount as <em>ext4</em> file systems for S3 object storage.</p>
+                        <div class="Indent">
+                            <p>As the script completes the file system setup, it generates a file <em>/root/CloudianTools/fslist.txt</em> that lists the host’s disk drives and corresponding file system mount points. The <em>fslist.txt</em> file will later be used by the HyperStore software installation script to automatically set related HyperStore configuration values.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ol data-mc-continue="true">
+                <li value="5">Reboot the host. </li>
+            </ol>
+            <div class="Indent">
+                <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />More detail on this step</a></span>
+                    <div class="MCDropDownBody dropDownBody">
+                        <p>Rebooting is mandatory in order to apply the network configuration settings that you specified. You can reboot the host by entering number 5 at the <em>configure_appliance.sh</em> main menu.</p>
+                    </div>
+                </div>
+            </div>
+            <ol data-mc-continue="true">
+                <li value="6">Complete Steps 2 through 5 for each additional host in your installation cluster. You can use the same HyperStore ISO CD or DVD for each host.</li>
+            </ol>
+            <p>After completing this appliance host preparation process you can proceed to <a href="../../Networking Preparation/NetworkingOverview.htm" class="MCXref xref">Networking Preparation</a>.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>The "Format and mount available disks" function within the configure_appliance.sh script is designed to be run only once on a node, after the OS install. It uses a macro from the OS install to determine the number and size of available hard drives. This function cannot be used subsequently if you add additional hard drives to a node.</p>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

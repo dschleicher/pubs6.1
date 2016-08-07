@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="CMC Interface|Cluster|Configuration Settings">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Auto-Tiering Settings</title>
+        <link href="../../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../../CmcInterfaceOverview.htm">CMC Interface</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="../ClusterOverview.htm">Cluster</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="ConfigurationSettingsOverview.htm">Configuration Settings</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Auto-Tiering Settings</span>
+            </div>
+            <h1>Auto-Tiering Settings</h1>
+            <p class="TopicTag" data-mc-conditions="Cloudian.HelpSysAdminOnly">[CMC Interface]</p>
+            <p>The settings in this section of the CMC’s <b><a href="../../../Resources/Images/cmc/cluster/ConfigurationSettings.png" class="MCTopicPopup MCTopicPopupHotSpot a">Configuration Settings</a></b> page configure the HyperStore system’s auto-tiering feature. After making any edits, click <b>Save</b> at the bottom of the page to dynamically apply the configuration change to the cluster.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>For an overview of the HyperStore auto-tiering feature, see <a href="../../../Major Features/Auto-Tiering/AutoTieringOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Auto-Tiering Feature Overview</a>.</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Enable_Auto_Tiering"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">Enable Auto Tiering</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>This setting controls whether functionality for configuring buckets for auto-tiering will be enabled within the <a href="../../Buckets &amp; Objects/Buckets/Set Bucket Properties/BucketPropertiesLifecycle.htm" class="MCTopicPopup MCTopicPopupHotSpot a">Bucket Lifecycle Rule section</a> of the CMC’s <b>Bucket Properties</b> dialog. </p>
+                    <p>Note that this setting controls specifically whether auto-tiering functionality is available through the CMC. Even if you have this setting disabled, auto-tiering is still supported through <a href="../../../S3 API Support/OperationsOnBuckets/PutBucketLifecycle.htm" class="MCTopicPopup MCTopicPopupHotSpot a">HyperStore extensions to the S3 API</a>. This API functionality is available to S3 applications that have been customized to utilize the HyperStore API extensions, even if the auto-tiering functionality is disabled in the CMC.</p>
+                    <p>Default = Disabled</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Auto_Tiering_URL"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">Auto Tiering URL</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>When auto-tiering is enabled in the CMC, this setting specifies the Amazon S3 region endpoint to tier to. This should be the Amazon S3 region endpoint URL most suitable for your HyperStore system’s location. For example:</p>
+                    <ul>
+                        <li value="1">In northern California, http://s3-us-west-1.amazonaws.com (or https://s3-us-west-1.amazonaws.com if you prefer to use HTTPS for auto-tiering)</li>
+                        <li value="2">In Japan, http://s3-ap-northeast-1.amazonaws.com (or https://s3-ap-northeast-1.amazonaws.com if you prefer to use HTTPS for auto-tiering)</li>
+                    </ul>
+                    <p>The full list of Amazon S3 region endpoints is available at this Amazon Web Services webpage: <a href="http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region" target="_blank">http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region</a>.</p>
+                    <p>Once buckets have been configured for auto-tiering, you <b>cannot change the S3 endpoint</b>.</p>
+                    <p>If you want outbound traffic from HyperStore to Amazon to pass through a forward proxy server, use a transparent proxy. The HyperStore system does not have settings for explicitly configuring such traffic to use a proxy.</p>
+                    <p>Default = http://s3.amazonaws.com (this is for the U.S. East region)</p>
+                </div>
+            </div>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

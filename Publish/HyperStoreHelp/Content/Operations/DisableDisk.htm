@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Operations &amp; Maintenance|Disk Operations">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Disabling a Disk</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Operations &amp; Maintenance</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Disk Operations</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Disabling a Disk</span>
+            </div>
+            <h1>Disabling a Disk</h1>
+            <p>HyperStore supports a method for <b>temporarily disabling a HyperStore data disk drive</b> so that you can perform planned maintenance such as a firmware upgrade.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>If you are <b>replacing</b> a disk, follow the instructions for <a href="ReplaceDisk.htm" class="MCXref xref" xrefformat="{para}">Replacing a Disk</a> rather than the instructions below.</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />The Impact of Disabling a Disk</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>When you invoke the HyperStore <i>disableDisk</i> function, the system automatically does the following:</p>
+                    <ul>
+                        <li value="1">Unmounts the file system that’s mounted to the disk, comments out its entry in <em>/etc/fstab</em>, and marks the disk as unavailable for HyperStore reads and writes.</li>
+                        <li value="2">Moves the disk’s assigned storage tokens (vNodes) to the remaining HyperStore data disks on the same host, in a way that’s approximately balanced across those disks. This is a temporary migration of tokens which will be reversed when you later re-enable the disk.</li>
+                    </ul>
+                    <p>When a disk is disabled in this way, <b>writes of new or updated</b> S3 object data that would have gone to the disabled disk will go to the other disks on the host instead. Meanwhile <b>existing</b> S3 object replicas and erasure coded fragments on the disabled disk will be unreadable on the host. Whether the system as a whole can still provide S3 clients with read access to the affected S3 objects depends on the storage policies with which the objects are associated, and on the availability of other replicas or erasure coded fragments within the cluster.</p>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>The system will not allow you to disable a disk if it’s the only disk on the host machine.</p>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>HyperStore’s feature for <a href="../Major Features/Disk Failure Handling/DiskFailureOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot a">automatically disabling a disk in response to disk failure</a> supports a configurable option for not moving any tokens as part of the disabling action. This "No Move" option is not supported for an operator-initiated disabling of a disk. When you disable a disk following the instructions below, tokens will be moved.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />To Disable a Disk</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <ol>
+                        <li value="1">Go to the CMC's <b>Advanced</b> page for node management. On that page select command type "Disk Management" and then select the "disableDisk" command.</li>
+                    </ol>
+                    <div class="Indent">
+                        <p><a class="MCPopupThumbnailLink MCPopupThumbnailHover" href="../Resources/Images/operations/Advanced_disableDisk.png"><img class="MCPopupThumbnail img imgImgCloudian" data-mc-width="957" data-mc-height="476" src="../Resources/Images/operations/Advanced_disableDisk_thumb_0_60.png" tabindex="" /></a>
+                        </p>
+                    </div>
+                    <ol data-mc-continue="true">
+                        <li value="2">Choose the Target Node (the node on which the disk resides), and enter the Mount Point of the disk that you want to disable (for example <em>/cloudian6</em>).</li>
+                        <li value="3">Click <b>Execute</b>.</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />After Disabling a Disk</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>After the <em>disableDisk</em> operation completes, go to the CMC's <a href="../Resources/Images/cmc/cluster/NodeStatus.png" class="MCTopicPopup MCTopicPopupHotSpot a">Node Status</a> page. In the "Disk Detail Info" section, the device that you disabled should now have this grayed-out status icon (indicating that it’s disabled and its tokens have been migrated to other disks on the same host):</p>
+                    <p style="text-align: center;">
+                        <img src="../Resources/Images/cmc/cluster/Icon_disk-disabled.png" />
+                    </p>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>Because HyperStore uses <a href="../Major Features/Disk Usage Balancing/DiskUsageOverview.htm#Dynamic" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="../Major Features/Disk Usage Balancing/DiskUsageOverview.htm#Dynamic" xrefformat="{para}">Dynamic Object Routing</a> to implement the token migrations, you <b>do not need to run a repair operation</b> after you disable a disk.</p>
+                    <p>Later, after completing your maintenance work on the disk, follow the instructions for <a href="ReenableDisk.htm" class="MCXref xref" xrefformat="{para}">Re-Enabling a Disk</a>. When you  re-enable the disk, the tokens that had been moved away from the disk will be moved back to it.</p>
+                </div>
+            </div>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

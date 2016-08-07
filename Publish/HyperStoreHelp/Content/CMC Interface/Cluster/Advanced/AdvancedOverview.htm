@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="CMC Interface|Cluster">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Advanced</title>
+        <link href="../../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../../CmcInterfaceOverview.htm">CMC Interface</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="../ClusterOverview.htm">Cluster</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Advanced</span>
+            </div>
+            <h1>Advanced</h1>
+            <p class="TopicTag" data-mc-conditions="Cloudian.HelpSysAdminOnly">[CMC Interface]</p>
+            <p>Path: <b>Cluster → Nodes → Advanced</b></p>
+            <p><a class="MCPopupThumbnailLink MCPopupThumbnailHover" href="../../../Resources/Images/cmc/cluster/Advanced.png"><img class="MCPopupThumbnail img imgImgCloudian" data-mc-width="959" data-mc-height="413" src="../../../Resources/Images/cmc/cluster/Advanced_thumb_0_60.png" tabindex="" /></a>
+            </p>
+            <p>Supported tasks:</p>
+            <ul>
+                <li value="1">Info Commands (hsstool)<ul style="list-style-type: circle;"><li value="1"><a href="../../../Commands/hsstool/hsstoolRing.htm">ring</a> — View vNode info for whole cluster</li><li value="2"><a href="../../../Commands/hsstool/hsstoolInfo.htm">info</a> — View vNode and data load info for a physical node</li><li value="3"><a href="../../../Commands/hsstool/hsstoolStatus.htm">status</a> — View summary status for whole cluster</li><li value="4"><a href="../../../Commands/hsstool/hsstoolOpstatus.htm">opstatus</a> — View status of repair or cleanup operations</li><li value="5"><a href="../../../Commands/hsstool/hsstoolHintsstatus.htm">hintsstatus</a> — View status of hinted handoff queues</li><li value="6"><a href="../../../Commands/hsstool/hsstoolProactiverepairq.htm">proactiverepairq</a> — View status of proactive repair queues</li><li value="7"><a href="../../../Commands/hsstool/hsstoolRepairqueue.htm">repairqueue</a> — View auto-repair schedule</li><li value="8"><a href="../../../Commands/hsstool/hsstoolLs.htm">ls</a> — View vNode and data load info per mount point</li><li value="9"><a href="../../../Commands/hsstool/hsstoolWhereis.htm">whereis</a> — View storage location information for an S3 object</li><li value="10"><a href="../../../Commands/hsstool/hsstoolMetadata.htm">metadata</a> — View metadata for an S3 object</li></ul></li>
+                <li value="2">Maintenance Commands (hsstool)<ul style="list-style-type: circle;"><li value="1"><a href="../../../Commands/hsstool/hsstoolCleanup.htm">cleanup</a> — Clean a node of replicated data that doesn’t belong to it</li><li value="2"><a href="../../../Commands/hsstool/hsstoolCleanupec.htm">cleanupec</a> — Clean a node of erasure coded data that doesn’t belong to it</li><li value="3"><a href="../../../Commands/hsstool/hsstoolClearsnapshot.htm">clearsnapshot</a> — Delete old backup snapshots of a node</li><li value="4"><a href="../../../Commands/hsstool/hsstoolDecommission.htm">decommission</a> — Decommission a live node</li><li value="5"><a href="../../../Commands/hsstool/hsstoolSnapshot.htm">snapshot</a> — Take a backup snapshot of a node</li><li value="6"><a href="../../../Commands/hsstool/hsstoolRemovenode.htm">removenode</a> — Remove a dead node from a cluster</li><li value="7"><a href="../../../Commands/hsstool/hsstoolRepairqueue.htm">autorepair</a> — Enable or disable auto-repair</li><li value="8"><a href="../../../Commands/hsstool/hsstoolRepair.htm">repair</a> — Repair the replicated data on a node</li><li value="9"><a href="../../../Commands/hsstool/hsstoolRepairec.htm">repairec</a> — Repair the erasure coded data on a node</li></ul></li>
+                <li value="3">Redis Monitor Operations<ul style="list-style-type: circle;"><li value="1"><a href="../../../Operations/Change Node Role/MoveRedisMaster.htm">setClusterMaster</a> — Move the Redis Credentials or Redis QoS master role</li><li value="2"><a href="../../../Commands/Redis Monitor/RedisMonOverview.htm#get">getClusterInfo</a> — Get information about a Redis Credentials or Redis QoS cluster</li></ul></li>
+                <li value="4">Disk Management<ul style="list-style-type: circle;"><li value="1"><a href="../../../Operations/DisableDisk.htm">disableDisk</a> — Temporarily disable a HyperStore data disk</li><li value="2"><a href="../../../Operations/ReenableDisk.htm">enableDisk</a> — Re-enable a disabled HyperStore data disk</li><li value="3"><a href="../../../Operations/ReplaceDisk.htm">replaceDisk</a> — Activate a replacement HyperStore data disk and restore data to it</li></ul></li>
+                <li value="5"><a href="CollectDiagnostics.htm" class="MCXref xref">Collect Diagnostics</a>
+                </li>
+                <li value="6">Add/Uninstall Node<ul style="list-style-type: circle;"><li value="1"><a href="../../../Operations/AddNode.htm" class="MCXref xref">Adding a Node</a></li><li value="2"><a href="../../../Operations/RemoveNode.htm" class="MCXref xref">Removing a Node</a></li></ul></li>
+            </ul>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

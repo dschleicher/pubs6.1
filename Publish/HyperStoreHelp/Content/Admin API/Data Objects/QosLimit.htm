@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Admin API|Data Objects">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>QosLimit</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../AdminApiOverview.htm">Admin API</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="DataObjectsOverview.htm">Data Objects</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">QosLimit</span>
+            </div>
+            <h1>QosLimit</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[Admin API Object]</p>
+            <p>A list of QosLimit objects is nested within the <a href="QosLimitSettings.htm" class="MCXref xref">QosLimitSettings</a> object.</p>
+            <p>The QosLimit object consists of the following attributes:</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />type</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <div class="Indent">
+                        <p>(string) One of the following QoS limit types:</p>
+                        <ul>
+                            <li value="1">STORAGE_QUOTA_KBYTES</li>
+                            <li value="2">STORAGE_QUOTA_COUNT</li>
+                            <li value="3">REQUEST_RATE_LW</li>
+                            <li value="4">REQUEST_RATE_LH</li>
+                            <li value="5">DATAKBYTES_IN_LW</li>
+                            <li value="6">DATAKBYTES_IN_LH</li>
+                            <li value="7">DATAKBYTES_OUT_LW</li>
+                            <li value="8">DATAKBYTES_OUT_LH</li>
+                        </ul>
+                        <p>For descriptions of these types see "QoS Limit Type Descriptions", following the example below.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />value</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <div class="Indent">
+                        <p>(number) The value assigned to this QoS limit type. A value of -1 indicates that the limit is disabled.</p>
+                    </div>
+                </div>
+            </div>
+            <h2>Example</h2>
+            <p>This is an example of a QosLimit object. It indicates that no limit is applied to the user’s stored object count.</p><pre xml:space="preserve">{"value":-1,"type":"STORAGE_QUOTA_COUNT"}</pre>
+            <h2>QoS Limit Type Descriptions</h2>
+            <p>The table below describes each QoS limit type, as it applies to the individual user level and to the group level.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>When the system rejects a user request because of a storage quota, it returns an HTTP 403 reponse to the client application. When the system rejects a user request due to rate controls, it returns an HTTP 503 response to the client application.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>Requests rejected due to QoS limits <b>are</b> counted toward usage tracking, for purposes of request volume based billing. For example, if a user has reached her storage quota and tries to do a PUT of more data, the system rejects the PUT request but counts the request toward the user’s bill (specifically, toward the part of her rating plan that charges per volume of HTTP PUT requests).</p>
+            <table style="width: 100%;border-top-left-radius: 0px;border-top-right-radius: 0px;border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;border-left-style: solid;border-left-width: 1px;border-left-color: ;border-right-style: solid;border-right-width: 1px;border-right-color: ;border-top-style: solid;border-top-width: 1px;border-top-color: ;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: ;border-collapse: separate;">
+                <col style="width: 222px;" />
+                <col style="width: 144px;" />
+                <col />
+                <thead>
+                    <tr>
+                        <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">QoS Limit Type </th>
+                        <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Description </th>
+                        <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Implementation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">STORAGE_QUOTA_KBYTES</td>
+                        <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Storage quota limit, in number of KBs</td>
+                        <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">
+                            <ul>
+                                <li value="1">For user QoS — If a user’s total stored data reaches this limit, the user will be blocked from uploading additional data until she deletes some of her currently stored data.
+</li>
+                                <li value="2">For group QoS — If a group’s total stored data reaches this limit, all of the group’s users will be blocked from uploading additional data until some of their currently stored data is deleted.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">STORAGE_QUOTA_COUNT</td>
+                        <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Storage quota limit, in total number of objects. Note that folders count as objects, as well as files</td>
+                        <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">
+                            <ul>
+                                <li value="1">For user QoS — If a user’s total stored data reaches this limit, the user will be blocked from uploading additional data until she deletes some of her currently stored data.
+
+</li>
+                                <li value="2">For group QoS — If a group’s total stored data reaches this limit, all of the group’s users will be blocked from uploading additional data until some of their currently stored data is deleted.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">REQUEST_RATE_LW</td>
+                        <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Request rate warning limit, in total number of HTTP requests per minute.</td>
+                        <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">
+                            <ul>
+                                <li value="1">For user QoS — On receipt of a first HTTP request from a user, a 60 second timer is started for that user. If during the 60 seconds the total number of requests reaches the Request Rate Warning Limit, an informational message is written to the S3 Server’s application log. At the end of the 60 seconds, the request counter for the user is reset. Subsequently, the next request that comes in from the user triggers the start of a new 60 second interval, and the process repeats.
+
+</li>
+                                <li value="2">For group QoS — The implementation is the same as for user QoS, except that it applies to requests from all users in the group. For example, a request from any user in the group triggers the start of the 60 second timer, and subsequent requests from any user in the group are counted toward the per-minute total.
+
+</li>
+                            </ul>
+                            <p>Note that HTTP DELETE requests are not counted toward Request Rate controls.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">REQUEST_RATE_LH</td>
+                        <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Request rate maximum, in total number of HTTP requests per minute.</td>
+                        <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">
+                            <ul>
+                                <li value="1">For user QoS —  On receipt of a first request from a user, a 60 second timer is started for that user (the same timer described in Request Rate Warning Limit). If during the 60 seconds the number of requests reaches Request Rate High Limit, the system temporarily blocks all requests from the user. At the end of the 60 seconds the block on requests is released and the request counter is reset. Subsequently, the next request that comes in from the user triggers the start of a new 60 second interval, and the process repeats.
+
+</li>
+                                <li value="2">For group QoS — The implementation is the same as for user QoS, except that it applies to requests from all users in the group. For example, a request from any user in the group triggers the start of the 60 second timer, and subsequent requests from any user in the group are counted toward the per-minute total. If a block is triggered by the high limit being reached, the block applies to all users in the group.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">DATAKBYTES_IN_LW</td>
+                        <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Inbound data rate warning limit, in KBs per minute.</td>
+                        <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">This works the same as described for the Request Rate Warning Limit, except what’s counted during each timed 60 second interval is inbound kilobytes of data.</td>
+                    </tr>
+                    <tr>
+                        <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">DATAKBYTES_IN_LH</td>
+                        <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Inbound data rate high limit, in KBs per minute.</td>
+                        <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">This works the same as described for the Request Rate High Limit, except what’s counted during each timed 60 second interval is inbound kilobytes of data. Note that if a block is triggered by the Data Bytes IN (KB) High Limit being reached, the block applies to all HTTP request types (not just PUTs.)</td>
+                    </tr>
+                    <tr>
+                        <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">DATAKBYTES_OUT_LW</td>
+                        <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;"> 	
+
+Outbound data rate warning limit, in KBs per minute.</td>
+                        <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">This works the same as described for the Request Rate Warning Limit, except what’s counted during each timed 60 second interval is outbound kilobytes of data.</td>
+                    </tr>
+                    <tr>
+                        <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">DATAKBYTES_OUT_LH</td>
+                        <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Outbound data rate high limit, in KBs per minute.</td>
+                        <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">This works the same as described for the Request Rate High Limit, except what’s counted during each timed 60 second interval is outbound kilobytes of data. Note that if a block is triggered by the Data Bytes OUT (KB) High Limit being reached, the block applies to all HTTP request types (not just GETs.)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

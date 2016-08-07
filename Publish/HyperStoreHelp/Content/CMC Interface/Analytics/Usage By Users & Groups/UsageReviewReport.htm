@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="CMC Interface|Analytics|Usage By Users &amp; Groups">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Review Usage Report Output</title>
+        <link href="../../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../../CmcInterfaceOverview.htm">CMC Interface</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="../AnalyticsOverview.htm">Analytics</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="UsageOverview.htm">Usage By Users &amp; Groups</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Review Usage Report Output</span>
+            </div>
+            <h1>Review Usage Report Output</h1>
+            <p class="TopicTag" data-mc-conditions="Cloudian.HelpSysAdminOnly">[CMC Interface]</p>
+            <p>This section clarifies the meaning of the data that you will see in your Cloudian HyperStore S3 usage reports. Below is an example of a "List" style report.</p>
+            <p>
+                <img src="../../../Resources/Images/cmc/analytics/UsageReports_Results.png" class="" />
+            </p>
+            <p>Starting from the left of "List" style reports, the first several columns have consistent meaning across the different types of usage reports:</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Region</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>The HyperStore service region in which the usage occurred.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Date/Time</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <ul>
+                        <li value="1">For reports with hourly granularity, this field displays each hour for which activity occurred during the reporting period. For example, in a row with Date/Time "Jan-14-2014 07:00 &lt;UTC offset&gt;" the reported activity is from 07:00 through 07:59.</li>
+                        <li value="2">For reports with daily granularity, this field displays the day as, for example, "Jan-14-2014 &lt;UTC offset&gt;", and the reported activity is from that day, from midnight to midnight.</li>
+                        <li value="3">For reports with monthly granularity, this field displays the month as, for example, "Jan-2014 &lt;UTC offset&gt;", and the corresponding activity is from that calendar month.</li>
+                        <li value="4">For reports generated with granularity "Raw", this fields displays the transaction timestamp.</li>
+                    </ul>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>Times are in the local time zone of your browser.</p>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>Usage reports show activity only for completed intervals, not in-progress ones. For example, an hourly report shows activity only for completed hours, not the currently in-progress hour. Likewise, a daily report shows activity for completed days, not the currently in-progress day.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />User</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <ul>
+                        <li value="1">For a report on a specific user’s activity, this field displays the user’s ID. For system-wide or group-wide reports, this field displays an asterisk.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Group</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <ul>
+                        <li value="1">Group ID.<MadCap:conditionalText data-mc-conditions="Cloudian.HelpSysAdminOnly"> For a system-wide report this field displays "ALL".</MadCap:conditionalText></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Operation</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Operation field values will be one of the following:</p>
+                    <ul>
+                        <li value="1">HTTP PUT/POST</li>
+                        <li value="2">HTTP GET/HEAD</li>
+                        <li value="3">HTTP DELETE</li>
+                        <li value="4">Storage Bytes</li>
+                        <li value="5">Storage Objects</li>
+                    </ul>
+                </div>
+            </div>
+            <p>Additional columns display depending on the <b>Operation</b> that you selected when you chose your report parameters in the upper part of the screen:</p>
+            <div class="Indent">
+                <p><em>For Storage reports</em> ("Storage-Bytes" or "Storage-Objects" from the <b>Operation</b> selection menu), these columns display on the right-hand side of the List report:</p>
+                <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Average</a></span>
+                    <div class="MCDropDownBody dropDownBody">
+                        <ul>
+                            <li value="1">Average storage size during the time period specified in the Date/Time column (in bytes or number of objects depending on the report type).</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Maximum</a></span>
+                    <div class="MCDropDownBody dropDownBody">
+                        <ul>
+                            <li value="1">Maximum storage size during the time period specified in the Date/Time column (in bytes or number of objects depending on the report type).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="Indent">
+                <p><em>For Data Transfer reports</em> ("Data Transfer-In-Bytes" or "Data Transfer-Out-Bytes" from the <b>Operation</b> selection menu), these columns display on the right-hand side of the List report:</p>
+                <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Data Transfer</a></span>
+                    <div class="MCDropDownBody dropDownBody">
+                        <ul>
+                            <li value="1">Amount of data transferred during the time period specified in the Date/Time column.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Average</a></span>
+                    <div class="MCDropDownBody dropDownBody">
+                        <ul>
+                            <li value="1">Average size of an individual data transfer during the time period specified in the Date/Time column.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Maximum</a></span>
+                    <div class="MCDropDownBody dropDownBody">
+                        <ul>
+                            <li value="1">Maximum size of an individual data transfer during the time period specified in the Date/Time column.</li>
+                        </ul>
+                    </div>
+                </div>
+                <p><em>For Requests reports</em> ("Get/Head Requests", "Put/Post Requests", "Delete Requests", or "All Requests" from the <b>Operation</b> selection menu), this column displays on the right-hand side of the List report:</p>
+                <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />HTTP Requests</a></span>
+                    <div class="MCDropDownBody dropDownBody">
+                        <ul>
+                            <li value="1">Request count for the time period specified in the Date/Time column.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

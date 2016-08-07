@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Introduction to HyperStore|HyperStore Services">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>HyperStore Service and the HSFS</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Introduction to HyperStore</span><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="ServicesOverview.htm">HyperStore Services</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">HyperStore Service and the HSFS</span>
+            </div>
+            <h1>HyperStore Service and the HSFS</h1>
+            <p>As an object store, Cassandra provides a wealth of valuable built-in functionality including data partitioning, automatic replication, easy cluster expansion, quorum calculation, and so on. For storing small data objects, Cassandra also provides good performance. But as the data size increases, storing data on the Linux file system becomes more efficient than storing it in Cassandra.</p>
+            <p>The HyperStore system uses a hybrid storage solution where Cassandra can optionally be used for small S3 data objects while the Linux filesystem on Cassandra nodes is used for larger S3 data objects. The area of the Linux filesystem where S3 object data is stored is called the <b>HyperStore File System (HSFS)</b>.</p>
+            <p>The HyperStore Service manages the implementation of this hybrid solution. The general strategy is that Cassandra capabilities are used to determine the distributed data management information such as the nodes that a specific key should be written to and replicated on. Then at the storage layer, the S3 object data is either stored in Cassandra or the HSFS based on comparing the object size to a <a href="../../CMC Interface/Cluster/Configuration Settings/ConfigurationSettingsSystem.htm" class="MCTopicPopup MCTopicPopupHotSpot a">configurable size threshold</a>. By default, the size threshold is set to 0 so that all S3 objects are stored in the HSFS rather than in Cassandra. Storing all S3 objects in the file system rather than splitting them between Cassandra and the file system makes certain cluster operations like repair and cleanup somewhat simpler.</p>
+            <p>Within the HSFS, objects can be stored and protected in either of two ways:</p>
+            <ul>
+                <li value="1">Replicated storage</li>
+                <li value="2">Erasure coded storage</li>
+            </ul>
+            <p>For more information on data storage and protection options, see <a href="../../Major Features/Storage Policies/StoragePoliciesOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Storage Policies Feature Overview</a>.</p>
+            <p>Mount points are configured by the <a href="../../System Configuration/Configuration Files/CommonCsv.htm#hyperstore_data_directory" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">hyperstore_data_directory</a> settting in <em>common.csv</em>. When the system stores S3 objects, the full path to the objects will be as indicated below:</p>
+            <ul>
+                <li value="1">For replicated S3 objects:</li>
+            </ul>
+            <div class="Indent"><pre>&lt;mountpoint&gt;/hsfs/&lt;base62-encoded-vNode-token&gt;/&lt;policyid&gt;/&lt;000-255&gt;/&lt;000-255&gt;/&lt;filename&gt;</pre>
+            </div>
+            <ul>
+                <li value="1">For erasure coded S3 object fragments:</li>
+            </ul>
+            <div class="Indent"><pre>&lt;mountpoint&gt;/ec/&lt;base62-encoded-vNode-token&gt;/&lt;policyid&gt;/&lt;000-255&gt;/&lt;000-255&gt;/&lt;filename&gt;</pre>
+            </div>
+            <ul>
+                <li value="1">The <em>hsfs </em>or <em>ec</em> are appended to your configured mount points to distinguish replicated data (designated here as "hsfs") from erasure-coded data (designated as "ec). The <em>&lt;base62-encoded-vNode-token&gt;</em> is a base-62 encoding of the token belonging to the vNode  to which the object instance is assigned. The <em>&lt;policyid&gt;</em> segment indicates the storage policy with which the stored data is associated. The two <em>&lt;000-255&gt;</em> segments of the path are based on a hash of the <em>&lt;filename&gt;</em>, normalized to a 255*255 number. The <em>&lt;filename&gt;</em> is a dot-separated concatenation of the object’s hash token and a timestamp (Unix time in milliseconds).</li>
+                <li value="2">Example, for an object named "ReadMe.txt":</li>
+            </ul>
+            <div class="Indent"><pre xml:space="preserve">/hyperstore1/hsfs/2QHgDlHgIb6mFV0Wb9yURy/12a783554da9dc2a39adfa93c601e98e/021/160/
+100801768393562892712712455504791471295.1421087225525</pre>
+                <p>In the above example:</p>
+                <ul style="list-style-type: circle;">
+                    <li value="1">"hyperstore1" is one of the HyperStore data mount points configured for the system (as specified by the setting <em>common.csv: hyperstore_data_directory</em>)</li>
+                    <li value="2">"hsfs" indicates that the object is a replicated object (not an erasure-coded object)</li>
+                    <li value="3">"2QHgDlHgIb6mFV0Wb9yURy" is the Base-62 encoding of the token belonging to the vNode to which the object instance is assigned (in this case the vNode token is 105864399482732907414591589618144607310 which Base62 encodes as 2QHgDlHgIb6mFV0Wb9yURy)</li>
+                    <li value="4">"12a783554da9dc2a39adfa93c601e98e" is the system-generated identifier of the storage policy with which the stored data is associated.</li>
+                    <li value="5">"021/160" is a hash of the file name, normalized to a 255*255 number.</li>
+                    <li value="6">"100801768393562892712712455504791471295" is the object’s system-assigned hash token (used for determining which vNodes to assign object replicas to). This is an MD-5 hash of the <em>&lt;bucketname&gt;/&lt;objectname&gt;</em>. The hash is in decimal format.</li>
+                    <li value="7">"1421087225525" is the Unix timestamp of the object’s Last Modified Time, in milliseconds</li>
+                </ul>
+            </div>
+            <h2>Digest Files</h2>
+            <p>Each HSFS replica file and each EC data file has a corresponding digest file, stored under the same path. The digest file name is the same as the replica or EC data file name, with the addition of a <em>.digest</em> suffix. For example, the first file below contains S3 object data and the second file is the corresponding digest file:</p><pre xml:space="preserve">../100801768393562892712712455504791471295.1421087225525
+../100801768393562892712712455504791471295.1421087225525.digest</pre>
+            <p>The digest file contains the MD5 digest (in hexadecimal) of the data in its companion HSFS replica file or EC fragment file. It also contains a small amount of metadata for the replica or EC file including a last modified timestamp. The digest and timestamp are used in HyperStore data repair operations.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>When an existing object is updated by an S3 client, the object’s token (a decimal formatted MD5 hash of the object key) remains the same but the object’s digest (a hexidecimal formatted MD5 hash of the object data) changes.<br /><br />For an erasure coded S3 object, each fragment has the same token (based on object key) but a different digest (based on fragment content).<br /><br />For multipart S3 objects — uploaded to the system through the S3 API methods for Multipart Uploads — each part has a different token (since each part has a distinct object key incorporating a part number) and a different digest (based on part content).</p>
+            <p><b>See Also:</b>
+            </p>
+            <ul>
+                <li value="1"><a href="../System Diagrams/ServicesInterfaces.htm" class="MCXref xref">Service Interconnections</a> (diagram)</li>
+            </ul>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

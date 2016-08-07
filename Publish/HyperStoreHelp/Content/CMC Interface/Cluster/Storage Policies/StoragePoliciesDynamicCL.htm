@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Dynamic Consistency Levels</title>
+        <link href="../../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <h1>Dynamic Consistency Levels</h1>
+            <p>When setting custom consistency requirements for <b>replicated</b> object data or metadata (through either the CMC's <a href="StoragePoliciesOverview.htm" class="MCXref xref" xrefformat="{para}">Storage Policies</a> page or the Admin API's <a href="../../../Admin API/Storage Policies/PutNewStoragePolicy.htm" class="MCXref xref" xrefformat="{para}">PUT New Storage Policy</a> method), you have the option of configuring "dynamic" consistency levels (dynamic CLs). To do so, for a given operation (such as object data Write) you would select multiple levels — a strict level and also one or more less strict levels. In the CMC's <b>Storage Policies</b> page you can do this by checking multiple checkboxes in the custom CL&#160;interface.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>Erasure coding data distribution schemes do not support dynamic CLs for object data.<br /><br />For definitions of individual CLs such as EACH&#160;ALL&#160;or LOCAL&#160;QUORUM, see <a href="StoragePoliciesConsistencyLevels.htm" class="MCXref xref" xrefformat="{para}">Consistency Levels Definitions</a>.</p>
+            <p>When the S3 Service processes an S3 request, it checks Cassandra for a list of live endpoints for the data. Cassandra determines the endpoints — the nodes that the data should be written to or read from — based on a hash value and application of the replication factor. From among those determined endpoints, Cassandra returns to the S3 Service a list of the endpoints that are currently live.</p>
+            <p>If dynamic CLs are used, the system does the following:</p>
+            <ul>
+                <li value="1">If enough endpoints are live to try to achieve the more strict of the configured CLs, the system tries to achieve that level (by transmitting the read or write request to those live endpoints and waiting for success responses). If not enough success responses are returned to meet the more strict level (for example, if a write attempt on one of the live endpoints fails), the S3 request fails.</li>
+                <li value="2">If the number of live endpoints are only enough to try to achieve the less strict of the configured CLs, the system tries to achieve that level (by transmitting the read or write request to those live endpoints and waiting for success responses). If not enough success responses are returned to meet the less strict level, the S3 request fails.</li>
+                <li value="3">If the number of live endpoints is not enough to satisfy even the less strict level, the S3 request fails.</li>
+            </ul>
+            <p>As an example, with a Replication Across Data Centers storage policy, for the object Write operation you could select the "EACH QUORUM" CL <b>and also</b> the (less stringent) "LOCAL QUORUM" CL. With this configuration, for a given request to write an S3 object, if there are enough live endpoints to support achieving the EACH QUORUM level, the system will try to do so. If EACH QUORUM is not possible based on the number of live replica endpoints but LOCAL QUORUM is, the system will try to achieve LOCAL QUORUM for the operation. If LOCAL QUORUM is not possible, the operation will fail.</p>
+            <p>A key point is that <b>once the system determines that enough live endpoints are available to try to meet one of the configured CLs, the system is then committed to that path</b>. If there is a subsequent failure on that path — such as a write failure on one or more of the endpoints — then the request fails and an error is returned to the client. The system does not go back and try a less-strict path.</p>
+            <p>For example, suppose that for write consistency requirements you’ve configured a three-tier dynamic CL scheme using ALL, QUORUM, ONE. If while processing an S3 PUT request the system determines that the number of live endpoints is not enough to meet ALL but is enough to meet QUORUM (for instance, two of three endpoints are live), the system will proceed to try to implement the write with QUORUM level consistency. If that attempt fails (for instance if the write fails on one of the two live endpoints), then the whole request fails and an error response is returned to the client. The system does <b>not</b> go back and try to implement the request with write consistency ONE.</p>
+            <p><a href="../../../Introduction/System Diagrams/ConsistencyLevelLogic.htm">View Diagrams Comparing Standard Consistency Level Logic and Dynamic Consistency Level Logic</a>
+            </p>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

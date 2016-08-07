@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="CMC Interface|Cluster|Node Status">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>View a Node's Services Status</title>
+        <link href="../../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../../CmcInterfaceOverview.htm">CMC Interface</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="../ClusterOverview.htm">Cluster</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="NodeStatusOverview.htm">Node Status</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">View a Node's Services Status</span>
+            </div>
+            <h1>View a Node's Services Status</h1>
+            <p class="TopicTag" data-mc-conditions="Cloudian.HelpSysAdminOnly">[CMC Interface]</p>
+            <p>To check on the status of individual services on a node, in the CMC's <a href="../../../Resources/Images/cmc/cluster/NodeStatus.png" class="MCTopicPopup MCTopicPopupHotSpot a">Node Status</a> page open the <b>Services Status</b> panel.</p>
+            <p><a class="MCPopupThumbnailLink MCPopupThumbnailHover" href="../../../Resources/Images/cmc/cluster/NodeStatus_services.png"><img class="MCPopupThumbnail img imgImgCloudian" data-mc-width="924" data-mc-height="412" src="../../../Resources/Images/cmc/cluster/NodeStatus_services_thumb_0_60.png" tabindex="" /></a>
+            </p>
+            <p>For each service, one of the following service status icons is displayed:</p>
+            <table style="width: 100%;">
+                <col style="width: 57px;" />
+                <col />
+                <tbody>
+                    <tr>
+                        <td>
+                            <img src="../../../Resources/Images/cmc/cluster/Icon_GreenCheckMark.png" />
+                        </td>
+                        <td style="vertical-align: top;">The service is <b>up and running</b>.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="../../../Resources/Images/cmc/cluster/Icon_RedCircle.png" />
+                        </td>
+                        <td style="vertical-align: top;">The service is <b>down</b>.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>The node’s status is automatically checked and updated each minute, as indicated by the "Last Update" column.</p>
+            <p>Status is shown for the following services.  Note that the Redis services will not necessarily be present on each node, if you have a multi-node system. For more detail about these services see <a href="../../../Introduction/HyperStore Services/ServicesOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">HyperStore Services</a>.</p>
+            <ul>
+                <li value="1"><b>Admin</b> -- Implements the Admin API that is invoked by the CMC and by HyperStore maintenance cron jobs.</li>
+                <li value="2"><b>Cassandra</b> -- Manages access to the Cassandra database which stores various types of data in support of S3 service delivery. The Cassandra database may also store small S3 objects, depending on your system configuration.</li>
+                <li value="3"><b>HyperStore</b> -- Manages access to the HyperStore File System (HSFS). Implements hsstool operations for managing the distributed S3 object store.</li>
+                <li value="4"><b>Redis Cred</b> -- Manages access to the Redis Credentials database which stores S3 user credentials as well as additional data that supports S3 service delivery.</li>
+                <li value="5"><b>Redis QoS</b> -- Manages access to the Redis QoS database which stores data required to implement quality of service controls.</li>
+                <li value="6"><b>Redis Mon</b> -- Monitors Redis Credentials and Redis QoS cluster health and if needed implements automatic failover of the Redis master node role within each of the two Redis DBs</li>
+                <li value="7"><b>S3</b> -- Services S3 requests from client applications.</li>
+            </ul>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Introduction to HyperStore">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>HyperStore Services</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Introduction to HyperStore</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">HyperStore Services</span>
+            </div>
+            <h1>HyperStore Services</h1>
+            <p style="vertical-align: super;">The Cloudian HyperStore<span style="vertical-align: super;">TM</span> system is composed of several types of services each of which plays a role in implementing the overall HyperStore S3 object storage service. The table below shows the major HyperStore services and how the HyperStore installation script distributes these services across a multi-node cluster. There are common services that are installed to and run on every node, and specialized support services that are installed and run on only one or a sub-set of nodes.</p>
+            <p>For services distribution diagrams, see <a href="../System Diagrams/ServicesDistribution3Nodes.htm" class="MCXref xref" xrefformat="{para}">Services Distribution -- 3 Nodes, Single DC</a>.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>Within your installation cluster, the HyperStore installer <b>automatically chooses the hosts</b> for services that are not intended to run on on every node. These host assignments are recorded to an installation configuration file that the installer generates when it runs (<em>CloudianInstallConfiguration.txt</em> in your installation staging directory). After your installation is completed, these host assignments can also be viewed on the CMC's <a href="../../CMC Interface/Cluster/Cluster Information/ClusterInformationOverview.htm" class="MCXref xref" xrefformat="{para}">Cluster Information</a> page. If you want to modify these assignments after install, see <a href="../../Operations/Change Node Role/ChangeNodeRoleOverview.htm" class="MCXref xref" xrefformat="{para}">Change Node Role Assignments</a>.<br /><br />If you installed HyperStore software on only one node, then all these services will run on that node.</p>
+            <table style="width: 100%; border-left-style: solid; border-left-width: 1px; border-right-style: solid; border-right-width: 1px; border-top-style: solid; border-top-width: 1px; border-bottom-style: solid; border-bottom-width: 1px; border-collapse: separate;">
+                <col style="width: 155px;" />
+                <col style="width: 280px;" />
+                <col />
+                <thead>
+                    <tr>
+                        <th style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Service Category </th>
+                        <th style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Service </th>
+                        <th style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Where It Is Installed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;" rowspan="5">Common Services</td>
+                        <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;"><a href="ServicesS3.htm">S3 Service</a>
+                        </td>
+                        <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;"> 	
+
+Every node.</td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;"><a href="ServicesHyperStore.htm">HyperStore Service</a>
+                        </td>
+                        <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;"> 	
+
+Every node.</td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;"><a href="ServicesCassandra.htm">Cassandra Service</a>
+                        </td>
+                        <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;"> 	
+
+Every node.</td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;"><a href="ServicesAdmin.htm">Admin Service</a>
+                        </td>
+                        <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;"> 	
+
+Every node.</td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;"><a href="ServicesCmc.htm">Cloudian Management Console (CMC)</a>
+                        </td>
+                        <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;"> 	
+
+Every node.</td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;" rowspan="8">Specialized Support Services</td>
+                        <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;"><a href="ServicesRedis.htm">Redis Credentials DB Master</a>
+                        </td>
+                        <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">One node per entire HyperStore system.</td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;"><a href="ServicesRedis.htm">Redis Credentials DB Slaves</a>
+                        </td>
+                        <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">
+                            <p>Two per data center. If you have a large cluster (25 nodes or more in a data center), consult with Cloudian Support about whether you should add more Redis Credentials slaves. For instructions on adding slaves, see <a href="../../Operations/Change Node Role/MoveRedisCredentialsSlave.htm" class="MCXref xref" xrefformat="{para}">Move or Add a Redis Credentials Slave</a>. (Note: If you upgraded from a HyperStore version older than 6.0, you will have only one Redis Credentials slave per data center.)
+
+</p>
+                            <p>Slaves will not be on same node as Credentials master</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;"><a href="ServicesRedis.htm">Redis QoS DB Master(s)</a>
+                        </td>
+                        <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;"> 	
+
+One node per service region.</td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;"><a href="ServicesRedis.htm">Redis QoS DB Slave(s)</a>
+                        </td>
+                        <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">One node per data center. Slave will not be on same node as QoS Master.</td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;"><a href="ServicesRedisMon.htm">Redis Monitor</a>
+                        </td>
+                        <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;"> 	
+
+One primary node and one backup node per entire HyperStore system.</td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;"><a href="ServicesSupport.htm">Crontab configuration and Monitoring Data Collector</a>
+                        </td>
+                        <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">One primary node and one backup node per service region.</td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;"><a href="ServicesSupport.htm">Local NTP server</a>
+                        </td>
+                        <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">One local NTP server per service region.</td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;"><a href="ServicesSupport.htm">Puppet Master</a>
+                        </td>
+                        <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">One primary node and one backup node per entire HyperStore system.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

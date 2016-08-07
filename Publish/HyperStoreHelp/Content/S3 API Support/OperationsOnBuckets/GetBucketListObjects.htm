@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="S3 API Support|OperationsOnBuckets">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>GET Bucket (List Objects)</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../S3ApiSupportOverview.htm">S3 API Support</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="OperationsOnBucketsOverview.htm">OperationsOnBuckets</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">GET Bucket (List Objects)</span>
+            </div>
+            <h1>GET Bucket (List Objects)</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[S3 API Method]</p>
+            <p>For the Amazon S3 "GET Bucket (List Objects)" operation, the HyperStore system supports the S3 <a href="../CommonRequestHeaders.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Common Request Headers</a> and <a href="../CommonResponseHeaders.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Common Response Headers</a> and also the operation-specific items listed below. If a parameter, header, element, or special error from the Amazon S3 specification for this operation is not listed below, the HyperStore system does not support it.</p>
+            <p>For operation usage information and for descriptions of request and response items, see <a href="http://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketGET.html" target="_blank">GET Bucket (List Objects)</a> in the Amazon S3 REST API specification.</p>
+            <h2>Request Parameters</h2>
+            <ul>
+                <li value="1">delimiter</li>
+            </ul>
+            <p class="NoteIndent" data-mc-autonum="&lt;b&gt;Note: &lt;/b&gt;"><span class="autonumber"><span><b>Note: </b></span></span>The HyperStore system does not support %c2%85(U+0085) as a delimiter value</p>
+            <ul>
+                <li value="1">encoding-type</li>
+                <li value="2">marker</li>
+                <li value="3">max-keys</li>
+                <li value="4">prefix</li>
+            </ul>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />HyperStore Extension to the S3 API</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>The HyperStore system supports the following Request Parameter as an extension to the "GET Bucket (List Objects)" operation:</p>
+                    <table style="width: 100%; border-spacing: 2px 2px; border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; border-left-style: solid; border-left-width: 1px; border-right-style: solid; border-right-width: 1px; border-top-style: solid; border-top-width: 1px; border-bottom-style: solid; border-bottom-width: 1px; border-collapse: separate;">
+                        <col style="width: 127px;" />
+                        <col />
+                        <col />
+                        <thead>
+                            <tr>
+                                <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Parameter</th>
+                                <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Description</th>
+                                <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Required</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">meta</td>
+                                <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">
+                                    <p>You can use the request parameter <em>meta=true</em> to return user-defined object metadata with the <em>GET Bucket</em> response. Without this HyperStore extension, the standard S3 GET Bucket method returns only the system metadata associated with each object, not user-defined metadata. Using standard S3 API calls you would have to do a <a href="../OperationsObjects/GetObject.htm" class="MCXref xref">GET Object</a> on individual objects to retrieve the user-defined object metadata. (For an overview of the HyperStore system’s support for object metadata, see Object Metadata [XREF-TBD]).
+
+</p>
+                                    <p>If you use the HyperStore S3 extension request parameter <em>meta=true</em> option for <em>GET Bucket</em>, then within the XML response body the user-defined metadata associated with each object (if any) will be presented as <em>metadata</em> elements nested in the <em>Contents</em> element for the object. In the example below, the three lines that follow the <em>Owner</em> element show how user-defined metadata for the object <em>my-image.jpg</em> would be included in the <em>GET Bucket</em> response body.</p><pre xml:space="preserve">xxHTTP/1.1 200 OK
+...
+
+&lt;ListBucketResult xmlns="http://s3.cloudian.com/2013-10-01/"&gt;
+...
+&lt;Contents&gt;
+&lt;Key&gt;my-image.jpg&lt;/Key&gt;
+&lt;LastModified&gt;2014-10-12T17:50:30.000Z&lt;/LastModified&gt;
+&lt;ETag&gt;&amp;quot;fba9dede5f27731c9771645a39863328&amp;quot;&lt;/ETag&gt;
+&lt;Size&gt;434234&lt;/Size&gt;
+&lt;StorageClass&gt;STANDARD&lt;/StorageClass&gt;
+&lt;Owner&gt;
+&lt;ID&gt;75aa57f09aa0c8caeab4f8c24e99d10f8e7faeebf76c078efc7c6caea54ba06a&lt;/ID&gt;
+&lt;DisplayName&gt;mtd@amazon.com&lt;/DisplayName&gt;
+&lt;/Owner&gt;
+&lt;metadata name="name1"&gt;value1&lt;/metadata&gt;
+&lt;metadata name="name2"&gt;value2&lt;/metadata&gt;
+&lt;metadata name="name3"&gt;value3&lt;/metadata&gt;
+&lt;/Contents&gt;
+...
+...
+&lt;/ListBucketResult&gt;</pre>
+                                    <p>The <em>x-amz-meta-*</em> extension header prefixes that you use to create user-defined object metadata items (with the <a href="../OperationsObjects/PutObject.htm" class="MCXref xref">PUT Object</a> operation or <a href="../OperationsObjects/PostObject.htm" class="MCXref xref">POST Object</a> operation) are not included in the metadata names in the <em>GET Bucket</em> response. For example, if you created a user-defined metadata item by using an <em>x-amz-meta-projectid</em> header in a <a href="../OperationsObjects/PutObject.htm" class="MCXref xref">PUT Object</a> operation, then submited a <em>GET Bucket</em> request with the HyperStore extension header <em>meta=true</em>, within the response body’s <em>Contents</em> element for that object the metadata name would simply be <em>projectid</em>.</p>
+                                </td>
+                                <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">No (defaults to "false")</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <h2>Response Headers</h2>
+            <ul>
+                <li value="1">x-amz-bucket-region</li>
+            </ul>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />HyperStore Extension to the S3 API</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>The HyperStore system supports the following Response Header as an extension to the "GET Bucket (List Objects)" operation:</p>
+                    <table style="width: 100%; border-spacing: 2px 2px; border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; border-left-style: solid; border-left-width: 1px; border-right-style: solid; border-right-width: 1px; border-top-style: solid; border-top-width: 1px; border-bottom-style: solid; border-bottom-width: 1px; border-collapse: separate;">
+                        <col style="width: 126px;" />
+                        <col />
+                        <col />
+                        <thead>
+                            <tr>
+                                <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Parameter</th>
+                                <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Description</th>
+                                <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Required</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">x-gmt-policyid</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">This header specifies the unique ID of the storage policy assigned to the bucket. For more information see <a href="PutBucket.htm" class="MCXref xref">PUT Bucket</a>.</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">No</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <h2>Response Elements</h2>
+            <ul>
+                <li value="1">Contents</li>
+                <li value="2">CommonPrefixes</li>
+                <li value="3">Delimiter</li>
+                <li value="4">DisplayName</li>
+                <li value="5">Encoding-Type</li>
+                <li value="6">ETag</li>
+                <li value="7">ID</li>
+                <li value="8">IsTruncated</li>
+                <li value="9">Key</li>
+                <li value="10">LastModified</li>
+                <li value="11">ListBucketResult</li>
+                <li value="12">Marker</li>
+                <li value="13">MaxKeys</li>
+                <li value="14">Name</li>
+                <li value="15">NextMarker</li>
+                <li value="16">Owner</li>
+                <li value="17">Prefix</li>
+                <li value="18">Size</li>
+                <li value="19">StorageClass (values STANDARD and GLACIER only)</li>
+            </ul>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />HyperStore Extension to the S3 API</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>The HyperStore system supports a <em>metadata</em> response element as described in the Request Parameters section above.</p>
+                </div>
+            </div>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="CMC Interface|Analytics">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Object Locator</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../CmcInterfaceOverview.htm">CMC Interface</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="AnalyticsOverview.htm">Analytics</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Object Locator</span>
+            </div>
+            <h1>Object Locator</h1>
+            <p class="TopicTag" data-mc-conditions="Cloudian.HelpSysAdminOnly">[CMC Interface]</p>
+            <p>Path: <b>Analytics → Object Locator</b></p>
+            <p><a class="MCPopupThumbnailLink MCPopupThumbnailHover" href="../../Resources/Images/cmc/analytics/ObjectLocator.png"><img class="MCPopupThumbnail img imgImgCloudian" data-mc-width="941" data-mc-height="299" src="../../Resources/Images/cmc/analytics/ObjectLocator_thumb_0_60.png" style="mc-thumbnail-max-height: 60px;" tabindex="" /></a>
+            </p>
+            <p>Supported task:</p>
+            <ul>
+                <li value="1">View storage location information for an S3 object</li>
+            </ul>
+            <p>To view storage location information for an object:</p>
+            <ol>
+                <li value="1">Enter the bucket name. For example, <em>bucket1</em>. This field is case-sensitive.</li>
+                <li value="2">Enter the full object name including "folder" path, if any. For example, <em>file1.txt</em> (for a file at the root level of the bucket) or <em>Videos/Vacation/Italy-2014.mpg</em>. This field is also case-sensitive.</li>
+                <li value="3">Click <b>Find</b>.</li>
+            </ol>
+            <p>This function executes the <em>hsstool whereis</em> command. The results that display are the same as those that display if you run the hsstool <em>whereis command</em> on the object (on the <b>Cluster → Nodes → Advanced</b> page). For description of the result elements, see the <a href="../../Commands/hsstool/hsstoolWhereis.htm/#Command/" class="MCTopicPopup MCTopicPopupHotSpot a">Response section of the <em>hsstool whereis</em> documentation</a>. </p>
+            <p>The<b> Object Locator</b> page does not support searching for a particular version of a versioned object. Instead it returns the location of the most current version of the object. If you want to retrieve information for an older version of a versioned object, use the <a href="../../Commands/hsstool/hsstoolWhereis.htm" class="MCXref xref">hsstool whereis</a> command.</p>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

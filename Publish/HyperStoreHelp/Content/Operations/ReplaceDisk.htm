@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Operations &amp; Maintenance|Disk Operations">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Replacing a Disk</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Operations &amp; Maintenance</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Disk Operations</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Replacing a Disk</span>
+            </div>
+            <h1>Replacing a Disk</h1>
+            <p>HyperStore supports a method for <b>activating a replacement HyperStore data disk and restoring data to it</b>. This procedure applies to either of these circumstances:</p>
+            <ul>
+                <li value="1">You are replacing a disk that is currently disabled (either by your having used the HyperStore <a href="DisableDisk.htm" class="MCTopicPopup MCTopicPopupHotSpot a">disableDisk</a> function or by the system having <a href="../Major Features/Disk Failure Handling/DiskFailureOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot a">automatically disabled the disk in response to disk failure</a>).</li>
+                <li value="2">You are replacing a disk that is not currently disabled. In this case, it is not necessary for you to use the  <em>disableDisk</em> function before replacing the disk. When you pull the disk HyperStore will automatically disable the associated mount point, and you can proceed to replace the disk.</li>
+            </ul>
+            <p>After you’ve pulled the bad disk and physically installed the replacement disk, HyperStore will take care of the rest when you follow the steps in this section.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>The procedure below is for HyperStore data disks only. For an OS/Cassandra drive (typically an SSD), see <a href="ReplaceDiskCassandra.htm" class="MCXref xref" xrefformat="{para}">Replacing an OS/Cassandra Disk or SSD</a>.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>If you have a HyperStore 1500 or 3000 series appliance and you need assistance physically locating the failed drive that you’re replacing you can use the blink light feature on the CMC Node Status page.</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />The Impact of Replacing a Disk</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>When you physically install a new disk and then invoke the HyperStore <em>replaceDisk</em> function, the system automatically does the following:</p>
+                    <ul>
+                        <li value="1">Creates a primary partition and an <em>ext4</em> file system for the disk.</li>
+                        <li value="2">Establishes appropriate permissions on the mount.</li>
+                        <li value="3">Remounts the disk (using the same mount point that the prior disk had), uncomments its entry in <em>/etc/fstab</em>, and marks the disk as available for HyperStore reads and writes.</li>
+                        <li value="4">Moves back to the disk the same set of storage tokens (vNodes) that were automatically moved away from the prior disk when it was disabled.</li>
+                        <li value="5">Automatically invokes a repair of the HyperStore data mount point associated with the replacement disk — for replica data and also erasure coded data if applicable. This is to recreate on the replacement disk the same object data that was on the disk that was replaced.</li>
+                    </ul>
+                    <p>After a disk is replaced in this way, the replacement disk has the same data set that the replaced disk had. Going forward, writes of new or updated S3 object data associated with the returned tokens will go to the replacement disk. Meanwhile object data that was written in association with the affected tokens while the disk was disabled — while the tokens were temporarily re-assigned to other disks on the host — will remain on those other disks and will be readable from those disks (utilizing HyperStore <a href="../Major Features/Disk Usage Balancing/DiskUsageOverview.htm#Dynamic" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="../Major Features/Disk Usage Balancing/DiskUsageOverview.htm#Dynamic" xrefformat="{para}">Dynamic Object Routing</a> technology).</p>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>In the case where HyperStore automatically disabled a disk and you had the system configured to use the "<a href="../CMC Interface/Cluster/Configuration Settings/ConfigurationSettingsSystem.htm" class="MCTopicPopup MCTopicPopupHotSpot a">No Move</a>" method of disk failure handling (meaning that HyperStore does not move tokens away from a disk that it automatically disables in response to errors) you can still replace the disk using the steps below. The system will automatically recognize that there is no need to move tokens back to the disk, since they weren’t moved away from it in the first place. The system will perform all the other steps involved in activating the replacement disk, including making the file system and automatically invoking repair on the mount point.<br /><br />Note that the "No Move" method of auto-disabling a disk is not the default — by default, the system moves tokens when it automatically disables a disk.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />To Replace a Disk</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>After you’ve physically installed the replacement disk, follow these steps to activate the replacement disk and restore data to it:</p>
+                    <ol>
+                        <li value="1">Go to the CMC's <b>Advanced</b> page for node management. On that page select command type "Disk Management" and then select the "replaceDisk" command.</li>
+                    </ol>
+                    <div class="Indent">
+                        <p><a class="MCPopupThumbnailLink MCPopupThumbnailHover" href="../Resources/Images/operations/Advanced_replaceDisk.png"><img class="MCPopupThumbnail img imgImgCloudian" data-mc-width="951" data-mc-height="474" src="../Resources/Images/operations/Advanced_replaceDisk_thumb_0_60.png" tabindex="" /></a>
+                        </p>
+                    </div>
+                    <ol data-mc-continue="true">
+                        <li value="2">Choose the Target Node (the node on which the disk resides), and enter the Mount Point of the replacement disk. This must be the same as the mount point of the disk that you replaced.</li>
+                        <li value="3">Click <b>Execute</b>.</li>
+                    </ol>
+                    <p>The <em>replaceDisk</em> operation automatically invokes a repair on the mount point (to recreate on the new disk the same set of S3 object data that was on the disk you replaced). The duration of this repair operation will depend on how much data is involved.</p>
+                    <p>While the operation is in progress, you can get status details by running the <a href="../Commands/hsstool/hsstoolOpstatus.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="../Commands/hsstool/hsstoolOpstatus.htm" xrefformat="{para}">hsstool opstatus</a> command on the node. If there is erasure coded data on the node, look for a REPAIREC operation to complete as well as a REPAIR operation (for replica data).</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />After Replacing a Disk</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>After the <em>replaceDisk</em> operation completes, go to the CMC's <a href="../Resources/Images/cmc/cluster/NodeStatus.png" class="MCTopicPopup MCTopicPopupHotSpot a">Node Status</a> page. In the "Disk Detail Info" section, the replacement disk should now have this green status icon (indicating that its status is OK):</p>
+                    <p style="text-align: center;">
+                        <img src="../Resources/Images/cmc/cluster/Icon_disk-ok.png" />
+                    </p>
+                    <p>If instead the disk icon is displaying in red (indicating an "Error" status), click the <b>Clear Error History</b> button. Doing so should return the disk to OK status.</p>
+                </div>
+            </div>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

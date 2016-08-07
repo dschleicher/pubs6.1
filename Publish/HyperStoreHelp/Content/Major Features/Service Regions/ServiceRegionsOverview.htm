@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Working with HyperStore Major Features|Service Regions">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Service Regions Feature Overview</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Working with HyperStore Major Features</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Service Regions</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Feature Overview</span>
+            </div>
+            <h1>Service Regions Feature Overview</h1>
+            <p>Like Amazon S3, the HyperStore system supports the implementation of multiple "service regions". Setting up the HyperStore system to use multiple service regions is <b>optional</b>.</p>
+            <p>The main benefits of deploying multiple service regions are:</p>
+            <ul>
+                <li value="1">Each region has its own independent HyperStore cluster for S3 object storage. Consequently, deploying multiple regions is another means of scaling out your overall HyperStore service offering (beyond using multiple nodes and multiple datacenters to scale out a single cluster). Note that in a multi-region deployment, entirely different S3 datasets are stored in each region. Each region has its own token space and by default there is no data replication across regions (although there is an option for <a href="../Cross-Region Replication/CrrOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot a">cross-region replication</a> on a bucket-to-bucket basis).</li>
+                <li value="2">With a multi-region deployment, your service users can choose the service region in which their storage buckets will be created. Users may, for example, choose to store their S3 objects in the region that’s geographically closest to them; or they may choose one region rather than another for reasons of regulatory compliance or corporate policy.</li>
+            </ul>
+            <p>Note that <b>deploying the HyperStore system in multiple datacenters does not in itself constitute having multiple service regions.</b> You can have multiple datacenters within a single service region.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>HyperStore has been tested successfully with as many as 16 service regions, and as many as 20 data centers in a single service region.</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="DefaultRegion"></a><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" style="background-image: none; padding: 0px;">Default Service Region</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>In a HyperStore deployment with multiple service regions, one region serves as the "default region". The default region plays several roles in the context of a multi-region HyperStore system. For example:</p>
+                    <ul>
+                        <li value="1">If service users do not specify a region when they create a new S3 storage bucket, the system will create the bucket in the default region.</li>
+                        <li value="2">Even when users do specify a region when creating a new bucket, the incoming <a href="../../S3 API Support/OperationsOnBuckets/PutBucket.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="../../S3 API Support/OperationsOnBuckets/PutBucket.htm" xrefformat="{para}">PUT Bucket</a> request will typically resolve to the default region, and S3 Service nodes in the default region will then initiate the process of creating the bucket in the requested region.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Single-Region System</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>You may choose not to have multiple service regions. However, even if you have just one region, you still will need to give that region a name when you install your HyperStore system, and the region name will become part of your HyperStore system configuration.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Multi-Region System Architecture</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>A multi-region HyperStore system has the following characteristics:</p>
+                    <ul>
+                        <li value="1"><b>Each region has its own independent object storage cluster</b> and by default there is no object replication across regions (although there is an option for <a href="../Cross-Region Replication/CrrOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot a">cross-region replication</a> on a bucket-to-bucket basis).</li>
+                        <li value="2"><b>User access credentials are valid across the system as a whole</b>. In support of user authentication, a single, uniform Redis Credentials database serves the entire multi-region system. There is just one Redis Credentials master node for the whole system, and that node is located in your default region. Within each region, there is one Redis Credentials slave node per data center.</li>
+                        <li value="3"><b>Quality of service (QoS) controls are implemented separately in each region</b>. The QoS limits that you establish for a service region will be applied only to user activity in that particular region.</li>
+                    </ul>
+                    <div class="Indent">
+                        <p>For example, if you have a two-region HyperStore deployment with regions named "North" and "South", you might set your QoS limits in the "North" region so that each user is allowed to store 20GB of data. The 20GB storage cap applies only to user activity in your "North" region. You would also have a separate cap configured for the "South" region. For example, users might also be allowed 20GB of storage in the "South" region (for a total of 40GB per user across the entire HyperStore system); or a different value might be configured for the "South" region such as 10GB or 30GB.</p>
+                        <p>In support of QoS implementation, each region has its own independent Redis QoS database. Each regional Redis QoS database has its own master node. In each region there is also one Redis QoS slave node per data center.</p>
+                    </div>
+                    <ul>
+                        <li value="1">The <b>Redis Monitor application will monitor all the Redis databases in all the regions</b> (and if necessary trigger failover of the Redis master role within each database). One primary Redis Monitor application instance serves the whole multi-region system, and if the primary Redis Monitor instance goes down the backup instance takes over. The primary Redis Monitor instance and backup Redis Monitor instance are on separate nodes in your default region.</li>
+                        <li value="2"><b>Each CMC instance has access to and control over the entire multi-region system</b>. For more information see Using the CMC for Unified Management of a Multi-Region System.</li>
+                        <li value="3"><b>Just one Puppet master node is used</b> to propagate system configuration settings throughout the whole multi-region system, during system installation and for ongoing system configuration management.</li>
+                    </ul>
+                </div>
+            </div>
+            <p>&#160;</p>
+            <p><b>See Also:</b>
+            </p>
+            <ul>
+                <li value="1"><a href="ServiceRegionsSetUp.htm" class="MCXref xref" xrefformat="{para}">Setting Up a Multi-Region System</a>
+                </li>
+                <li value="2"><a href="../../Introduction/System Diagrams/SystemLevels.htm" class="MCXref xref" xrefformat="{para}">System Levels</a> (diagram)</li>
+                <li value="3"><a href="../../Introduction/System Diagrams/ServicesDistributionMultiRegion.htm" class="MCXref xref" xrefformat="{para}">Services Distribution -- Multi-Region</a> (diagram)</li>
+            </ul>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="S3 API Support|OperationsOnBuckets">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>PUT Bucket</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><a class="MCBreadcrumbsLink" href="../S3ApiSupportOverview.htm">S3 API Support</a><span class="MCBreadcrumbsDivider"> &gt; </span><a class="MCBreadcrumbsLink" href="OperationsOnBucketsOverview.htm">OperationsOnBuckets</a><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">PUT Bucket</span>
+            </div>
+            <h1>PUT Bucket</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[S3 API Method]</p>
+            <p>For the Amazon S3 "PUT Bucket" operation, the HyperStore system supports the S3 <a href="../CommonRequestHeaders.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Common Request Headers</a> and <a href="../CommonResponseHeaders.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">Common Response Headers</a> and also the operation-specific items listed below. If a parameter, header, element, or special error from the Amazon S3 specification for this operation is not listed below, the HyperStore system does not support it.</p>
+            <p>For operation usage information and for descriptions of request and response items, see <a href="http://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUT.html" target="_blank">PUT Bucket</a> in the Amazon S3 REST API specification.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>For HyperStore S3 bucket capacity information, see Maximum Objects Per S3 Bucket and Mass Deletes [XREF-TBD].</p>
+            <h2>Request Headers</h2>
+            <ul>
+                <li value="1">x-amz-acl</li>
+                <li value="2">x-amz-grant-read</li>
+                <li value="3">x-amz-grant-write</li>
+                <li value="4">x-amz-grant-read-acp</li>
+                <li value="5">x-amz-grant-write-acp</li>
+                <li value="6">x-amz-grant-full-control</li>
+            </ul>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />HyperStore Extension to the S3 API</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>The HyperStore system supports the following Request Header as an extension to the "PUT Bucket" operation:</p>
+                    <table style="width: 100%; border-spacing: 2px 2px; border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; border-left-style: solid; border-left-width: 1px; border-right-style: solid; border-right-width: 1px; border-top-style: solid; border-top-width: 1px; border-bottom-style: solid; border-bottom-width: 1px; border-collapse: separate;">
+                        <col style="width: 112px;" />
+                        <col />
+                        <col />
+                        <thead>
+                            <tr>
+                                <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Parameter</th>
+                                <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Description</th>
+                                <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Required</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">x-gmt-policyid</td>
+                                <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">
+                                    <p>This header specifies the unique ID of the storage policy to assign to the newly created bucket. The storage policy determines how data in the bucket will be distributed and protected through either replication or erasure coding. System administrators can create multiple storage policies — through either the CMC or the Admin API — and the system automatically assigns each a unique policy ID that becomes part of the policy definition. (To obtain a list of storage policies for your system and their policy IDs, you can use the Admin API’s <a href="../../Admin API/Storage Policies/GetStoragePolicyList.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref">GET Storage Policy List</a> method).
+
+</p>
+                                    <p>With the "x-gmt-policyid" request header for "PUT Bucket", you specify the ID of the desired storage policy when you create a new bucket. Note however that some policies may not be available to all user groups — a policy’s availability is specified by system administrators at the time of policy creation, and this information becomes part of the policy definition. When you specify an "x-gmt-policyid" value with a "PUT Bucket" request, the policy ID must be for a policy that is available to the group to which the bucket owner belongs.
+
+</p>
+                                    <p>Also the policy ID must be for a storage policy from the service region that is specified in the "PUT Bucket" request’s LocationConstraint element.
+</p>
+                                    <p>
+If the "PUT Bucket" request does not include the "x-gmt-policyid" request header, then the system will automatically assign the system default storage policy to the bucket during bucket creation.
+</p>
+                                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>	
+
+After a bucket is created, it cannot be assigned a different storage policy. The storage policy assigned to the bucket at bucket creation time will continue to be bucket’s storage policy for the life of the bucket.
+
+    </p>
+                                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>A 403 error response is returned if you specify a policy ID that does not exist, has been disabled, is not available to the region in which the bucket is being created, or is not available to the group to which the bucket owner belongs. A 403 is also returned if you do not specify an "x-gmt-policyid" header and the system does not yet have an established default storage policy.
+</p>
+                                    <p>
+Example header:
+
+</p><pre>x-gmt-policyid: 1bc90238f9f11cb32f5e4e901675d50b
+
+</pre>
+                                    <p>For more information on storage policies, see Storage Policies [XREF-TBD].</p>
+                                </td>
+                                <td style="vertical-align: top;padding-left: 4px;padding-right: 4px;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;">No</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <h2>Request Elements</h2>
+            <ul>
+                <li value="1">CreateBucketConfiguration</li>
+                <li value="2">LocationConstraint</li>
+            </ul>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>The HyperStore system enforces the same <a href="http://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html" target="_blank">bucket naming restrictions</a> as does Amazon S3</p>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

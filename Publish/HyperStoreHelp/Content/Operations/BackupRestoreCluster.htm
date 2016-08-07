@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Operations &amp; Maintenance">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Backing Up and Restoring a Cluster</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Operations &amp; Maintenance</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Backing Up and Restoring a Cluster</span>
+            </div>
+            <h1>Backing Up and Restoring a Cluster</h1>
+            <p>This procedure is for backing up and restoring an entire HyperStore cluster (i.e. an entire HyperStore service region). This procedure should not be used for partial backups/restores.</p>
+            <p class="Important" data-mc-autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;"><span class="autonumber"><span><b>IMPORTANT: </b></span></span>Make sure you have enough space for the backup. If you back up on to nodes in your HyperStore cluster, this will double disk usage within the cluster.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>Throughout this procedure, it’s assumed that you have used the default installation directories for HyperStore binaries. If not, adjust the command paths stated in the procedure.</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Backing Up an Entire Cluster</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>Daily at 11PM HyperStore implements a Redis cron job (configured in <em>/etc/cron.d/redis-crontab</em>) that invokes a script (<em>/opt/redis/redisBackup.sh</em>) which backs up the Redis Credentials and Redis QoS databases into updated <em>/var/lib/redis/dump-credentials.rdb</em> and<em> /var/lib/redis/dump-qos.rdb</em> files. When it does so it also saves the previous day’s <em>dump-credentials.rdb</em> and <em>dump-qos.rdb</em> files as <em>dump-credentials-backup.rdb</em> and <em>dump-qos-backup.rdb</em> respectively.<br /><br />So you always have access to Redis backup files that are generated at 11PM daily. However, to get a more up-to-the-moment Redis backup you can follow steps 1a and 1b below to re-generate the <em>dump-credentials.rdb</em> and <em>dump-qos.rdb</em> files.<br /><br />Logging output from the <em>redisBackup.sh</em> script runs is written to <em>/var/log/redis/redisBackup.log</em>. (A separate log file <em>cloudian-redisBackup.log</em> merely records information having to do with <em>cron.d</em> launching the script.)</p>
+                    <ol>
+                        <li value="1">Back up the Redis Credentials and Redis QoS databases.</li>
+                    </ol>
+                    <div class="Indent">
+                        <ol style="list-style-type: lower-alpha;">
+                            <li value="1">On the Redis Credentials master node, use the Redis CLI to perform a <a href="http://redis.io/commands/bgsave" target="_blank">BGSAVE</a> operation:</li>
+                        </ol>
+                        <div class="Indent"><pre>[root]# /opt/redis/redis-cli -h &lt;hostname&gt; -p 6379 BGSAVE</pre>
+                            <p>The above command will update the <em>dump-credentials.rdb</em> file in the Redis data directory (<em>/var/lib/redis</em> by default).</p>
+                            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>The BGSAVE operation saves the database in the background. To check when the save is done you can use the Redis CLI <a href="http://redis.io/commands/lastsave" target="_blank">LASTSAVE</a> command, which returns the Unix time of the most recently completed save.</p>
+                        </div>
+                        <ol style="list-style-type: lower-alpha;" data-mc-continue="true">
+                            <li value="2">On the Redis QoS master node, use the Redis CLI to perform a <a href="http://redis.io/commands/bgsave" target="_blank">BGSAVE</a> operation:</li>
+                        </ol>
+                        <div class="Indent"><pre>[root]# /opt/redis/redis-cli -h &lt;hostname&gt; -p 6380 BGSAVE</pre>
+                            <p>The above command will update the <em>dump-qos.rdb</em> file in the Redis data directory.</p>
+                        </div>
+                        <ol style="list-style-type: lower-alpha;" data-mc-continue="true">
+                            <li value="3">Place a copy of the <em>dump-credentials.rdb</em>, <em>dump-qos.rdb</em>, <em>appendonly_cred.aof</em>, and <em>appendonly_qos.aof</em> files in a safe place.</li>
+                        </ol>
+                    </div>
+                    <ol data-mc-continue="true">
+                        <li value="2">Back up Cassandra and Hyperstore data <b>on each of the Cassandra/HyperStore nodes</b>. You can either use the HyperStore native tool <em>hsstool</em> or a third party backup tool.</li>
+                    </ol>
+                    <div class="Indent">
+                        <p><b>To use </b><em style="font-weight: bold;">hsstool</em><b> to do the backup</b>, on each node do the following:</p>
+                        <ul>
+                            <li value="1">First use the Cassandra <em>nodetool</em> utility to flush the Cassandra database.</li>
+                        </ul>
+                        <div class="Indent"><pre>[root]# /opt/cassandra/bin/nodetool -h &lt;hostname&gt; flush</pre>
+                        </div>
+                        <ul>
+                            <li value="1">Then execute the <em>hsstool snapshot</em> operation:</li>
+                        </ul>
+                        <div class="Indent"><pre>[root]# /opt/cloudian/bin/hsstool –h &lt;hostname&gt; snapshot &lt;backup_destination_directory&gt;</pre>
+                            <p>The <em>hsstool snapshot</em> operation creates two sub-directories in your <em>&lt;backup_destination_directory&gt;</em>:</p>
+                            <div class="Indent">
+                                <ul style="list-style-type: circle;">
+                                    <li value="1">A <em>cassandra</em> sub-directory, in which the snapshot operation backs up the contents of your Cassandra data directory</li>
+                                </ul>
+                                <ul style="list-style-type: circle;">
+                                    <li value="1">A <em>native</em> sub-directory, in which the snapshot operation backs up each of your HyperStore data directories.</li>
+                                </ul>
+                                <p>Make sure that you have enough space in the <em>&lt;backup_destination_directory&gt;</em> and that the directory is writable. Note that the snapshot operation will take time depending on the amount of data in Cassandra/HyperStore. The <em>&lt;backup_destination_directory&gt;</em> can be an NFS-mounted directory.</p>
+                            </div>
+                        </div>
+                        <p><b>As an alternative to using </b><em style="font-weight: bold;">hsstool</em> you can use the third party backup tool of your choice.</p>
+                        <ul>
+                            <li value="1">For Cassandra data, on each node:</li>
+                        </ul>
+                        <div class="Indent">
+                            <ul style="list-style-type: circle;">
+                                <li value="1">First flush Cassandra:</li>
+                            </ul>
+                            <div class="Indent"><pre>[root]# /opt/cassandra/bin/nodetool –h &lt;hostname&gt; flush</pre>
+                            </div>
+                            <ul style="list-style-type: circle;">
+                                <li value="1">Then with your third party tool, back up the Cassandra data directory. (To check which directory is the Cassandra data directory, see the configuration setting mts.properties: cassandra.data.directories [XREF]).</li>
+                            </ul>
+                        </div>
+                        <ul>
+                            <li value="1">For HyperStore data, on each node: With your third party tool, back up the HyperStore data directories. (To check which directories are the HyperStore data directories, see the configuration setting hyperstore-server.properties: cloudian.storage.datadir [XREF]).</li>
+                        </ul>
+                    </div>
+                    <ol data-mc-continue="true">
+                        <li value="3">Back up HyperStore binaries and configuration files.</li>
+                    </ol>
+                    <ul>
+                        <li value="1">On the Puppet master node:<ul style="list-style-type: circle;"><li value="1"><em>/etc/cloudian-&lt;version&gt;-puppet</em> for HyperStore version 5.2 or later, or <em>/etc/puppet</em> for versions older than 5.2</li><li value="2">The HyperStore installation staging directory (where the <em>cloudianInstall.sh</em> tool is)</li></ul></li>
+                        <li value="2">On all HyperStore nodes:<ul style="list-style-type: circle;"><li value="1"><em>/opt/cloudian</em></li><li value="2"><em>/opt/cassandra</em></li><li value="3"><em>/opt/redis</em></li><li value="4"><em>/opt/tomcat</em></li><li value="5"><em>/opt/cloudianagent</em></li><li value="6"><em>/opt/dnsmasq</em></li></ul></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Restoring an Entire Cluster</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>This restore procedure assumes that the restored cluster is the same configuration as what you backed up — i.e. the same IP addresses and mount points.</p>
+                    <ol>
+                        <li value="1">Restore HyperStore binaries and configuration files.</li>
+                    </ol>
+                    <div class="Indent">
+                        <ul>
+                            <li value="1">On the Puppet master node:</li>
+                        </ul>
+                        <div class="Indent">
+                            <ul style="list-style-type: circle;">
+                                <li value="1"><em>/etc/cloudian-&lt;version&gt;-puppet</em> for HyperStore version 5.2 or later, or <em>/etc/puppet</em> for versions older than 5.2</li>
+                                <li value="2">The HyperStore installation staging directory (where the <em>cloudianInstall.sh</em> tool is)</li>
+                            </ul>
+                        </div>
+                        <ul>
+                            <li value="1">On all HyperStore nodes:<ul style="list-style-type: circle;"><li value="1"><em>/opt/cloudian</em></li><li value="2"><em>/opt/cassandra</em></li><li value="3"><em>/opt/redis</em></li><li value="4"><em>/opt/tomcat</em></li><li value="5"><em>/opt/cloudianagent</em></li><li value="6"><em>/opt/dnsmasq</em></li></ul></li>
+                        </ul>
+                    </div>
+                    <ol data-mc-continue="true">
+                        <li value="2">Restore Cassandra and HyperStore data directories <b>on each of the Cassandra/HyperStore nodes</b>.</li>
+                        <li value="3">Restore the Redis Credentials and Redis QoS databases.</li>
+                    </ol>
+                </div>
+            </div>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

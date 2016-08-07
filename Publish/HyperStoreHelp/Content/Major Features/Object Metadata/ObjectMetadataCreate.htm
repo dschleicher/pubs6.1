@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Working with HyperStore Major Features|Object Metadata">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Creating User-Defined Object Metadata</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Working with HyperStore Major Features</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Object Metadata</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Creating User-Defined Object Metadata</span>
+            </div>
+            <h1>Creating User-Defined Object Metadata</h1>
+            <p>To create user-defined object metadata in the HyperStore system you use the standard Amazon S3 API methods that implement this functionality. When an S3 client application submits a <em>PUT Object</em> request it can include one or more <em>x-amz-meta-*</em> headers that specify user-defined metadata. For example, <em>x-amz-meta-project: apollo</em> or <em>x-amz-meta-topic: merger</em> or <em>x-amz-meta-author: uehara</em>.</p>
+            <p>For HyperStore support of the <em>PUT Object</em> S3 API method, see <a href="../../S3 API Support/OperationsObjects/PutObject.htm" class="MCXref xref" xrefformat="{para}">PUT Object</a>.</p>
+            <p>The Amazon S3 API method <em>POST Object</em> — for uploading objects via HTML forms — also allows for the specification of user-defined metadata (through <em>x-amz-meta-*</em> form fields), and Cloudian HyperStore supports this API method as well. For HyperStore support of this S3 API method, see <a href="../../S3 API Support/OperationsObjects/PostObject.htm" class="MCXref xref" xrefformat="{para}">POST Object</a>.</p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>	In the current version of HyperStore, the Cloudian Management Console’s built-in S3 client does not support creating user-defined object metadata. So, to create user-defined object metadata you will need to use an S3 application other than the CMC.</p>
+            <p>&#160;</p>
+            <p><b>See Also:</b>
+            </p>
+            <ul>
+                <li value="1"><a href="ObjectMetadataRetrieve.htm" class="MCXref xref" xrefformat="{para}">Retrieving Object Metadata</a>
+                </li>
+                <li value="2"><a href="ObjectMetadataStoragePolicies.htm" class="MCXref xref" xrefformat="{para}">Setting Storage Policies for Object Metadata</a>
+                </li>
+            </ul>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

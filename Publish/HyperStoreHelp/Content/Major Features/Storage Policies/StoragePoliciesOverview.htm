@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="Working with HyperStore Major Features|Storage Policies">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Storage Policies Feature Overview</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <div class="MCBreadcrumbsBox_0"><span class="MCBreadcrumbsPrefix">You are here: </span><span class="MCBreadcrumbsSelf">Working with HyperStore Major Features</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbsSelf">Storage Policies</span><span class="MCBreadcrumbsDivider"> &gt; </span><span class="MCBreadcrumbs">Feature Overview</span>
+            </div>
+            <h1>Storage Policies Feature Overview</h1>
+            <p>Storage policies are ways of protecting data so that it’s durable and highly available to users. The HyperStore system lets you pre-configure one or more storage policies. Users when they create a new storage bucket can then choose which pre-configured storage policy to use to protect data in that bucket. <b>Users cannot create buckets until you have created at least one storage policy.</b></p>
+            <p>For each storage policy that you create you can choose from either of two data protection methods:</p>
+            <ul>
+                <li value="1"><b>Replication</b> — With replication, a configurable number of copies of each data object are maintained in the system, and each copy is stored on a different node. For example, with 3X replication 3 copies of each object are stored, with each copy on a different node.</li>
+                <li value="2"><b>Erasure coding</b> — With erasure coding, each object is encoded into a configurable number (known as the "k" value) of data fragments plus a configurable number (the "m" value) of redundant parity fragments. Each of an object’s "k" plus "m" fragments is unique, and each fragment is stored on a different node. The object can be decoded from any "k" number of fragments. To put it another way: the object remains readable even if "m" number of nodes are unavailable.</li>
+            </ul>
+            <div class="Indent">
+                <p>For example, in a 4+2 erasure coding configuration (4 data fragments plus 2 parity fragments), each object is encoded into a total of 6 unique fragments which are stored on 6 different nodes, and the object can be decoded and read so long as any 4 of those 6 fragments are available.</p>
+            </div>
+            <p>In general, erasure coding requires less storage overhead (the amount of storage required for data redundancy) and results in somewhat longer request latency than replication. Erasure coding is best suited to large objects that are infrequently accessed.</p>
+            <p>Regardless of whether you use replication or erasure coding, if your HyperStore system spans multiple data centers, for each storage policy you can also choose how data is allocated across your data centers — for example, you could have a storage policy that for each S3 object stores 3 replicas of the object in each of your data centers; and a second storage policy that erasure codes objects and stores them in just one particular data center.</p>
+            <p>Individual storage policies are not confined to dedicated nodes or disk partitions. Instead, all policies utilize all the resources of your cluster, and data stored in association with a particular policy will tend to be spread fairly evenly across the cluster (with the exception that you can limit a policy to a particular data center as noted above). This helps to ensure that regardless of how many or what types of storage policies you configure, and regardless of how much data is stored in association with particular policies, the physical resources of your cluster — disks, CPU, RAM — will be used in an even manner.</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Supported Erasure Coding Configurations</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>HyperStore supports several erasure coding configurations, in terms of "k" value (number of data fragments) and "m" value (number of parity fragments). For example:</p>
+                    <ul>
+                        <li value="1"><b>2+1</b> — Each object will be encoded into 2 data fragments plus 1 parity fragment, with each fragment stored on a different node. Objects can be read so long as any 2 of the 3 fragments are available.</li>
+                        <li value="2"><b>4+2</b> — Each object will be encoded into 4 data fragments plus 2 parity fragments, with each fragment stored on a different node. Objects can be read so long as any 4 of the 6 fragments are available.</li>
+                    </ul>
+                    <p>In addition to the options above, the system also supports:</p>
+                    <ul>
+                        <li value="1"><b>6+2</b>
+                        </li>
+                        <li value="2"><b>8+2</b>
+                        </li>
+                        <li value="3"><b>9+3</b>
+                        </li>
+                        <li value="4"><b>12+4</b>
+                        </li>
+                    </ul>
+                    <p>The choice among these supported EC configurations is largely a matter of how many HyperStore nodes you have in the data center. For example, 4+2 EC provides a higher degree of protection and availability than 2+1 EC (since with 4+2 EC, objects can be read/written even if 2 of the involved nodes are unavailable) while delivering the same level of storage efficiency (both 2+1 and 4+2 require 50% storage overhead — the parity fragments as a percentage of data fragments). So 4+2 is preferable to 2+1 if you have at least 6 HyperStore nodes in the data center.</p>
+                    <p>Likewise, compared to a 4+2 configuration, 6+2 EC provides the same degree of resiliency against nodes being unavailable (objects can be read/written even if 2 of the involved nodes are unavailable), while delivering a higher level of storage efficiency (2/6 = only 33% overhead). The cost, compared to a smaller number of fragments, is a very slight increase in the time that it takes to encode and decode objects.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Data Center Assignment</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>If your HyperStore system is deployed across multiple data centers, for each storage policy that you create you can configure a data center assignment scheme for the policy. This determines which of your data centers to use for storing data, for each storage policy.</p>
+                    <p>You have the option of creating a storage policy that stores data in some of your data centers and not others — for example, store data in DC1 and DC2 but not in DC3. Note, however, that DC3 may be involved in processing S3 requests associated with buckets that use this policy. There is only one S3 service endpoint per region, and incoming S3 requests may resolve to any DC within the region. If the S3 Service in DC3 receives an S3 PUT request in association with a policy that stores data only in DC1 and DC2, it will transmit the uploaded object on to DC1 and D2 (it will not be stored in DC3). Likewise, if DC3 receives an S3 GET request in association with a policy that stores data only in DC1 and DC2, then DC3’s S3 Service will get the object from DC1 or DC2 and pass it on to the client. If you want more absolute barriers so that for example DC3 never touches DC2’s data and vice-versa, you need to set up your system so those DCs are in different <a href="../Service Regions/ServiceRegionsOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot a">service regions</a>.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Consistency Levels</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Also as part of creating storage policies you can configure consistency levels for reads and writes. Consistency levels determine what requirements must be met within the system — in terms of successful reads or writes of data replicas or erasure coded fragments — before a success response can be returned to an S3 client application that has submitted a GET or PUT request.</p>
+                    <p>For descriptions of supported consistency levels, see <a href="../../CMC Interface/Cluster/Storage Policies/StoragePoliciesConsistencyLevels.htm" class="MCXref xref" xrefformat="{para}">Consistency Levels Definitions</a>.</p>
+                    <p>For diagrams that illustrate consistency levels in action, see <a href="../../Introduction/System Diagrams/ReplicationWriteAvailability.htm" class="MCXref xref" xrefformat="{para}">Availability for Replicated Object Writes</a>.</p>
+                </div>
+            </div>
+            <p>&#160;</p>
+            <p><b>See Also:</b>
+            </p>
+            <ul>
+                <li value="1"><a href="StoragePoliciesCreate.htm" class="MCXref xref" xrefformat="{para}">Creating and Managing Storage Policies</a>
+                </li>
+            </ul>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>

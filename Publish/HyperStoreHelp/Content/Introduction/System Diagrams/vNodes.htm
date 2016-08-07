@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>How vNodes Work</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <div class="TopicContent">
+            <p><a name="kanchor15"></a>
+            </p>
+            <h1>How vNodes Work</h1>
+            <p class="TopicTag" data-mc-conditions="General.Online">[Diagram]</p>
+            <p>Following is an in-depth look at HyperStore vNodes, including diagrams to illustrate the role that vNodes play in supporting high-availability object storage.</p>
+            <p>S3 object placement and replication within a HyperStore cluster is based on a consistent hashing scheme that utilizes an integer token space ranging from 0 to 2 127 -1. Integer tokens from within this token space are assigned to the HyperStore nodes. Then, a hash value is calculated for each S3 object as it is being uploaded to storage. The object is stored to the node that has been assigned the lowest token value higher than or equal to the object’s hash value. Replication is implemented by also storing the object to the nodes that have been assigned the next-higher tokens.</p>
+            <p>Traditionally, consistent hashing based storage schemes assigned just one token per physical node. However, the Cloudian HyperStore system utilizes and extends the "virtual node" (vNode) functionality introduced in Cassandra version 1.2. This optimized design assigns a large number of tokens (up to a maximum of 256) to each physical host. In essence, the storage cluster is composed of very many "virtual nodes", with multiple virtual nodes residing on each physical host.</p>
+            <p>The HyperStore system goes a significant step further by assigning a different set of tokens (virtual nodes) to each disk on each physical host. With this implementation, each disk on a host is responsible for a different set of object replicas, and if a disk fails it affects only the object replicas on that one disk. The other disks on the host can continue operating and supporting their own data storage responsibilities.</p>
+            <p>For illustration, consider a cluster of six HyperStore hosts each of which has four disks designated for S3 object storage. Suppose that each physical host is assigned 32 tokens. And suppose for illustration that there is a simplified token space ranging from 0 to 960, and the values of the 192 tokens in this system (six hosts times 32 tokens each) are 0, 5, 10, 15, 20, and so on up through 955.</p>
+            <p>The diagram below shows one possible allocation of tokens across the cluster. Each host’s 32 tokens are divided evenly across the four disks (eight tokens per disk), and that token assignment is randomized across the cluster.</p>
+            <p style="text-align: center;">
+                <img src="../../Resources/Images/diagrams/vNodes_diagram_token-allocation.png" />
+            </p>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>The vNode allocation scenario discussed here is simplified for the purpose of illustrating how vNodes guide object distribution and replication. In an actual HyperStore cluster the token space ranges from 0 to 2 127 -1, and each node is automatically assigned a number of tokens that’s proportional to the number of data disks on the node (#tokens = 8 X #disks, but no less than 32 and no greater than 256). Tokens are then automatically allocated across a host’s mount points in a manner that gives each mount point an approximately equal total token range.</p>
+            <p>Now further suppose that you’ve configured your HyperStore system for 3X replication of S3 objects. And say that an S3 object is uploaded to the system and the hashing algorithm applied to the object name gives us a hash value of 322 (in this simplifed hash space). The diagram below shows how three instances or "replicas" of the object will be stored across the cluster:</p>
+            <ul>
+                <li value="1">With its object name hash value of 322, the "primary replica" of the object is stored where the 325 token is — the lowest token value that’s higher than or equal to the object hash value. The 325 token (highlighted in red in the diagram) is assigned to hyperstore2:Disk2, so that’s where the primary replica of the object is stored. Note that the "primary replica" has no functional primacy compared to other replicas; it’s called that only because its placement is based simply on identifying the disk that’s assigned the token range into which the object hash falls.</li>
+                <li value="2">The secondary replica is stored to the disk that’s assigned the next-higher token (330, highlighted in orange), which is hyperstore4:Disk2.</li>
+                <li value="3">The tertiary replica is stored to the disk that’s assigned the next-higher token after that (335, in yellow), which is hyperstore3:Disk3.</li>
+            </ul>
+            <p style="text-align: center;">
+                <img src="../../Resources/Images/diagrams/vNodes_diagram_RF3-sequential-tokens.png" />
+            </p>
+            <p>Working with the same cluster and simplified token space, we can next consider a second object replication example that illustrates an important HyperStore vNode principle: no more than one of an object’s replicas will be stored on the same physical host. Suppose that an S3 object is uploaded to the system and the object name hash is 38. The next diagram shows how the object’s three replicas are placed:</p>
+            <ul>
+                <li value="1">The primary replica is stored to the disk where token 40 is —  hyperstore1:Disk3 (red highlight).</li>
+                <li value="2">The next-higher token — 45 (with high-contrast label) — is on a different disk (Disk1) on the same physical host as token 40, where the HyperStore system is placing the primary replica. Because it’s on the same physical host, the system skips over token 45 and places the object’s secondary replica where token 50 is — hyperstore5:Disk3 (orange highlight).</li>
+                <li value="3">The tertiary replica is placed on hyperstore2:Disk1, where token 55 is (yellow highlight).</li>
+            </ul>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>If your HyperStore host machines are distributed across multiple racks, and if your configured replication factor is not greater than the number of racks, then the HyperStore replication algorithm will ensure that each of an object’s replicas are stored in different racks. It works in the same way as described above — the algorithm checks through the sorted token list in ascending order until it finds vNodes that are not only on different machines, but also on different racks.</p>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />The Disk Perspective</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Now let’s change perspective and see how things look for a particular disk from within the cluster. Recall that we’ve supposed a simplified token space with a total of 192 tokens (0, 5, 10, 15, and so on up to 955), randomly distributed across the cluster so that each host has 32 tokens and each host’s tokens are evenly divided among its disks. We can zero in on hyperstore2:Disk2 – highlighted in the diagram below — and see that this disk has been assigned tokens 325, 425, 370, and so on.</p>
+                    <p>Assuming the cluster is configured for 3X replication, on hyperstore2:Disk2 will be stored the following:</p>
+                    <ul>
+                        <li value="1">In association with the disk’s assigned token 325:<ul style="list-style-type: circle;"><li value="1">Primary replicas of objects for which the hash values are from 320 (exclusive) to 325 (inclusive)</li><li value="2">Secondary replicas of objects for which the hash values are from 315 (exclusive) to 320 (inclusive)</li><li value="3">Tertiary replicas of objects for which the hash values are from 310 (exclusive) to 315 (inclusive)</li></ul></li>
+                        <li value="2">In association with the disk’s assigned token 425:<ul style="list-style-type: circle;"><li value="1">Primary replicas of objects for which the hash values are from 420 (exclusive) to 425 (inclusive)</li><li value="2">Secondary replicas of objects for which the hash values are from 415 (exclusive) to 420 (inclusive)</li><li value="3">Tertiary replicas of objects for which the hash values are from 410 (exclusive) to 415 (inclusive)</li></ul></li>
+                        <li value="3">And so on.</li>
+                    </ul>
+                    <p>As noted previously, the HyperStore system when placing secondary and tertiary replicas may in some cases skip over tokens so as not to store more than one replica of an object on the same physical host. So this dynamic could result in additional responsibilities for hyperstore2:disk2 as a possible endpoint for secondary or tertiary replicas.</p>
+                    <p style="text-align: center;">
+                        <img src="../../Resources/Images/diagrams/vNodes_diagram_disk-view.png" />
+                    </p>
+                    <p>In the event that Disk 2 fails, Disks 1, 3, and 4 will continue fulfilling their storage responsiblities. Meanwhile, objects that are on Disk 2 persist within the cluster because they’ve been replicated on other hosts.</p>
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>Note 	In practice, vNodes can be assigned to any directory, which in turn can correspond to a single disk or to multiple disks (for example, using LVM).</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Multi-Data Center Deployments</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>If you deploy your HyperStore cluster across multiple data centers within the same service region, your multiple data centers will be integrated in one unified token space.</p>
+                    <p>Consider an example of a HyperStore deployment that spans two data centers — DC1 and DC2 — each of which has three physical nodes. As in our previous examples, each physical node has four disks; each host is assigned 32 tokens (vNodes); and we’re supposing a simplified token space that ranges from 0 to 960. In this multi-DC scenario, the token space is divided into 192 tokens — 32 for each of the six physical hosts — which are randomly distributed across the six hosts.</p>
+                    <p>Suppose also that S3 object replication in this deployment is configured at two replicas in each data center.</p>
+                    <p>We can then see how a hypothetical S3 object with a hash value of 942 would be replicated across the two data centers:</p>
+                    <ul>
+                        <li value="1">The first replica is stored to vNode 945 (in red in the diagram below) —  which is located in DC2, on hyperstore5:Disk3.</li>
+                        <li value="2">The second replica is stored to vNode 950 (orange) — DC2, hyperstore6:Disk4.</li>
+                        <li value="3">The next-higher vNode (955, with high-contrast label) is in DC2, where we’ve already met the configured replication level of two replicas — so we skip that vNode.</li>
+                        <li value="4">The third replica is stored to vNode 0 (yellow) — DC1, hyperstore2:Disk3. Note that after the highest-numbered token (955) the token "ring" circles around to the lowest token (0).</li>
+                        <li value="5">The next-higher vNode (5, high-contrast label) is in DC2, where we’ve already met the configured replication level — so we skip that vNode.</li>
+                        <li value="6">The fourth and final replica is stored to vNode 10 (green) — DC1, hyperstore3:Disk3.</li>
+                    </ul>
+                    <p style="text-align: center;">
+                        <img src="../../Resources/Images/diagrams/vNodes_diagram_multi-DC.png" />
+                    </p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Multi-Region Deployments</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>If you deploy the HyperStore system across multiple service regions, each region has its own independent cluster and its own independent inventory of stored S3 objects. There is no vNode-based replication of objects across regions.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Erasure Coded Data</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>When the HyperStore erasure coding feature is used, vNodes are the basis for distribution of encoded object fragments rather than entire replicated objects. For information about how erasure coding works see <a href="../../Major Features/Storage Policies/StoragePoliciesOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="../../Major Features/Storage Policies/StoragePoliciesOverview.htm" xrefformat="{para}">Storage Policies Feature Overview</a>.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Cassandra Data</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>In a HyperStore system, Cassandra is used for storing object metadata, user account data, and service usage data (for more information see <a href="../HyperStore Services/ServicesCassandra.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="../HyperStore Services/ServicesCassandra.htm" xrefformat="{para}">Cassandra Service</a>). In a typical deployment, on each HyperStore node Cassandra data is stored on the same disk as the OS. The system also supports having Cassandra data on a dedicated disk on each node. Cassandra data is not stored on the HyperStore data disks (the disk whose mount points are specified by the <em>common.csv</em>: <a href="../../System Configuration/Configuration Files/CommonCsv.htm#hyperstore_data_directory" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="../../System Configuration/Configuration Files/CommonCsv.htm#hyperstore_data_directory" xrefformat="{para}">hyperstore_data_directory</a> setting).</p>
+                    <p>When vNodes are assigned to a host machine, they are allocated across only the host’s HyperStore data mount points. vNodes are not allocated to the disk on which Cassandra data is stored.</p>
+                    <p>Within a cluster, metadata in Cassandra is replicated in accordance with your storage policies. Cassandra data replication leverages vNodes in this manner:</p>
+                    <ul>
+                        <li value="1">When a new Cassandra object (a row key its corresponding values) is created, it’s hashed and the hash is used to associate the object with a particular vNode. The system checks to see which host machine that vNode is assigned to, and the "primary" replica of the Cassandra object is then stored on the one Cassandra disk on that host.</li>
+                        <li value="2">For example, suppose a host machine is assigned 96 vNodes, allocated across its multiple HyperStore data disks. Cassandra objects whose hash values fall into the token ranges of <b>any of those 96 vNodes</b> will get written to the one Cassandra disk on that host.</li>
+                        <li value="3">Additional replicas of the Cassandra object (the number of replicas depends on your configuration settings) are then associated with next-higher-up vNodes and stored to whichever host those vNodes are assigned to — with the condition that if necessary vNodes will be "skipped" in order to ensure that each replica of the Cassandra object is stored on a different host machine.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />vNode Benefits</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>vNodes are used in HyperStore versions 5.0 and newer, having replaced a conventional one-token-per-host scheme that was used in versions 4.x and older. This section highlights some of the benefits of that enhancement.</p>
+                    <p>vNodes provide several advantages over conventional one-token-per-host schemes, including:</p>
+                    <ul>
+                        <li value="1">Token assignment is performed automatically by the system — there is no need to manually assign tokens when you first set up a storage cluster, or when you resize a cluster.</li>
+                        <li value="2">For cluster operations that involve transferring data across nodes — such as data repair operations or replacing a failed disk or host machine — the operations complete faster because data is transferred in small ranges from a large number of other hosts.</li>
+                        <li value="3">The allocation of different vNodes to each disk means that failure of a disk affects only a known portion of the data on the physical host. Other vNodes assigned to the host’s other disks are not impacted.</li>
+                        <li value="4">The allocation of different vNodes to each disk enables you to efficiently and safely store data without the overhead of RAID.</li>
+                    </ul>
+                </div>
+            </div>
+            <p style="font-size: 6pt;margin-top: 0;margin-bottom: 0;">&#160;</p>
+        </div>
+    </body>
+</html>
