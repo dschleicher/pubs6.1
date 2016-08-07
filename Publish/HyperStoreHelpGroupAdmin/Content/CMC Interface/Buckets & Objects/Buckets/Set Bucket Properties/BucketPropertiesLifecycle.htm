@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelpGroupAdmin.xml" data-mc-path-to-help-system="../../../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="CMC Interface|Buckets &amp; Objects|Buckets|Set Bucket Properties">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../../../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" type="text/css" data-mc-generated="True" /><title>Configure a Bucket Lifecycle Policy for Object Auto-Tiering or Expiration</title>
+        <link href="../../../../Resources/Stylesheets/styles.css" rel="stylesheet" type="text/css" />
+        <script src="../../../../../Resources/Scripts/custom.modernizr.js" type="text/javascript">
+        </script>
+        <script src="../../../../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../../../../Resources/Scripts/require.min.js" type="text/javascript">
+        </script>
+        <script src="../../../../../Resources/Scripts/require.config.js" type="text/javascript">
+        </script>
+        <script src="../../../../../Resources/Scripts/foundation.min.js" type="text/javascript">
+        </script>
+        <script src="../../../../../Resources/Scripts/plugins.min.js" type="text/javascript">
+        </script>
+        <script src="../../../../../Resources/Scripts/MadCapAll.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+        <h1>Configure a Bucket Lifecycle Policy for Object Auto-Tiering or Expiration</h1>
+        <p>The HyperStore system supports configuring bucket lifecycle policies so that objects are automatically deleted on a defined schedule. The system also supports auto-tiering, whereby objects in a bucket are automatically moved to a different storage system on a defined schedule. </p>
+        <p>To configure auto-tiering or auto-expiration for a bucket, select the <b>Lifecycle Policy</b> tab of the CMC's bucket properties interface.</p>
+        <p><a class="MCPopupThumbnailLink MCPopupThumbnailHover" href="../../../../Resources/Images/cmc/buckets/BucketProperties_lifecycle.png"><img class="MCPopupThumbnail img imgImgCloudian" data-mc-width="915" data-mc-height="228" src="../../../../Resources/Images/cmc/buckets/BucketProperties_lifecycle_thumb_0_60.png" tabindex="" /></a>
+        </p>
+        <ol>
+            <li value="1">Specify the "Object Prefix" of the objects for which you you want to create a lifecycle policy. The path should start from the root level of your bucket, and you do not need to include a leading forward slash ("/"). You should however include a trailing forward slash to demarcate the "folder" name from its contents (which will be subject to the lifecycle policy that you’re configuring). Examples of proper object prefixes:</li>
+        </ol>
+        <div class="Indent">
+            <ul>
+                <li value="1"><em>Documents/</em>
+                </li>
+                <li value="2"><em>Logs/rolled/</em>
+                </li>
+                <li value="3"><em>Projects/archived/2014/</em>
+                </li>
+            </ul>
+            <p>To have the lifecycle policy apply to all objects in the bucket, leave the "Object Prefix" field empty.</p>
+        </div>
+        <ol data-mc-continue="true">
+            <li value="2">If desired, create an <b>auto-tiering schedule</b>. Your options will depend on HyperStore service configuration. If auto-tiering is not enabled in your service, no auto-tiering option will display in the Lifecycle Policy interface. If auto-tiering is supported in your service, you can select the "Enable Tiering" checkbox to display the auto-tiering scheduling options.</li>
+        </ol>
+        <div class="Indent">
+            <p><a class="MCPopupThumbnailLink MCPopupThumbnailHover" href="../../../../Resources/Images/cmc/buckets/BucketProperties_lifecycle_tiering.png"><img class="MCPopupThumbnail img imgImgCloudian" data-mc-width="915" data-mc-height="481" src="../../../../Resources/Images/cmc/buckets/BucketProperties_lifecycle_tiering_thumb_0_60.png" tabindex="" /></a>
+            </p>
+            <p>Then do the following:</p>
+            <ul>
+                <li value="1">Choose a tiering destination system. Your options will be "Tier to AWS S3", "Tier to AWS Glacier", and/or "Tier to Cloudian S3", depending on service configuration.</li>
+            </ul>
+            <p class="NoteIndent" data-mc-autonum="&lt;b&gt;Note: &lt;/b&gt;"><span class="autonumber"><span><b>Note: </b></span></span>When transitioned objects are stored in Amazon S3 or Amazon Glacier you will incur separate storage fees as per the terms of your service agreement.<br /><br />You cannot change the destination system later. For example, once a bucket is set up for tiering to Amazon S3 or to Glacier, you cannot switch it from one to the other.</p>
+            <ul>
+                <li value="1">Specify a schedule for transitioning objects. You have three alternatives for scheduling object transition:</li>
+            </ul>
+            <div class="Indent">
+                <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Number of days since the object was created</a></span>
+                    <div class="MCDropDownBody dropDownBody">
+                        <p>For this type of scheduling, first confirm that in the bottom section of the Lifecycle Policy interface the "Use Creation Date/Time" radio button is selected (as it is by default). After confirming this, in the middle section of the interface select the "Days after creation date" radio button and enter a number of days in the text field.</p>
+                    </div>
+                </div>
+                <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Number of days since the object was last accessed (retrieved or modified)</a></span>
+                    <div class="MCDropDownBody dropDownBody">
+                        <p>For this type of scheduling, first go to the bottom section of the Lifecycle Policy interface and select the "Use Last Access Time" radio button. Then in the middle section of the interface select the "Days after last access date/time" radio button and enter a number of days in the text field.</p>
+                    </div>
+                </div>
+                <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />After Date</a></span>
+                    <div class="MCDropDownBody dropDownBody">
+                        <p>If you use this option, objects will be transitioned on or within a few hours after the date that you specify — regardless of when the objects were created or last accessed. To specify the date, click the "After Date" radio button, then click in the date field and use the pop-up calendar to choose the date.</p>
+                    </div>
+                </div>
+            </div>
+            <ul>
+                <li value="1">For tiering to Amazon S3 or a different Cloudian HyperStore system, choose how you want the local HyperStore system to handle GET requests for objects that have been transitioned to the tiering destination system. Options are:</li>
+            </ul>
+            <div class="Indent">
+                <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Stream</a></span>
+                    <div class="MCDropDownBody dropDownBody">
+                        <p>The local HyperStore system GETs the object from the tiered storage system (whether Amazon S3 or Cloudian) and streams it through to the client.</p>
+                    </div>
+                </div>
+                <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Redirect</a></span>
+                    <div class="MCDropDownBody dropDownBody">
+                        <p>When an S3 client does a GET on a tiered object the response from the local HyperStore system will be an HTTP 307 with a signed redirect URL to the object’s location in the tiered storage system.</p>
+                        <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>While other S3 clients may be able to process HTTP 307 Redirect responses, the CMC does not. If you are using the CMC as your S3 client, and you try to download an auto-tiered object from a bucket configured for the "Redirect" method of handling GETs, the CMC will return an error response and indicate that the only supported method for retrieving the object is to restore it.</p>
+                    </div>
+                </div>
+                <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Require Restore</a></span>
+                    <div class="MCDropDownBody dropDownBody">
+                        <p>If you choose this option, the only way that S3 client applications will be allowed to access tiered objects is to execute a POST Object restore request in order to temporarily restore a copy of the object in local HyperStore storage. For information about how this works in the CMC’s <b>Objects</b> interface, see <a href="../../Objects/ObjectRestore.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="../../Objects/ObjectRestore.htm" xrefformat="{para}">Restore an Auto-Tiered File</a>.</p>
+                        <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>For objects tiered to Glacier, this is the only supported object retrieval method.</p>
+                    </div>
+                </div>
+            </div>
+            <ul>
+                <li value="1">Under "S3 Tiering Credential", specify the security credential that the HyperStore system will use when it transitions objects from this bucket to the destination system. The options are:</li>
+            </ul>
+            <div class="Indent">
+                <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Use Default S3 Credential</a></span>
+                    <div class="MCDropDownBody dropDownBody">
+                        <p>If you leave this checkbox selected (as it is by default) the HyperStore system will use the system default account credentials. </p>
+                    </div>
+                </div>
+                <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Use your own account credentials</a></span>
+                    <div class="MCDropDownBody dropDownBody">
+                        <p>If you want to tier to your own existing account in the destination system (for example, an Amazon Web Services account), deselect the "Use Default S3 Credential" option. Doing so will display "Access Key" and "Secret Key" fields in which you can enter your own access key and secret key. The system will then use these account credentials when it transitions objects from the bucket to the destination account.</p>
+                        <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>The system does not validate your credentials when you enter them in the <b>Lifecycle Policy</b> dialog. If you supply invalid credentials, subsequent auto-tiering operations for your bucket will fail. <br /><br />The system will create a tiering bucket under the chosen destination account (either the system default account or the account associated with the supplied access key and secret key). Objects will be auto-tiered into this bucket. The bucket will be named as: <br /><br /><em>&lt;origin-bucket-name-truncated-to-34-characters&gt;.&lt;random-string&gt;</em></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ol data-mc-continue="true">
+            <li value="3">If you want to set an object <b>expiration</b> rule, click the "Expire Objects" checkbox. This displays an "Object Expiration" section in the <b>Lifecycle Policy</b> interface. Here you can set a schedule for when to expire (delete) objects from the bucket. This can include also objects that have been auto-tiered to a destination system.</li>
+        </ol>
+        <div class="Indent">
+            <p>Use one or the other of these scheduling options:</p>
+            <ul>
+                <li value="1">Number of days after object creation or last access time. (If you created an auto-tiering schedule as part of this lifecycle policy, you must use the same milestone — either object creation or last access — for "days after" expiration scheduling as you did for auto-tiering scheduling).</li>
+                <li value="2">Calendar date on which to expire objects.</li>
+            </ul>
+            <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>A bucket lifecycle rule can consist of an auto-tiering rule, or an expiration rule, or both an auto-tiering rule and an expiration rule. In the latter case, be sure to configure the schedules so that the auto-tiering occurs first, and then subsequently the expiration/deletion of auto-tiered objects in the destination system.</p>
+        </div>
+        <ol data-mc-continue="true">
+            <li value="4">Click <b>Save</b>.</li>
+        </ol>
+        <p>Once a lifecycle policy is created for a bucket, you can subsequently edit the policy by making your desired changes in the <b>Lifecycle Policy</b> interface and then clicking <b>Save</b>.</p>
+        <p>Likewise you can disable a lifecycle policy — either the auto-tiering element, or the object expiration element, or both — by unchecking the "Enable Tiering" and/or "Expire Objects" checkboxes and then clicking <b>Save</b>.</p>
+        <p>Note that changing or disabling a lifecycle policy changes the behavior of the bucket from that point forward — it doesn’t change the past behavior. So for example, if you disable an auto-tiering schedule that had been in place for your bucket, any objects that have already been transitioned to a tiering destination system will remain in that system.</p>
+        <p>Note also that the CMC permits you to configure only <b>one lifecycle policy per bucket</b>. While the S3 API (for both Amazon and Cloudian HyperStore) permits the creation of different lifecycle policies for different object prefixes within the same bucket, the CMC does not currently support this functionality.</p>
+    </body>
+</html>

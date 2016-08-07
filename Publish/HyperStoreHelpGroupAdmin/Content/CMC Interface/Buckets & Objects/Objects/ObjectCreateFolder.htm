@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelpGroupAdmin.xml" data-mc-path-to-help-system="../../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="CMC Interface|Buckets &amp; Objects|Objects">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" type="text/css" data-mc-generated="True" /><title>Create or Delete a "Folder"</title>
+        <link href="../../../Resources/Stylesheets/styles.css" rel="stylesheet" type="text/css" />
+        <script src="../../../../Resources/Scripts/custom.modernizr.js" type="text/javascript">
+        </script>
+        <script src="../../../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../../../Resources/Scripts/require.min.js" type="text/javascript">
+        </script>
+        <script src="../../../../Resources/Scripts/require.config.js" type="text/javascript">
+        </script>
+        <script src="../../../../Resources/Scripts/foundation.min.js" type="text/javascript">
+        </script>
+        <script src="../../../../Resources/Scripts/plugins.min.js" type="text/javascript">
+        </script>
+        <script src="../../../../Resources/Scripts/MadCapAll.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+        <h1>Create or Delete a "Folder"</h1>
+        <p>In an S3-based storage system, each data entity stored in a bucket is known as an "object". Each object has its own unique URI — derived from the object name — that S3 applications use when retrieving the object. An S3 storage system does not have a hierarchical structure like a conventional file system. However, objects can be named in such a way as to imply a hierarchy. For example, in a bucket there could be four objects named:</p>
+        <ul>
+            <li value="1"><em>Documents/resume.docx</em>
+            </li>
+            <li value="2"><em>Documents/schedule.docx</em>
+            </li>
+            <li value="3"><em>Images/birthday-party.png</em>
+            </li>
+            <li value="4"><em>Images/sunset.png</em>
+            </li>
+        </ul>
+        <p>The CMC makes it easy to create such hierarchies by enabling you to create "folders". To arrive at the example above, through the CMC interface you could create a folder named "Documents", and then drill down into that folder and upload files named "resume.docx" and "schedule.docx". Behind the scenes, in the S3 storage layer, objects named "Documents/resume.docx" and "Documents/schedule.docx" are created. In the CMC interface, you can then retrieve a list of the contents of the "Documents" folder: the display will list the "resume.docx" and "schedule.docx" files.</p>
+        <p>Thus while the back-end is implemented differently, the CMC user experience is just like interacting with a regular file system.</p>
+        <p><b>To create a folder:</b>
+        </p>
+        <p>In the <b>Buckets</b> list view, click the name of the bucket that you want to work with. This will display the <b>Objects</b> view for that bucket. (Alternatively you can click the <b>Objects</b> tab and then choose a bucket from drop-down list.)</p>
+        <p>At the bottom of the <b>Objects</b> interface, enter the folder name and then click <b>Create Folder</b>. The new folder will then display in the object list view.</p>
+        <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>For folder naming restrictions, see <a href="ObjectNameRestrictions.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="ObjectNameRestrictions.htm" xrefformat="{para}">Object Naming Restrictions</a>. These restrictions apply to unusual naming schemes and are of no concern if you are using a simple alphanumeric folder name.</p>
+        <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><span class="autonumber"><span><b>Note &#160;</b></span></span>The CMC does not support renaming existing folders.</p>
+        <p><b>To delete a folder:</b>
+        </p>
+        <p>To delete a folder click <b>Delete</b> at the right side of the folder’s display row. You will be asked to confirm that you want to delete the folder.</p>
+        <p class="Important" data-mc-autonum="&lt;b&gt;IMPORTANT: &lt;/b&gt;"><span class="autonumber"><span><b>IMPORTANT: </b></span></span>Deleting a folder will also delete all files and sub-folders within the folder.</p>
+    </body>
+</html>

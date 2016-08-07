@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="HyperStoreHelpGroupAdmin.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="CMC Interface|Users &amp; Groups">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" type="text/css" data-mc-generated="True" /><title>Set Quality of Service (QoS) Controls</title>
+        <link href="../../Resources/Stylesheets/styles.css" rel="stylesheet" type="text/css" />
+        <script src="../../../Resources/Scripts/custom.modernizr.js" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+        <h1>Set Quality of Service (QoS) Controls</h1>
+        <p>Use the CMC’s <a href="Manage Users/ManageUsersOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="Manage Users/ManageUsersOverview.htm" xrefformat="{para}">Manage Users</a> page and <a href="Manage Groups/ManageGroupsOverview.htm" class="MCTopicPopup MCTopicPopupHotSpot MCXref xref" xrefhref="Manage Groups/ManageGroupsOverview.htm" xrefformat="{para}">Manage Groups</a> page to set Quality of Service (QoS) limits for users<MadCap:conditionalText data-mc-conditions="Cloudian.HelpGroupAdminOnly"> in your group</MadCap:conditionalText>.</p>
+        <p class="Note" data-mc-autonum="&lt;b&gt;Note &#160;&lt;/b&gt;" data-mc-conditions="Cloudian.HelpGroupAdminOnly"><span class="autonumber"><span><b>Note &#160;</b></span></span>The Quality of Service (QoS) feature may or may not be enabled depending on the service administrators' configuration selections.</p>
+        <p>To set QoS limits:</p>
+        <ol>
+            <li value="1">Navigate to the QoS configuration panel for the type of QoS controls that you want to set. The table below shows the path to each QoS panel. It also shows how each panel is pre-populated with default settings.</li>
+        </ol>
+        <div class="Indent">
+            <table style="width: 100%; border-spacing: 2px 2px; border-left-style: solid; border-left-width: 1px; border-right-style: solid; border-right-width: 1px; border-top-style: solid; border-top-width: 1px; border-bottom-style: solid; border-bottom-width: 1px; border-collapse: separate;">
+                <col style="width: 123px;" />
+                <col style="width: 249px;" />
+                <col style="width: 231px;" />
+                <col />
+                <thead>
+                    <tr>
+                        <th style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">QoS Task </th>
+                        <th style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Path to Configuration Panel </th>
+                        <th style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Configuration Panel Name </th>
+                        <th style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Panel’s Default Values</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Set a default user QoS profile for members of a group</td>
+                        <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">In the <b>Manage Groups</b> page,  click <b>User QoS Group Default</b>.</td>
+                        <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">User QoS Limits: Group Defaults</td>
+                        <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Defaults to system default user QoS profile.</td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Set a user-specific QoS profile</td>
+                        <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">In the <b>Manage Users</b> page, retrieve the user. Then click <b>Set QoS</b> for the user.</td>
+                        <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">User QoS Limits: Overrides</td>
+                        <td style="vertical-align: top;border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;">Defaults to default user QoS profile for the user’s group.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>All QoS configuration panels have the same appearance and the same options, as shown in the sample panel below:</p>
+            <p><a class="MCPopupThumbnailLink MCPopupThumbnailHover" href="../../Resources/Images/cmc/users/UserQosOverrides.png"><img class="MCPopupThumbnail img imgImgCloudian" data-mc-width="921" data-mc-height="303" src="../../Resources/Images/cmc/users/UserQosOverrides_thumb_0_60.png" tabindex="" /></a>
+            </p>
+        </div>
+        <ol data-mc-continue="true">
+            <li value="2">Make your desired edits to the QoS limits. Note that if you deselect an "Unlimited" checkbox, a field appears in which you can enter a numerical limit. The supported QoS limit types are described below.</li>
+        </ol>
+        <div class="Indent">
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Storage Quota (KB) — High Limit</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Storage quota limit, in number of KBs</p>
+                    <p>Implementation detail:</p>
+                    <ul>
+                        <li value="1"><em>For user QoS</em> — If a user’s total stored data reaches this limit, the user will be blocked from uploading additional data until she deletes some of her currently stored data.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Storage Quota Count — High Limit</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Storage quota limit, in total number of objects. Note that folders count as objects, as well as files</p>
+                    <p>Implementation detail:</p>
+                    <ul>
+                        <li value="1"><em>For user QoS</em> — If a user’s total stored data reaches this limit, the user will be blocked from uploading additional data until she deletes some of her currently stored data.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Request Rate — Warning Limit</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Request rate warning limit, in total number of HTTP requests per minute.</p>
+                    <p>Implementation detail:</p>
+                    <ul>
+                        <li value="1"><em>For user QoS</em> — On receipt of a first HTTP request from a user, a 60 second timer is started for that user. If during the 60 seconds the total number of requests reaches the Request Rate Warning Limit, an informational message is written to the S3 Server’s application log. At the end of the 60 seconds, the request counter for the user is reset. Subsequently, the next request that comes in from the user triggers the start of a new 60 second interval, and the process repeats.</li>
+                    </ul>
+                    <p>HTTP DELETE requests are not counted toward Request Rate controls.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Request Rate — High Limit</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Request rate maximum, in total number of HTTP requests per minute.</p>
+                    <p>Implementation detail:</p>
+                    <ul>
+                        <li value="1"><em>For user QoS</em> —  On receipt of a first request from a user, a 60 second timer is started for that user (the same timer described in Request Rate Warning Limit). If during the 60 seconds the number of requests reaches Request Rate High Limit, the system temporarily blocks all requests from the user. At the end of the 60 seconds the block on requests is released and the request counter is reset. Subsequently, the next request that comes in from the user triggers the start of a new 60 second interval, and the process repeats.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Data Bytes IN (KB/minute) — Warning Limit</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Inbound data rate warning limit, in KBs per minute.</p>
+                    <p>This works the same as described for the Request Rate Warning Limit, except what’s counted during each timed 60 second interval is inbound kilobytes of data.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Data Bytes IN (KB/minute) — High Limit</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Inbound data rate high limit, in KBs per minute.</p>
+                    <p>This works the same as described for the Request Rate High Limit, except what’s counted during each timed 60 second interval is inbound kilobytes of data. Note that if a block is triggered by the Data Bytes IN (KB) High Limit being reached, the block applies to all HTTP request types (not just PUTs.)</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Data Bytes OUT (KB/minute) — Warning Limit</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Outbound data rate warning limit, in KBs per minute.</p>
+                    <p>This works the same as described for the Request Rate Warning Limit, except what’s counted during each timed 60 second interval is outbound kilobytes of data.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianChildDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Data Bytes OUT (KB/minute) — High Limit</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p>Outbound data rate high limit, in KBs per minute.</p>
+                    <p>This works the same as described for the Request Rate High Limit, except what’s counted during each timed 60 second interval is outbound kilobytes of data. Note that if a block is triggered by the Data Bytes OUT (KB) High Limit being reached, the block applies to all HTTP request types (not just GETs.)</p>
+                </div>
+            </div>
+        </div>
+        <ol data-mc-continue="true">
+            <li value="3">
+                <p>Click <b>Save</b>.</p>
+            </li>
+        </ol>
+        <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />Deleting QoS Overrides to Restore Defaults</a></span>
+            <div class="MCDropDownBody dropDownBody">
+                <p>Each QoS configuration panel includes a <b>Delete Overrides</b> button. The table below shows what this button does in each QoS panel.</p>
+                <table style="width: 100%; border-spacing: 2px 2px; border-left-style: solid; border-left-width: 1px; border-right-style: solid; border-right-width: 1px; border-top-style: solid; border-top-width: 1px; border-bottom-style: solid; border-bottom-width: 1px; border-collapse: separate;">
+                    <col style="width: 263px;" />
+                    <col />
+                    <thead>
+                        <tr>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;vertical-align: top;">QoS Configuration Panel </th>
+                            <th style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;vertical-align: top;">What the Delete Overrides Button Does</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;vertical-align: top;">User QoS Limits: Group Defaults</td>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;vertical-align: top;">Deletes all user-specific QoS profiles for users within a group. All users in the group will revert to the default user QoS profile for the group.</td>
+                        </tr>
+                        <tr>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;vertical-align: top;">User QoS Limits: Overrides</td>
+                            <td style="border-left-style: solid;border-left-width: 1px;border-right-style: solid;border-right-width: 1px;border-top-style: solid;border-top-width: 1px;border-bottom-style: solid;border-bottom-width: 1px;padding-left: 4px;padding-right: 4px;vertical-align: top;">Deletes a user-specific QoS profile. The user will revert to the default user QoS profile for the user’s group</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="MCDropDown MCDropDown_Open dropDown"><span class="MCDropDownHead dropDownHead dropDownHeadCloudianParentDropDown"><a href="javascript:void(0);" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="16" width="16" alt="Closed" data-mc-alt2="Open" />QoS Controls in a Multi-Region HyperStore System</a></span>
+            <div class="MCDropDownBody dropDownBody">
+                <p>In a multi-region HyperStore system, QoS controls are configured and enforced separately for each region.</p>
+                <p>If you have a multi-region system, a drop-down list of all your regions will display at the top of each QoS configuration panel. Use the drop-down list to choose the region for which you are setting QoS controls. Be sure to establish QoS limits for each region, clicking <b>Save</b> before moving on to the next region.</p>
+                <p>The QoS limits that you establish for a service region will be applied only to group and user activity in that particular region. For example, if you have a two-region HyperStore deployment with regions named "West" and "East", you might set your QoS limits in the "West" region so that each user is allowed to store 20GB of data. The 20GB storage cap applies only to user activity in your "West" region. You would also have a separate cap configured for the "East" region. For example, users might also be allowed 20GB of storage in the "East" region (for a total of 40GB per user across the entire multi-region system); or a different value might be configured for the "East" region such as 10GB or 30GB.</p>
+            </div>
+        </div>
+    </body>
+</html>
