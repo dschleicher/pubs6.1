@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="8" MadCap:lastHeight="1587" MadCap:lastWidth="752">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="8" MadCap:lastHeight="1816" MadCap:lastWidth="751">
     <head>
     </head>
     <body>
@@ -10,15 +10,26 @@
             <li>In the CMC's <b><a href="../../../Resources/Images/cmc/users/ManageUsers_ver_sys-admin.png" target="_popup">Manage Users</a></b> page, click <b>New User</b>. This opens the <b>Add New User</b> panel.<br /></li>
         </ol>
         <div class="Indent">
-            <p>
+            <p MadCap:conditions="Cloudian.HelpSysAdminOnly">
                 <img src="../../../Resources/Images/CMC/Users/AddNewUser_ver_sys-admin.png" style="mc-thumbnail-max-height: 60px;mc-float: center;" MadCap:mediastyle="@media print { max-width: 5in; }" class="ImgCloudian" />
             </p>
-            <MadCap:dropDown>
+            <p MadCap:conditions="Cloudian.HelpGroupAdminOnly">
+                <img src="../../../Resources/Images/cmc/users/AddNewUser_ver_group-admin.png" class="ImgCloudian" />
+            </p>
+            <MadCap:dropDown MadCap:conditions="Cloudian.HelpSysAdminOnly">
                 <MadCap:dropDownHead class="CloudianChildDropDown">
                     <MadCap:dropDownHotspot>Note for systems using LDAP authentication</MadCap:dropDownHotspot>
                 </MadCap:dropDownHead>
                 <MadCap:dropDownBody>
-                    <p>If you have your HyperStore <MadCap:variable name="General.VersionNumber" /> system configured to use <a href="../../../Major Features/User Provisioning/ProvisioningLdap.htm" target="_popup">LDAP authentication</a>, the system automatically provisions users when they log into the CMC with their LDAP credentials. Do not use the CMC's <b>Add New User</b> function if the system is configured to use LDAP authentication. Users that you add through the CMC's <b>Add New User</b> function will not be able to log into the CMC if the CMC is using LDAP authentication. (The exception is system admin users -- if you want to create another system admin user you can do that with the instructions below, and they will be able to log into the CMC).</p>
+                    <p>If you have your HyperStore system configured to use <a href="../../../Major Features/User Provisioning/ProvisioningLdap.htm" target="_popup">LDAP authentication</a>, the system automatically provisions users when they log into the CMC with their LDAP credentials. <b>Do not use</b> the CMC's <b>Add New User</b> function if the system is configured to use LDAP authentication. Users that you add through the CMC's <b>Add New User</b> function will not be able to log into the CMC if the CMC is using LDAP authentication. (The exception is system admin users -- if you want to create another system admin user you can do that with the instructions below, and they will be able to log into the CMC).</p>
+                </MadCap:dropDownBody>
+            </MadCap:dropDown>
+            <MadCap:dropDown MadCap:conditions="Cloudian.HelpGroupAdminOnly">
+                <MadCap:dropDownHead class="CloudianChildDropDown">
+                    <MadCap:dropDownHotspot>Note for systems using LDAP authentication</MadCap:dropDownHotspot>
+                </MadCap:dropDownHead>
+                <MadCap:dropDownBody>
+                    <p>If system administrators have configured the storage system to use LDAP authentication, the system automatically provisions users when they log into the CMC with their LDAP credentials. <b>Do not use</b> the CMC’s <b>Add New User</b> function if the system is configured to use LDAP authentication. Users that you add through the CMC’s <b>Add New User</b> function will not be able to log in if the CMC is using LDAP authentication.</p>
                 </MadCap:dropDownBody>
             </MadCap:dropDown>
         </div>
@@ -47,9 +58,9 @@
                 <MadCap:dropDownBody>
                     <p>From the drop-down list select the type of user that you want to create:</p>
                     <ul>
-                        <li><b>User</b> -- Regular user of the storage service. He or she will be able to use the CMC to create storage buckets, upload and download objects, display reports on their service usage, and manage their service access credentials.</li>
-                        <li><b>Group Admin</b> -- Administer of a particular group of storage service users. He or she will be able to use the CMC to perform administrative functions for their group, such as adding users or setting user-level QoS profiles. A group admin has a storage service account and can upload their own objects to storage. A group admin can also manage stored objects on behalf of particular users within the group.</li>
-                        <li><b>System Admin</b> -- System administrator. He or she will be able to use the CMC to perform a variety of system administration and service administration tasks. System admins do not have a storage service account and cannot upload their own objects to storage. However, system admins can manage stored objects on behalf of particular service users.</li>
+                        <li><b>User</b> -- A regular user of the storage service. He or she will be able to use the CMC to create storage buckets, upload and download objects, display reports on their service usage, and manage their service access credentials.</li>
+                        <li><b>Group Admin</b> -- An administrator of<MadCap:conditionalText MadCap:conditions="Cloudian.HelpSysAdminOnly"> a particular group of storage service users</MadCap:conditionalText><MadCap:conditionalText MadCap:conditions="Cloudian.HelpGroupAdminOnly"> your group</MadCap:conditionalText>. He or she will be able to use the CMC to perform administrative functions for the group, such as adding users or setting user-level QoS profiles. A group admin has a storage service account and can upload their own objects to storage. A group admin can also manage stored objects on behalf of particular users within the group.</li>
+                        <li MadCap:conditions="Cloudian.HelpSysAdminOnly"><b>System Admin</b> -- A system administrator. He or she will be able to use the CMC to perform a variety of system administration and service administration tasks. System admins do not have a storage service account and cannot upload their own objects to storage. However, system admins can manage stored objects on behalf of particular service users.</li>
                     </ul>
                 </MadCap:dropDownBody>
             </MadCap:dropDown>
@@ -58,10 +69,9 @@
                     <MadCap:dropDownHotspot style="color: #949a9f;">Group Name</MadCap:dropDownHotspot>
                 </MadCap:dropDownHead>
                 <MadCap:dropDownBody>
-                    <ul>
-                        <li> From the drop-down list choose the group in which the new user will be created.</li>
-                        <li> This field is hidden and not relevant if User Type is System Admin. All system admin users belong to the System Admin group.</li>
-                    </ul>
+                    <p MadCap:conditions="Cloudian.HelpSysAdminOnly"> From the drop-down list choose the group in which the new user will be created.</p>
+                    <p MadCap:conditions="Cloudian.HelpSysAdminOnly"> This field is hidden and not relevant if User Type is System Admin. All system admin users belong to the System Admin group.</p>
+                    <p MadCap:conditions="Cloudian.HelpGroupAdminOnly">This field displays your group name and cannot be edited.</p>
                 </MadCap:dropDownBody>
             </MadCap:dropDown>
             <MadCap:dropDown>
@@ -70,9 +80,7 @@
                     </MadCap:dropDownHotspot>
                 </MadCap:dropDownHead>
                 <MadCap:dropDownBody>
-                    <ul>
-                        <li> The user's password for logging into the CMC. Maximum allowed length is 64 characters.</li>
-                    </ul>
+                    <p> The user's password for logging into the CMC. Maximum allowed length is 64 characters.</p>
                 </MadCap:dropDownBody>
             </MadCap:dropDown>
         </div>
@@ -80,36 +88,23 @@
             <li>Optionally, click <b>More</b> to display additional fields:</li>
         </ol>
         <div class="Indent">
-            <MadCap:dropDown>
-                <MadCap:dropDownHead class="CloudianChildDropDown">
-                    <MadCap:dropDownHotspot style="color: #949a9f;"> Full Name</MadCap:dropDownHotspot>
-                </MadCap:dropDownHead>
-                <MadCap:dropDownBody>
-                    <p>Optional. Maximum allowed length is 64 characters.</p>
-                </MadCap:dropDownBody>
-            </MadCap:dropDown>
-            <ul>
-                <li>Address and contact information</li>
-            </ul>
-            <MadCap:dropDown>
+            <p class="CloudianChildDropDown"> Full Name (maximum 64 characters)</p>
+            <p>Address and contact information</p>
+            <MadCap:dropDown MadCap:conditions="Cloudian.HelpSysAdminOnly">
                 <MadCap:dropDownHead class="CloudianChildDropDown">
                     <MadCap:dropDownHotspot style="color: #949a9f;">Rating Plan</MadCap:dropDownHotspot>
                 </MadCap:dropDownHead>
                 <MadCap:dropDownBody>
-                    <ul>
-                        <li>Rating plan to assign the user for billing calculation purposes. A new user's rating plan assignment defaults to whatever rating plan you've assigned to the group to which the user belongs. If you assign a user a different rating plan than the plan assigned to his or her group, the individual plan assignment will be applied to that user rather than the group default plan.</li>
-                        <li> If you don't choose a rating plan for the user, the user is automatically assigned the default rating plan for the user's group.</li>
-                    </ul>
-                    <div class="Indent">
-                        <MadCap:dropDown>
-                            <MadCap:dropDownHead class="CloudianChildDropDown">
-                                <MadCap:dropDownHotspot style="font-weight: bold;">Note for multi-region systems</MadCap:dropDownHotspot>
-                            </MadCap:dropDownHead>
-                            <MadCap:dropDownBody>
-                                <p>If your HyperStore system has multiple service regions, rating plan assignment is on a per-region basis. A "Region" drop-down list displays which includes each of your region names. For each region, assign the user a rating plan that will apply to the user's service use within that region</p>
-                            </MadCap:dropDownBody>
-                        </MadCap:dropDown>
-                    </div>
+                    <p>Rating plan to assign the user for billing calculation purposes. A new user's rating plan assignment defaults to whatever rating plan you've assigned to the group to which the user belongs. If you assign a user a different rating plan than the plan assigned to his or her group, the individual plan assignment will be applied to that user rather than the group default plan.</p>
+                    <p> If you don't choose a rating plan for the user, the user is automatically assigned the default rating plan for the user's group.</p>
+                    <MadCap:dropDown>
+                        <MadCap:dropDownHead class="CloudianChildDropDown">
+                            <MadCap:dropDownHotspot style="font-weight: bold;">Note for multi-region systems</MadCap:dropDownHotspot>
+                        </MadCap:dropDownHead>
+                        <MadCap:dropDownBody>
+                            <p>If your HyperStore system has multiple service regions, rating plan assignment is on a per-region basis. A "Region" drop-down list displays which includes each of your region names. For each region, assign the user a rating plan that will apply to the user's service use within that region</p>
+                        </MadCap:dropDownBody>
+                    </MadCap:dropDown>
                 </MadCap:dropDownBody>
             </MadCap:dropDown>
         </div>

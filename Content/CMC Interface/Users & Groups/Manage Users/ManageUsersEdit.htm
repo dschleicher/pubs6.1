@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="8" MadCap:lastHeight="1662" MadCap:lastWidth="752">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="8" MadCap:lastHeight="1666" MadCap:lastWidth="751">
     <head>
     </head>
     <body>
@@ -39,10 +39,10 @@
                 <MadCap:dropDownBody>
                     <ul>
                         <li><b>User</b> -- Regular user of the storage service. He or she will be able to use the CMC to create storage buckets, upload and download objects, display reports on their service usage, and manage their service access credentials.</li>
-                        <li><b>Group Admin</b> -- Administer of a particular group of storage service users. He or she will be able to use the CMC to perform administrative functions for their group, such as adding users or setting user-level QoS profiles. A group admin has a storage service account and can upload their own objects to storage. A group admin can also manage stored objects on behalf of particular users within the group.</li>
-                        <li><b>System Admin</b> -- System administrator. He or she will be able to use the CMC to perform a variety of system administration and service administration tasks. System admins do not have a storage service account and cannot upload their own objects to storage. However, system admins can manage stored objects on behalf of particular service users.</li>
+                        <li><b>Group Admin</b> -- An administrator of<MadCap:conditionalText MadCap:conditions="Cloudian.HelpSysAdminOnly"> a particular group of storage service users</MadCap:conditionalText><MadCap:conditionalText MadCap:conditions="Cloudian.HelpGroupAdminOnly"> your group</MadCap:conditionalText>. He or she will be able to use the CMC to perform administrative functions for the group, such as adding users or setting user-level QoS profiles. A group admin has a storage service account and can upload their own objects to storage. A group admin can also manage stored objects on behalf of particular users within the group.</li>
+                        <li MadCap:conditions="Cloudian.HelpSysAdminOnly"><b>System Admin</b> -- System administrator. He or she will be able to use the CMC to perform a variety of system administration and service administration tasks. System admins do not have a storage service account and cannot upload their own objects to storage. However, system admins can manage stored objects on behalf of particular service users.</li>
                     </ul>
-                    <p class="NoteIndent" MadCap:autonum="&lt;b&gt;Note: &lt;/b&gt;">You cannot change a regular user’s or group administrator’s User Type to System Admin. Also, you cannot change a system administrator’s User Type to anything other than System Admin.</p>
+                    <p class="NoteIndent" MadCap:autonum="&lt;b&gt;Note: &lt;/b&gt;" MadCap:conditions="Cloudian.HelpSysAdminOnly">You cannot change a regular user’s or group administrator’s User Type to System Admin. Also, you cannot change a system administrator’s User Type to anything other than System Admin.</p>
                 </MadCap:dropDownBody>
             </MadCap:dropDown>
             <MadCap:dropDown>
@@ -50,9 +50,7 @@
                     <MadCap:dropDownHotspot>Canonical ID</MadCap:dropDownHotspot>
                 </MadCap:dropDownHead>
                 <MadCap:dropDownBody>
-                    <ul>
-                        <li>The system automatically generates a unique canonical ID for every user. This ID cannot be edited.</li>
-                    </ul>
+                    <p>The system automatically generates a unique canonical ID for every user. This ID cannot be edited.</p>
                 </MadCap:dropDownBody>
             </MadCap:dropDown>
             <MadCap:dropDown>
@@ -60,21 +58,17 @@
                     <MadCap:dropDownHotspot>Password</MadCap:dropDownHotspot>
                 </MadCap:dropDownHead>
                 <MadCap:dropDownBody>
-                    <ul>
-                        <li>The user’s password for logging into the CMC.</li>
-                        <li>The Password and Confirm Password fields will be blank. If you want to leave the user’s password unchanged, leave these fields blank. If you want to change the user’s password, complete these fields.</li>
-                    </ul>
+                    <p>The user’s password for logging into the CMC.</p>
+                    <p>The Password and Confirm Password fields will be blank. If you want to leave the user’s password unchanged, leave these fields blank. If you want to change the user’s password, complete these fields.</p>
                     <p>Maximum allowed length is 64 characters.</p>
-                    <div class="Indent">
-                        <MadCap:dropDown>
-                            <MadCap:dropDownHead class="CloudianChildDropDown">
-                                <MadCap:dropDownHotspot style="font-weight: bold;">Note for systems using LDAP authentication</MadCap:dropDownHotspot>
-                            </MadCap:dropDownHead>
-                            <MadCap:dropDownBody>
-                                <p>Do not edit a user’s password in the CMC if you have your HyperStore system configured to use <a href="../../../Major Features/User Provisioning/ProvisioningLdap.htm" target="_popup">LDAP authentication</a>. When LDAP is used, the CMC authenticates users against their password stored in your LDAP server. The password that’s stored in the CMC is simply a system-generated random string that serves as a placeholder within the HyperStore user profile schema. When LDAP integration is enabled, this CMC-stored password string is not actually used for user authentication.</p>
-                            </MadCap:dropDownBody>
-                        </MadCap:dropDown>
-                    </div>
+                    <MadCap:dropDown>
+                        <MadCap:dropDownHead class="CloudianChildDropDown">
+                            <MadCap:dropDownHotspot style="font-weight: bold;">Note for systems using LDAP authentication</MadCap:dropDownHotspot>
+                        </MadCap:dropDownHead>
+                        <MadCap:dropDownBody>
+                            <p>Do not edit a user’s password in the CMC if your HyperStore system is configured to use <a href="../../../Major Features/User Provisioning/ProvisioningLdap.htm" target="_popup">LDAP authentication</a>. When LDAP is used, the CMC authenticates users against their password stored in your LDAP server. The password that’s stored in the CMC is simply a system-generated random string that serves as a placeholder within the HyperStore user profile schema. When LDAP integration is enabled, this CMC-stored password string is not actually used for user authentication.</p>
+                        </MadCap:dropDownBody>
+                    </MadCap:dropDown>
                 </MadCap:dropDownBody>
             </MadCap:dropDown>
             <MadCap:dropDown>
@@ -82,30 +76,24 @@
                     <MadCap:dropDownHotspot>Full name and contact information</MadCap:dropDownHotspot>
                 </MadCap:dropDownHead>
                 <MadCap:dropDownBody>
-                    <ul>
-                        <li>User's full name and contact information.</li>
-                    </ul>
+                    <p>User's full name (maximum 64 characters) and contact information.</p>
                 </MadCap:dropDownBody>
             </MadCap:dropDown>
-            <MadCap:dropDown>
+            <MadCap:dropDown MadCap:conditions="Cloudian.HelpSysAdminOnly">
                 <MadCap:dropDownHead class="CloudianChildDropDown">
                     <MadCap:dropDownHotspot>Rating Plan</MadCap:dropDownHotspot>
                 </MadCap:dropDownHead>
                 <MadCap:dropDownBody>
-                    <ul>
-                        <li>Use the "Rating Plan" drop-down list to assign the user a rating plan for billing calculation purposes. If you assign a user a different rating plan than the plan assigned to his or her group, the individual plan assignment will be applied to that user rather than the group default plan.</li>
-                        <li>Since system administrator user IDs do not have their own S3 service accounts, the "Rating Plan" drop-down list does not display if you are editing a system admin user.</li>
-                    </ul>
-                    <div class="Indent">
-                        <MadCap:dropDown>
-                            <MadCap:dropDownHead class="CloudianChildDropDown">
-                                <MadCap:dropDownHotspot style="font-weight: bold;">Note for multi-region systems</MadCap:dropDownHotspot>
-                            </MadCap:dropDownHead>
-                            <MadCap:dropDownBody>
-                                <p>If your HyperStore system has multiple service regions, rating plan assignment is on a per-region basis. A "Region" drop-down list displays which includes each of your region names. For each region, assign the user a rating plan that will apply to the user’s service use within that region, clicking Save each time.</p>
-                            </MadCap:dropDownBody>
-                        </MadCap:dropDown>
-                    </div>
+                    <p>Use the "Rating Plan" drop-down list to assign the user a rating plan for billing calculation purposes. If you assign a user a different rating plan than the plan assigned to his or her group, the individual plan assignment will be applied to that user rather than the group default plan.</p>
+                    <p>Since system administrator user IDs do not have their own S3 service accounts, the "Rating Plan" drop-down list does not display if you are editing a system admin user.</p>
+                    <MadCap:dropDown>
+                        <MadCap:dropDownHead class="CloudianChildDropDown">
+                            <MadCap:dropDownHotspot style="font-weight: bold;">Note for multi-region systems</MadCap:dropDownHotspot>
+                        </MadCap:dropDownHead>
+                        <MadCap:dropDownBody>
+                            <p>If your HyperStore system has multiple service regions, rating plan assignment is on a per-region basis. A "Region" drop-down list displays which includes each of your region names. For each region, assign the user a rating plan that will apply to the user’s service use within that region, clicking Save each time.</p>
+                        </MadCap:dropDownBody>
+                    </MadCap:dropDown>
                 </MadCap:dropDownBody>
             </MadCap:dropDown>
         </div>

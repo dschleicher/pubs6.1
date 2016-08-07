@@ -11,7 +11,8 @@
   ExcludeUnreferencedContent="true"
   BrowseSequence="/Project/Advanced/BrowseSequenceEndUser.flbrs"
   ResultsPerPage="5"
-  ConditionTagExpression="include[Cloudian.HelpEndUserOnly] exclude[Cloudian.HelpGroupAdminOnly or Cloudian.HelpSysAdminOnly] ">
+  ConditionTagExpression="include[Cloudian.HelpEndUserOnly] exclude[Cloudian.HelpGroupAdminOnly or Cloudian.HelpSysAdminOnly] "
+  DefaultUrl="/Content/CMC Interface/CmcInterfaceOverview.htm">
   <PrintedOutput
     CollapseMargins="true"
     GenerateTOCProxy="true"

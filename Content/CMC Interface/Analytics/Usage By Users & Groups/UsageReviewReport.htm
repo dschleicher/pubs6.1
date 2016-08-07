@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="7" MadCap:lastHeight="1782" MadCap:lastWidth="765">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="7" MadCap:lastHeight="2148" MadCap:lastWidth="924">
     <head>
     </head>
     <body>
@@ -7,7 +7,7 @@
         <p class="TopicTag" MadCap:conditions="Cloudian.HelpSysAdminOnly">[CMC Interface]</p>
         <p>This section clarifies the meaning of the data that you will see in your Cloudian HyperStore S3 usage reports. Below is an example of a "List" style report.</p>
         <p>
-            <img src="../../../Resources/Images/cmc/analytics/UsageReports_Results.png" class="ImgCloudian" />
+            <img src="../../../Resources/Images/cmc/analytics/UsageReports_Results.png" class="" />
         </p>
         <p>Starting from the left of "List" style reports, the first several columns have consistent meaning across the different types of usage reports:</p>
         <MadCap:dropDown>
@@ -45,11 +45,11 @@
         </MadCap:dropDown>
         <MadCap:dropDown>
             <MadCap:dropDownHead class="CloudianChildDropDown">
-                <MadCap:dropDownHotspot>Group ID</MadCap:dropDownHotspot>
+                <MadCap:dropDownHotspot>Group</MadCap:dropDownHotspot>
             </MadCap:dropDownHead>
             <MadCap:dropDownBody>
                 <ul>
-                    <li>Group ID. For a system-wide report this field displays "ALL".</li>
+                    <li>Group ID.<MadCap:conditionalText MadCap:conditions="Cloudian.HelpSysAdminOnly"> For a system-wide report this field displays "ALL".</MadCap:conditionalText></li>
                 </ul>
             </MadCap:dropDownBody>
         </MadCap:dropDown>
@@ -68,7 +68,30 @@
                 </ul>
             </MadCap:dropDownBody>
         </MadCap:dropDown>
-        <p>Additional columns display depending on the <b>Operation</b> that you selected when you chose your report parameters in the upper part of the screen.</p>
+        <p>Additional columns display depending on the <b>Operation</b> that you selected when you chose your report parameters in the upper part of the screen:</p>
+        <div class="Indent">
+            <p><em>For Storage reports</em> ("Storage-Bytes" or "Storage-Objects" from the <b>Operation</b> selection menu), these columns display on the right-hand side of the List report:</p>
+            <MadCap:dropDown>
+                <MadCap:dropDownHead class="CloudianChildDropDown">
+                    <MadCap:dropDownHotspot>Average</MadCap:dropDownHotspot>
+                </MadCap:dropDownHead>
+                <MadCap:dropDownBody>
+                    <ul>
+                        <li>Average storage size during the time period specified in the Date/Time column (in bytes or number of objects depending on the report type).</li>
+                    </ul>
+                </MadCap:dropDownBody>
+            </MadCap:dropDown>
+            <MadCap:dropDown>
+                <MadCap:dropDownHead class="CloudianChildDropDown">
+                    <MadCap:dropDownHotspot>Maximum</MadCap:dropDownHotspot>
+                </MadCap:dropDownHead>
+                <MadCap:dropDownBody>
+                    <ul>
+                        <li>Maximum storage size during the time period specified in the Date/Time column (in bytes or number of objects depending on the report type).</li>
+                    </ul>
+                </MadCap:dropDownBody>
+            </MadCap:dropDown>
+        </div>
         <div class="Indent">
             <p><em>For Data Transfer reports</em> ("Data Transfer-In-Bytes" or "Data Transfer-Out-Bytes" from the <b>Operation</b> selection menu), these columns display on the right-hand side of the List report:</p>
             <MadCap:dropDown>
@@ -98,27 +121,6 @@
                 <MadCap:dropDownBody>
                     <ul>
                         <li>Maximum size of an individual data transfer during the time period specified in the Date/Time column.</li>
-                    </ul>
-                </MadCap:dropDownBody>
-            </MadCap:dropDown>
-            <p><em>For Storage reports</em> ("Storage-Bytes" or "Storage-Objects" from the <b>Operation</b> selection menu), these columns display on the right-hand side of the List report:</p>
-            <MadCap:dropDown>
-                <MadCap:dropDownHead class="CloudianChildDropDown">
-                    <MadCap:dropDownHotspot>Average</MadCap:dropDownHotspot>
-                </MadCap:dropDownHead>
-                <MadCap:dropDownBody>
-                    <ul>
-                        <li>Average storage size during the time period specified in the Date/Time column (in bytes or number of objects depending on the report type).</li>
-                    </ul>
-                </MadCap:dropDownBody>
-            </MadCap:dropDown>
-            <MadCap:dropDown>
-                <MadCap:dropDownHead class="CloudianChildDropDown">
-                    <MadCap:dropDownHotspot>Maximum</MadCap:dropDownHotspot>
-                </MadCap:dropDownHead>
-                <MadCap:dropDownBody>
-                    <ul>
-                        <li>Maximum storage size during the time period specified in the Date/Time column (in bytes or number of objects depending on the report type).</li>
                     </ul>
                 </MadCap:dropDownBody>
             </MadCap:dropDown>

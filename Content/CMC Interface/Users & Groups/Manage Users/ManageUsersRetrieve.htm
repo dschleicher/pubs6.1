@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="7" MadCap:lastHeight="881" MadCap:lastWidth="765">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="7" MadCap:lastHeight="907" MadCap:lastWidth="765">
     <head>
     </head>
     <body>
@@ -21,7 +21,7 @@
                     <p>Leave this field blank if you want to filter exclusively by the other criteria.</p>
                 </MadCap:dropDownBody>
             </MadCap:dropDown>
-            <MadCap:dropDown>
+            <MadCap:dropDown MadCap:conditions="Cloudian.HelpSysAdminOnly">
                 <MadCap:dropDownHead class="CloudianChildDropDown">
                     <MadCap:dropDownHotspot>Group Name</MadCap:dropDownHotspot>
                 </MadCap:dropDownHead>
@@ -37,7 +37,8 @@
                     <ul>
                         <li>User — Regular service users.</li>
                         <li>Group Admin — Group admin users.</li>
-                        <li>All — Regular service users, group admin users, and system admin users.</li>
+                        <li MadCap:conditions="Cloudian.HelpSysAdminOnly">All — Regular service users, group admin users, and system admin users.</li>
+                        <li MadCap:conditions="Cloudian.HelpGroupAdminOnly">All — Regular service users and group admin users.</li>
                     </ul>
                 </MadCap:dropDownBody>
             </MadCap:dropDown>
@@ -64,13 +65,13 @@
             <p>You can then take any of the following actions regarding the retrieved user(s):</p>
             <ul>
                 <li>
-                    <MadCap:xref href="ManageUsersEdit.htm">Edit a User (CMC)</MadCap:xref>
+                    <MadCap:xref href="ManageUsersEdit.htm">Edit a User</MadCap:xref>
                 </li>
                 <li>
-                    <MadCap:xref href="ManageUsersObjects.htm">Manage a User's Stored Objects (CMC)</MadCap:xref>
+                    <MadCap:xref href="ManageUsersObjects.htm">Manage a User's Stored Objects</MadCap:xref>
                 </li>
                 <li>
-                    <MadCap:xref href="ManageUsersDelete.htm">Delete a User (CMC)</MadCap:xref>
+                    <MadCap:xref href="ManageUsersDelete.htm">Delete a User</MadCap:xref>
                 </li>
             </ul>
         </div>

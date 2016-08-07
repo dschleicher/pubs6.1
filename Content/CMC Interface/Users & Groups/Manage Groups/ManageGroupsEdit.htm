@@ -1,70 +1,71 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="8" MadCap:lastHeight="805" MadCap:lastWidth="752">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="8" MadCap:lastHeight="879" MadCap:lastWidth="751">
     <head>
     </head>
     <body>
         <h1>Edit a Group</h1>
         <p class="TopicTag" MadCap:conditions="Cloudian.HelpSysAdminOnly">[CMC Interface]</p>
-        <p>You can change a group's rating plan assignment or service status (active or suspended).</p>
-        <ol>
-            <li>Use the CMC's <b>Manage Groups</b> page to <MadCap:xref href="ManageGroupsRetrieve.htm" target="_popup">Retrieve a Group of a List of Groups (CMC)</MadCap:xref>.</li>
-            <li>In the "Actions" column for the group click <b>Edit</b>. This displays a panel for editing group attributes.</li>
+        <p MadCap:conditions="Cloudian.HelpSysAdminOnly">You can change a group's rating plan assignment or service status (active or suspended).</p>
+        <ol MadCap:conditions="Cloudian.HelpSysAdminOnly">
+            <li MadCap:conditions="Cloudian.HelpSysAdminOnly">Use the CMC's <b>Manage Groups</b> page to <MadCap:xref href="ManageGroupsRetrieve.htm" target="_popup">Retrieve a Group of a List of Groups (CMC)</MadCap:xref>.</li>
+            <li MadCap:conditions="Cloudian.HelpSysAdminOnly">In the "Actions" column for the group click <b>Edit</b>. This displays a panel for editing group attributes.</li>
         </ol>
-        <div class="Indent">
-            <p>
+        <div class="Indent" MadCap:conditions="Cloudian.HelpSysAdminOnly">
+            <p MadCap:conditions="Cloudian.HelpSysAdminOnly">
                 <img src="../../../Resources/Images/cmc/users/EditGroup.png" style="mc-thumbnail-max-height: 60px;" class="ImgCloudian" />
             </p>
         </div>
-        <ol MadCap:continue="true">
-            <li>Make your desired changes to the group attributes:</li>
+        <ol MadCap:continue="true" MadCap:conditions="Cloudian.HelpSysAdminOnly">
+            <li MadCap:conditions="Cloudian.HelpSysAdminOnly">Make your desired changes to the group attributes:</li>
         </ol>
-        <div class="Indent">
+        <div class="Indent" MadCap:conditions="Cloudian.HelpSysAdminOnly">
             <MadCap:dropDown>
-                <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHead class="CloudianChildDropDown" MadCap:conditions="Cloudian.HelpSysAdminOnly">
                     <MadCap:dropDownHotspot>Active Group</MadCap:dropDownHotspot>
                 </MadCap:dropDownHead>
                 <MadCap:dropDownBody>
                     <ul>
-                        <li>Active Group checkbox checked — Group is active. Group’s users have access to the storage service and the CMC.</li>
-                        <li>Active Group checkbox unchecked — Group is suspended. All the users in the group — including the group administrator(s) — will be denied access to the storage service and the CMC. However, the group’s users will remain in the system and their objects will remain in storage.</li>
+                        <li MadCap:conditions="Cloudian.HelpSysAdminOnly">Active Group checkbox checked — Group is active. Group’s users have access to the storage service and the CMC.</li>
+                        <li MadCap:conditions="Cloudian.HelpSysAdminOnly">Active Group checkbox unchecked — Group is suspended. All the users in the group — including the group administrator(s) — will be denied access to the storage service and the CMC. However, the group’s users will remain in the system and their objects will remain in storage.</li>
                     </ul>
                 </MadCap:dropDownBody>
             </MadCap:dropDown>
             <MadCap:dropDown>
-                <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHead class="CloudianChildDropDown" MadCap:conditions="Cloudian.HelpSysAdminOnly">
                     <MadCap:dropDownHotspot>Group Description</MadCap:dropDownHotspot>
                 </MadCap:dropDownHead>
                 <MadCap:dropDownBody>
                     <ul>
-                        <li>Maximum allowed length is 64 characters.</li>
+                        <li MadCap:conditions="Cloudian.HelpSysAdminOnly">Maximum allowed length is 64 characters.</li>
                     </ul>
                 </MadCap:dropDownBody>
             </MadCap:dropDown>
             <MadCap:dropDown>
-                <MadCap:dropDownHead class="CloudianChildDropDown">
+                <MadCap:dropDownHead class="CloudianChildDropDown" MadCap:conditions="Cloudian.HelpSysAdminOnly">
                     <MadCap:dropDownHotspot>Rating Plan </MadCap:dropDownHotspot>
                 </MadCap:dropDownHead>
                 <MadCap:dropDownBody>
                     <ul>
-                        <li>Use the "Rating Plan" drop-down list to assign the group a rating plan for billing calculation purposes. This rating plan will apply to each user in the group, with the exception of any users to whom you individually assign a different rating plan.</li>
+                        <li MadCap:conditions="Cloudian.HelpSysAdminOnly">Use the "Rating Plan" drop-down list to assign the group a rating plan for billing calculation purposes. This rating plan will apply to each user in the group, with the exception of any users to whom you individually assign a different rating plan.</li>
                     </ul>
                     <div class="Indent">
                         <MadCap:dropDown>
-                            <MadCap:dropDownHead class="CloudianChildDropDown">
+                            <MadCap:dropDownHead class="CloudianChildDropDown" MadCap:conditions="Cloudian.HelpSysAdminOnly">
                                 <MadCap:dropDownHotspot style="font-weight: bold;">Note for multi-region systems</MadCap:dropDownHotspot>
                             </MadCap:dropDownHead>
                             <MadCap:dropDownBody>
-                                <p>If your service deployment has multiple service regions, rating plan assignment is on a per-region basis. A "Region" drop-down list displays which includes each of your region names. For each region, assign the group a rating plan that will apply to the group’s service use within that region.</p>
+                                <p MadCap:conditions="Cloudian.HelpSysAdminOnly">If your service deployment has multiple service regions, rating plan assignment is on a per-region basis. A "Region" drop-down list displays which includes each of your region names. For each region, assign the group a rating plan that will apply to the group’s service use within that region.</p>
                             </MadCap:dropDownBody>
                         </MadCap:dropDown>
                     </div>
                 </MadCap:dropDownBody>
             </MadCap:dropDown>
         </div>
-        <ol MadCap:continue="true">
+        <ol MadCap:continue="true" MadCap:conditions="Cloudian.HelpSysAdminOnly">
             <li>
-                <p>Click <b>Save</b>.</p>
+                <p MadCap:conditions="Cloudian.HelpSysAdminOnly">Click <b>Save</b>.</p>
             </li>
         </ol>
+        <p MadCap:conditions="Cloudian.HelpGroupAdminOnly">The only attribute that you can edit for your group is the group description. To edit your group description, on the <b>Manage Groups</b> page in the "Actions" column click <b>Edit</b>. In the "Group Description" field enter the new description then click <b>Save</b> .</p>
     </body>
 </html>

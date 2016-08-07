@@ -30,17 +30,17 @@
           Title="Set Bucket Properties"
           Link="/Content/CMC Interface/Buckets &amp; Objects/Buckets/Set Bucket Properties/BucketPropertiesOverview.htm">
           <TocEntry
-            Title="Set &quot;Canned&quot; S3 Permissions on a Bucket"
-            Link="/Content/CMC Interface/Buckets &amp; Objects/Buckets/Set Bucket Properties/BucketPropertiesCannedPermissions.htm" />
-          <TocEntry
             Title="Set Custom S3 Permissions on a Bucket"
             Link="/Content/CMC Interface/Buckets &amp; Objects/Buckets/Set Bucket Properties/BucketPropertiesCustomPermissions.htm" />
           <TocEntry
-            Title="Configure a Bucket Lifecycle Policy for Object Auto-Tiering or Expiration"
-            Link="/Content/CMC Interface/Buckets &amp; Objects/Buckets/Set Bucket Properties/BucketPropertiesLifecycle.htm" />
+            Title="Set &quot;Canned&quot; S3 Permissions on a Bucket"
+            Link="/Content/CMC Interface/Buckets &amp; Objects/Buckets/Set Bucket Properties/BucketPropertiesCannedPermissions.htm" />
           <TocEntry
             Title="View a Bucket's Storage Policy Information"
             Link="/Content/CMC Interface/Buckets &amp; Objects/Buckets/Set Bucket Properties/BucketPropertiesStoragePolicy.htm" />
+          <TocEntry
+            Title="Configure a Bucket Lifecycle Policy for Object Auto-Tiering or Expiration"
+            Link="/Content/CMC Interface/Buckets &amp; Objects/Buckets/Set Bucket Properties/BucketPropertiesLifecycle.htm" />
           <TocEntry
             Title="Configure a Bucket as a Static Website"
             Link="/Content/CMC Interface/Buckets &amp; Objects/Buckets/Set Bucket Properties/BucketPropertiesStaticWebsite.htm" />
@@ -87,12 +87,45 @@
           Title="Download a File"
           Link="/Content/CMC Interface/Buckets &amp; Objects/Objects/ObjectDownload.htm" />
         <TocEntry
-          Title="Restore an Auto-Tiered File"
-          Link="/Content/CMC Interface/Buckets &amp; Objects/Objects/ObjectRestore.htm" />
-        <TocEntry
           Title="Delete a File"
           Link="/Content/CMC Interface/Buckets &amp; Objects/Objects/ObjectDelete.htm" />
+        <TocEntry
+          Title="Restore an Auto-Tiered File"
+          Link="/Content/CMC Interface/Buckets &amp; Objects/Objects/ObjectRestore.htm" />
       </TocEntry>
+    </TocEntry>
+    <TocEntry
+      Title="Users &amp; Groups"
+      Link="/Content/CMC Interface/Users &amp; Groups/UsersGroupsOverview.htm">
+      <TocEntry
+        Title="Manage Groups"
+        Link="/Content/CMC Interface/Users &amp; Groups/Manage Groups/ManageGroupsOverview.htm">
+        <TocEntry
+          Title="Edit a Group"
+          Link="/Content/CMC Interface/Users &amp; Groups/Manage Groups/ManageGroupsEdit.htm" />
+      </TocEntry>
+      <TocEntry
+        Title="Manage Users"
+        Link="/Content/CMC Interface/Users &amp; Groups/Manage Users/ManageUsersOverview.htm">
+        <TocEntry
+          Title="Add a User"
+          Link="/Content/CMC Interface/Users &amp; Groups/Manage Users/ManageUsersAdd.htm" />
+        <TocEntry
+          Title="Retrieve a User or List of Users"
+          Link="/Content/CMC Interface/Users &amp; Groups/Manage Users/ManageUsersRetrieve.htm" />
+        <TocEntry
+          Title="Edit a User"
+          Link="/Content/CMC Interface/Users &amp; Groups/Manage Users/ManageUsersEdit.htm" />
+        <TocEntry
+          Title="Manage a User's Stored Objects"
+          Link="/Content/CMC Interface/Users &amp; Groups/Manage Users/ManageUsersObjects.htm" />
+        <TocEntry
+          Title="Delete a User"
+          Link="/Content/CMC Interface/Users &amp; Groups/Manage Users/ManageUsersDelete.htm" />
+      </TocEntry>
+      <TocEntry
+        Title="Set Quality of Service (QoS) Controls"
+        Link="/Content/CMC Interface/Users &amp; Groups/SetQoS.htm" />
     </TocEntry>
     <TocEntry
       Title="My Account"

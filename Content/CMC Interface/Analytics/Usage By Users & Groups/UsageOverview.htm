@@ -1,13 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="407" MadCap:lastWidth="804">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="4" MadCap:lastHeight="642" MadCap:lastWidth="803">
     <head>
     </head>
     <body>
         <h1>Usage By Users &amp; Groups</h1>
         <p class="TopicTag" MadCap:conditions="Cloudian.HelpSysAdminOnly">[CMC Interface]</p>
         <p>Path: <b>Analytics → Usage By Users &amp; Group</b></p>
-        <p>
+        <p MadCap:conditions="Cloudian.HelpSysAdminOnly">
             <img src="../../../Resources/Images/cmc/analytics/UsageReports_ver_sys-admin.png" class="ImgCloudian" />
+        </p>
+        <p MadCap:conditions="Cloudian.HelpGroupAdminOnly">
+            <img src="../../../Resources/Images/cmc/analytics/UsageReports_ver_group-admin.png" class="ImgCloudian" />
+        </p>
+        <p MadCap:conditions="Cloudian.HelpEndUserOnly">
+            <img src="../../../Resources/Images/cmc/analytics/UsageReports_ver_user.png" class="ImgCloudian" />
         </p>
         <p>Supported tasks:</p>
         <ul>
@@ -18,6 +24,7 @@
                 <MadCap:xref href="UsageReviewReport.htm">Review Usage Report Output</MadCap:xref>
             </li>
         </ul>
-        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">For an overview of how the HyperStore system tracks service usage by groups and users, see <MadCap:xref href="../../../Major Features/Usage Reporting/UsageOverview.htm" target="_popup">Usage Reporting Feature Overview.</MadCap:xref></p>
+        <p class="Note" MadCap:conditions="Cloudian.HelpSysAdminOnly" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">For an overview of how the HyperStore system tracks service usage by groups and users, see <MadCap:xref href="../../../Major Features/Usage Reporting/UsageOverview.htm" target="_popup">Usage Reporting Feature Overview.</MadCap:xref></p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;" MadCap:conditions="Cloudian.HelpEndUserOnly,Cloudian.HelpGroupAdminOnly">The <b>Usage By Users &amp; Groups</b> section may or may not display in the Console, depending on configuration choices made by service administrators.</p>
     </body>
 </html>

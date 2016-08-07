@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="2770" MadCap:lastWidth="778">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" MadCap:lastBlockDepth="6" MadCap:lastHeight="2927" MadCap:lastWidth="777">
     <head>
     </head>
     <body>
         <h1>Create a Usage Report</h1>
         <p class="TopicTag" MadCap:conditions="Cloudian.HelpSysAdminOnly">[CMC Interface]</p>
-        <p>
-            <img src="../../../Resources/Images/cmc/analytics/UsageReports_ver_sys-admin.png" class="ImgCloudian" />
-        </p>
-        <p>In the CMC’s <b>Usage By Users &amp; Group</b> page you can generate service usage reports for individual users, for user groups, and for the system as a whole.</p>
+        <p MadCap:conditions="Cloudian.HelpSysAdminOnly">In the CMC’s <b>Usage By Users &amp; Group</b> page you can generate service usage reports for individual users, for user groups, and for the system as a whole.</p>
+        <p MadCap:conditions="Cloudian.HelpGroupAdminOnly">The Console’s <b>Usage By Users &amp; Groups</b> page supports data storage usage reporting. Group administrators can create reports for their own group or for individual users. Regular service users can create reports on their own activity.</p>
+        <p MadCap:conditions="Cloudian.HelpEndUserOnly">In the Console’s <b>Usage By Users &amp; Groups</b> page you can create reports about your use of the storage system.</p>
+        <p>Usage reporting complies with Amazon S3 in that data storage and data transfer activity are always attributed to the bucket owner, regardless of who owns an individual object within the bucket, or who is submitting object-related requests.</p>
         <p>To create a usage report, choose your report filtering criteria:</p>
-        <MadCap:dropDown>
+        <MadCap:dropDown MadCap:conditions="Cloudian.HelpSysAdminOnly">
             <MadCap:dropDownHead class="CloudianChildDropDown">
                 <MadCap:dropDownHotspot>Group Name</MadCap:dropDownHotspot>
             </MadCap:dropDownHead>
@@ -20,7 +20,7 @@
                 </ul>
             </MadCap:dropDownBody>
         </MadCap:dropDown>
-        <MadCap:dropDown>
+        <MadCap:dropDown MadCap:conditions="Cloudian.HelpGroupAdminOnly,Cloudian.HelpSysAdminOnly">
             <MadCap:dropDownHead class="CloudianChildDropDown">
                 <MadCap:dropDownHotspot>User</MadCap:dropDownHotspot>
             </MadCap:dropDownHead>
@@ -45,7 +45,8 @@
                     <li><em>Put/Post Requests</em> — this report shows HTTP PUT and POST activity. In List form this report is identical to the Data Transfer-In-Bytes. In Graph form, Put/Post Requests graphs a request count while Data Transfer-In-Bytes graphs number of bytes.</li>
                     <li><em>Delete Requests</em> — this report shows HTTP DELETE activity.</li>
                 </ul>
-                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">By default only the Storage-Bytes and Storage-Objects reports are enabled. To enable the other types of reports, you must enable the <MadCap:xref href="../../Cluster/Configuration Settings/ConfigurationSettingsUsage.htm#Track/Report_Usage_for_Request_Rates_and_Data_Transfer_Rates" target="_popup">Track/Report Usage for Request Rates and Data Transfer Rates</MadCap:xref> setting on the CMC’s <b>Configuration Settings</b> page.</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;" MadCap:conditions="Cloudian.HelpSysAdminOnly">By default only the Storage-Bytes and Storage-Objects reports are enabled. To enable the other types of reports, you must enable the <MadCap:xref href="../../Cluster/Configuration Settings/ConfigurationSettingsUsage.htm#Track/Report_Usage_for_Request_Rates_and_Data_Transfer_Rates" target="_popup">Track/Report Usage for Request Rates and Data Transfer Rates</MadCap:xref> setting on the CMC’s <b>Configuration Settings</b> page.</p>
+                <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;" MadCap:conditions="Cloudian.HelpGroupAdminOnly,Cloudian.HelpEndUserOnly">By default only the Storage-Bytes and Storage-Objects reports are enabled. Additional reports may or may not be enabled, depending on the configuration used by the service operator.</p>
             </MadCap:dropDownBody>
         </MadCap:dropDown>
         <MadCap:dropDown>
@@ -117,6 +118,6 @@
             <img src="../../../Resources/Images/cmc/analytics/UsageReports_graph2.png" class="ImgCloudian" />
         </p>
         <p>For reports on usage for a single group, the graph will show a horizontal line that indicates the quality of service (QoS) limit for that group, for the service metric that’s the focus of the report (storage bytes, for instance). For reports on usage for a single user, two horizontal lines display in the graph — one indicating the user’s QoS limit and one indicating the user’s group’s QoS limit. You can uncheck the QoS display boxes to hide these lines.</p>
-        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;">Hiding the QoS lines will be desirable if the current usage indicated by the graph is just a small fraction of the QoS limit. When QoS lines are included, the graph’s Y axis will necessarily scale up to include the QoS limit level, which can make it hard to view variation within the usage level if usage is confined to just a small portion of the Y axis. Without the QoS lines the Y axis will scale appropriately to the usage level.<br /><br />The metric used on a graph’s Y-axis auto-scales to units that are most appropriate for the particular quantities being conveyed. Specifically, for a given report the Y-axis may be expressed in terms of bytes, KBs, MBs, or GBs, depending on the usage level during the full 30-day graphing interval. Pay attention to the Y-axis label to see what metric is being used.<br /><br />If your report is based on granular data but covers a long time period, the labels on the X-axis will be less granular than the source data. For example, if you generate a report based on hourly granularity and a month-long reporting period, the X-axis labels will indicate days not hours. However, the graph content — the trend line itself — will be based on hourly data points. In a month with 30 days, 720 hourly data points (30 X 24) will go into determining and drawing the trend line. Note that if you use the click-and-drag controls (below the graph) to zoom in on a shorter period of time — such as a day or a portion of a day — then the X-axis labels will show hours rather than days.</p>
+        <p class="Note" MadCap:autonum="&lt;b&gt;Note &#160;&lt;/b&gt;"><b>Hiding the QoS lines</b> will be desirable if the current usage indicated by the graph is just a small fraction of the QoS limit. When QoS lines are included, the graph’s Y axis will necessarily scale up to include the QoS limit level, which can make it hard to view variation within the usage level if usage is confined to just a small portion of the Y axis. Without the QoS lines the Y axis will scale appropriately to the usage level.<br /><br />The <b>metric used on a graph’s Y-axis auto-scales</b> to units that are most appropriate for the particular quantities being conveyed. Specifically, for a given report the Y-axis may be expressed in terms of bytes, KBs, MBs, or GBs, depending on the usage level during the full 30-day graphing interval. Pay attention to the Y-axis label to see what metric is being used.<br /><br />If your <b>report is based on granular data but covers a long time period</b>, the labels on the X-axis will be less granular than the source data. For example, if you generate a report based on hourly granularity and a month-long reporting period, the X-axis labels will indicate days not hours. However, the graph content — the trend line itself — will be based on hourly data points. In a month with 30 days, 720 hourly data points (30 X 24) will go into determining and drawing the trend line. Note that if you use the click-and-drag controls (below the graph) to zoom in on a shorter period of time — such as a day or a portion of a day — then the X-axis labels will show hours rather than days.</p>
     </body>
 </html>

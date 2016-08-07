@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CatapultTarget
+  Version="2"
+  Comment="Online Help for group admins"
+  Type="WebHelp2"
+  Destinations=""
+  GlossaryTermConversion="marked"
+  MasterToc="/Project/TOCs/OnlineOutputGroupAdmin.fltoc"
+  OutputFile="HyperStoreHelpGroupAdmin.htm"
+  DefaultUrl="/Content/CMC Interface/CmcInterfaceOverview.htm"
+  Skin="/Project/Skins/HTML5 - Tripane Group Admin.flskn"
+  ConditionTagExpression="include[Cloudian.HelpGroupAdminOnly] exclude[Cloudian.HelpEndUserOnly or Cloudian.HelpSysAdminOnly] "
+  ExcludeUnreferencedContent="true"
+  ResultsPerPage="5">
+  <PrintedOutput
+    CollapseMargins="true"
+    GenerateTOCProxy="true"
+    GenerateIndexProxy="true"
+    GenerateGlossaryProxy="true" />
+</CatapultTarget>
