@@ -19,7 +19,7 @@
   ResultsPerPage="5">
   <Destinations>
     <Destination
-      Link="/Project/Destinations/GithubHyperStoreHelpSysAdmin.fldes" />
+      Link="/Project/Destinations/GithubHyperStoreHelp.fldes" />
   </Destinations>
   <Variables>
     <Variable

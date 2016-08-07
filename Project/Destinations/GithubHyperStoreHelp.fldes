@@ -1,16 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <CatapultDestination
   Version="1"
-  Comment="Help for end users"
+  Comment="Help for sys admins"
   Host="ftp.myftpserver.com"
   User="MyAccountId"
   Password=""
-  Directory="C:\1-Cloudian\Flare\HyperStoreHelp\Publish\HyperStoreHelpEndUser"
+  Directory="C:\1-Cloudian\Flare\HyperStoreHelp\Publish\HyperStoreHelp"
   Port=""
   ViewUrl=""
   Type="scm"
   ProviderType="Git"
   Database="file:///C:/1-Cloudian/Flare/HyperStoreHelp/.git"
-  DatabaseRoot="file:///C:/1-Cloudian/Flare/HyperStoreHelp/Publish/HyperStoreHelpEndUser"
+  DatabaseRoot="file:///C:/1-Cloudian/Flare/HyperStoreHelp/Publish/HyperStoreHelp"
+  UploadLogFile="false"
+  RemoveStale="false"
+  ChangedOnly="false"
   PushToRemote="true"
   RemoteRepository="origin"></CatapultDestination>
