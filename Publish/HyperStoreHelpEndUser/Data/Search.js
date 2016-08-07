@@ -1,1 +1,1 @@
-define({r:0.5,st:'Stem',n:1,t:[0],u:['../Content/CMC Interface/Buckets \u0026 Objects/Buckets/BucketAdd.htm'],s:['0'],p:[['0',2],['does',9],['origin',6],['url',19]]});
+define({r:0.5,st:'Stem',n:1,t:[0],u:['../Content/CMC Interface/Analytics/Usage By Users \u0026 Groups/UsageCreateReport.htm'],s:['0','variat'],p:[['0',6],['dashes',6],['logs',10],['so',13]]});

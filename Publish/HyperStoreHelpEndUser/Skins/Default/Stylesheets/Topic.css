@@ -488,39 +488,6 @@ a.glossaryTerm
 	color: #BED230;
 }
 
-.a
-{
-	color: #2D8DCC;
-	font-weight: bold;
-}
-
-.a:link
-{
-	color: #2D8DCC;
-	text-decoration: underline;
-}
-
-.a:visited
-{
-	color: #2D8DCC;
-	text-decoration: underline;
-}
-
-.a:hover
-{
-	color: #BED230;
-}
-
-.a:active
-{
-	outline: thin dotted invert;
-}
-
-.a:focus
-{
-	outline: thin dotted invert;
-}
-
 .dropDownHotspot
 {
 	color: inherit;
@@ -562,6 +529,39 @@ a.glossaryTerm
 .dropDownHead.dropDownHeadCloudianChildDropDown
 {
 	color: #8f959a;
+}
+
+.a
+{
+	color: #2D8DCC;
+	font-weight: bold;
+}
+
+.a:link
+{
+	color: #2D8DCC;
+	text-decoration: underline;
+}
+
+.a:visited
+{
+	color: #2D8DCC;
+	text-decoration: underline;
+}
+
+.a:hover
+{
+	color: #BED230;
+}
+
+.a:active
+{
+	outline: thin dotted invert;
+}
+
+.a:focus
+{
+	outline: thin dotted invert;
 }
 
 .dropDownHead.dropDownHeadCloudianParentDropDown
